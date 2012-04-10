@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="697e6b97-e417-4756-a3ed-6d5489a289e5" Title="FactTV" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="FactTV\FactTV.xml" />
+    <ElementFile Location="FactTV\FactTV.webpart" />
+    <ElementFile Location="FactTV\FactTVUS.ascx" />
+  </ElementManifests>
+</Feature>

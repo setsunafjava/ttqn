@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="b10282e7-6ba0-43a8-8250-5cf95960d90b" Title="LeftNewsContent" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="LeftNewsContent\LeftNewsContent.xml" />
+    <ElementFile Location="LeftNewsContent\LeftNewsContent.webpart" />
+    <ElementFile Location="LeftNewsContent\LeftNewsContentUS.ascx" />
+  </ElementManifests>
+</Feature>

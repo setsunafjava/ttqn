@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="12fc4c00-4087-44dd-9ed1-ea2f2e688c0c" Title="TourInfo" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="TourInfo\TourInfo.xml" />
+    <ElementFile Location="TourInfo\TourInfo.webpart" />
+    <ElementFile Location="TourInfo\TourInfoUS.ascx" />
+  </ElementManifests>
+</Feature>

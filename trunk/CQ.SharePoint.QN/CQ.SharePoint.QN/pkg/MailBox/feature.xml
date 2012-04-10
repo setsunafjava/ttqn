@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="6238acd0-d384-42f8-9597-021cc5edee12" Title="MailBox" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="MailBox\MailBox.xml" />
+    <ElementFile Location="MailBox\MailBox.webpart" />
+    <ElementFile Location="MailBox\MailBoxUS.ascx" />
+  </ElementManifests>
+</Feature>

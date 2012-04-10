@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="6a465bfd-f3e0-4c73-bc8c-f1c552dd41e8" Title="WebLink" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="WebLink\WebLink.xml" />
+    <ElementFile Location="WebLink\WebLink.webpart" />
+    <ElementFile Location="WebLink\WebLinkUS.ascx" />
+  </ElementManifests>
+</Feature>

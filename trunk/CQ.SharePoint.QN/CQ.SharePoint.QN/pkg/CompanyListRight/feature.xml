@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="5f4e40d1-fcc5-4097-87e9-2ec51856356c" Title="CompanyListRight" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="CompanyListRight\CompanyListRight.xml" />
+    <ElementFile Location="CompanyListRight\CompanyListRight.webpart" />
+    <ElementFile Location="CompanyListRight\CompanyListRightUS.ascx" />
+  </ElementManifests>
+</Feature>

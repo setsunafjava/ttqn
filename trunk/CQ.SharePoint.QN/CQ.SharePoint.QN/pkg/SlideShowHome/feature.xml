@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="950c8144-7cc4-440c-8868-8913f3ad980f" Title="SlideShowHome" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="SlideShowHome\SlideShowHome.xml" />
+    <ElementFile Location="SlideShowHome\SlideShowHome.webpart" />
+    <ElementFile Location="SlideShowHome\SlideShowHomeUS.ascx" />
+  </ElementManifests>
+</Feature>

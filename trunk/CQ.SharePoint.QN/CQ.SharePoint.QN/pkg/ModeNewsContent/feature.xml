@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="bd0722c2-acdf-4eec-b45f-7b3be6251d12" Title="ModeNewsContent" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="ModeNewsContent\ModeNewsContent.xml" />
+    <ElementFile Location="ModeNewsContent\ModeNewsContent.webpart" />
+    <ElementFile Location="ModeNewsContent\ModeNewsContentUS.ascx" />
+  </ElementManifests>
+</Feature>
