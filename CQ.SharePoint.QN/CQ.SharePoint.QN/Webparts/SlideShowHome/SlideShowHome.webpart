@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<webParts>
+  <webPart xmlns="http://schemas.microsoft.com/WebPart/v3">
+    <metaData>
+      <!--
+      The following Guid is used as a reference to the web part class, 
+      and it will be automatically replaced with actual type name at deployment time.
+      -->
+      <type name="65f398a5-829a-4aaf-882e-9d2d88fd2623" />
+      <importErrorMessage>Cannot import SlideShowHome Web Part.</importErrorMessage>
+    </metaData>
+    <data>
+      <properties>
+        <property name="Title" type="string">SlideShowHome Web Part</property>
+        <property name="Description" type="string">SlideShowHome Description</property>
+      </properties>
+    </data>
+  </webPart>
+</webParts>

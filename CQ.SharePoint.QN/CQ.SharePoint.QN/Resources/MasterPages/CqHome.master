@@ -1,0 +1,94 @@
+﻿<%@ Master language="C#" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ Import Namespace="Microsoft.SharePoint" %>
+<%@ Register Tagprefix="SPSWC" Namespace="Microsoft.SharePoint.Portal.WebControls" Assembly="Microsoft.SharePoint.Portal, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
+<%@ Register Tagprefix="SharePoint" Namespace="Microsoft.SharePoint.WebControls" Assembly="Microsoft.SharePoint, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
+<%@ Register Tagprefix="WebPartPages" Namespace="Microsoft.SharePoint.WebPartPages" Assembly="Microsoft.SharePoint, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
+<%@ Register Tagprefix="PublishingWebControls" Namespace="Microsoft.SharePoint.Publishing.WebControls" Assembly="Microsoft.SharePoint.Publishing, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
+<%@ Register Tagprefix="PublishingNavigation" Namespace="Microsoft.SharePoint.Publishing.Navigation" Assembly="Microsoft.SharePoint.Publishing, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
+<%@ Register TagPrefix="wssuc" TagName="Welcome" src="~/_controltemplates/Welcome.ascx" %>
+<%@ Register TagPrefix="wssuc" TagName="DesignModeConsole" src="~/_controltemplates/DesignModeConsole.ascx" %>
+<%@ Register TagPrefix="PublishingVariations" TagName="VariationsLabelMenu" src="~/_controltemplates/VariationsLabelMenu.ascx" %>
+<%@ Register Tagprefix="PublishingConsole" TagName="Console" src="~/_controltemplates/PublishingConsole.ascx" %>
+<%@ Register TagPrefix="PublishingSiteAction" TagName="SiteActionMenu" src="~/_controltemplates/PublishingActionMenu.ascx" %>
+<%@ Register TagPrefix="wssuc" TagName="Header" src="~Site/WebPartsUS/QNHeaderUS.ascx" %>
+<%@ Register TagPrefix="wssuc" TagName="ShouldToKnow" src="~Site/WebPartsUS/ShouldToKnowUS.ascx" %>
+<%@ Register TagPrefix="wssuc" TagName="Footer" src="~Site/WebPartsUS/FooterUS.ascx" %>
+<html dir="<%$Resources:wss, multipages_direction_dir_value %>" runat="server" >
+<head runat="server">
+	<meta name="GENERATOR" content="Microsoft SharePoint">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="X-UA-Compatible" content="IE=7">
+	<SharePoint:RobotsMetaTag runat="server"/>
+	<title id="onetidTitle">
+		<asp:ContentPlaceHolder id="PlaceHolderPageTitle" runat="server"/>
+	</title>
+	<Sharepoint:CssLink runat="server" />
+	<!--Styles used for positioning, font and spacing definitions-->
+	<SharePoint:CssRegistration name="<% $SPUrl:~Site/QNResources/styles.css%>" runat="server"/>
+	<SharePoint:CssRegistration name="<% $SPUrl:~Site/QNResources/tabcontent.css%>" runat="server"/>
+	<SharePoint:ScriptLink name="init.js" runat="server" />
+	<script type="text/javascript" src='<asp:Literal runat="server" Text="<%$SPUrl:~Site/QNResources/tabcontent.js%>" />'></script>
+	<script type="text/javascript" src='<asp:Literal runat="server" Text="<%$SPUrl:~Site/QNResources/script.js%>" />'></script>
+
+	<!--Placeholder for additional overrides-->
+	<asp:ContentPlaceHolder id="PlaceHolderAdditionalPageHead" runat="server"/>
+</head>
+<body class="body" onload="javascript:_spBodyOnLoadWrapper();">
+	<WebPartPages:SPWebPartManager runat="server" />
+	<form runat="server" onsubmit="return _spFormOnSubmitWrapper();">
+	
+	    <div id="wrapper">
+	    <!-- Master Header -->
+            <div id="MasterHeader">
+                <div class="authoringRegion1">
+                    <span class="siteActionMenu"><PublishingSiteAction:SiteActionMenu runat="server"/></span>
+                    <PublishingWebControls:AuthoringContainer 
+                       id="authoringcontrols" runat="server">
+                          <PublishingConsole:Console runat="server" /> 
+                    </PublishingWebControls:AuthoringContainer>
+                </div>
+            </div>
+	        <!-- Header usercontrol -->
+	        <wssuc:Header id="ucHeader" runat="server"/>
+        	
+	        <asp:ContentPlaceHolder id="PlaceHolderMain" runat="server" />
+        	
+	        <div id="Div1">
+		        <!-- ShoudToKnow usercontrol -->
+		        <wssuc:ShouldToKnow id="ucShouldToKnow" runat="server"/>
+		        <!-- Fotter usercontrol -->
+		        <wssuc:Footer id="ucFooter" runat="server"/>
+	        </div>
+        	
+        </div>
+		<%-- The PlaceHolderMain content placeholder defines where to place 
+the page content for all the content from the page layout. The page 
+layout can overwrite any content placeholder from the master page. 
+Example: The PlaceHolderLeftNavBar can overwrite the left navigation bar. --%>
+      
+        <asp:Panel ID="Panel1" visible="false" runat="server">
+        <%-- These ContentPlaceHolders ensure all default Office SharePoint Server pages 
+render with this master page. If the system master page is set to 
+any default master page, the only content placeholders required are
+ those that are overridden by your page layouts. --%>
+            <asp:ContentPlaceHolder id="PlaceHolderSearchArea" runat="server"/>
+            <asp:ContentPlaceHolder id="PlaceHolderTitleBreadcrumb" runat="server"/>
+            <asp:ContentPlaceHolder id="PlaceHolderPageTitleInTitleArea"  runat="server"/>            
+            <asp:ContentPlaceHolder ID="PlaceHolderPageImage" runat="server"/>
+            <asp:ContentPlaceHolder ID="PlaceHolderBodyLeftBorder" runat="server"/>
+            <asp:ContentPlaceHolder ID="PlaceHolderNavSpacer" runat="server"/>
+            <asp:ContentPlaceHolder ID="PlaceHolderTitleLeftBorder" runat="server"/>
+            <asp:ContentPlaceHolder ID="PlaceHolderTitleAreaSeparator" runat="server"/>
+            <asp:ContentPlaceHolder ID="PlaceHolderMiniConsole" runat="server"/>
+            <asp:ContentPlaceHolder id="PlaceHolderCalendarNavigator" runat ="server" />
+            <asp:ContentPlaceHolder id="PlaceHolderLeftActions" runat ="server"/>
+            <asp:ContentPlaceHolder id="PlaceHolderPageDescription" runat ="server"/>
+            <asp:ContentPlaceHolder id="PlaceHolderBodyAreaClass" runat ="server"/>
+            <asp:ContentPlaceHolder id="PlaceHolderTitleAreaClass" runat ="server"/>
+            <asp:ContentPlaceHolder id="PlaceHolderBodyRightMargin" runat="server"/>
+         </asp:Panel>
+	</form>
+ </body>
+</html>

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements Id="00dc0549-75c7-4699-97cc-666639b9336b" xmlns="http://schemas.microsoft.com/sharepoint/" >
+  <Module Name="WebParts" List="113" Url="_catalogs/wp">
+    <File Path="QNHeader.webpart" Url="QNHeader.webpart" Type="GhostableInLibrary" />
+  </Module>
+	<Module Name="UserControls">
+		<File Path="QNHeaderUS.ascx" Url="WebPartsUS/QNHeaderUS.ascx" />
+	</Module>
+</Elements>

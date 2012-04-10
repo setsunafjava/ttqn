@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<webParts>
+  <webPart xmlns="http://schemas.microsoft.com/WebPart/v3">
+    <metaData>
+      <!--
+      The following Guid is used as a reference to the web part class, 
+      and it will be automatically replaced with actual type name at deployment time.
+      -->
+      <type name="9cfb6b2a-8a9c-404a-bac8-c12f2bc9876a" />
+      <importErrorMessage>Cannot import CompanyListRight Web Part.</importErrorMessage>
+    </metaData>
+    <data>
+      <properties>
+        <property name="Title" type="string">CompanyListRight Web Part</property>
+        <property name="Description" type="string">CompanyListRight Description</property>
+      </properties>
+    </data>
+  </webPart>
+</webParts>

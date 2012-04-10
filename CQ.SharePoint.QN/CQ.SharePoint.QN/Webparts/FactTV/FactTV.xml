@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements Id="201619bd-891d-498a-90a4-1acd8dacbf9a" xmlns="http://schemas.microsoft.com/sharepoint/" >
+  <Module Name="WebParts" List="113" Url="_catalogs/wp">
+    <File Path="FactTV.webpart" Url="FactTV.webpart" Type="GhostableInLibrary" />
+  </Module>
+	<Module Name="UserControls">
+		<File Path="FactTVUS.ascx" Url="WebPartsUS/FactTVUS.ascx" />
+	</Module>
+</Elements>

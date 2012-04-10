@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements Id="43766268-a956-4dd4-95e1-bdbb7bba88b7" xmlns="http://schemas.microsoft.com/sharepoint/" >
+  <Module Name="WebParts" List="113" Url="_catalogs/wp">
+    <File Path="FocusNews.webpart" Url="FocusNews.webpart" Type="GhostableInLibrary" />
+  </Module>
+	<Module Name="UserControls">
+		<File Path="FocusNewsUS.ascx" Url="WebPartsUS/FocusNewsUS.ascx" />
+	</Module>
+</Elements>

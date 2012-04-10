@@ -1,0 +1,97 @@
+/* CSS Document */
+
+/* ######### CSS for Shade Tabs. Remove if not using ######### */
+.inner_content_tab{
+	 border-bottom: 1px solid #CCCCCC;
+    border-left: 1px solid #CCCCCC;
+  /*  border-right: 1px solid #CCCCCC;*/
+	padding: 10px;
+}
+.shadetabs{
+	font: bold 12px Verdana;
+	list-style-type: none;
+	text-align: left; /*set to left, center, or right to align the menu as desired*/
+	height: 28px;
+	background: url(../images/bg_titletab_content.jpg) top left repeat-x;
+	
+}
+.tab_content_News ul{
+	margin: 0px;
+	padding: 0px;
+	padding-top: 10px;
+	
+}
+.shadetabs li{
+	display: inline;
+/*	padding-bottom: 16px;*/
+	
+
+}
+
+.shadetabs li a{
+	text-decoration: none;
+	position: relative;	
+	padding: 10px 34px;
+	color: #2d2b2b;
+	background: url(../images/bg_titletab_content.jpg) top left repeat-x;
+	margin-top: 5px;
+	border-bottom: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	text-transform: uppercase;
+	font-size: 11px;
+
+}
+
+.shadetabs li a:visited{
+	color: #2d2b2b;
+}
+
+.shadetabs li a:hover{
+	/*text-decoration: underline;
+	color: #2d2b2b;*/
+}
+
+
+.shadetabs li a.selected{ /*selected main tab style */
+	background: url(../images/bg_titletab_active.jpg) top left repeat-x;
+	border-bottom: 1px solid white;
+	/*border-right: 1px solid #ccc;*/
+	padding: 10px 27px;
+	
+	
+
+}
+
+.shadetabs li a.selected:hover{ /*selected main tab style */
+	text-decoration: none;
+}
+
+.tabcontent{
+	display:none;
+}
+
+@media print {
+.tabcontent {
+	display:block !important;
+}
+}
+/************************* Content tab******************************/
+.inner_content_tab ul{
+	margin: 0px;
+	padding: 0px;
+}
+.inner_content_tab ul li{
+	padding-bottom: 10px;
+}
+.inner_content_tab ul li a{
+	color: #024780;
+	font-weight: bold;
+	background: url(../images/icon_line_news.jpg) left center no-repeat;
+	padding-left: 13px;
+}
+.inner_content_tab ul li span{
+	color: #666;
+	padding-left: 5px;
+}
+
+

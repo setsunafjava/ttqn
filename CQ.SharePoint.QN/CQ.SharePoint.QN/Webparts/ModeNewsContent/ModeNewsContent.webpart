@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<webParts>
+  <webPart xmlns="http://schemas.microsoft.com/WebPart/v3">
+    <metaData>
+      <!--
+      The following Guid is used as a reference to the web part class, 
+      and it will be automatically replaced with actual type name at deployment time.
+      -->
+      <type name="ab67ce11-c8af-4c75-8ffe-0427841454cd" />
+      <importErrorMessage>Cannot import ModeNewsContent Web Part.</importErrorMessage>
+    </metaData>
+    <data>
+      <properties>
+        <property name="Title" type="string">ModeNewsContent Web Part</property>
+        <property name="Description" type="string">ModeNewsContent Description</property>
+      </properties>
+    </data>
+  </webPart>
+</webParts>

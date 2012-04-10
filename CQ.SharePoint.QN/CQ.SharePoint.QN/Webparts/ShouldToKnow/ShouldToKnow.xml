@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements Id="99a7b668-6516-4c68-93c4-8bc1b4d6d15d" xmlns="http://schemas.microsoft.com/sharepoint/" >
+  <Module Name="WebParts" List="113" Url="_catalogs/wp">
+    <File Path="ShouldToKnow.webpart" Url="ShouldToKnow.webpart" Type="GhostableInLibrary" />
+  </Module>
+	<Module Name="UserControls">
+		<File Path="ShouldToKnowUS.ascx" Url="WebPartsUS/ShouldToKnowUS.ascx" />
+	</Module>
+</Elements>

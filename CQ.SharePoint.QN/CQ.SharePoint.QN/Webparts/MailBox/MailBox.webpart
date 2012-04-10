@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<webParts>
+  <webPart xmlns="http://schemas.microsoft.com/WebPart/v3">
+    <metaData>
+      <!--
+      The following Guid is used as a reference to the web part class, 
+      and it will be automatically replaced with actual type name at deployment time.
+      -->
+      <type name="b9ccb1db-d923-460d-a0f8-738cba6355b2" />
+      <importErrorMessage>Cannot import MailBox Web Part.</importErrorMessage>
+    </metaData>
+    <data>
+      <properties>
+        <property name="Title" type="string">MailBox Web Part</property>
+        <property name="Description" type="string">MailBox Description</property>
+      </properties>
+    </data>
+  </webPart>
+</webParts>
