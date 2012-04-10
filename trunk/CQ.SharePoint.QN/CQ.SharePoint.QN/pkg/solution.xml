@@ -1,0 +1,114 @@
+﻿<solution id="c5ee5629-8d8c-44f4-871e-32bc220deb28" name="CQ.SharePoint.QN">
+  <features>
+    <feature id="ad0ab4d0-bb06-4d7f-813d-7cbc5a4315a9">
+      <featureElements>
+        <featureElement id="4ebefcc1-7184-4a5b-8e97-dedfcea4516b" name="Resources" />
+      </featureElements>
+    </feature>
+    <feature id="5242a8de-5d04-425e-9b2c-b61cc9bfcd58">
+      <featureElements>
+        <featureElement id="00dc0549-75c7-4699-97cc-666639b9336b" name="QNHeader" />
+      </featureElements>
+    </feature>
+    <feature id="cedb2b57-b8eb-4eaa-880e-cf74d2d6d5e6">
+      <featureElements>
+        <featureElement id="b2b31986-18c6-4ef5-bf66-16ef189ac553" name="ClassiFieds" />
+      </featureElements>
+    </feature>
+    <feature id="091be85d-4b79-4f69-a59c-1564b73bf5eb">
+      <featureElements>
+        <featureElement id="9aa4e640-b74d-4397-b5e2-98d3aa93b1d4" name="CompanyAdv" />
+      </featureElements>
+    </feature>
+    <feature id="5f4e40d1-fcc5-4097-87e9-2ec51856356c">
+      <featureElements>
+        <featureElement id="9cfb6b2a-8a9c-404a-bac8-c12f2bc9876a" name="CompanyListRight" />
+      </featureElements>
+    </feature>
+    <feature id="697e6b97-e417-4756-a3ed-6d5489a289e5">
+      <featureElements>
+        <featureElement id="201619bd-891d-498a-90a4-1acd8dacbf9a" name="FactTV" />
+      </featureElements>
+    </feature>
+    <feature id="8ea0e04c-f8d7-446b-b045-245e211c5de4">
+      <featureElements>
+        <featureElement id="ca8428e6-4c64-4a00-9c89-b860ac4c46d9" name="FocusCompany" />
+      </featureElements>
+    </feature>
+    <feature id="17f0b1d6-9da8-4d7b-b912-eab6fe98cace">
+      <featureElements>
+        <featureElement id="43766268-a956-4dd4-95e1-bdbb7bba88b7" name="FocusNews" />
+      </featureElements>
+    </feature>
+    <feature id="7073448c-ca04-40be-be14-4346216bed44">
+      <featureElements>
+        <featureElement id="25a8316b-2e6f-4461-b3bb-71d6e72a8fd9" name="Footer" />
+      </featureElements>
+    </feature>
+    <feature id="967adc49-ed0d-4d84-8999-ff9b12586df3">
+      <featureElements>
+        <featureElement id="8ac7fb10-5f2c-4dea-a79f-07b8f1b6ca59" name="HomeVideoRight" />
+      </featureElements>
+    </feature>
+    <feature id="66f56b2f-ce98-4974-80e5-3d75ed9d667f">
+      <featureElements>
+        <featureElement id="8b4fb7d8-b280-4d98-8921-9e137f6f7dae" name="HotNewsContent" />
+      </featureElements>
+    </feature>
+    <feature id="b10282e7-6ba0-43a8-8250-5cf95960d90b">
+      <featureElements>
+        <featureElement id="bb40f5b0-6a79-413f-838b-edadf6c70415" name="LeftNewsContent" />
+      </featureElements>
+    </feature>
+    <feature id="6238acd0-d384-42f8-9597-021cc5edee12">
+      <featureElements>
+        <featureElement id="b9ccb1db-d923-460d-a0f8-738cba6355b2" name="MailBox" />
+      </featureElements>
+    </feature>
+    <feature id="bd0722c2-acdf-4eec-b45f-7b3be6251d12">
+      <featureElements>
+        <featureElement id="ab67ce11-c8af-4c75-8ffe-0427841454cd" name="ModeNewsContent" />
+      </featureElements>
+    </feature>
+    <feature id="984afac2-9797-4eb6-94fe-5f2a5a022e5b">
+      <featureElements>
+        <featureElement id="5e9a4b2d-c1c5-49ec-9283-d1914f6ce854" name="NeedToKnow" />
+      </featureElements>
+    </feature>
+    <feature id="96f3e78f-933a-45da-b98b-52bd4c83edb0">
+      <featureElements>
+        <featureElement id="93962b62-17e4-4c35-a216-b2369a19b26b" name="ProvinceDocs" />
+      </featureElements>
+    </feature>
+    <feature id="56a1ac35-4c61-4707-b039-69548a9e2039">
+      <featureElements>
+        <featureElement id="19465c9a-0e03-4766-b949-f30971d76d0b" name="ProvinceInfo" />
+      </featureElements>
+    </feature>
+    <feature id="a40490ef-29ee-4fcd-9eef-ba68311df4cf">
+      <featureElements>
+        <featureElement id="30024d95-df66-4bed-8192-0878c2fe3cbd" name="QNadv" />
+      </featureElements>
+    </feature>
+    <feature id="156ec21c-60b9-467b-af0f-0856c6663cc7">
+      <featureElements>
+        <featureElement id="99a7b668-6516-4c68-93c4-8bc1b4d6d15d" name="ShouldToKnow" />
+      </featureElements>
+    </feature>
+    <feature id="950c8144-7cc4-440c-8868-8913f3ad980f">
+      <featureElements>
+        <featureElement id="65f398a5-829a-4aaf-882e-9d2d88fd2623" name="SlideShowHome" />
+      </featureElements>
+    </feature>
+    <feature id="12fc4c00-4087-44dd-9ed1-ea2f2e688c0c">
+      <featureElements>
+        <featureElement id="42a479b7-17ef-421a-b341-5b28788cb6ba" name="TourInfo" />
+      </featureElements>
+    </feature>
+    <feature id="6a465bfd-f3e0-4c73-bc8c-f1c552dd41e8">
+      <featureElements>
+        <featureElement id="43772fc9-7f81-4ae5-bf69-6626353f7f7e" name="WebLink" />
+      </featureElements>
+    </feature>
+  </features>
+</solution>
