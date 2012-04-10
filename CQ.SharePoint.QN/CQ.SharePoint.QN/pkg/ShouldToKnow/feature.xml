@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="156ec21c-60b9-467b-af0f-0856c6663cc7" Title="ShouldToKnow" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="ShouldToKnow\ShouldToKnow.xml" />
+    <ElementFile Location="ShouldToKnow\ShouldToKnow.webpart" />
+    <ElementFile Location="ShouldToKnow\ShouldToKnowUS.ascx" />
+  </ElementManifests>
+</Feature>

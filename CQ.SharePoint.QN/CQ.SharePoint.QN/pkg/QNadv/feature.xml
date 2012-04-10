@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="a40490ef-29ee-4fcd-9eef-ba68311df4cf" Title="QNadv" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="QNadv\QNadv.xml" />
+    <ElementFile Location="QNadv\QNadv.webpart" />
+    <ElementFile Location="QNadv\QNadvUS.ascx" />
+  </ElementManifests>
+</Feature>

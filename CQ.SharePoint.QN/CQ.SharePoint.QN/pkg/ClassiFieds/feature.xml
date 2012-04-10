@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="cedb2b57-b8eb-4eaa-880e-cf74d2d6d5e6" Title="ClassiFieds" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="ClassiFieds\ClassiFieds.xml" />
+    <ElementFile Location="ClassiFieds\ClassiFieds.webpart" />
+    <ElementFile Location="ClassiFieds\ClassiFiedsUS.ascx" />
+  </ElementManifests>
+</Feature>

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="66f56b2f-ce98-4974-80e5-3d75ed9d667f" Title="HotNewsContent" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="HotNewsContent\HotNewsContent.xml" />
+    <ElementFile Location="HotNewsContent\HotNewsContent.webpart" />
+    <ElementFile Location="HotNewsContent\HotNewsContentUS.ascx" />
+  </ElementManifests>
+</Feature>

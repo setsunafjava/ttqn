@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="967adc49-ed0d-4d84-8999-ff9b12586df3" Title="HomeVideoRight" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="HomeVideoRight\HomeVideoRight.xml" />
+    <ElementFile Location="HomeVideoRight\HomeVideoRight.webpart" />
+    <ElementFile Location="HomeVideoRight\HomeVideoRightUS.ascx" />
+  </ElementManifests>
+</Feature>

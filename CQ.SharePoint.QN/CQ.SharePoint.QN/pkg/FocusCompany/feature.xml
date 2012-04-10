@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="8ea0e04c-f8d7-446b-b045-245e211c5de4" Title="FocusCompany" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="FocusCompany\FocusCompany.xml" />
+    <ElementFile Location="FocusCompany\FocusCompany.webpart" />
+    <ElementFile Location="FocusCompany\FocusCompanyUS.ascx" />
+  </ElementManifests>
+</Feature>

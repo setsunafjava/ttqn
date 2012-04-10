@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="5242a8de-5d04-425e-9b2c-b61cc9bfcd58" Title="QNHeader" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="QNHeader\QNHeader.xml" />
+    <ElementFile Location="QNHeader\QNHeader.webpart" />
+    <ElementFile Location="QNHeader\QNHeaderUS.ascx" />
+  </ElementManifests>
+</Feature>

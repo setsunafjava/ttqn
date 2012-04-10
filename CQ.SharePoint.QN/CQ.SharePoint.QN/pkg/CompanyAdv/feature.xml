@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="091be85d-4b79-4f69-a59c-1564b73bf5eb" Title="CompanyAdv" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="CompanyAdv\CompanyAdv.xml" />
+    <ElementFile Location="CompanyAdv\CompanyAdv.webpart" />
+    <ElementFile Location="CompanyAdv\CompanyAdvUS.ascx" />
+  </ElementManifests>
+</Feature>

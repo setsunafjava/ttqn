@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="17f0b1d6-9da8-4d7b-b912-eab6fe98cace" Title="FocusNews" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="FocusNews\FocusNews.xml" />
+    <ElementFile Location="FocusNews\FocusNews.webpart" />
+    <ElementFile Location="FocusNews\FocusNewsUS.ascx" />
+  </ElementManifests>
+</Feature>

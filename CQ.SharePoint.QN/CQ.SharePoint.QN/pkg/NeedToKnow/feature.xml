@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="984afac2-9797-4eb6-94fe-5f2a5a022e5b" Title="NeedToKnow" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="NeedToKnow\NeedToKnow.xml" />
+    <ElementFile Location="NeedToKnow\NeedToKnow.webpart" />
+    <ElementFile Location="NeedToKnow\NeedToKnowUS.ascx" />
+  </ElementManifests>
+</Feature>
