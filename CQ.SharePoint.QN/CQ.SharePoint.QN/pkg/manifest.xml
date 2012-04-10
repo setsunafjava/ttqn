@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Solution SolutionId="c5ee5629-8d8c-44f4-871e-32bc220deb28" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <Assemblies>
+    <Assembly Location="CQ.SharePoint.QN.dll" DeploymentTarget="GlobalAssemblyCache" />
+  </Assemblies>
+  <FeatureManifests>
+    <FeatureManifest Location="CQ.SharePoint.QN\feature.xml" />
+    <FeatureManifest Location="QNHeader\feature.xml" />
+    <FeatureManifest Location="ClassiFieds\feature.xml" />
+    <FeatureManifest Location="CompanyAdv\feature.xml" />
+    <FeatureManifest Location="CompanyListRight\feature.xml" />
+    <FeatureManifest Location="FactTV\feature.xml" />
+    <FeatureManifest Location="FocusCompany\feature.xml" />
+    <FeatureManifest Location="FocusNews\feature.xml" />
+    <FeatureManifest Location="Footer\feature.xml" />
+    <FeatureManifest Location="HomeVideoRight\feature.xml" />
+    <FeatureManifest Location="HotNewsContent\feature.xml" />
+    <FeatureManifest Location="LeftNewsContent\feature.xml" />
+    <FeatureManifest Location="MailBox\feature.xml" />
+    <FeatureManifest Location="ModeNewsContent\feature.xml" />
+    <FeatureManifest Location="NeedToKnow\feature.xml" />
+    <FeatureManifest Location="ProvinceDocs\feature.xml" />
+    <FeatureManifest Location="ProvinceInfo\feature.xml" />
+    <FeatureManifest Location="QNadv\feature.xml" />
+    <FeatureManifest Location="ShouldToKnow\feature.xml" />
+    <FeatureManifest Location="SlideShowHome\feature.xml" />
+    <FeatureManifest Location="TourInfo\feature.xml" />
+    <FeatureManifest Location="WebLink\feature.xml" />
+  </FeatureManifests>
+</Solution>
