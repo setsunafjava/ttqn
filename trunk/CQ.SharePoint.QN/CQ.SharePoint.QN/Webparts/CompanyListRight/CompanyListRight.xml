@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements Id="9cfb6b2a-8a9c-404a-bac8-c12f2bc9876a" xmlns="http://schemas.microsoft.com/sharepoint/" >
+  <Module Name="WebParts" List="113" Url="_catalogs/wp">
+    <File Path="CompanyListRight.webpart" Url="CompanyListRight.webpart" Type="GhostableInLibrary" />
+  </Module>
+	<Module Name="UserControls">
+		<File Path="CompanyListRightUS.ascx" Url="WebPartsUS/CompanyListRightUS.ascx" />
+	</Module>
+</Elements>

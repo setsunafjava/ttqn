@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<webParts>
+  <webPart xmlns="http://schemas.microsoft.com/WebPart/v3">
+    <metaData>
+      <!--
+      The following Guid is used as a reference to the web part class, 
+      and it will be automatically replaced with actual type name at deployment time.
+      -->
+      <type name="8ac7fb10-5f2c-4dea-a79f-07b8f1b6ca59" />
+      <importErrorMessage>Cannot import HomeVideoRight Web Part.</importErrorMessage>
+    </metaData>
+    <data>
+      <properties>
+        <property name="Title" type="string">HomeVideoRight Web Part</property>
+        <property name="Description" type="string">HomeVideoRight Description</property>
+      </properties>
+    </data>
+  </webPart>
+</webParts>

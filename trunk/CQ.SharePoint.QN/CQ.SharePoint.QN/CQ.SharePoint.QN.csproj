@@ -1,0 +1,462 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E3E4B36E-606F-4DE3-9544-F435F2AFB7AE}</ProjectGuid>
+    <ProjectTypeGuids>{593B0543-81F6-4436-BA1E-4747859CAAE2};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <RootNamespace>CQ.SharePoint.QN</RootNamespace>
+    <AssemblyName>CQ.SharePoint.QN</AssemblyName>
+    <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>Properties\CQ.SharePoint.QN.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <StartAction>URL</StartAction>
+    <StartURL>http://localhost/</StartURL>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <StartAction>URL</StartAction>
+    <StartURL>http://localhost/</StartURL>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Common\BaseEntity.cs" />
+    <Compile Include="Common\Constants.cs" />
+    <Compile Include="Common\FieldsName.cs" />
+    <Compile Include="Common\ListsName.cs" />
+    <Compile Include="Common\Utilities.cs" />
+    <Compile Include="Core\Helpers\FieldCreators\BaseFieldCreator.cs" />
+    <Compile Include="Core\Helpers\FieldCreators\BooleanFieldCreator.cs" />
+    <Compile Include="Core\Helpers\FieldCreators\CalculatedFieldCreator.cs" />
+    <Compile Include="Core\Helpers\FieldCreators\ChoiceFieldCreator.cs" />
+    <Compile Include="Core\Helpers\FieldCreators\CurrencyFieldCreator.cs" />
+    <Compile Include="Core\Helpers\FieldCreators\DateTimeFieldCreator.cs" />
+    <Compile Include="Core\Helpers\FieldCreators\LookupFieldCreator.cs" />
+    <Compile Include="Core\Helpers\FieldCreators\MultipleChoiceFieldCreator.cs" />
+    <Compile Include="Core\Helpers\FieldCreators\MultipleLinesTextFieldCreator.cs" />
+    <Compile Include="Core\Helpers\FieldCreators\NumberFieldCreator.cs" />
+    <Compile Include="Core\Helpers\FieldCreators\SingleLineTextFieldCreator.cs" />
+    <Compile Include="Core\Helpers\FieldCreators\UrlFieldCreator.cs" />
+    <Compile Include="Core\Helpers\FieldCreators\UserFieldCreator.cs" />
+    <Compile Include="Core\Helpers\ListHelper.cs" />
+    <Compile Include="Core\Helpers\QuickLaunchHelper.cs" />
+    <Compile Include="Core\Helpers\SecurityHelper.cs" />
+    <Compile Include="Core\Helpers\WebPageHelper.cs" />
+    <Compile Include="Core\Helpers\WebPartHelper.cs" />
+    <Compile Include="Core\WebControls\UrlBuilder.cs" />
+    <Compile Include="Core\WebControls\ValidatorControl.cs" />
+    <Compile Include="Core\WebParts\ContainerWebPart.cs" />
+    <Compile Include="FeatureReceivers\Installer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\UserControls\MainForm.ascx.cs">
+      <DependentUpon>MainForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Resources\UserControls\MainForm.ascx.designer.cs">
+      <DependentUpon>MainForm.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Site Structure\DefaultStructure.cs" />
+    <Compile Include="Site Structure\ExpenseClaimStructure.cs" />
+    <Compile Include="Site Structure\PagesStructure.cs" />
+    <Compile Include="Site Structure\QuickLaunchStructure.cs" />
+    <Compile Include="Site Structure\SiteStructure.cs" />
+    <Compile Include="Webparts\ClassiFieds\ClassiFieds.cs" />
+    <Compile Include="Webparts\ClassiFieds\ClassiFiedsUS.ascx.cs">
+      <DependentUpon>ClassiFiedsUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\ClassiFieds\ClassiFiedsUS.ascx.designer.cs">
+      <DependentUpon>ClassiFiedsUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\CompanyAdv\CompanyAdv.cs" />
+    <Compile Include="Webparts\CompanyAdv\CompanyAdvUS.ascx.cs">
+      <DependentUpon>CompanyAdvUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\CompanyAdv\CompanyAdvUS.ascx.designer.cs">
+      <DependentUpon>CompanyAdvUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\CompanyListRight\CompanyListRight.cs" />
+    <Compile Include="Webparts\CompanyListRight\CompanyListRightUS.ascx.cs">
+      <DependentUpon>CompanyListRightUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\CompanyListRight\CompanyListRightUS.ascx.designer.cs">
+      <DependentUpon>CompanyListRightUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\FactTV\FactTV.cs" />
+    <Compile Include="Webparts\FactTV\FactTVUS.ascx.cs">
+      <DependentUpon>FactTVUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\FactTV\FactTVUS.ascx.designer.cs">
+      <DependentUpon>FactTVUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\FocusCompany\FocusCompany.cs" />
+    <Compile Include="Webparts\FocusCompany\FocusCompanyUS.ascx.cs">
+      <DependentUpon>FocusCompanyUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\FocusCompany\FocusCompanyUS.ascx.designer.cs">
+      <DependentUpon>FocusCompanyUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\FocusNews\FocusNews.cs" />
+    <Compile Include="Webparts\FocusNews\FocusNewsUS.ascx.cs">
+      <DependentUpon>FocusNewsUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\FocusNews\FocusNewsUS.ascx.designer.cs">
+      <DependentUpon>FocusNewsUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\Footer\Footer.cs" />
+    <Compile Include="Webparts\Footer\FooterUS.ascx.cs">
+      <DependentUpon>FooterUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\Footer\FooterUS.ascx.designer.cs">
+      <DependentUpon>FooterUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\HomeVideoRight\HomeVideoRight.cs" />
+    <Compile Include="Webparts\HomeVideoRight\HomeVideoRightUS.ascx.cs">
+      <DependentUpon>HomeVideoRightUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\HomeVideoRight\HomeVideoRightUS.ascx.designer.cs">
+      <DependentUpon>HomeVideoRightUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\HotNewsContent\HotNewsContent.cs" />
+    <Compile Include="Webparts\HotNewsContent\HotNewsContentUS.ascx.cs">
+      <DependentUpon>HotNewsContentUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\HotNewsContent\HotNewsContentUS.ascx.designer.cs">
+      <DependentUpon>HotNewsContentUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\LeftNewsContent\LeftNewsContent.cs" />
+    <Compile Include="Webparts\LeftNewsContent\LeftNewsContentUS.ascx.cs">
+      <DependentUpon>LeftNewsContentUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\LeftNewsContent\LeftNewsContentUS.ascx.designer.cs">
+      <DependentUpon>LeftNewsContentUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\MailBox\MailBox.cs" />
+    <Compile Include="Webparts\MailBox\MailBoxUS.ascx.cs">
+      <DependentUpon>MailBoxUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\MailBox\MailBoxUS.ascx.designer.cs">
+      <DependentUpon>MailBoxUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\ModeNewsContent\ModeNewsContent.cs" />
+    <Compile Include="Webparts\ModeNewsContent\ModeNewsContentUS.ascx.cs">
+      <DependentUpon>ModeNewsContentUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\ModeNewsContent\ModeNewsContentUS.ascx.designer.cs">
+      <DependentUpon>ModeNewsContentUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\NeedToKnow\NeedToKnow.cs" />
+    <Compile Include="Webparts\NeedToKnow\NeedToKnowUS.ascx.cs">
+      <DependentUpon>NeedToKnowUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\NeedToKnow\NeedToKnowUS.ascx.designer.cs">
+      <DependentUpon>NeedToKnowUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\ProvinceDocs\ProvinceDocs.cs" />
+    <Compile Include="Webparts\ProvinceDocs\ProvinceDocsUS.ascx.cs">
+      <DependentUpon>ProvinceDocsUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\ProvinceDocs\ProvinceDocsUS.ascx.designer.cs">
+      <DependentUpon>ProvinceDocsUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\ProvinceInfo\ProvinceInfo.cs" />
+    <Compile Include="Webparts\ProvinceInfo\ProvinceInfoUS.ascx.cs">
+      <DependentUpon>ProvinceInfoUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\ProvinceInfo\ProvinceInfoUS.ascx.designer.cs">
+      <DependentUpon>ProvinceInfoUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\QNadv\QNadv.cs" />
+    <Compile Include="Webparts\QNadv\QNadvUS.ascx.cs">
+      <DependentUpon>QNadvUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\QNadv\QNadvUS.ascx.designer.cs">
+      <DependentUpon>QNadvUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\QNHeader\QNHeaderUS.ascx.cs">
+      <DependentUpon>QNHeaderUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\QNHeader\QNHeaderUS.ascx.designer.cs">
+      <DependentUpon>QNHeaderUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\QNHeader\QNHeader.cs" />
+    <Compile Include="Webparts\ShouldToKnow\ShouldToKnowUS.ascx.cs">
+      <DependentUpon>ShouldToKnowUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\ShouldToKnow\ShouldToKnowUS.ascx.designer.cs">
+      <DependentUpon>ShouldToKnowUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\ShouldToKnow\ShouldToKnow.cs" />
+    <Compile Include="Webparts\SlideShowHome\SlideShowHomeUS.ascx.cs">
+      <DependentUpon>SlideShowHomeUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\SlideShowHome\SlideShowHomeUS.ascx.designer.cs">
+      <DependentUpon>SlideShowHomeUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\SlideShowHome\SlideShowHome.cs" />
+    <Compile Include="Webparts\TourInfo\TourInfoUS.ascx.cs">
+      <DependentUpon>TourInfoUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\TourInfo\TourInfoUS.ascx.designer.cs">
+      <DependentUpon>TourInfoUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\TourInfo\TourInfo.cs" />
+    <Compile Include="Webparts\WebLink\WebLinkUS.ascx.cs">
+      <DependentUpon>WebLinkUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\WebLink\WebLinkUS.ascx.designer.cs">
+      <DependentUpon>WebLinkUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\WebLink\WebLink.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\CQ.SharePoint.QN.snk" />
+    <None Include="Resources\MasterPages\CqHome.master">
+      <SubType>ASPXCodeBehind</SubType>
+    </None>
+    <None Include="Webparts\ClassiFieds\ClassiFieds.webpart" />
+    <None Include="Webparts\CompanyAdv\CompanyAdv.webpart" />
+    <None Include="Webparts\CompanyListRight\CompanyListRight.webpart" />
+    <None Include="Webparts\FactTV\FactTV.webpart" />
+    <None Include="Webparts\FocusCompany\FocusCompany.webpart" />
+    <None Include="Webparts\FocusNews\FocusNews.webpart" />
+    <None Include="Webparts\Footer\Footer.webpart" />
+    <None Include="Webparts\HomeVideoRight\HomeVideoRight.webpart" />
+    <None Include="Webparts\HotNewsContent\HotNewsContent.webpart" />
+    <None Include="Webparts\LeftNewsContent\LeftNewsContent.webpart" />
+    <None Include="Webparts\MailBox\MailBox.webpart" />
+    <None Include="Webparts\ModeNewsContent\ModeNewsContent.webpart" />
+    <None Include="Webparts\NeedToKnow\NeedToKnow.webpart" />
+    <None Include="Webparts\ProvinceDocs\ProvinceDocs.webpart" />
+    <None Include="Webparts\ProvinceInfo\ProvinceInfo.webpart" />
+    <None Include="Webparts\QNadv\QNadv.webpart" />
+    <None Include="Webparts\QNHeader\QNHeader.webpart" />
+    <None Include="Webparts\ShouldToKnow\ShouldToKnow.webpart" />
+    <None Include="Webparts\SlideShowHome\SlideShowHome.webpart" />
+    <None Include="Webparts\TourInfo\TourInfo.webpart" />
+    <None Include="Webparts\WebLink\WebLink.webpart" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.SharePoint, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SharePoint.Security, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Css\ie7.css" />
+    <Content Include="Resources\Css\styles.css" />
+    <Content Include="Resources\Css\tabcontent.css" />
+    <Content Include="Resources\Images\adv1.jpg" />
+    <Content Include="Resources\Images\adv2.jpg" />
+    <Content Include="Resources\Images\adv3.jpg" />
+    <Content Include="Resources\Images\adv_banner.jpg" />
+    <Content Include="Resources\Images\arrow_back.jpg" />
+    <Content Include="Resources\Images\arrow_back_circle.jpg" />
+    <Content Include="Resources\Images\arrow_bottom.jpg" />
+    <Content Include="Resources\Images\arrow_next.jpg" />
+    <Content Include="Resources\Images\arrow_next_circle.jpg" />
+    <Content Include="Resources\Images\arrow_orange.jpg" />
+    <Content Include="Resources\Images\arrow_top.jpg" />
+    <Content Include="Resources\Images\banner_adv_company.jpg" />
+    <Content Include="Resources\Images\bg_bottom_F_otherNew.jpg" />
+    <Content Include="Resources\Images\bg_bottom_slide_img.jpg" />
+    <Content Include="Resources\Images\bg_language.jpg" />
+    <Content Include="Resources\Images\bg_menu_hover.jpg" />
+    <Content Include="Resources\Images\bg_path.jpg" />
+    <Content Include="Resources\Images\bg_sub_menu.jpg" />
+    <Content Include="Resources\Images\bg_sub_top_menu.jpg" />
+    <Content Include="Resources\Images\bg_titletab_active.jpg" />
+    <Content Include="Resources\Images\bg_titletab_content.jpg" />
+    <Content Include="Resources\Images\bg_title_otherNews.jpg" />
+    <Content Include="Resources\Images\bg_title_right_corner.jpg" />
+    <Content Include="Resources\Images\bg_top_menu.jpg" />
+    <Content Include="Resources\Images\bg_top_slide_img.jpg" />
+    <Content Include="Resources\Images\Com_1.jpg" />
+    <Content Include="Resources\Images\english.jpg" />
+    <Content Include="Resources\Images\icon_adobereader.jpg" />
+    <Content Include="Resources\Images\icon_ball.jpg" />
+    <Content Include="Resources\Images\icon_date.jpg" />
+    <Content Include="Resources\Images\icon_email.jpg" />
+    <Content Include="Resources\Images\icon_gold.jpg" />
+    <Content Include="Resources\Images\icon_home.jpg" />
+    <Content Include="Resources\Images\icon_line_arrow_black.jpg" />
+    <Content Include="Resources\Images\icon_line_arrow_inround.jpg" />
+    <Content Include="Resources\Images\icon_line_arrow_red.jpg" />
+    <Content Include="Resources\Images\icon_line_news.jpg" />
+    <Content Include="Resources\Images\icon_print.jpg" />
+    <Content Include="Resources\Images\icon_rss.jpg" />
+    <Content Include="Resources\Images\icon_travel.jpg" />
+    <Content Include="Resources\Images\icon_video.jpg" />
+    <Content Include="Resources\Images\icon_video_list.jpg" />
+    <Content Include="Resources\Images\icon_XSKT.jpg" />
+    <Content Include="Resources\Images\ico_email.jpg" />
+    <Content Include="Resources\Images\images.jpg" />
+    <Content Include="Resources\Images\Index_02.gif" />
+    <Content Include="Resources\Images\info_rate.jpg" />
+    <Content Include="Resources\Images\logo.jpg" />
+    <Content Include="Resources\Images\News_post.jpg" />
+    <Content Include="Resources\Images\qc_raovat.jpg" />
+    <Content Include="Resources\Images\qtv.jpg" />
+    <Content Include="Resources\Images\shade.gif" />
+    <Content Include="Resources\Images\shadeactive.gif" />
+    <Content Include="Resources\Images\star_icon.jpg" />
+    <Content Include="Resources\Images\statistic.jpg" />
+    <Content Include="Resources\Images\tri-lft.gif" />
+    <Content Include="Resources\Images\tri-rt.gif" />
+    <Content Include="Resources\Images\tulanh_ex.jpg" />
+    <Content Include="Resources\Images\VB1.jpg" />
+    <Content Include="Resources\Images\VB2.jpg" />
+    <Content Include="Resources\Images\VB3.jpg" />
+    <Content Include="Resources\Images\VB4.jpg" />
+    <Content Include="Resources\Images\VB5.jpg" />
+    <Content Include="Resources\Images\VB6.jpg" />
+    <Content Include="Resources\Images\VB7.jpg" />
+    <Content Include="Resources\Images\video.jpg" />
+    <Content Include="Resources\Images\wheather.jpg" />
+    <Content Include="Resources\Javascript\dw_scroll_c.js" />
+    <Content Include="Resources\Javascript\jquery-1.7.1.js" />
+    <Content Include="Resources\Javascript\SCRIPT.JS" />
+    <Content Include="Resources\Javascript\tabcontent.js" />
+    <Content Include="Resources\Module.xml" />
+    <Content Include="Resources\UserControls\MainForm.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\ClassiFieds\ClassiFieds.xml" />
+    <Content Include="Webparts\ClassiFieds\ClassiFiedsUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\CompanyAdv\CompanyAdv.xml" />
+    <Content Include="Webparts\CompanyAdv\CompanyAdvUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\CompanyListRight\CompanyListRight.xml" />
+    <Content Include="Webparts\CompanyListRight\CompanyListRightUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\FactTV\FactTV.xml" />
+    <Content Include="Webparts\FactTV\FactTVUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\FocusCompany\FocusCompany.xml" />
+    <Content Include="Webparts\FocusCompany\FocusCompanyUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\FocusNews\FocusNews.xml" />
+    <Content Include="Webparts\FocusNews\FocusNewsUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\Footer\Footer.xml" />
+    <Content Include="Webparts\Footer\FooterUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\HomeVideoRight\HomeVideoRight.xml" />
+    <Content Include="Webparts\HomeVideoRight\HomeVideoRightUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\HotNewsContent\HotNewsContent.xml" />
+    <Content Include="Webparts\HotNewsContent\HotNewsContentUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\LeftNewsContent\LeftNewsContent.xml" />
+    <Content Include="Webparts\LeftNewsContent\LeftNewsContentUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\MailBox\MailBox.xml" />
+    <Content Include="Webparts\MailBox\MailBoxUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\ModeNewsContent\ModeNewsContent.xml" />
+    <Content Include="Webparts\ModeNewsContent\ModeNewsContentUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\NeedToKnow\NeedToKnow.xml" />
+    <Content Include="Webparts\NeedToKnow\NeedToKnowUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\ProvinceDocs\ProvinceDocs.xml" />
+    <Content Include="Webparts\ProvinceDocs\ProvinceDocsUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\ProvinceInfo\ProvinceInfo.xml" />
+    <Content Include="Webparts\ProvinceInfo\ProvinceInfoUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\QNadv\QNadv.xml" />
+    <Content Include="Webparts\QNadv\QNadvUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\QNHeader\QNHeaderUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\QNHeader\QNHeader.xml" />
+    <Content Include="Webparts\ShouldToKnow\ShouldToKnowUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\ShouldToKnow\ShouldToKnow.xml" />
+    <Content Include="Webparts\SlideShowHome\SlideShowHomeUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\SlideShowHome\SlideShowHome.xml" />
+    <Content Include="Webparts\TourInfo\TourInfoUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\TourInfo\TourInfo.xml" />
+    <Content Include="Webparts\WebLink\WebLinkUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\WebLink\WebLink.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent />
+  </PropertyGroup>
+  <ProjectExtensions>
+    <VisualStudio />
+  </ProjectExtensions>
+</Project>

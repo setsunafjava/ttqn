@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<webParts>
+  <webPart xmlns="http://schemas.microsoft.com/WebPart/v3">
+    <metaData>
+      <!--
+      The following Guid is used as a reference to the web part class, 
+      and it will be automatically replaced with actual type name at deployment time.
+      -->
+      <type name="b2b31986-18c6-4ef5-bf66-16ef189ac553" />
+      <importErrorMessage>Cannot import ClassiFieds Web Part.</importErrorMessage>
+    </metaData>
+    <data>
+      <properties>
+        <property name="Title" type="string">ClassiFieds Web Part</property>
+        <property name="Description" type="string">ClassiFieds Description</property>
+      </properties>
+    </data>
+  </webPart>
+</webParts>

@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements Id="4ebefcc1-7184-4a5b-8e97-dedfcea4516b" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <Module Name="Resources">
+	  <File Path="Resources\UserControls\MainForm.ascx" Url="UserControls/MainForm.ascx" />
+	  <File Path="Resources\Css\ie7.css" Url="Css/ie7.css" />
+	  <File Path="Resources\Css\styles.css" Url="Css/styles.css" />
+	  <File Path="Resources\Css\tabcontent.css" Url="Css/tabcontent.css" />
+	  <File Path="Resources\Javascript\jquery-1.7.1.js" Url="Javascript/jquery-1.7.1.js" />
+	  <File Path="Resources\Javascript\dw_scroll_c.js" Url="Javascript/dw_scroll_c.js" />
+	  <File Path="Resources\Javascript\SCRIPT.js" Url="Javascript/SCRIPT.js" />
+	  <File Path="Resources\Javascript\tabcontent.js" Url="Javascript/tabcontent.js" />
+	  <File Path="Resources\Images\adv1.jpg" Url="Images/adv1.jpg" />
+	  <File Path="Resources\Images\adv2.jpg" Url="Images/adv2.jpg" />
+	  <File Path="Resources\Images\adv3.jpg" Url="Images/adv3.jpg" />
+	  <File Path="Resources\Images\adv_banner.jpg" Url="Images/adv_banner.jpg" />
+	  <File Path="Resources\Images\arrow_back.jpg" Url="Images/arrow_back.jpg" />
+	  <File Path="Resources\Images\arrow_back_circle.jpg" Url="Images/arrow_back_circle.jpg" />
+	  <File Path="Resources\Images\arrow_bottom.jpg" Url="Images/arrow_bottom.jpg" />
+	  <File Path="Resources\Images\arrow_next.jpg" Url="Images/arrow_next.jpg" />
+	  <File Path="Resources\Images\arrow_next_circle.jpg" Url="Images/arrow_next_circle.jpg" />
+	  <File Path="Resources\Images\arrow_orange.jpg" Url="Images/arrow_orange.jpg" />
+	  <File Path="Resources\Images\arrow_top.jpg" Url="Images/arrow_top.jpg" />
+	  <File Path="Resources\Images\banner_adv_company.jpg" Url="Images/banner_adv_company.jpg" />
+	  <File Path="Resources\Images\bg_bottom_F_otherNew.jpg" Url="Images/bg_bottom_F_otherNew.jpg" />
+	  <File Path="Resources\Images\bg_bottom_slide_img.jpg" Url="Images/bg_bottom_slide_img.jpg" />
+	  <File Path="Resources\Images\bg_language.jpg" Url="Images/bg_language.jpg" />
+	  <File Path="Resources\Images\bg_menu_hover.jpg" Url="Images/bg_menu_hover.jpg" />
+	  <File Path="Resources\Images\bg_path.jpg" Url="Images/bg_path.jpg" />
+	  <File Path="Resources\Images\bg_sub_menu.jpg" Url="Images/bg_sub_menu.jpg" />
+	  <File Path="Resources\Images\bg_sub_top_menu.jpg" Url="Images/bg_sub_top_menu.jpg" />
+	  <File Path="Resources\Images\bg_titletab_active.jpg" Url="Images/bg_titletab_active.jpg" />
+	  <File Path="Resources\Images\bg_titletab_content.jpg" Url="Images/bg_titletab_content.jpg" />
+	  <File Path="Resources\Images\bg_title_otherNews.jpg" Url="Images/bg_title_otherNews.jpg" />
+	  <File Path="Resources\Images\bg_title_right_corner.jpg" Url="Images/bg_title_right_corner.jpg" />
+	  <File Path="Resources\Images\bg_top_menu.jpg" Url="Images/bg_top_menu.jpg" />
+	  <File Path="Resources\Images\bg_top_slide_img.jpg" Url="Images/bg_top_slide_img.jpg" />
+	  <File Path="Resources\Images\Com_1.jpg" Url="Images/Com_1.jpg" />
+	  <File Path="Resources\Images\english.jpg" Url="Images/english.jpg" />
+	  <File Path="Resources\Images\icon_adobereader.jpg" Url="Images/icon_adobereader.jpg" />
+	  <File Path="Resources\Images\icon_ball.jpg" Url="Images/icon_ball.jpg" />
+	  <File Path="Resources\Images\icon_date.jpg" Url="Images/icon_date.jpg" />
+	  <File Path="Resources\Images\icon_email.jpg" Url="Images/icon_email.jpg" />
+	  <File Path="Resources\Images\icon_gold.jpg" Url="Images/icon_gold.jpg" />
+	  <File Path="Resources\Images\icon_home.jpg" Url="Images/icon_home.jpg" />
+	  <File Path="Resources\Images\icon_line_arrow_black.jpg" Url="Images/icon_line_arrow_black.jpg" />
+	  <File Path="Resources\Images\icon_line_arrow_inround.jpg" Url="Images/icon_line_arrow_inround.jpg" />
+	  <File Path="Resources\Images\icon_line_arrow_red.jpg" Url="Images/icon_line_arrow_red.jpg" />
+	  <File Path="Resources\Images\icon_line_news.jpg" Url="Images/icon_line_news.jpg" />
+	  <File Path="Resources\Images\icon_print.jpg" Url="Images/icon_print.jpg" />
+	  <File Path="Resources\Images\icon_rss.jpg" Url="Images/icon_rss.jpg" />
+	  <File Path="Resources\Images\icon_travel.jpg" Url="Images/icon_travel.jpg" />
+	  <File Path="Resources\Images\icon_video.jpg" Url="Images/icon_video.jpg" />
+	  <File Path="Resources\Images\icon_video_list.jpg" Url="Images/icon_video_list.jpg" />
+	  <File Path="Resources\Images\icon_XSKT.jpg" Url="Images/icon_XSKT.jpg" />
+	  <File Path="Resources\Images\ico_email.jpg" Url="Images/ico_email.jpg" />
+	  <File Path="Resources\Images\images.jpg" Url="Images/images.jpg" />
+	  <File Path="Resources\Images\Index_02.gif" Url="Images/Index_02.gif" />
+	  <File Path="Resources\Images\info_rate.jpg" Url="Images/info_rate.jpg" />
+	  <File Path="Resources\Images\logo.jpg" Url="Images/logo.jpg" />
+	  <File Path="Resources\Images\News_post.jpg" Url="Images/News_post.jpg" />
+	  <File Path="Resources\Images\qc_raovat.jpg" Url="Images/qc_raovat.jpg" />
+	  <File Path="Resources\Images\qtv.jpg" Url="Images/qtv.jpg" />
+	  <File Path="Resources\Images\shade.gif" Url="Images/shade.gif" />
+	  <File Path="Resources\Images\shadeactive.gif" Url="Images/shadeactive.gif" />
+	  <File Path="Resources\Images\star_icon.jpg" Url="Images/star_icon.jpg" />
+	  <File Path="Resources\Images\statistic.jpg" Url="Images/statistic.jpg" />
+	  <File Path="Resources\Images\tri-lft.gif" Url="Images/tri-lft.gif" />
+	  <File Path="Resources\Images\tri-rt.gif" Url="Images/tri-rt.gif" />
+	  <File Path="Resources\Images\tulanh_ex.jpg" Url="Images/tulanh_ex.jpg" />
+	  <File Path="Resources\Images\VB1.jpg" Url="Images/VB1.jpg" />
+	  <File Path="Resources\Images\VB2.jpg" Url="Images/VB2.jpg" />
+	  <File Path="Resources\Images\VB3.jpg" Url="Images/VB3.jpg" />
+	  <File Path="Resources\Images\VB4.jpg" Url="Images/VB4.jpg" />
+	  <File Path="Resources\Images\VB5.jpg" Url="Images/VB5.jpg" />
+	  <File Path="Resources\Images\VB6.jpg" Url="Images/VB6.jpg" />
+	  <File Path="Resources\Images\VB7.jpg" Url="Images/VB7.jpg" />
+	  <File Path="Resources\Images\video.jpg" Url="Images/video.jpg" />
+	  <File Path="Resources\Images\wheather.jpg" Url="Images/wheather.jpg" />
+  </Module>
+	<Module Name="MasterPagesModule" Url="_catalogs/masterpage" RootWebOnly="True" Path="">
+		<File Path="Resources\MasterPages\CqHome.master" Url="CqHome.master" IgnoreIfAlreadyExists="TRUE" Type="GhostableInLibrary"></File>
+	</Module>
+</Elements>
