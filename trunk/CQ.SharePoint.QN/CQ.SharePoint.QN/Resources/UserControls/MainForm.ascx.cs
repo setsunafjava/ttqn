@@ -69,9 +69,9 @@ namespace CQ.SharePoint.QN.UserControls
         /// <param name="e">EventArgs e</param>
         protected override void OnPreRender(EventArgs e)
         {
-            Utilities.LoadJS(SPContext.Current.Web, this.Page, FieldsName.CQQNResources.FieldValuesDefault.Name.Jquery);
-            Utilities.LoadJS(SPContext.Current.Web, this.Page, FieldsName.CQQNResources.FieldValuesDefault.Name.PriceFormat);
-            Utilities.LoadCSS(SPContext.Current.Web, this.Page, FieldsName.CQQNResources.FieldValuesDefault.Name.ExpenseClaim);
+            //Utilities.LoadJS(SPContext.Current.Web, this.Page, FieldsName.CQQNResources.FieldValuesDefault.Name.Jquery);
+            //Utilities.LoadJS(SPContext.Current.Web, this.Page, FieldsName.CQQNResources.FieldValuesDefault.Name.PriceFormat);
+            //Utilities.LoadCSS(SPContext.Current.Web, this.Page, FieldsName.CQQNResources.FieldValuesDefault.Name.ExpenseClaim);
             base.OnPreRender(e);
         }
     }
