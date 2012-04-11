@@ -19,7 +19,10 @@ namespace CQ.SharePoint.QN
             CreateCorporateCategoryList(web);
             CreateCorporateRecordList(web);
         }
-
+        /// <summary>
+        /// Se chua nhung muc tin tuc, vi du: Tin Tinh Uy, Hoi Dong Nhan Dan, Thong tin lanh dao, So ban nghanh, dia phuong, doanh nghiep
+        /// </summary>
+        /// <param name="web"></param>
         public static void CreateNewsCategoryList(SPWeb web)
         {
             var helper = new ListHelper(web)
@@ -57,15 +60,23 @@ namespace CQ.SharePoint.QN
                 OnQuickLaunch = true
             };
 
-            helper.AddField(new SingleLineTextFieldCreator(FieldsName.NewsRecord.English.Heading, FieldsName.NewsRecord.VietNamese.Heading));
+            //helper.AddField(new SingleLineTextFieldCreator(FieldsName.NewsRecord.English.Heading, FieldsName.NewsRecord.VietNamese.Heading));
 
             helper.AddField(new MultipleLinesTextFieldCreator(FieldsName.NewsRecord.English.Content, FieldsName.NewsRecord.VietNamese.Content));
+
+            helper.AddField(new NumberFieldCreator(FieldsName.NewsRecord.English.ViewsCount, FieldsName.NewsRecord.VietNamese.ViewsCount));
+
+            helper.AddField(new BooleanFieldCreator(FieldsName.NewsRecord.English.TieuBieu, FieldsName.NewsRecord.VietNamese.TieuBieu));
 
             helper.AddField(new NumberFieldCreator(FieldsName.NewsRecord.English.CategoryId, FieldsName.NewsRecord.VietNamese.CategoryId));
 
             helper.AddField(new BooleanFieldCreator(FieldsName.NewsCategory.English.Status, FieldsName.NewsCategory.VietNamese.Status));
 
             SPList list = helper.Apply();
+
+            var title = list.Fields.GetFieldByInternalName(FieldsName.Title);
+            title.Title = FieldsName.NewsRecord.English.Heading;
+            title.Update();
 
             list.EnableAttachments = true;
 
@@ -81,7 +92,7 @@ namespace CQ.SharePoint.QN
                 OnQuickLaunch = true
             };
 
-            helper.AddField(new SingleLineTextFieldCreator(FieldsName.SupportUser.English.UserName, FieldsName.SupportUser.English.UserName));
+            //helper.AddField(new SingleLineTextFieldCreator(FieldsName.SupportUser.English.UserName, FieldsName.SupportUser.English.UserName));
 
             helper.AddField(new SingleLineTextFieldCreator(FieldsName.SupportUser.English.Phone, FieldsName.SupportUser.VietNamese.Phone));
 
@@ -96,7 +107,9 @@ namespace CQ.SharePoint.QN
             helper.AddField(new BooleanFieldCreator(FieldsName.NewsCategory.English.Status, FieldsName.NewsCategory.VietNamese.Status));
 
             SPList list = helper.Apply();
-
+            var title = list.Fields.GetFieldByInternalName(FieldsName.Title);
+            title.Title = FieldsName.SupportUser.English.UserName;
+            title.Update();
             list.EnableAttachments = true;
 
             list.Update();
@@ -113,7 +126,7 @@ namespace CQ.SharePoint.QN
 
             helper.AddField(new NumberFieldCreator(FieldsName.CorporateCategory.English.ParentId, FieldsName.CorporateCategory.VietNamese.ParentId));
 
-            helper.AddField(new SingleLineTextFieldCreator(FieldsName.CorporateCategory.English.Name, FieldsName.CorporateCategory.VietNamese.Name));
+            //helper.AddField(new SingleLineTextFieldCreator(FieldsName.CorporateCategory.English.Name, FieldsName.CorporateCategory.VietNamese.Name));
 
             helper.AddField(new SingleLineTextFieldCreator(FieldsName.CorporateCategory.English.Phone, FieldsName.CorporateCategory.VietNamese.Phone));
 
@@ -126,6 +139,10 @@ namespace CQ.SharePoint.QN
             helper.AddField(new BooleanFieldCreator(FieldsName.NewsCategory.English.Status, FieldsName.NewsCategory.VietNamese.Status));
 
             SPList list = helper.Apply();
+
+            var title = list.Fields.GetFieldByInternalName(FieldsName.Title);
+            title.Title = FieldsName.CorporateCategory.English.Name;
+            title.Update();
 
             list.EnableAttachments = true;
 
@@ -143,7 +160,7 @@ namespace CQ.SharePoint.QN
 
             helper.AddField(new NumberFieldCreator(FieldsName.CorporateRecord.English.CorporateGroupId, FieldsName.CorporateRecord.English.CorporateGroupId));
 
-            helper.AddField(new SingleLineTextFieldCreator(FieldsName.CorporateRecord.English.Name, FieldsName.CorporateRecord.VietNamese.Name));
+            //helper.AddField(new SingleLineTextFieldCreator(FieldsName.CorporateRecord.English.Name, FieldsName.CorporateRecord.VietNamese.Name));
 
             helper.AddField(new SingleLineTextFieldCreator(FieldsName.CorporateRecord.English.Phone, FieldsName.CorporateRecord.VietNamese.Phone));
 
@@ -151,12 +168,18 @@ namespace CQ.SharePoint.QN
 
             helper.AddField(new MultipleLinesTextFieldCreator(FieldsName.CorporateRecord.English.Information, FieldsName.CorporateRecord.VietNamese.Information));
 
-            helper.AddField(new SingleLineTextFieldCreator(FieldsName.SupportUser.English.Email, FieldsName.SupportUser.VietNamese.Email));
+            helper.AddField(new SingleLineTextFieldCreator(FieldsName.CorporateRecord.English.Email, FieldsName.CorporateRecord.VietNamese.Email));
 
-            helper.AddField(new BooleanFieldCreator(FieldsName.NewsCategory.English.Status, FieldsName.NewsCategory.VietNamese.Status));
+            helper.AddField(new BooleanFieldCreator(FieldsName.CorporateRecord.English.TieuBieu, FieldsName.CorporateRecord.VietNamese.TieuBieu));//= true => doanh nghiep la tieu bieu
+
+            helper.AddField(new BooleanFieldCreator(FieldsName.CorporateRecord.English.QuangCao, FieldsName.CorporateRecord.VietNamese.QuangCao));//= true => doanh nghiep duoc hien trong muc quang cao
+
+            helper.AddField(new MultipleChoiceFieldCreator(FieldsName.CorporateRecord.English.Status, FieldsName.CorporateRecord.VietNamese.Status));//se co 3 trang thai cho field nay: Doanh nghiep moi thanh lap. doanh nghiep dang ky lai, doanh nghiep giai the
 
             SPList list = helper.Apply();
-
+            var title = list.Fields.GetFieldByInternalName(FieldsName.Title);
+            title.Title = FieldsName.CorporateRecord.English.Name;
+            title.Update();
             list.EnableAttachments = true;
 
             list.Update();

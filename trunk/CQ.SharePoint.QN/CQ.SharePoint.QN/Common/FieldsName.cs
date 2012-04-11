@@ -43,6 +43,8 @@ namespace CQ.SharePoint.QN.Common
                 public const string Heading = "Heading";
                 public const string Content = "Content";
                 public const string CategoryId = "CategoryId";
+                public const string ViewsCount = "ViewsCount"; //So luong nguoi doc
+                public const string TieuBieu = "TieuBieu";
                 public const string Status = "Status";
             }
 
@@ -50,6 +52,8 @@ namespace CQ.SharePoint.QN.Common
             {
                 public const string Heading = "Heading";
                 public const string Content = "Content";
+                public const string ViewsCount = "ViewsCount"; //So luong nguoi doc
+                public const string TieuBieu = "TieuBieu";
                 public const string CategoryId = "CategoryId";
                 public const string Status = "Status";
             }
@@ -125,6 +129,8 @@ namespace CQ.SharePoint.QN.Common
                 public const string TelePhone = "Phone";
                 public const string Information = "Information";
                 public const string Email = "Email";
+                public const string TieuBieu = "TieuBieu";
+                public const string QuangCao = "QuangCao";//Neu la true => se hien len muc quang cao' o home page
                 public const string Status = "Status";//Doanh nghiep moi la true, doanh nghiep thay doi la` false
             }
 
@@ -136,6 +142,8 @@ namespace CQ.SharePoint.QN.Common
                 public const string TelePhone = "Phone";
                 public const string Information = "Information";
                 public const string Email = "Email";
+                public const string TieuBieu = "TieuBieu";
+                public const string QuangCao = "QuangCao";
                 public const string Status = "Status";
             }
         }
