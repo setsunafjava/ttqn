@@ -2,10 +2,10 @@
 
 /* ######### CSS for Shade Tabs. Remove if not using ######### */
 .inner_content_tab{
-	 border-bottom: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
     border-left: 1px solid #CCCCCC;
   /*  border-right: 1px solid #CCCCCC;*/
-	padding: 10px;
+	padding: 19px 10px 10px 10px;
 }
 .shadetabs{
 	font: bold 12px Verdana;
@@ -13,18 +13,20 @@
 	text-align: left; /*set to left, center, or right to align the menu as desired*/
 	height: 28px;
 	background: url(../images/bg_titletab_content.jpg) top left repeat-x;
+
 	
 }
 .tab_content_News ul{
 	margin: 0px;
-	padding: 0px;
-	padding-top: 10px;
+	padding:  0px;
+/*	padding-top: 10px;*/
 	
 }
 .shadetabs li{
 	display: inline;
-/*	padding-bottom: 16px;*/
-	
+    float: left;
+	padding-top: 7px;
+/*	padding-bottom: 16px;*/	
 
 }
 
@@ -53,12 +55,11 @@
 
 
 .shadetabs li a.selected{ /*selected main tab style */
-	background: url(../images/bg_titletab_active.jpg) top left repeat-x;
+	background: url(../images/bg_titletab_active.jpg);
+    background-repeat: repeat-x;
 	border-bottom: 1px solid white;
 	/*border-right: 1px solid #ccc;*/
-	padding: 10px 27px;
-	
-	
+   	padding: 10px 29px;
 
 }
 

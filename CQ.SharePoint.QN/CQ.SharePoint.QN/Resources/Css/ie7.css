@@ -13,3 +13,7 @@
 	background:none;	
 	padding-left: 13px;
 }
+
+ul#nav li:hover > ul {
+	left: 130px	
+}
