@@ -82,8 +82,8 @@ img{
 }
 .hot_news-content{
 	float: left;
-	width: 400px;
-	padding-right:10px;
+	width: 397px;
+	padding-right:13px;
 }
 .tab_content_News{
 	float: left;
@@ -114,7 +114,7 @@ img{
 .more_info_tabcontent div{
 	padding-bottom: 2px;
 }
-/********************** Top Menu *************************************/
+/********************** Top Menu **************************************************/
 
 /*a {
     text-decoration: none;
@@ -188,6 +188,99 @@ img{
 .sub_menu li a:hover{
 	color: #FF6600;
 }
+/********************************************Menu new******************************************/
+/* MENU STYLE - IGNORE EVERYTHING ABOVE THIS LINE IF YOU WISH */
+
+
+ul#nav {
+  float: left;
+  width: 960px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  /*background: #dc0000 url(../img/menu-parent.png) repeat-x;*/
+ /* -moz-border-radius-topright: 10px;
+  -webkit-border-top-right-radius: 10px;
+  -moz-border-radius-topleft: 10px;
+  -webkit-border-top-left-radius: 10px; */ 
+}
+
+ul#nav li {
+  display: inline;
+}
+
+ul#nav li a {
+  float: left;
+  font: bold 1.1em arial,verdana,tahoma,sans-serif;
+  line-height: 40px;
+  color: #fff;
+  text-decoration: none;
+/*  text-shadow: 1px 1px 1px #880000;*/
+  margin: 0;
+  padding: 0 8px;
+  cursor: pointer;
+  /*background: #dc0000 url(../img/menu-parent.png) repeat-x;
+  -moz-border-radius-topright: 10px;
+  -webkit-border-top-right-radius: 10px;
+  -moz-border-radius-topleft: 10px;
+  -webkit-border-top-left-radius: 10px;   */  
+}
+
+/* APPLIES THE ACTIVE STATE */
+ul#nav .current a, ul#nav li:hover > a  {
+  color: #fff;
+  text-decoration: none;
+  /*text-shadow: 1px 1px 1px #330000;*/
+  background: url(../images/bg_menu_hover.jpg) top left repeat-x;
+  /*-moz-border-radius-topright: 10px;
+  -webkit-border-top-right-radius: 10px;
+  -moz-border-radius-topleft: 10px;
+  -webkit-border-top-left-radius: 10px; */
+}
+
+/* THE SUBMENU LIST HIDDEN BY DEFAULT */
+ul#nav  ul {
+  display: none;
+}
+
+/* WHEN THE FIRST LEVEL MENU ITEM IS HOVERED, THE CHILD MENU APPEARS */
+ul#nav li:hover > ul {
+	display: block;
+	width: 769px;
+	height: 48px;
+	position: absolute;
+	padding-left: 10px;
+	padding-top: 6px;
+	margin-top: 40px;
+	 background: url(../images/bg_sub_top_menu.jpg) top left repeat-x;
+	/* border: 1px solid #000;*/
+	/*-moz-border-radius-bottomright: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	-webkit-border-bottom-left-radius: 10px; */
+	
+}
+
+ul#nav li:hover > ul li a {
+  float: left;
+  font: bold 1.1em arial,verdana,tahoma,sans-serif;
+ /* line-height: 45px;*/
+  color: #333333;
+  text-decoration: none;
+  /*text-shadow: 1px 1px 1px #110000;*/
+  margin: 0;
+  padding: 0 15px 0 10px;
+  background: url(../images/bg_sub_menu.jpg) left no-repeat; 
+  
+}
+
+ul#nav li:hover > ul li a:hover {
+  color: #FF6600;
+  text-decoration: none;
+  text-shadow: none;
+  
+}
+
 /***************************************************************************************/
 .bg_bottom_top_menu{
 	background: url(../images/bg_sub_top_menu.jpg) top left repeat-x;
@@ -200,10 +293,11 @@ img{
 }
 .menu{
 	float: left;
+	width: 690px;
 }
 .search{
 	float: left;
-	width: 218px;
+	width: 214px;
 }
 .language{
 	float: left;
@@ -308,7 +402,7 @@ img{
 }
 .mod_content_News_1{
 	border: 1px solid #ccc;
-	width: 674px;
+	/*width: 674px;*/
 	margin-bottom: 10px;
     margin-top: 10px;
 }
@@ -400,7 +494,7 @@ img{
 	float: right;
 }
 .mod_News_external{
-	width: 435px;
+	width: 430px;
 	border: 1px solid #ccc;
 	margin-bottom: 8px;
 }
@@ -433,7 +527,7 @@ img{
 	font-weight: bold;
 }
 .adv_inner_COL_left img{
-	width: 435px;
+	width: 432px;
 	padding-bottom: 8px;
 }
 .pos_MOD{
@@ -442,7 +536,7 @@ img{
 }
 .pos_MOD .bg_title_mod{
 	background: url(../images/bg_title_right_corner.jpg) top left repeat-x;
-	width: 100%;
+/*	width: 100%;*/
 	height: 27px;
 	font-size: 11px;
 	font-family: tahoma;
@@ -454,13 +548,13 @@ img{
 	color: #666;
 }
 .video img{
-	width: 234px;
+	width: 233px;
 	padding-bottom: 3px;
 	padding-top: 5px;
 }
 .channel{
 	background: #e8e7ec;
-	width: 227px;
+	width: 226px;
 	height: 30px;
 	padding: 3px;
 }
@@ -669,9 +763,10 @@ img{
 }
 .title_news_hot{
 	border-left: 1px solid #ccc;
-	padding-bottom: 25px;
+	padding-bottom: 10px;
+	 padding-top: 7px;
     padding-left: 10px;
-    padding-top: 10px;
+ /*   padding-top: 10px;*/
 	text-transform: uppercase;
 	font-size: 11px;
 	color: #666;
