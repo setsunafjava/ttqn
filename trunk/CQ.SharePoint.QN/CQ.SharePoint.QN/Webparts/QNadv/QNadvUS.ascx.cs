@@ -11,6 +11,7 @@ namespace CQ.SharePoint.QN.Webparts
     /// </summary>
     public partial class QNadvUS : UserControl
     {
+        public QNadv ParentWP;
         /// <summary>
         /// Page on Load
         /// </summary>
