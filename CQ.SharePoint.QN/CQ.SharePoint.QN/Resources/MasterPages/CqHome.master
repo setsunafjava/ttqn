@@ -28,6 +28,14 @@
 	<!--Styles used for positioning, font and spacing definitions-->
 	<SharePoint:CssRegistration name="<% $SPUrl:~Site/QNResources/styles.css%>" runat="server"/>
 	<SharePoint:CssRegistration name="<% $SPUrl:~Site/QNResources/tabcontent.css%>" runat="server"/>
+	
+	<!--[if lte IE 6]>
+    <link rel="stylesheet" type="text/css" href='<asp:Literal runat="server" Text="<%$SPUrl:~Site/QNResources/ie6%>" />'>
+    <![endif]-->
+    <!--[if lte IE 7]>
+    <link rel="stylesheet" type="text/css" href='<asp:Literal runat="server" Text="<%$SPUrl:~Site/QNResources/ie7%>" />'>
+    <![endif]-->
+	
 	<SharePoint:ScriptLink name="init.js" runat="server" />
 	<script type="text/javascript" src='<asp:Literal runat="server" Text="<%$SPUrl:~Site/QNResources/tabcontent.js%>" />'></script>
 	<script type="text/javascript" src='<asp:Literal runat="server" Text="<%$SPUrl:~Site/QNResources/script.js%>" />'></script>
