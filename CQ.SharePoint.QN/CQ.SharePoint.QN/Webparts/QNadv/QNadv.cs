@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.UI;
@@ -19,13 +20,36 @@ namespace CQ.SharePoint.QN.Webparts
         {
         }
 
+        [WebBrowsable(true)]
+        [FriendlyName("Image Url")]
+        [Description("Duong dan cua file image")]
+        [Category("QN")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        public string ImageUrl
+        {
+            get;
+            set;
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Image Width")]
+        [Description("Do rong image")]
+        [Category("QN")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        public string ImageWidth
+        {
+            get;
+            set;
+        }
+
         protected override void CreateChildControls()
         {
-            base.CreateChildControls();
-
             try
             {
                 QNadvUS control = (QNadvUS)this.Page.LoadControl("WebPartsUS/QNadvUS.ascx");
+                control.ParentWP = this;
                 Controls.Add(control);
             }
             catch (Exception ex)
