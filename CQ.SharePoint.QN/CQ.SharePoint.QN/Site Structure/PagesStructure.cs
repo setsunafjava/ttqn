@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.WebPartPages;
 using CQ.SharePoint.QN.Common;
@@ -11,12 +12,33 @@ namespace CQ.SharePoint.QN
     {
         public static void Create(SPWeb web)
         {
-            //System.Diagnostics.Debugger.Launch();
-            CreatePage(web, "default");
-            var rootWeb = web.RootFolder;
-            rootWeb.WelcomePage = "default.aspx";
-            rootWeb.Update();
-            web.Update();
+            ////System.Diagnostics.Debugger.Launch();
+            //CreatePage(web, "default");
+            //var rootWeb = web.RootFolder;
+            //rootWeb.WelcomePage = "default.aspx";
+            //rootWeb.Update();
+            //web.Update();
+            try
+            {
+                //System.Diagnostics.Debugger.Break();
+                CreatePage(web, "default");
+                var rootWeb = web.RootFolder;
+                rootWeb.WelcomePage = "default.aspx";
+                rootWeb.Update();
+
+                web.Update();
+                var focusNews = WebPartHelper.GetWebPart(web, "FocusNews.webpart");
+                if (string.IsNullOrEmpty(focusNews.Title))
+                {
+                    focusNews.Title = "focusNews-vitridautien";
+                }
+                WebPartHelper.AddWebPart(web, "default.aspx", focusNews, "LeftCorner", 1);
+                rootWeb.Update();
+                web.Update();
+            }
+            catch (Exception)
+            {
+            }
         }
 
         private static void CreatePage(SPWeb web, string pageName)
