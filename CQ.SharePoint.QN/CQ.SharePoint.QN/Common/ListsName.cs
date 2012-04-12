@@ -14,6 +14,7 @@ namespace CQ.SharePoint.QN.Common
             public const string MenuList = "MenuList";
             public const string LinkSite = "LinkSite";
             public const string ServiceInfo = "ServiceInfo";
+            public const string ManagerInfo = "ManagerInfo";
             public const string VideoList = "VideoList";
             public const string CQQNResources = "QNResources";
         }
@@ -29,6 +30,7 @@ namespace CQ.SharePoint.QN.Common
             public const string MenuList = "MenuList";
             public const string LinkSite = "LinkSite";
             public const string ServiceInfo = "ServiceInfo";
+            public const string ManagerInfo = "ManagerInfo";
             public const string VideoList = "VideoList";
             public const string CQQNResources = "QNResources";
         }

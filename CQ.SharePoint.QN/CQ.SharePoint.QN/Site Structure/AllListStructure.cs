@@ -17,7 +17,10 @@ namespace CQ.SharePoint.QN
             CreateNewsRecordsList(web);
             CreateSupportUserList(web);
             CreateCorporateCategoryList(web);
-            CreateCorporateRecordList(web);
+            CreateMenuList(web);
+            CreateLinkSite(web);
+            CreateServiceInfo(web);
+            CreateManagerInfo(web);
         }
         /// <summary>
         /// Se chua nhung muc tin tuc, vi du: Tin Tinh Uy, Hoi Dong Nhan Dan, Thong tin lanh dao, So ban nghanh, dia phuong, doanh nghiep
@@ -201,6 +204,59 @@ namespace CQ.SharePoint.QN
 
             SPList list = helper.Apply();
 
+            list.Update();
+        }
+
+        public static void CreateLinkSite(SPWeb web)
+        {
+            var helper = new ListHelper(web)
+            {
+                Title = ListsName.VietNamese.LinkSite,
+                Name = ListsName.English.LinkSite,
+                OnQuickLaunch = true
+            };
+
+            helper.AddField(new SingleLineTextFieldCreator("Description", "Description"));
+            helper.AddField(new SingleLineTextFieldCreator("Url", "Url"));
+            helper.AddField(new NumberFieldCreator("Position", "Position") { Required = true });
+
+            SPList list = helper.Apply();
+
+            list.Update();
+        }
+
+        public static void CreateServiceInfo(SPWeb web)
+        {
+            var helper = new ListHelper(web)
+            {
+                Title = ListsName.VietNamese.ServiceInfo,
+                Name = ListsName.English.ServiceInfo,
+                OnQuickLaunch = true
+            };
+
+            helper.AddField(new SingleLineTextFieldCreator("Description", "Description"));
+            helper.AddField(new MultipleLinesTextFieldCreator("Body", "Body"){RichText = true, RichTextMode = SPRichTextMode.FullHtml, NumberOfLines = 6});
+
+            SPList list = helper.Apply();
+            list.EnableAttachments = true;
+            list.Update();
+        }
+
+        public static void CreateManagerInfo(SPWeb web)
+        {
+            var helper = new ListHelper(web)
+            {
+                Title = ListsName.VietNamese.ManagerInfo,
+                Name = ListsName.English.ManagerInfo,
+                OnQuickLaunch = true
+            };
+
+            helper.AddField(new SingleLineTextFieldCreator("Description", "Description"));
+            helper.AddField(new DateTimeFieldCreator("Date", "Date"));
+            helper.AddField(new MultipleLinesTextFieldCreator("Body", "Body") { RichText = true, RichTextMode = SPRichTextMode.FullHtml, NumberOfLines = 6 });
+
+            SPList list = helper.Apply();
+            list.EnableAttachments = true;
             list.Update();
         }
     }
