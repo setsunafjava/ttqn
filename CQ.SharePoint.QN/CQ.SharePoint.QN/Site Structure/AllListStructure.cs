@@ -184,5 +184,24 @@ namespace CQ.SharePoint.QN
 
             list.Update();
         }
+
+        public static void CreateMenuList(SPWeb web)
+        {
+            var helper = new ListHelper(web)
+            {
+                Title = ListsName.VietNamese.MenuList,
+                Name = ListsName.English.MenuList,
+                OnQuickLaunch = true
+            };
+
+            helper.AddField(new SingleLineTextFieldCreator("Description", "Description"));
+            helper.AddField(new SingleLineTextFieldCreator("Url", "Url"));
+            helper.AddField(new NumberFieldCreator("Position", "Position") { Required = true });
+            helper.AddField(new LookupFieldCreator("ParentId", "ParentId") { LookupList = ListsName.English.MenuList, LookupField = "Title" });
+
+            SPList list = helper.Apply();
+
+            list.Update();
+        }
     }
 }
