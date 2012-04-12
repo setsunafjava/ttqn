@@ -11,6 +11,11 @@ namespace CQ.SharePoint.QN.Common
             public const string SupportUser = "SupportUser";
             public const string CorporateCategory = "CorporateCategory";
             public const string CorporateRecord = "CorporateRecord";
+            public const string MenuList = "MenuList";
+            public const string LinkSite = "LinkSite";
+            public const string ServiceInfo = "ServiceInfo";
+            public const string VideoList = "VideoList";
+            public const string CQQNResources = "QNResources";
         }
 
         // Display Name of list
@@ -21,6 +26,11 @@ namespace CQ.SharePoint.QN.Common
             public const string SupportUser = "SupportUser";
             public const string CorporateCategory = "CorporateCategory";
             public const string CorporateRecord = "CorporateRecord";
+            public const string MenuList = "MenuList";
+            public const string LinkSite = "LinkSite";
+            public const string ServiceInfo = "ServiceInfo";
+            public const string VideoList = "VideoList";
+            public const string CQQNResources = "QNResources";
         }
     }
 }

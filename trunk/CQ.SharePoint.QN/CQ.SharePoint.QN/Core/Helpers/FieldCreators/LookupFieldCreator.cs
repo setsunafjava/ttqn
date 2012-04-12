@@ -1,4 +1,5 @@
 ﻿using System;
+using CQ.SharePoint.QN.Common;
 using Microsoft.SharePoint;
 
 namespace CQ.SharePoint.QN.Core.Helpers
@@ -39,11 +40,11 @@ namespace CQ.SharePoint.QN.Core.Helpers
         {
             if (list.Fields.ContainsField(Name)) return;
 
-            var targetList = list.ParentWeb.Lists[LookupList];
+            var targetList = Utilities.GetListFromUrl(list.ParentWeb, LookupList);
             var name = list.Fields.AddLookup(InternalName, targetList.ID, Required);
             var field = (SPFieldLookup) list.Fields.GetFieldByInternalName(name);
             field.Description = Description;
-            field.LookupField = targetList.Fields[LookupField].InternalName;
+            field.LookupField = LookupField;
             field.AllowMultipleValues = AllowMultipleValues;
 
             //if (EnforceUniqueValues)

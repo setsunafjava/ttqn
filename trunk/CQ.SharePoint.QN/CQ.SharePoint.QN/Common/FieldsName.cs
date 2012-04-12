@@ -167,5 +167,37 @@ namespace CQ.SharePoint.QN.Common
             }
         }
         #endregion
+
+        #region Nested type:CQQNResources
+        public class CQQNResources
+        {
+            // English --> Internal Name
+            public class English
+            {
+                public const string ResourceType = "ResourceType";
+                public const string FileLeafRef = "FileLeafRef";
+            }
+
+            // Japanese --> Display Name
+            public class Japanese
+            {
+                public const string ResourceType = "Resource Type";
+                public const string FileLeafRef = "FileLeafRef";
+            }
+
+            // There are metadata value of field in SharePoint list
+            public class FieldValuesDefault
+            {
+                public struct Type
+                {
+                    public const string CSS = "CSS";
+                    public const string JS = "JS";
+                    public const string IMAGE = "IMAGE";
+                    public const string TEMPLATE = "TEMPLATE";
+                }
+            }
+        }
+        #endregion
+
     }
 }
