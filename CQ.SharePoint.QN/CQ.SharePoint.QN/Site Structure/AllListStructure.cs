@@ -62,9 +62,7 @@ namespace CQ.SharePoint.QN
                 Name = ListsName.English.NewsRecord,
                 OnQuickLaunch = true
             };
-
-            //helper.AddField(new SingleLineTextFieldCreator(FieldsName.NewsRecord.English.Heading, FieldsName.NewsRecord.VietNamese.Heading));
-
+            
             helper.AddField(new MultipleLinesTextFieldCreator(FieldsName.NewsRecord.English.Content, FieldsName.NewsRecord.VietNamese.Content));
 
             helper.AddField(new NumberFieldCreator(FieldsName.NewsRecord.English.ViewsCount, FieldsName.NewsRecord.VietNamese.ViewsCount));
@@ -72,6 +70,12 @@ namespace CQ.SharePoint.QN
             helper.AddField(new BooleanFieldCreator(FieldsName.NewsRecord.English.TieuBieu, FieldsName.NewsRecord.VietNamese.TieuBieu));
 
             helper.AddField(new NumberFieldCreator(FieldsName.NewsRecord.English.CategoryId, FieldsName.NewsRecord.VietNamese.CategoryId));
+
+            helper.AddField(new SingleLineTextFieldCreator(FieldsName.NewsRecord.English.ThumbnailImage, FieldsName.NewsRecord.VietNamese.ThumbnailImage));
+
+            helper.AddField(new SingleLineTextFieldCreator(FieldsName.NewsRecord.English.ShortContent, FieldsName.NewsRecord.VietNamese.ShortContent));
+
+            helper.AddField(new SingleLineTextFieldCreator(FieldsName.NewsRecord.English.LinkToRecord, FieldsName.NewsRecord.VietNamese.LinkToRecord));
 
             helper.AddField(new BooleanFieldCreator(FieldsName.NewsCategory.English.Status, FieldsName.NewsCategory.VietNamese.Status));
 
@@ -85,7 +89,6 @@ namespace CQ.SharePoint.QN
 
             list.Update();
         }
-
         public static void CreateSupportUserList(SPWeb web)
         {
             var helper = new ListHelper(web)
