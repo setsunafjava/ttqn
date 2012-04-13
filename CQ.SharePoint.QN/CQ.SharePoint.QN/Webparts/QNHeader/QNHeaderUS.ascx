@@ -7,7 +7,23 @@
 	</div>
 	<div class="top_menu">
 		<div class="menu">
-			<ul id="nav">
+		    <ul id="nav">
+				<li><a href="#" style="background:url(images/bg_menu_hover.jpg) top left repeat-x;">Trang chủ</a></li>
+                <asp:Repeater ID="rptMenu" runat="server" OnItemDataBound="rptMenu_OnItemDataBound">
+                    <ItemTemplate>
+                        <li><a href="#"><%#Eval("Title") %></a>
+                            <asp:Repeater ID="rptSubMenu" runat="server">
+                                <HeaderTemplate><ul></HeaderTemplate>
+                                <ItemTemplate>
+                                    <li><a href="#"><%#Eval("Title") %></a></li>
+                                </ItemTemplate>
+                                <FooterTemplate></ul></FooterTemplate>
+                            </asp:Repeater>
+                        </li>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </ul>
+			<%--<ul id="navrr">
 						<li><a href="#" style="background:url(images/bg_menu_hover.jpg) top left repeat-x;">Trang chủ</a>							
 						</li>
 						
@@ -54,7 +70,7 @@
 						<li><a href="#">Liên hệ</a>
 					
 						</li>	
-				</ul>
+				</ul>--%>
 		</div>
 		<div class="search">
 			<input type="text" id="txtData" name="q" onkeypress="return BBEnterPress();" style="border: 0px;"> <a href="#">Tìm kiếm</a>
