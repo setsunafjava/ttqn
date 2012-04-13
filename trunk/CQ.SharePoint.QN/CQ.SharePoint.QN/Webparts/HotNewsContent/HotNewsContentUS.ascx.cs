@@ -20,6 +20,8 @@ namespace CQ.SharePoint.QN.Webparts
         /// <param name="e">EventArgs e</param>
         protected void Page_Load(object sender, EventArgs e)
         {
+		 if (!IsPostBack)
+            {
             try
             {
                 //Bind data to latest news
@@ -35,6 +37,7 @@ namespace CQ.SharePoint.QN.Webparts
             catch (Exception ex)
             {
             }
+			}
         }
 
         /// <summary>
