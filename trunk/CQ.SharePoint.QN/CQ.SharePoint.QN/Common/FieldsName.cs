@@ -1,4 +1,4 @@
-﻿
+ 
 namespace CQ.SharePoint.QN.Common
 {
     public static class FieldsName
@@ -43,8 +43,11 @@ namespace CQ.SharePoint.QN.Common
                 public const string Heading = "Heading";
                 public const string Content = "Content";
                 public const string CategoryId = "CategoryId";
+                public const string ThumbnailImage = "Thumbnail";
+                public const string ShortContent = "ShortContent";
                 public const string ViewsCount = "ViewsCount"; //So luong nguoi doc
                 public const string TieuBieu = "TieuBieu";
+                public const string LinkToRecord = "LinkToRecord";
                 public const string Status = "Status";
             }
 
@@ -55,6 +58,9 @@ namespace CQ.SharePoint.QN.Common
                 public const string ViewsCount = "ViewsCount"; //So luong nguoi doc
                 public const string TieuBieu = "TieuBieu";
                 public const string CategoryId = "CategoryId";
+                public const string ThumbnailImage = "Thumbnail";
+                public const string ShortContent = "ShortContent";
+                public const string LinkToRecord = "LinkToRecord";
                 public const string Status = "Status";
             }
 
