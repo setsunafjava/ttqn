@@ -11,6 +11,22 @@ namespace CQ.SharePoint.QN.Webparts
 {
     public partial class HotNewsContentUS
     {
-        
+        /// <summary>
+        /// rptLatestNews control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptLatestNews;
+
+        /// <summary>
+        /// rptTopViews control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptTopViews;
     }
 }

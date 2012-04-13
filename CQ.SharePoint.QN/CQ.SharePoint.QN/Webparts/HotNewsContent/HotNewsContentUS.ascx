@@ -22,20 +22,32 @@
             </ul>
             <div class="inner_content_tab">
                 <div id="country1" class="tabcontent">
-                    <ul>
-                        <li><a href="#">Khai hội Yên Tử</a><span>(ngày 20/02/2012)</span></li>
-                        <li><a href="#">Khai hội Yên Tử</a><span>(ngày 20/02/2012)</span></li>
-                        <li><a href="#">Khai hội Yên Tử</a><span>(ngày 20/02/2012)</span></li>
-                        <li><a href="#">Khai hội Yên Tử</a><span>(ngày 20/02/2012)</span></li>
-                    </ul>
+                    <asp:Repeater ID="rptLatestNews" runat="server">
+                        <HeaderTemplate>
+                            <ul>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <li><a href="#">
+                                <%#Eval("ShortContent")%></a><span>(ngày <%#Eval("Created")%>)</span></li>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                            </ul>
+                        </FooterTemplate>
+                    </asp:Repeater>
                 </div>
                 <div id="country2" class="tabcontent">
-                    <ul>
-                        <li><a href="#">Đẩy lùi tình trạng suy thoái đạo đức trong cán bộ</a><span>(ngày 20/02/2012)</span></li>
-                        <li><a href="#">Đẩy lùi tình trạng suy thoái đạo đức trong cán bộ</a><span>(ngày 20/02/2012)</span></li>
-                        <li><a href="#">Đẩy lùi tình trạng suy thoái đạo đức trong cán bộ</a><span>(ngày 20/02/2012)</span></li>
-                        <li><a href="#">Đẩy lùi tình trạng suy thoái đạo đức trong cán bộ</a><span>(ngày 20/02/2012)</span></li>
-                    </ul>
+                    <asp:Repeater ID="rptTopViews" runat="server">
+                        <HeaderTemplate>
+                            <ul>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <li><a href="#">
+                                <%#Eval("ShortContent")%></a><span>(ngày <%#Eval("Created")%>)</span></li>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                            </ul>
+                        </FooterTemplate>
+                    </asp:Repeater>
                 </div>
 
                 <script type="text/javascript">
