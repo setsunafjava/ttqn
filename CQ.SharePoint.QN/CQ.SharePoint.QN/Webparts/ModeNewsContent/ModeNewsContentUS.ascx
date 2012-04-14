@@ -21,13 +21,25 @@
                     <a href="#">Hội nghị xúc tiến thương mại...</a>
                 </div>
                 <div class="list_other_news">
-                    <ul>
+                    <%--<ul>
                         <li><a href="#">Công tác chuẩn bị hội nghị xúc tiến đầu tư</a></li>
                         <li><a href="#">Công tác chuẩn bị hội nghị xúc tiến đầu tư</a></li>
                         <li><a href="#">Công tác chuẩn bị hội nghị xúc tiến đầu tư</a></li>
                         <li><a href="#">Công tác chuẩn bị hội nghị xúc tiến đầu tư</a></li>
                         <li><a href="#">Công tác chuẩn bị hội nghị xúc tiến đầu tư</a></li>
-                    </ul>
+                    </ul>--%>
+                    <asp:Repeater ID="rptTinhUy" runat="server">
+                        <HeaderTemplate>
+                            <ul>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <li><a href="#">
+                                <%#Eval("ShortContent")%></a></li>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                            </ul>
+                        </FooterTemplate>
+                    </asp:Repeater>
                 </div>
             </div>
             <div class="cont_News">
@@ -37,13 +49,25 @@
                     <a href="#">Hội nghị xúc tiến thương mại...</a>
                 </div>
                 <div class="list_other_news">
-                    <ul>
+                    <%--<ul>
                         <li><a href="#">Công tác chuẩn bị hội nghị xúc tiến đầu tư</a></li>
                         <li><a href="#">Công tác chuẩn bị hội nghị xúc tiến đầu tư</a></li>
                         <li><a href="#">Công tác chuẩn bị hội nghị xúc tiến đầu tư</a></li>
                         <li><a href="#">Công tác chuẩn bị hội nghị xúc tiến đầu tư</a></li>
                         <li><a href="#">Công tác chuẩn bị hội nghị xúc tiến đầu tư</a></li>
-                    </ul>
+                    </ul>--%>
+                    <asp:Repeater ID="rptHoiDongNhanDan" runat="server">
+                        <HeaderTemplate>
+                            <ul>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <li><a href="#">
+                                <%#Eval("ShortContent")%></a></li>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                            </ul>
+                        </FooterTemplate>
+                    </asp:Repeater>
                 </div>
             </div>
             <div class="cont_News">
@@ -53,13 +77,26 @@
                     <a href="#">Hội nghị xúc tiến thương mại...</a>
                 </div>
                 <div class="list_other_news">
-                    <ul>
+                    <%--<ul>
                         <li><a href="#">Công tác chuẩn bị hội nghị xúc tiến đầu tư</a></li>
                         <li><a href="#">Công tác chuẩn bị hội nghị xúc tiến đầu tư</a></li>
                         <li><a href="#">Công tác chuẩn bị hội nghị xúc tiến đầu tư</a></li>
                         <li><a href="#">Công tác chuẩn bị hội nghị xúc tiến đầu tư</a></li>
                         <li><a href="#">Công tác chuẩn bị hội nghị xúc tiến đầu tư</a></li>
-                    </ul>
+                    </ul>--%>
+                    <asp:Repeater ID="rptUyBanNhanDan" runat="server">
+                        <HeaderTemplate>
+                            <ul>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <li><a href="#">
+                                <%#Eval("ShortContent")%></a></li>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                            </ul>
+                        </FooterTemplate>
+                    </asp:Repeater>
+                    
                 </div>
             </div>
             <div class="cleaner">

@@ -18,22 +18,35 @@
         </div>
         <div class="content_typ_News">
             <div class="hotnews_test">
-                <img src="images/images.jpg" />
-                <h3>
-                    <a href="#">Mong ngóng ngày về của người nhà ngư dân...</a></h3>
+                <img src="images/images.jpg" />                
+                    <%--<a href="#">Mong ngóng ngày về của người nhà ngư dân...</a></h3>
                 <span>Mấy ngày nay, bà Phan Thị Ánh, vợ thuyền trưởng Bùi Thu như "ngồi trên đống lửa"
                     khi nghe tin chồng, con bị Trung Quốc bắt giữ trong lúc hành nghề đánh cá ở vùng
-                    biển Hoàng Sa. </span>
+                    biển Hoàng Sa. </span>--%>
+                    <h3><a href="#"><asp:Label ID="lblHeader" runat="server"></asp:Label></a></h3>
+                    <span><asp:Label ID="lblShortContent" runat="server"></asp:Label></span>
                 <div class="cleaner">
                 </div>
             </div>
             <div class="list_other_news">
-                <ul>
+               <%-- <ul>
                     <li><a href="#">Doanh nghiệp vận tải xin giảm phí bảo trì đường </a></li>
                     <li><a href="#">Chạy xe làm hỏng đường thì phải trả phí bảo trì'/ Xe máy, ôtô phải đóng
                         phí bảo trì đường bộ từ 1/6</a></li>
                     <li><a href="#">Doanh nghiệp vận tải xin giảm phí bảo trì đường </a></li>
-                </ul>
+                </ul>--%>
+                <asp:Repeater ID="rptCaiCachThuTucHanhChinh" runat="server">
+                        <HeaderTemplate>
+                            <ul>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <li><a href="#">
+                                <%#Eval("ShortContent")%></a></li>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                            </ul>
+                        </FooterTemplate>
+                    </asp:Repeater>
             </div>
         </div>
     </div>
