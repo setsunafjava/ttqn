@@ -36,7 +36,7 @@ namespace CQ.SharePoint.QN.Webparts
                     //Bind data to top view
                     string topNewsQuery = string.Format("<OrderBy><FieldRef Name='{0}' Ascending='False' /></OrderBy>",
                                                         FieldsName.NewsRecord.English.ViewsCount);
-                    var topViewsTable = Utilities.GetNewsRecords(topNewsQuery, 5, ListsName.English.NewsCategory);
+                    var topViewsTable = Utilities.GetNewsRecords(topNewsQuery, 5, ListsName.English.NewsRecord);
                     if (topViewsTable != null && topViewsTable.Rows.Count > 0)
                     {
                         rptTopViews.DataSource = topViewsTable;

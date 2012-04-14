@@ -6,12 +6,10 @@
         <div class="artical_hottest">
             <img src="images/News_post.jpg" /></div>
         <div class="short_content-hottest">
-            Trong khi ban quản lý công trình vẫn giữ quan điểm nứt khe nhiệt là bình thường
-            thì các chuyên gia về đập, thủy lợi, địa chất đều khẳng định tình trạng đập thủy
-            điện sông Tranh 2 nứt, rò nước là bất thường, tối kỵ.
+            <asp:Label ID="lblShortContent" runat="server"></asp:Label>
         </div>
         <div class="time_update">
-            (Ngày 20 - 03 - 2012)
+            <asp:Label ID="lblTimeUpdate" runat="server" />
         </div>
     </div>
     <div class="tab_content_News">
@@ -27,8 +25,10 @@
                             <ul>
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <li><a href="#">
-                                <%#Eval("ShortContent")%></a><span>(ngày <%#Eval("Created")%>)</span></li>
+                            <li>
+                                <a href="<%#Eval("ShortContent") %>"><%#Eval("ShortContent")%></a>
+                                <span>(ngày <%#Eval("Created")%>)</span>
+                            </li>
                         </ItemTemplate>
                         <FooterTemplate>
                             </ul>
