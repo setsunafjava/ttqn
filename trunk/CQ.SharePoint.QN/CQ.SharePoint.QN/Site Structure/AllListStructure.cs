@@ -36,12 +36,10 @@ namespace CQ.SharePoint.QN
                 Name = ListsName.English.NewsCategory,
                 OnQuickLaunch = true
             };
+            
+            helper.AddField(new LookupFieldCreator(FieldsName.NewsCategory.English.ParentName, FieldsName.NewsCategory.VietNamese.ParentName){LookupList = ListsName.English.NewsCategory, LookupField = FieldsName.NewsCategory.English.Heading});
 
-            //helper.AddField(new SingleLineTextFieldCreator(FieldsName.NewsCategory.English.Heading, FieldsName.NewsCategory.VietNamese.Heading));
-
-            helper.AddField(new NumberFieldCreator(FieldsName.NewsCategory.English.ParentId, FieldsName.NewsCategory.VietNamese.ParentId));
-
-            helper.AddField(new NumberFieldCreator(FieldsName.NewsCategory.English.ChildNumber, FieldsName.NewsCategory.VietNamese.ChildNumber));
+            helper.AddField(new LookupFieldCreator(FieldsName.NewsCategory.English.ChildName, FieldsName.NewsCategory.VietNamese.ChildName) { LookupList = ListsName.English.NewsCategory, LookupField = FieldsName.NewsCategory.English.Heading });
 
             helper.AddField(new BooleanFieldCreator(FieldsName.NewsCategory.English.Status, FieldsName.NewsCategory.VietNamese.Status));
 
