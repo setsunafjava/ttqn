@@ -11,8 +11,8 @@ namespace CQ.SharePoint.QN.Common
             public static class English
             {
                 public const string Heading = "Heading";
-                public const string ParentId = "ParentId";
-                public const string ChildNumber = "ChildNumber";
+                public const string ParentName = "ParentName";
+                public const string ChildName = "ChildName";
                 public const string Status = "Status";
             }
             #endregion
@@ -20,8 +20,8 @@ namespace CQ.SharePoint.QN.Common
             public static class VietNamese
             {
                 public const string Heading = "Heading";
-                public const string ParentId = "ParentId";
-                public const string ChildNumber = "ChildNumber";
+                public const string ParentName = "ParentName";
+                public const string ChildName = "ChildName";
                 public const string Status = "Status";
             }
             #endregion
