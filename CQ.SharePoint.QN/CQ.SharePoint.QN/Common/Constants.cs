@@ -7,74 +7,12 @@ namespace CQ.SharePoint.QN.Common
         public const string Title = "Title";
         public const string Modified = "Modified";
         public const string Created = "Created";
-        public const string FieldTitleLinkToItem = "LinkTitle";
-        public const string EditColumn = "Edit";
-        public const string FieldLinkToFileName = "LinkFilename";
-        public const string LinkTitleNoMenu = "LinkTitleNoMenu";
-        public const string CreatedBy = "Author";
-        public const string AssignedTo = "AssignedTo";
-        public const string LinkToItem = "伝票の参照はここをクリック";
-        public const string Status = "Status";
-        public const string Completed = "Completed";
-        public const string Description = "Description";
-        public const string ApproverComments = "ApproverComments";
-        public const string Outcome = "Outcome";
-        public const string WorkflowOutcome = "WorkflowOutcome";
-        public const string DateOccurred = "DateOccurred";
-        public const string UserId = "UserID";
-        public const string NumberFormat = "{0:N0}";
-        public const string DateTimeFormat = "{0:yyyy/MM/dd}";
-        public const string DateTimeFormatFull = "{0:yyyy/MM/dd HH:mm:ss}";
-        public const string MaxLength16 = "16文字";
-        public const string HistoryTable = "HistoryTable";
-
-        public const string ViewNameAllItems = "All Items";
-        public const string ExpenseClaimView1 = "処理待伝票";
-        public const string ExpenseClaimView2 = "処理済伝票番号順";
-        public const string ExpenseClaimView3 = "処理済処理時間順";
-        public const string ExpenseClaimView4 = "処理済申請日順";
-        public const string ExpenseClaimView5 = "個人履歴";
-        public const string ExpenseClaimView6 = "海外出張設定";
-        public const int ViewLimit = 100;
-
-        public class WorkflowStatusEnglish
+        
+        public class PageInWeb
         {
-            public const string Submitted = "Submitted";
-            public const string ReSubmitted = "Re-submitted";
-            public const string Approved = "Approved";
-            public const string Rejected = "Rejected";
-            public const string Approve = "Approve";
-            public const string Reject = "Reject";
-        }
-        public class WorkflowStatusJapan
-        {
-            public const string Submitted = "起票済";
-            public const string ReSubmitted = "再起票済";
-            public const string Approved = "承認済";
-            public const string Rejected = "却下";
-            public const string Approve = "承認";
-            public const string Reject = "却下";
-        }
-
-        public class ExpenseClaimWorkflow
-        {
-            public const string NintexWorkflowTask = "Nintex Workflow Task";
-            public const string NintexWorkflowTaskJp = "Nintex Workflow タスク";//Nintex Workflow タスク
-            public const string ExpenseClaimWorkflowTask = "Expense Claim Workflow Task";
-            public const string NintexWorkflow = "Nintex Workflow";
-            public const string WorkflowTasks = "Workflow Tasks";
-            public const string WorkflowTasksJp = "ワークフロー タスク";
-            public const string IpAddress = "IPAddress";
-            public const string IpAddressJapan = "IP Address";
-            public const string WorkflowStatus = "進行中で";
-            public const string WfTitle = "ワークフロータスク";
-            public const string WorkflowInstanceID = "WorkflowInstanceID";
-            public const string WorkflowItemId = "WorkflowItemId";
-            public const string WorkflowName = "WorkflowName";
-            public const string ProcessPerson = "ProcessPersion";
-            public const string ProcessPersonJapan = "処理者氏名";
-            public const string FirstAssignPerson = "FirstAssignPerson";
-            public const string FirstAssignPersonJapan = "First Assign Person";
+            public const string DefaultPage = "default";
+            public const string DetailNews = "DetailNews";
+            public const string SubPage = "SubPage";
         }
 
         public class ErrorMessage

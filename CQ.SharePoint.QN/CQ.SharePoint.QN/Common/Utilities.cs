@@ -496,7 +496,10 @@ namespace CQ.SharePoint.QN.Common
                             if (list != null)
                             {
                                 SPListItemCollection items = list.GetItems(spQuery);
-                                table = items.GetDataTable();
+                                if (items != null && items.Count>0)
+                                {
+                                    table = items.GetDataTable();    
+                                }
                             }
                         }
                         catch (Exception ex)
