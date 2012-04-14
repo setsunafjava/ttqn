@@ -16,6 +16,9 @@ namespace CQ.SharePoint.QN
             {
                 //System.Diagnostics.Debugger.Break();
                 CreatePage(web, "default");
+                CreateDetailPage(web, Constants.PageInWeb.DetailNews);
+                CreateSubPage(web, Constants.PageInWeb.SubPage);
+
                 var rootWeb = web.RootFolder;
                 rootWeb.WelcomePage = "default.aspx";
                 rootWeb.Update();
@@ -157,6 +160,23 @@ namespace CQ.SharePoint.QN
             if (pageFile.Exists) pageFile.Delete();
 
             WebPageHelper.CreateDefaultWebPage(web, string.Format(CultureInfo.InvariantCulture, "{0}.aspx", pageName), true);
+        }
+
+        private static void CreateDetailPage(SPWeb web, string pageName)
+        {
+            string notifyPageUrl = string.Concat(web.Url, string.Format(CultureInfo.InvariantCulture, "/{0}.aspx", pageName));
+            SPFile pageFile = web.GetFile(notifyPageUrl);
+            if (pageFile.Exists) pageFile.Delete();
+
+            WebPageHelper.CreateDetailWebPage(web, string.Format(CultureInfo.InvariantCulture, "{0}.aspx", pageName), true);
+        }
+        private static void CreateSubPage(SPWeb web, string pageName)
+        {
+            string notifyPageUrl = string.Concat(web.Url, string.Format(CultureInfo.InvariantCulture, "/{0}.aspx", pageName));
+            SPFile pageFile = web.GetFile(notifyPageUrl);
+            if (pageFile.Exists) pageFile.Delete();
+
+            WebPageHelper.CreateSubWebPage(web, string.Format(CultureInfo.InvariantCulture, "{0}.aspx", pageName), true);
         }
     }
 }
