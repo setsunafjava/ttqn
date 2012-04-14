@@ -28,5 +28,9 @@ namespace CQ.SharePoint.QN.Webparts
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptTopViews;
+
+        protected global::System.Web.UI.WebControls.Label lblShortContent;
+
+        protected global::System.Web.UI.WebControls.Label lblTimeUpdate;
     }
 }
