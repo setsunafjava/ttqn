@@ -11,6 +11,16 @@ namespace CQ.SharePoint.QN.Webparts
 {
     public partial class LeftNewsContentUS
     {
+        /// <summary>
+        /// rptLatestNews control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptCaiCachThuTucHanhChinh;
 
+        protected global::System.Web.UI.WebControls.Label lblHeader;
+        protected global::System.Web.UI.WebControls.Label lblShortContent;
     }
 }
