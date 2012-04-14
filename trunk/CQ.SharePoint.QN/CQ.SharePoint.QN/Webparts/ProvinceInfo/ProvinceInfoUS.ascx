@@ -8,23 +8,20 @@
                 Thông tin chỉ đạo của lãnh đạo tỉnh</div>
         </div>
         <div class="content_F_Right">
-            <marquee direction="up" scrolldelay="50" scrollamount="1" truespeed="true" onmouseover="this.stop()"
-                onmouseout="this.start()" height="200px">						
+            <asp:Repeater ID="rptProvinceInfo" runat="server" OnItemDataBound="rptProvinceInfo_OnItemDataBound">
+                <HeaderTemplate>
+                    <marquee direction="up" scrolldelay="50" scrollamount="1" truespeed="true" onmouseover="this.stop()"
+                             onmouseout="this.start()" height="200px">						
 						<ul>
-							<li>
-							<a href="#">Ý kiến kết luận của UBNDTP tại cuộc họp...</a>
-							<span class="time_update">(Ngày 20 - 03 - 2012)</span>
-							</li>
-							<li>
-							<a href="#">Ý kiến kết luận của UBNDTP tại cuộc họp...</a>
-							<span class="time_update">(Ngày 20 - 03 - 2012)</span>
-							</li>
-							<li>
-							<a href="#">Ý kiến kết luận của UBNDTP tại cuộc họp...</a>
-							<span class="time_update">(Ngày 20 - 03 - 2012)</span>
-							</li>
-						</ul>
-						</marquee>
+                </HeaderTemplate>
+                <ItemTemplate>
+                    <li>
+					    <a href="#"><%#Eval("Title") %></a>
+					    <span class="time_update">Ngay <%#Eval("Date") %></span>
+					</li>
+                </ItemTemplate>
+                <FooterTemplate></ul></marquee></FooterTemplate>
+            </asp:Repeater>
         </div>
     </div>
 </div>

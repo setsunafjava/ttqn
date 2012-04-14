@@ -10,11 +10,11 @@
         </div>
         <div class="content_F_Right">
             <div class="inner_list_company_adv">
-                <ul>
-                    <li><a href="#">Công ty CP Du lịch Quốc tế Hảo Thịnh</a></li>
-                    <li><a href="#">Doanh nghiệp phùng anh tuấn</a></li>
-                    <li><a href="#">Công ty CP Du lịch Quốc tế Hảo Thịnh</a></li>
-                </ul>
+                <asp:Repeater ID="rptCompanyAdv" runat="server" OnItemDataBound="rptCompanyAdv_OnItemDataBound">
+                    <HeaderTemplate><ul></HeaderTemplate>
+                    <ItemTemplate><li><a href="#"><%#Eval("Title") %></a></li></ItemTemplate>
+                    <FooterTemplate></ul></FooterTemplate>
+                </asp:Repeater>
             </div>
         </div>
     </div>

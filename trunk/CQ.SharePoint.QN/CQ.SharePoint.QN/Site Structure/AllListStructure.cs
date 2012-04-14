@@ -21,6 +21,8 @@ namespace CQ.SharePoint.QN
             CreateLinkSite(web);
             CreateServiceInfo(web);
             CreateManagerInfo(web);
+            CreateProvinceInfoList(web);
+            CreateCompanyAdvList(web);
         }
         /// <summary>
         /// Se chua nhung muc tin tuc, vi du: Tin Tinh Uy, Hoi Dong Nhan Dan, Thong tin lanh dao, So ban nghanh, dia phuong, doanh nghiep
@@ -63,13 +65,14 @@ namespace CQ.SharePoint.QN
                 OnQuickLaunch = true
             };
             
-            helper.AddField(new MultipleLinesTextFieldCreator(FieldsName.NewsRecord.English.Content, FieldsName.NewsRecord.VietNamese.Content));
+            helper.AddField(new MultipleLinesTextFieldCreator(FieldsName.NewsRecord.English.Content, FieldsName.NewsRecord.VietNamese.Content){RichText = true, RichTextMode = SPRichTextMode.FullHtml});
 
             helper.AddField(new NumberFieldCreator(FieldsName.NewsRecord.English.ViewsCount, FieldsName.NewsRecord.VietNamese.ViewsCount));
 
             helper.AddField(new BooleanFieldCreator(FieldsName.NewsRecord.English.TieuBieu, FieldsName.NewsRecord.VietNamese.TieuBieu));
 
-            helper.AddField(new NumberFieldCreator(FieldsName.NewsRecord.English.CategoryId, FieldsName.NewsRecord.VietNamese.CategoryId));
+            //helper.AddField(new NumberFieldCreator(FieldsName.NewsRecord.English.CategoryId, FieldsName.NewsRecord.VietNamese.CategoryId));
+            helper.AddField(new LookupFieldCreator(FieldsName.NewsRecord.English.CategoryName, FieldsName.NewsRecord.VietNamese.CategoryName) { LookupList = ListsName.English.NewsCategory, LookupField = FieldsName.NewsCategory.English.Heading });
 
             helper.AddField(new SingleLineTextFieldCreator(FieldsName.NewsRecord.English.ThumbnailImage, FieldsName.NewsRecord.VietNamese.ThumbnailImage));
 
@@ -251,6 +254,42 @@ namespace CQ.SharePoint.QN
             {
                 Title = ListsName.VietNamese.ManagerInfo,
                 Name = ListsName.English.ManagerInfo,
+                OnQuickLaunch = true
+            };
+
+            helper.AddField(new SingleLineTextFieldCreator("Description", "Description"));
+            helper.AddField(new DateTimeFieldCreator("Date", "Date"));
+            helper.AddField(new MultipleLinesTextFieldCreator("Body", "Body") { RichText = true, RichTextMode = SPRichTextMode.FullHtml, NumberOfLines = 6 });
+
+            SPList list = helper.Apply();
+            list.EnableAttachments = true;
+            list.Update();
+        }
+
+        public static void CreateProvinceInfoList(SPWeb web)
+        {
+            var helper = new ListHelper(web)
+            {
+                Title = ListsName.VietNamese.ProvinceInfoList,
+                Name = ListsName.English.ProvinceInfoList,
+                OnQuickLaunch = true
+            };
+
+            helper.AddField(new SingleLineTextFieldCreator("Description", "Description"));
+            helper.AddField(new DateTimeFieldCreator("Date", "Date"));
+            helper.AddField(new MultipleLinesTextFieldCreator("Body", "Body") { RichText = true, RichTextMode = SPRichTextMode.FullHtml, NumberOfLines = 6 });
+
+            SPList list = helper.Apply();
+            list.EnableAttachments = true;
+            list.Update();
+        }
+
+        public static void CreateCompanyAdvList(SPWeb web)
+        {
+            var helper = new ListHelper(web)
+            {
+                Title = ListsName.VietNamese.ConpanyAdvList,
+                Name = ListsName.English.ConpanyAdvList,
                 OnQuickLaunch = true
             };
 

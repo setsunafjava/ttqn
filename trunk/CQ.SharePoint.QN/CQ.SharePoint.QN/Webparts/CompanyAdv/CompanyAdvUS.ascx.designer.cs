@@ -11,6 +11,6 @@ namespace CQ.SharePoint.QN.Webparts
 {
     public partial class CompanyAdvUS
     {
-
+        protected global::System.Web.UI.WebControls.Repeater rptCompanyAdv;
     }
 }

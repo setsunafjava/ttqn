@@ -25,7 +25,7 @@ namespace CQ.SharePoint.QN.Webparts
                 try
                 {
                     //Bind data to latest news
-                    string latestNewsQuery = string.Format("<Where><IsNull><FieldRef Name='ParentId' /></IsNull></Where><OrderBy><FieldRef Name='Position' Ascending='FALSE' /></OrderBy>");
+                    string latestNewsQuery = string.Format("<Where><IsNull><FieldRef Name='ParentId' /></IsNull></Where><OrderBy><FieldRef Name='Position' Ascending='TRUE' /></OrderBy>");
                     rptMenu.DataSource = GetNewsRecords(latestNewsQuery);
                     rptMenu.DataBind();
                 }
@@ -73,6 +73,11 @@ namespace CQ.SharePoint.QN.Webparts
             return table;
         }
 
+        /// <summary>
+        /// rptMenu_OnItemDataBound
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="e"></param>
         protected void rptMenu_OnItemDataBound(object Sender, RepeaterItemEventArgs e)
         {
 
@@ -86,7 +91,7 @@ namespace CQ.SharePoint.QN.Webparts
 
                 //Bind data to latest news
                 string latestNewsQuery = string.Format("<Where><Eq><FieldRef Name='ParentId' LookupId='TRUE' />" +
-                   "<Value Type='Lookup'>" + Convert.ToString(drv["ID"]) + "</Value></Eq></Where><OrderBy><FieldRef Name='Position' Ascending='FALSE' /></OrderBy>");
+                   "<Value Type='Lookup'>" + Convert.ToString(drv["ID"]) + "</Value></Eq></Where><OrderBy><FieldRef Name='Position' Ascending='TRUE' /></OrderBy>");
                 rptSubMenu.DataSource = GetNewsRecords(latestNewsQuery);
                 rptSubMenu.DataBind();
             }

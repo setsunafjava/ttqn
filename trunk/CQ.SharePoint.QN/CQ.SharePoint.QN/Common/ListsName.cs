@@ -17,6 +17,9 @@ namespace CQ.SharePoint.QN.Common
             public const string ManagerInfo = "ManagerInfo";
             public const string VideoList = "VideoList";
             public const string CQQNResources = "QNResources";
+            public const string ProvinceInfoList = "ProvinceInfoList";
+            public const string ProvinceDoc = "ProvinceDoc";
+            public const string ConpanyAdvList = "ConpanyAdvList";
         }
 
         // Display Name of list
@@ -33,6 +36,9 @@ namespace CQ.SharePoint.QN.Common
             public const string ManagerInfo = "ManagerInfo";
             public const string VideoList = "VideoList";
             public const string CQQNResources = "QNResources";
+            public const string ProvinceInfoList = "ProvinceInfoList";
+            public const string ProvinceDoc = "ProvinceDoc";
+            public const string ConpanyAdvList = "ConpanyAdvList";
         }
     }
 }
