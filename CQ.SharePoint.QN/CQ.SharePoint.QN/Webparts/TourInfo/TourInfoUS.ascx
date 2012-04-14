@@ -8,13 +8,11 @@
     </div>
     <div class="inner_pos_Mod">
         <div class="inner_infoTravel">
-            <ul>
-                <li><a href="#">Các lễ hội</a></li>
-                <li><a href="#">Danh lam thắng cảnh</a></li>
-                <li><a href="#">Thông tin đi lại</a></li>
-                <li><a href="#">khách sạn, nhà nghỉ</a></li>
-                <li><a href="#">Nhà hàng</a></li>
-            </ul>
+            <asp:Repeater ID="rptTourInfo" runat="server" OnItemDataBound="rptTourInfo_OnItemDataBound">
+                <HeaderTemplate><ul></HeaderTemplate>
+                <ItemTemplate><li><a href="#"><%#Eval("Title") %></a></li></ItemTemplate>
+                <FooterTemplate></ul></FooterTemplate>
+            </asp:Repeater>
         </div>
     </div>
 </div>

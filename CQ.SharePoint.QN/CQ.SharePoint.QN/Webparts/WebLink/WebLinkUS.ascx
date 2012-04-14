@@ -5,8 +5,10 @@
         Liên kết website</div>
     <div class="inner_pos_Mod">
         <div class="link_website">
-            <select class="txt_s" style="width: 190px;">
-                <option value="1">Địa chỉ website</option>
+            <select class="txt_s" style="width: 190px;" onchange='location.href=this.value'>
+                <asp:Repeater ID="rptWebLink" runat="server" OnItemDataBound="rptWebLink_OnItemDataBound">
+                    <ItemTemplate><option value='<%#Eval("Url") %>'><%#Eval("Title") %></option></ItemTemplate>
+                </asp:Repeater>
             </select>
         </div>
     </div>

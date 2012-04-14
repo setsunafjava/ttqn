@@ -23,54 +23,6 @@
                     </ItemTemplate>
                 </asp:Repeater>
             </ul>
-			<%--<ul id="navrr">
-						<li><a href="#" style="background:url(images/bg_menu_hover.jpg) top left repeat-x;">Trang chủ</a>							
-						</li>
-						
-						<li><a href="#">Giới thiệu</a>
-							<ul>
-							<li><a href="#">Di tích lịch sử</a></li>
-							<li><a href="#">Điều kiện KT-XH</a></li>
-							<li><a href="#">Đơn vị hành chính</a></li>
-							</ul>
-						</li>
-						
-						<li><a href="#">Chuyên đề</a>
-							<ul>
-							<li><a href="#">Định hướng phát triển</a></li>
-							<li><a href="#">Số liệu thống kê</a></li>
-							<li><a href="#">Thông tin KT-XH</a></li>
-							</ul>
-						</li>
-						<li><a href="#">VB mới ban hành</a>
-							<ul>
-							<li><a href="#">Văn bản 1</a></li>
-							<li><a href="#">Văn bản 2</a></li>
-							<li><a href="#">Văn bản 3</a></li>
-							</ul>
-						</li>	
-						<li><a href="#">Doanh nghiệp</a>
-							<ul>
-							<li><a href="#">Mới thành lập</a></li>
-							<li><a href="#">Thay đổi ĐKKD</a></li>
-							<li><a href="#">Giải thể</a></li>
-							<li><a href="#">Đăng tin</a></li>
-							<li><a href="#">Khác</a></li>
-							</ul>
-						</li>	
-						<li><a href="#">Dịch vụ</a>
-							<ul>
-							<li><a href="#">Dịch vụ 1</a></li>
-							<li><a href="#">Dịch vụ 2</a></li>
-							<li><a href="#">Dịch vụ 3</a></li>
-							</ul>
-						</li>	
-						<li><a href="#">Download</a>
-						</li>		
-						<li><a href="#">Liên hệ</a>
-					
-						</li>	
-				</ul>--%>
 		</div>
 		<div class="search">
 			<input type="text" id="txtData" name="q" onkeypress="return BBEnterPress();" style="border: 0px;"> <a href="#">Tìm kiếm</a>
