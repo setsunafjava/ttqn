@@ -1,5 +1,5 @@
 ﻿<%@ Master language="C#" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ Import Namespace="Microsoft.SharePoint" %>
 <%@ Register Tagprefix="SPSWC" Namespace="Microsoft.SharePoint.Portal.WebControls" Assembly="Microsoft.SharePoint.Portal, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
 <%@ Register Tagprefix="SharePoint" Namespace="Microsoft.SharePoint.WebControls" Assembly="Microsoft.SharePoint, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
@@ -14,7 +14,7 @@
 <%@ Register TagPrefix="wssuc" TagName="Header" src="~Site/WebPartsUS/QNHeaderUS.ascx" %>
 <%@ Register TagPrefix="wssuc" TagName="ShouldToKnow" src="~Site/WebPartsUS/ShouldToKnowUS.ascx" %>
 <%@ Register TagPrefix="wssuc" TagName="Footer" src="~Site/WebPartsUS/FooterUS.ascx" %>
-<html dir="<%$Resources:wss, multipages_direction_dir_value %>" runat="server" >
+<html dir="<%$Resources:wss, multipages_direction_dir_value %>" runat="server" xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 	<meta name="GENERATOR" content="Microsoft SharePoint">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
