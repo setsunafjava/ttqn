@@ -251,7 +251,8 @@ ul#nav li:hover > ul {
 	position: absolute;
 	padding-left: 10px;
 	padding-top: 6px;
-	margin-top: 40px;
+	margin-top: 38px;
+	margin-left: 50px;
 	 background: url(../images/bg_sub_top_menu.jpg) top left repeat-x;
 	/* border: 1px solid #000;*/
 	/*-moz-border-radius-bottomright: 10px;
@@ -298,6 +299,9 @@ ul#nav li:hover > ul li a:hover {
 .search{
 	float: left;
 	width: 214px;
+}
+.search input{
+	width: 140px;
 }
 .language{
 	float: left;
