@@ -3,7 +3,7 @@
 
 <div id="header">
 	<div class="banner">
-		<img src="images/Index_02.gif" />
+		<img src="images/Index_02.gif" alt="" />
 	</div>
 	<div class="top_menu">
 		<div class="menu">
