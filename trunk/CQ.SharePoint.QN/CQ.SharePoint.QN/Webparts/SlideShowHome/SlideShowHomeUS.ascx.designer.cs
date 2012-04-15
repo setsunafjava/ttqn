@@ -11,6 +11,6 @@ namespace CQ.SharePoint.QN.Webparts
 {
     public partial class SlideShowHomeUS
     {
-
+        protected global::System.Web.UI.WebControls.Repeater rptImages;
     }
 }

@@ -20,6 +20,11 @@ namespace CQ.SharePoint.QN.Common
             public const string ProvinceInfoList = "ProvinceInfoList";
             public const string ProvinceDoc = "ProvinceDoc";
             public const string ConpanyAdvList = "ConpanyAdvList";
+            public const string ImageCatList = "ImageCatList";
+            public const string ImageAlbumList = "ImageAlbumList";
+            public const string VideoCatList = "VideoCatList";
+            public const string ImagesList = "ImagesList";
+            public const string VideosList = "VideosList";
         }
 
         // Display Name of list
@@ -39,6 +44,11 @@ namespace CQ.SharePoint.QN.Common
             public const string ProvinceInfoList = "ProvinceInfoList";
             public const string ProvinceDoc = "ProvinceDoc";
             public const string ConpanyAdvList = "ConpanyAdvList";
+            public const string ImageCatList = "ImageCatList";
+            public const string ImageAlbumList = "ImageAlbumList";
+            public const string VideoCatList = "VideoCatList";
+            public const string ImagesList = "ImagesList";
+            public const string VideosList = "VideosList";
         }
     }
 }
