@@ -110,5 +110,30 @@
         <featureElement id="43772fc9-7f81-4ae5-bf69-6626353f7f7e" name="WebLink" />
       </featureElements>
     </feature>
+    <feature id="a99b92e2-cbe7-410c-b85f-a7f7adb7bfa1">
+      <featureElements>
+        <featureElement id="599964a2-1745-484b-8b04-37dcb32901f6" name="MostViewNews" />
+      </featureElements>
+    </feature>
+    <feature id="7d1bf0c0-fa32-4ee7-a057-974738d67914">
+      <featureElements>
+        <featureElement id="fc902e1f-2ae5-494e-9f3f-96257f072c04" name="NewsDetail" />
+      </featureElements>
+    </feature>
+    <feature id="79cf5a59-5241-41e5-abe1-0e1613407f01">
+      <featureElements>
+        <featureElement id="9f438845-18d2-400a-908c-948ce9adf53a" name="NewsList" />
+      </featureElements>
+    </feature>
+    <feature id="608523e6-1050-460b-bcbb-b7118451401d">
+      <featureElements>
+        <featureElement id="c916f489-4949-47b1-a628-5d265875076a" name="NextNews" />
+      </featureElements>
+    </feature>
+    <feature id="6493d011-900f-45e4-81e4-071df7c2d3cf">
+      <featureElements>
+        <featureElement id="bf205d59-1f9b-47e0-83b3-95629a13eb6a" name="OtherNews" />
+      </featureElements>
+    </feature>
   </features>
 </solution>

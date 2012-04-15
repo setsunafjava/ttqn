@@ -26,5 +26,10 @@
     <FeatureManifest Location="SlideShowHome\feature.xml" />
     <FeatureManifest Location="TourInfo\feature.xml" />
     <FeatureManifest Location="WebLink\feature.xml" />
+    <FeatureManifest Location="MostViewNews\feature.xml" />
+    <FeatureManifest Location="NewsDetail\feature.xml" />
+    <FeatureManifest Location="NewsList\feature.xml" />
+    <FeatureManifest Location="NextNews\feature.xml" />
+    <FeatureManifest Location="OtherNews\feature.xml" />
   </FeatureManifests>
 </Solution>

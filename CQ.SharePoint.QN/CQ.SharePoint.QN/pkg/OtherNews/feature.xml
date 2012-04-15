@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="6493d011-900f-45e4-81e4-071df7c2d3cf" Title="OtherNews" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="OtherNews\OtherNews.xml" />
+    <ElementFile Location="OtherNews\OtherNews.webpart" />
+    <ElementFile Location="OtherNews\OtherNewsUS.ascx" />
+  </ElementManifests>
+</Feature>

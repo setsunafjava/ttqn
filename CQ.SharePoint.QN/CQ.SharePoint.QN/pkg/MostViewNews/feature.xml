@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="a99b92e2-cbe7-410c-b85f-a7f7adb7bfa1" Title="MostViewNews" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="MostViewNews\MostViewNews.xml" />
+    <ElementFile Location="MostViewNews\MostViewNews.webpart" />
+    <ElementFile Location="MostViewNews\MostViewNewsUS.ascx" />
+  </ElementManifests>
+</Feature>

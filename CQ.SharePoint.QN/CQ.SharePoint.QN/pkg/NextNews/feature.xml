@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="608523e6-1050-460b-bcbb-b7118451401d" Title="NextNews" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="NextNews\NextNews.xml" />
+    <ElementFile Location="NextNews\NextNews.webpart" />
+    <ElementFile Location="NextNews\NextNewsUS.ascx" />
+  </ElementManifests>
+</Feature>

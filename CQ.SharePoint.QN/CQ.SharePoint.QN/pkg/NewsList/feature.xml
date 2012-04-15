@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="79cf5a59-5241-41e5-abe1-0e1613407f01" Title="NewsList" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="NewsList\NewsList.xml" />
+    <ElementFile Location="NewsList\NewsList.webpart" />
+    <ElementFile Location="NewsList\NewsListUS.ascx" />
+  </ElementManifests>
+</Feature>

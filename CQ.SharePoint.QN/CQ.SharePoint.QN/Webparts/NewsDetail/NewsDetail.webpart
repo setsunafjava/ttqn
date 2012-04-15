@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<webParts>
+  <webPart xmlns="http://schemas.microsoft.com/WebPart/v3">
+    <metaData>
+      <!--
+      The following Guid is used as a reference to the web part class, 
+      and it will be automatically replaced with actual type name at deployment time.
+      -->
+      <type name="fc902e1f-2ae5-494e-9f3f-96257f072c04" />
+      <importErrorMessage>Cannot import NewsDetail Web Part.</importErrorMessage>
+    </metaData>
+    <data>
+      <properties>
+        <property name="Title" type="string">NewsDetail Web Part</property>
+        <property name="Description" type="string">NewsDetail Description</property>
+      </properties>
+    </data>
+  </webPart>
+</webParts>
