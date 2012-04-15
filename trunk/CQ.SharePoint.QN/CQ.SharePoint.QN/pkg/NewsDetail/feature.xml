@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="7d1bf0c0-fa32-4ee7-a057-974738d67914" Title="NewsDetail" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="NewsDetail\NewsDetail.xml" />
+    <ElementFile Location="NewsDetail\NewsDetail.webpart" />
+    <ElementFile Location="NewsDetail\NewsDetailUS.ascx" />
+  </ElementManifests>
+</Feature>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<webParts>
+  <webPart xmlns="http://schemas.microsoft.com/WebPart/v3">
+    <metaData>
+      <!--
+      The following Guid is used as a reference to the web part class, 
+      and it will be automatically replaced with actual type name at deployment time.
+      -->
+      <type name="c916f489-4949-47b1-a628-5d265875076a" />
+      <importErrorMessage>Cannot import NextNews Web Part.</importErrorMessage>
+    </metaData>
+    <data>
+      <properties>
+        <property name="Title" type="string">NextNews Web Part</property>
+        <property name="Description" type="string">NextNews Description</property>
+      </properties>
+    </data>
+  </webPart>
+</webParts>
