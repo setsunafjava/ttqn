@@ -12,26 +12,17 @@
                 <a href="#">
                     <img src="images/arrow_next.jpg" /></a></div>
             <div class="img_typ_SC" align="center">
-                <marquee marquee width="600px" onmouseout="this.start()" onmouseover="this.stop()"
-                    scrolldelay="50" scrollamount="1" truespeed="true">
-							<div class="img_typ_Album">
-								<div class="img_album"><img src="images/images.jpg" /></div>
-								<div class="name_album"><a href="#">Những hình ảnh đặc sắc về Quảng Ninh</a></div>
-							</div>
-							<div class="img_typ_Album">
-								<div class="img_album"><img src="images/images.jpg" /></div>
-								<div class="name_album"><a href="#">Những hình ảnh đặc sắc về Quảng Ninh</a></div>
-							</div>
-							<div class="img_typ_Album">
-								<div class="img_album"><img src="images/images.jpg" /></div>
-								<div class="name_album"><a href="#">Những hình ảnh đặc sắc về Quảng Ninh</a></div>
-							</div>
-							<div class="img_typ_Album">
-								<div class="img_album"><img src="images/images.jpg" /></div>
-								<div class="name_album"><a href="#">Những hình ảnh đặc sắc về Quảng Ninh</a></div>
-							</div>
-							
-						</marquee>
+                <asp:Repeater ID="rptImages" runat="server" OnItemDataBound="rptImages_OnItemDataBound">
+                    <HeaderTemplate><marquee width="600px" onmouseout="this.start()" onmouseover="this.stop()"
+                    scrolldelay="50" scrollamount="1" truespeed="true"></HeaderTemplate>
+                    <ItemTemplate>
+                        <div class="img_typ_Album">
+							<div class="img_album"><img src="<%#Eval("Preview") %>" /></div>
+							<div class="name_album"><a href="#"><%#Eval("Title") %></a></div>
+						</div>
+                    </ItemTemplate>
+                    <FooterTemplate></marquee></FooterTemplate>
+                </asp:Repeater>
                 <div class="cleaner">
                 </div>
             </div>

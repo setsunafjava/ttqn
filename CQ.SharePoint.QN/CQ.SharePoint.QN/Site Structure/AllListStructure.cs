@@ -23,6 +23,11 @@ namespace CQ.SharePoint.QN
             CreateManagerInfo(web);
             CreateProvinceInfoList(web);
             CreateCompanyAdvList(web);
+            CreateImageCatList(web);
+            CreateImageAlbumList(web);
+            CreateImagesList(web);
+            CreateVideoCatList(web);
+            CreateVideosList(web);
         }
         /// <summary>
         /// Se chua nhung muc tin tuc, vi du: Tin Tinh Uy, Hoi Dong Nhan Dan, Thong tin lanh dao, So ban nghanh, dia phuong, doanh nghiep
@@ -296,6 +301,94 @@ namespace CQ.SharePoint.QN
             helper.AddField(new MultipleLinesTextFieldCreator("Body", "Body") { RichText = true, RichTextMode = SPRichTextMode.FullHtml, NumberOfLines = 6 });
 
             SPList list = helper.Apply();
+            list.EnableAttachments = true;
+            list.Update();
+        }
+
+        public static void CreateImageCatList(SPWeb web)
+        {
+            var helper = new ListHelper(web)
+            {
+                Title = ListsName.VietNamese.ImageCatList,
+                Name = ListsName.English.ImageCatList,
+                OnQuickLaunch = true,
+                ListTemplateType = SPListTemplateType.PictureLibrary
+            };
+            SPList list = helper.Apply();
+            var titleField = list.Fields.GetFieldByInternalName("Title");
+            titleField.Required = true;
+            titleField.Update();
+            list.EnableAttachments = true;
+            list.Update();
+        }
+
+        public static void CreateImageAlbumList(SPWeb web)
+        {
+            var helper = new ListHelper(web)
+            {
+                Title = ListsName.VietNamese.ImageAlbumList,
+                Name = ListsName.English.ImageAlbumList,
+                OnQuickLaunch = true,
+                ListTemplateType = SPListTemplateType.PictureLibrary
+            };
+            SPList list = helper.Apply();
+            var titleField = list.Fields.GetFieldByInternalName("Title");
+            titleField.Required = true;
+            titleField.Update();
+            list.EnableAttachments = true;
+            list.Update();
+        }
+
+        public static void CreateImagesList(SPWeb web)
+        {
+            var helper = new ListHelper(web)
+            {
+                Title = ListsName.VietNamese.ImagesList,
+                Name = ListsName.English.ImagesList,
+                OnQuickLaunch = true,
+                ListTemplateType = SPListTemplateType.PictureLibrary
+            };
+            helper.AddField(new LookupFieldCreator("CatID", "Chuyên mục") { LookupList = ListsName.English.ImageCatList, LookupField = "Title" });
+            helper.AddField(new LookupFieldCreator("AlbumID", "Album ảnh") { LookupList = ListsName.English.ImageAlbumList, LookupField = "Title" });
+            SPList list = helper.Apply();
+            var titleField = list.Fields.GetFieldByInternalName("Title");
+            titleField.Required = true;
+            titleField.Update();
+            list.EnableAttachments = true;
+            list.Update();
+        }
+
+        public static void CreateVideoCatList(SPWeb web)
+        {
+            var helper = new ListHelper(web)
+            {
+                Title = ListsName.VietNamese.VideoCatList,
+                Name = ListsName.English.VideoCatList,
+                OnQuickLaunch = true
+            };
+
+            helper.AddField(new MultipleLinesTextFieldCreator("Description", "Description"){RichText = true, RichTextMode = SPRichTextMode.FullHtml,NumberOfLines = 6});
+
+            SPList list = helper.Apply();
+            list.EnableAttachments = true;
+            list.Update();
+        }
+
+        public static void CreateVideosList(SPWeb web)
+        {
+            var helper = new ListHelper(web)
+            {
+                Title = ListsName.VietNamese.VideosList,
+                Name = ListsName.English.VideosList,
+                OnQuickLaunch = true,
+                ListTemplateType = SPListTemplateType.DocumentLibrary
+            };
+            helper.AddField(new LookupFieldCreator("CatID", "Chuyên mục") { LookupList = ListsName.English.VideoCatList, LookupField = "Title" });
+            helper.AddField(new MultipleLinesTextFieldCreator("Description", "Description") { RichText = true, RichTextMode = SPRichTextMode.FullHtml, NumberOfLines = 6 });
+            SPList list = helper.Apply();
+            var titleField = list.Fields.GetFieldByInternalName("Title");
+            titleField.Required = true;
+            titleField.Update();
             list.EnableAttachments = true;
             list.Update();
         }

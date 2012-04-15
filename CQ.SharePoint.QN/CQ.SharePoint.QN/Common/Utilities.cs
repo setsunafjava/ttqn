@@ -477,6 +477,27 @@ namespace CQ.SharePoint.QN.Common
             return result;
         }
 
+        /// <summary>
+        /// GetDocListFromUrl
+        /// </summary>
+        /// <param name="web"></param>
+        /// <param name="listName"></param>
+        /// <returns></returns>
+        public static SPList GetDocListFromUrl(SPWeb web, string listName)
+        {
+            SPList result = null;
+            try
+            {
+                string listUrl = web.Url + "/" + listName;
+                result = web.GetList(listUrl);
+            }
+            catch (Exception ex)
+            {
+                Utilities.LogToUls(ex);
+            }
+            return result;
+        }
+
         public static DataTable GetNewsRecords(string query, uint newsNumber, string listName)
         {
             DataTable table = new DataTable();
