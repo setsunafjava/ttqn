@@ -15,7 +15,7 @@
     <div class="tab_content_News">
         <div class="info_tab_content">
             <ul id="countrytabs" class="shadetabs">
-                <li><a href="#" rel="country1" class="selected">Mới nhất</a></li>
+                <li><a href="#" rel="country1" class="selected" onclick="javascript:alert('sss');">Mới nhất</a></li>
                 <li><a href="#" rel="country2">Đọc nhiều</a></li>
             </ul>
             <div class="inner_content_tab">
