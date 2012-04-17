@@ -23,11 +23,13 @@ namespace CQ.SharePoint.QN
             CreateManagerInfo(web);
             CreateProvinceInfoList(web);
             CreateCompanyAdvList(web);
-            //CreateImageCatList(web);
-            //CreateImageAlbumList(web);
-            //CreateImagesList(web);
-            //CreateVideoCatList(web);
-            //CreateVideosList(web);
+            CreateImageCatList(web);
+            CreateImageAlbumList(web);
+            CreateImagesList(web);
+            CreateVideoCatList(web);
+            CreateVideosList(web);
+            CreateAdvList(web);
+            CreateCustomerAdvList(web);
         }
         /// <summary>
         /// Se chua nhung muc tin tuc, vi du: Tin Tinh Uy, Hoi Dong Nhan Dan, Thong tin lanh dao, So ban nghanh, dia phuong, doanh nghiep
@@ -45,7 +47,6 @@ namespace CQ.SharePoint.QN
             helper.AddField(new LookupFieldCreator(FieldsName.NewsCategory.English.ParentName, FieldsName.NewsCategory.VietNamese.ParentName){LookupList = ListsName.English.NewsCategory, LookupField = FieldsName.NewsCategory.English.Heading});
 
             helper.AddField(new LookupFieldCreator(FieldsName.NewsCategory.English.ChildName, FieldsName.NewsCategory.VietNamese.ChildName) { LookupList = ListsName.English.NewsCategory, LookupField = FieldsName.NewsCategory.English.Heading });
-
 
             helper.AddField(new BooleanFieldCreator(FieldsName.NewsCategory.English.Status, FieldsName.NewsCategory.VietNamese.Status));
 
@@ -319,7 +320,6 @@ namespace CQ.SharePoint.QN
             var titleField = list.Fields.GetFieldByInternalName("Title");
             titleField.Required = true;
             titleField.Update();
-            
             list.Update();
         }
 
@@ -336,7 +336,6 @@ namespace CQ.SharePoint.QN
             var titleField = list.Fields.GetFieldByInternalName("Title");
             titleField.Required = true;
             titleField.Update();
-            
             list.Update();
         }
 
@@ -355,7 +354,6 @@ namespace CQ.SharePoint.QN
             var titleField = list.Fields.GetFieldByInternalName("Title");
             titleField.Required = true;
             titleField.Update();
-            
             list.Update();
         }
 
@@ -371,7 +369,7 @@ namespace CQ.SharePoint.QN
             helper.AddField(new MultipleLinesTextFieldCreator("Description", "Description"){RichText = true, RichTextMode = SPRichTextMode.FullHtml,NumberOfLines = 6});
 
             SPList list = helper.Apply();
-            
+            list.EnableAttachments = true;
             list.Update();
         }
 
@@ -390,7 +388,42 @@ namespace CQ.SharePoint.QN
             var titleField = list.Fields.GetFieldByInternalName("Title");
             titleField.Required = true;
             titleField.Update();
-            
+            list.Update();
+        }
+
+        public static void CreateCustomerAdvList(SPWeb web)
+        {
+            var helper = new ListHelper(web)
+            {
+                Title = ListsName.VietNamese.CustomerAdvList,
+                Name = ListsName.English.CustomerAdvList,
+                OnQuickLaunch = true
+            };
+
+            helper.AddField(new MultipleLinesTextFieldCreator("Description", "Description") { RichText = true, RichTextMode = SPRichTextMode.FullHtml, NumberOfLines = 6 });
+
+            SPList list = helper.Apply();
+            list.EnableAttachments = true;
+            list.Update();
+        }
+
+        public static void CreateAdvList(SPWeb web)
+        {
+            var helper = new ListHelper(web)
+            {
+                Title = ListsName.VietNamese.AdvList,
+                Name = ListsName.English.AdvList,
+                OnQuickLaunch = true,
+                ListTemplateType = SPListTemplateType.DocumentLibrary
+            };
+            helper.AddField(new LookupFieldCreator("CustomerID", "Khách hàng") { LookupList = ListsName.English.CustomerAdvList, LookupField = "Title" });
+            helper.AddField(new SingleLineTextFieldCreator("Url", "Url"));
+            helper.AddField(new NumberFieldCreator("Count", "Số lượt click"){DefaultValue = "0"});
+            helper.AddField(new MultipleLinesTextFieldCreator("Description", "Description") { RichText = true, RichTextMode = SPRichTextMode.FullHtml, NumberOfLines = 6 });
+            SPList list = helper.Apply();
+            var titleField = list.Fields.GetFieldByInternalName("Title");
+            titleField.Required = true;
+            titleField.Update();
             list.Update();
         }
     }
