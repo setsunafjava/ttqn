@@ -11,6 +11,7 @@ namespace CQ.SharePoint.QN.Webparts
 {
     public partial class NewsDetailUS
     {
-
+        protected global::System.Web.UI.WebControls.Literal ltrNewsContent;
+        protected global::System.Web.UI.WebControls.Label lblCurrentDate;
     }
 }
