@@ -331,6 +331,10 @@
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions, Version=1.0.61025.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files\Microsoft ASP.NET\ASP.NET 2.0 AJAX Extensions\v1.0.61025\System.Web.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -406,6 +410,8 @@
     <Content Include="Resources\Images\wheather.jpg" />
     <Content Include="Resources\Javascript\dw_scroll_c.js" />
     <Content Include="Resources\Javascript\jquery-1.7.1.js" />
+    <Content Include="Resources\Javascript\jwplayer.js" />
+    <Content Include="Resources\Javascript\player.swf" />
     <Content Include="Resources\Javascript\SCRIPT.JS" />
     <Content Include="Resources\Javascript\tabcontent.js" />
     <Content Include="Resources\Module.xml" />
