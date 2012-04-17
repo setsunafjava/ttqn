@@ -13,6 +13,7 @@ namespace CQ.SharePoint.QN.Webparts
     /// </summary>
     public partial class ModeNewsContentUS : UserControl
     {
+        public string NewsUrl = string.Empty;
         /// <summary>
         /// Page on Load
         /// </summary>
@@ -24,6 +25,7 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
+                    NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
                     //Tinh uy
                     string tinhUyNewsQuery = string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.CategoryName, SPHttpUtility.HtmlEncode(FieldsName.NewsRecord.FieldValuesDefault.TinhUy));
                     var tinhUyNewsTable = Utilities.GetNewsRecords(tinhUyNewsQuery, 5, ListsName.English.NewsRecord);

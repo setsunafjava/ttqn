@@ -14,7 +14,7 @@ namespace CQ.SharePoint.QN.Webparts
     public partial class HotNewsContentUS : UserControl
     {
         public HotNewsContent WebPartParent;
-
+        public string NewsUrl = string.Empty;
         /// <summary>
         /// Page on Load
         /// </summary>
@@ -27,6 +27,7 @@ namespace CQ.SharePoint.QN.Webparts
                 try
                 {
                     //Bind data to latest news
+                    NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
                     string latestNewsQuery =
                         string.Format("<OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>");
                     var latestNewsTable = Utilities.GetNewsRecords(latestNewsQuery, 5, ListsName.English.NewsRecord);
