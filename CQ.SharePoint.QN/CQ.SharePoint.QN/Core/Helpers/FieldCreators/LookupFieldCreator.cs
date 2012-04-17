@@ -41,6 +41,10 @@ namespace CQ.SharePoint.QN.Core.Helpers
             if (list.Fields.ContainsField(Name)) return;
 
             var targetList = Utilities.GetListFromUrl(list.ParentWeb, LookupList);
+            if (targetList == null)
+            {
+                targetList = Utilities.GetDocListFromUrl(list.ParentWeb, LookupList);
+            }
             var name = list.Fields.AddLookup(InternalName, targetList.ID, Required);
             var field = (SPFieldLookup) list.Fields.GetFieldByInternalName(name);
             field.Description = Description;

@@ -21,9 +21,9 @@ namespace CQ.SharePoint.QN.Webparts
         }
 
         [WebBrowsable(true)]
-        [FriendlyName("Image Url")]
-        [Description("Duong dan cua file image")]
-        [Category("QN")]
+        [FriendlyName("Đường dẫn")]
+        [Description("Đường dẫn file ảnh")]
+        [Category("Cấu hình")]
         [WebPartStorage(Storage.Shared)]
         [Personalizable(PersonalizationScope.Shared)]
         public string ImageUrl
@@ -33,12 +33,48 @@ namespace CQ.SharePoint.QN.Webparts
         }
 
         [WebBrowsable(true)]
-        [FriendlyName("Image Width")]
-        [Description("Do rong image")]
-        [Category("QN")]
+        [FriendlyName("Độ rộng")]
+        [Description("Độ rộng quảng cáo")]
+        [Category("Cấu hình")]
         [WebPartStorage(Storage.Shared)]
         [Personalizable(PersonalizationScope.Shared)]
         public string ImageWidth
+        {
+            get;
+            set;
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Độ cao")]
+        [Description("Độ cao quảng cáo")]
+        [Category("Cấu hình")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        public string ImageHeight
+        {
+            get;
+            set;
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Link")]
+        [Description("Link quảng cáo")]
+        [Category("Cấu hình")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        public string ImageLink
+        {
+            get;
+            set;
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Tiêu đề")]
+        [Description("Tiêu đề quảng cáo")]
+        [Category("Cấu hình")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        public string ImageTitle
         {
             get;
             set;

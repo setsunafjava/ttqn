@@ -25,6 +25,8 @@ namespace CQ.SharePoint.QN.Common
             public const string VideoCatList = "VideoCatList";
             public const string ImagesList = "ImagesList";
             public const string VideosList = "VideosList";
+            public const string AdvList = "AdvList";
+            public const string CustomerAdvList = "CustomerAdvList";
         }
 
         // Display Name of list
@@ -49,6 +51,8 @@ namespace CQ.SharePoint.QN.Common
             public const string VideoCatList = "VideoCatList";
             public const string ImagesList = "ImagesList";
             public const string VideosList = "VideosList";
+            public const string AdvList = "AdvList";
+            public const string CustomerAdvList = "CustomerAdvList";
         }
     }
 }

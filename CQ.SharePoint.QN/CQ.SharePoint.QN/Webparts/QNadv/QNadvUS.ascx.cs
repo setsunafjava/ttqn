@@ -12,6 +12,7 @@ namespace CQ.SharePoint.QN.Webparts
     public partial class QNadvUS : UserControl
     {
         public QNadv ParentWP;
+        protected string AdvStyle;
         /// <summary>
         /// Page on Load
         /// </summary>
@@ -19,7 +20,14 @@ namespace CQ.SharePoint.QN.Webparts
         /// <param name="e">EventArgs e</param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if (!string.IsNullOrEmpty(ParentWP.ImageWidth))
+            {
+                AdvStyle += "width:" + ParentWP.ImageWidth + ";";
+            }
+            if (!string.IsNullOrEmpty(ParentWP.ImageHeight))
+            {
+                AdvStyle += "height:" + ParentWP.ImageHeight + ";";
+            }
         }
     }
 }

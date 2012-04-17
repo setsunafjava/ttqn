@@ -10,14 +10,15 @@
             </div>
         </div>
         <div class="content_F_Right">
-            <img src="images/video.jpg" style="width: 285px;" />
+            <%--<img src="images/video.jpg" style="width: 285px;" />
             <div class="list_video">
                 <ul>
                     <li><a href="#">Đêm hội Canarval Hạ Long</a></li>
                     <li><a href="#">Đêm hội Canarval Hạ Long</a></li>
                     <li><a href="#">Đêm hội Canarval Hạ Long</a></li>
                 </ul>
-            </div>
+            </div>--%>
+            <div id="video-right-player-div"></div>
         </div>
     </div>
 </div>
