@@ -398,7 +398,7 @@ namespace CQ.SharePoint.QN.Common
             return null;
         }
 
-       /// <summary>
+        /// <summary>
         /// format string
         /// </summary>
         /// <param name="value"></param>
@@ -425,15 +425,15 @@ namespace CQ.SharePoint.QN.Common
             result = result.Replace("'", "''");
             return result;
         }
-             
+
         /// <summary>
         /// GetListFromUrl
         /// </summary>
         /// <param name="listName"></param>
         /// <returns></returns>
-        public static SPList GetListFromUrl(string listName)
+        public static DataTable GetListFromUrl(string listName)
         {
-            SPList result = null;
+            DataTable table = null;
             SPSecurity.RunWithElevatedPrivileges(() =>
             {
                 using (var site = new SPSite(SPContext.Current.Web.Site.ID))
@@ -443,7 +443,11 @@ namespace CQ.SharePoint.QN.Common
                         try
                         {
                             string listUrl = web.Url + "/Lists/" + listName;
-                            result = web.GetList(listUrl);
+                            var result = web.GetList(listUrl);
+                            SPQuery query = new SPQuery();
+                            var items = result.GetItems(query);
+                            if (items != null && items.Count > 0)
+                                table = items.GetDataTable();
                         }
                         catch (Exception ex)
                         {
@@ -453,7 +457,7 @@ namespace CQ.SharePoint.QN.Common
 
                 }
             });
-            return result;
+            return table;
         }
 
         /// <summary>
@@ -517,9 +521,9 @@ namespace CQ.SharePoint.QN.Common
                             if (list != null)
                             {
                                 SPListItemCollection items = list.GetItems(spQuery);
-                                if (items != null && items.Count>0)
+                                if (items != null && items.Count > 0)
                                 {
-                                    table = items.GetDataTable();    
+                                    table = items.GetDataTable();
                                 }
                             }
                         }
