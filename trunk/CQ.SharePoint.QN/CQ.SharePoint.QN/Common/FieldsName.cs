@@ -13,6 +13,7 @@ namespace CQ.SharePoint.QN.Common
             {
                 public const string Heading = "Heading";
                 public const string ParentName = "ParentName";
+                public const string ParentId = "ParentId";
                 public const string ChildName = "ChildName";
                 public const string Status = "Status";
             }
@@ -22,6 +23,7 @@ namespace CQ.SharePoint.QN.Common
             {
                 public const string Heading = "Heading";
                 public const string ParentName = "ParentName";
+                public const string ParentId = "ParentId";
                 public const string ChildName = "ChildName";
                 public const string Status = "Status";
             }
