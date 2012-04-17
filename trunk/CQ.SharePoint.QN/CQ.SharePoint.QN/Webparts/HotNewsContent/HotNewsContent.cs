@@ -1,6 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Web;
+using System.Web.UI.WebControls.WebParts;
+using Microsoft.SharePoint.WebPartPages;
 
 namespace CQ.SharePoint.QN.Webparts
 {
@@ -9,6 +12,18 @@ namespace CQ.SharePoint.QN.Webparts
     {
         public HotNewsContent()
         {
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("WebpartName")]
+        [Description("WebpartName")]
+        [Category("QN")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        public string WebpartName
+        {
+            get;
+            set;
         }
 
         protected override void CreateChildControls()

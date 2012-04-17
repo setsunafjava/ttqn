@@ -13,6 +13,8 @@ namespace CQ.SharePoint.QN.Webparts
     /// </summary>
     public partial class HotNewsContentUS : UserControl
     {
+        public HotNewsContent WebPartParent;
+
         /// <summary>
         /// Page on Load
         /// </summary>
