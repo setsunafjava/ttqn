@@ -23,11 +23,11 @@ namespace CQ.SharePoint.QN
             CreateManagerInfo(web);
             CreateProvinceInfoList(web);
             CreateCompanyAdvList(web);
-            CreateImageCatList(web);
-            CreateImageAlbumList(web);
-            CreateImagesList(web);
-            CreateVideoCatList(web);
-            CreateVideosList(web);
+            //CreateImageCatList(web);
+            //CreateImageAlbumList(web);
+            //CreateImagesList(web);
+            //CreateVideoCatList(web);
+            //CreateVideosList(web);
         }
         /// <summary>
         /// Se chua nhung muc tin tuc, vi du: Tin Tinh Uy, Hoi Dong Nhan Dan, Thong tin lanh dao, So ban nghanh, dia phuong, doanh nghiep
@@ -45,6 +45,7 @@ namespace CQ.SharePoint.QN
             helper.AddField(new LookupFieldCreator(FieldsName.NewsCategory.English.ParentName, FieldsName.NewsCategory.VietNamese.ParentName){LookupList = ListsName.English.NewsCategory, LookupField = FieldsName.NewsCategory.English.Heading});
 
             helper.AddField(new LookupFieldCreator(FieldsName.NewsCategory.English.ChildName, FieldsName.NewsCategory.VietNamese.ChildName) { LookupList = ListsName.English.NewsCategory, LookupField = FieldsName.NewsCategory.English.Heading });
+
 
             helper.AddField(new BooleanFieldCreator(FieldsName.NewsCategory.English.Status, FieldsName.NewsCategory.VietNamese.Status));
 
@@ -318,7 +319,7 @@ namespace CQ.SharePoint.QN
             var titleField = list.Fields.GetFieldByInternalName("Title");
             titleField.Required = true;
             titleField.Update();
-            list.EnableAttachments = true;
+            
             list.Update();
         }
 
@@ -335,7 +336,7 @@ namespace CQ.SharePoint.QN
             var titleField = list.Fields.GetFieldByInternalName("Title");
             titleField.Required = true;
             titleField.Update();
-            list.EnableAttachments = true;
+            
             list.Update();
         }
 
@@ -354,7 +355,7 @@ namespace CQ.SharePoint.QN
             var titleField = list.Fields.GetFieldByInternalName("Title");
             titleField.Required = true;
             titleField.Update();
-            list.EnableAttachments = true;
+            
             list.Update();
         }
 
@@ -370,7 +371,7 @@ namespace CQ.SharePoint.QN
             helper.AddField(new MultipleLinesTextFieldCreator("Description", "Description"){RichText = true, RichTextMode = SPRichTextMode.FullHtml,NumberOfLines = 6});
 
             SPList list = helper.Apply();
-            list.EnableAttachments = true;
+            
             list.Update();
         }
 
@@ -389,7 +390,7 @@ namespace CQ.SharePoint.QN
             var titleField = list.Fields.GetFieldByInternalName("Title");
             titleField.Required = true;
             titleField.Update();
-            list.EnableAttachments = true;
+            
             list.Update();
         }
     }
