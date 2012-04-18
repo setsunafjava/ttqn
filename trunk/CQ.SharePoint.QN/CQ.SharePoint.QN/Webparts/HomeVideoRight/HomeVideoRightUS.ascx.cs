@@ -20,8 +20,8 @@ namespace CQ.SharePoint.QN.Webparts
         {
             if (!IsPostBack)
             {
-                var videoStr = "jwplayer(\"video-right-player-div\").setup({'flashplayer': '" +
-                               SPContext.Current.Web.Url + "/" + ListsName.English.CQQNResources + "/jwplayer.swf',";
+                var videoStr = "$(document).ready(function() {jwplayer(\"video-right-player-div\").setup({'flashplayer': '" +
+                               SPContext.Current.Web.Url + "/" + ListsName.English.CQQNResources + "/player.swf',width: 285,";
                 SPSecurity.RunWithElevatedPrivileges(() =>
                 {
                     using (var site = new SPSite(SPContext.Current.Web.Site.ID))
@@ -45,16 +45,20 @@ namespace CQ.SharePoint.QN.Webparts
                                         {
                                             videoStr +=
                                                 @"{
-                                                    'file': '" + item.Url +
+                                                    'file': '" + web.Url + "/" + item.Url +
                                                 @"', 
-                                                    'image': '" + web.Url + "/" + ListsName.English.CQQNResources + "/video.jpg" +
+                                                    'image': '" + web.Url + "/" + ListsName.English.CQQNResources + "/images.jpg" +
                                                 @"',
                                                     'title': '" + item.Title + @"'
                                                 },";
                                         }
+                                        if (videoStr.EndsWith(","))
+                                        {
+                                            videoStr = videoStr.Substring(0, videoStr.Length - 1);
+                                        }
                                         videoStr += @"],
                                                         repeat: 'list'
-                                                    });";
+                                                    });});";
                                     }
                                 }
                             }

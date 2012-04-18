@@ -17,8 +17,8 @@
                     scrolldelay="50" scrollamount="1" truespeed="true"></HeaderTemplate>
                     <ItemTemplate>
                         <div class="img_typ_Album">
-							<div class="img_album"><img src="<%#Eval("Preview") %>" /></div>
-							<div class="name_album"><a href="#"><%#Eval("Title") %></a></div>
+							<div class="img_album"><img src="<%#Eval("Description") %>" /></div>
+							<div class="name_album"><a href="#"><%#Eval("Title")%></a></div>
 						</div>
                     </ItemTemplate>
                     <FooterTemplate></marquee></FooterTemplate>
