@@ -9,8 +9,8 @@ namespace CQ.SharePoint.QN.Common
             public const string NewsCategory = "NewsCategory";
             public const string NewsRecord = "NewsRecord";
             public const string SupportUser = "SupportUser";
-            public const string CorporateCategory = "CorporateCategory";
-            public const string CorporateRecord = "CorporateRecord";
+            public const string CompanyCategory = "CompanyCategory";
+            public const string CompanyRecord = "CompanyRecord";
             public const string MenuList = "MenuList";
             public const string LinkSite = "LinkSite";
             public const string ServiceInfo = "ServiceInfo";
@@ -35,8 +35,8 @@ namespace CQ.SharePoint.QN.Common
             public const string NewsCategory = "NewsCategory";
             public const string NewsRecord = "NewsRecord";
             public const string SupportUser = "SupportUser";
-            public const string CorporateCategory = "CorporateCategory";
-            public const string CorporateRecord = "CorporateRecord";
+            public const string CompanyCategory = "CompanyCategory";
+            public const string CompanyRecord = "CompanyRecord";
             public const string MenuList = "MenuList";
             public const string LinkSite = "LinkSite";
             public const string ServiceInfo = "ServiceInfo";
