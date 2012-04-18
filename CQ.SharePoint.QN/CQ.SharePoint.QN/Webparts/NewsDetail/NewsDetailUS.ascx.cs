@@ -22,7 +22,7 @@ namespace CQ.SharePoint.QN.Webparts
          if(!IsPostBack)
          {
              var newsId = Request.QueryString["NewsID"];
-             lblCurrentDate.Text = DateTime.Now.ToShortDateString();
+             //lblCurrentDate.Text = DateTime.Now.ToShortDateString();
              if (!string.IsNullOrEmpty(newsId))
              {
                  string newsQuery = string.Format("");
@@ -30,6 +30,7 @@ namespace CQ.SharePoint.QN.Webparts
                  if (newsItem != null)
                  {
                      ltrNewsContent.Text = Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.Content]);
+                     lblCurrentDate.Text = Convert.ToString(newsItem.Rows[0][FieldsName.Modified]);
                  }
              }
          }

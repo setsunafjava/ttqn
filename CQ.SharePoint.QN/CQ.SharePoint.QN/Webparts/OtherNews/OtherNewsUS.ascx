@@ -6,7 +6,7 @@
         Các tin khác
     </div>
     <div class="inner_F_otherNew">
-        <ul>
+        <%--<ul>
             <li><a href="#">Doanh nghiệp khó khăn có thể trả góp tiền thuế Doanh nghiệp khó khăn
                 có thể trả góp tiền thuế</a><span class="time_update">Ngày 20/02/2012</span></li>
             <li><a href="#">Doanh nghiệp khó khăn có thể trả góp tiền thuế</a><span class="time_update">Ngày
@@ -19,6 +19,18 @@
                 20/02/2012</span></li>
             <li><a href="#">Doanh nghiệp khó khăn có thể trả góp tiền thuế</a><span class="time_update">Ngày
                 20/02/2012</span></li>
-        </ul>
+        </ul>--%>
+        <asp:Repeater ID="rptOtherNews" runat="server">
+                <HeaderTemplate>
+                    <ul>
+                </HeaderTemplate>
+                <ItemTemplate>
+                    <li><a href='<%= NewsUrl%><%#Eval("ID") %>'>
+                        <%#Eval("ShortContent")%></a><span class="time_update">(Ngày <%#Eval("Modified")%>)</span></li>
+                </ItemTemplate>
+                <FooterTemplate>
+                    </ul>
+                </FooterTemplate>
+            </asp:Repeater>
     </div>
 </div>
