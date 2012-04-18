@@ -6,14 +6,7 @@
         Bài đọc nhiều nhất
     </div>
     <div class="inner_pos_Mod">
-        <div class="inner_news_Readmore">
-            <%-- <ul>
-                <li><a href="#">Thông báo thành lập Công ty TNHH Hải Đăng</a></li>
-                <li><a href="#">Thông báo thành lập Công ty TNHH Hải Đăng</a></li>
-                <li><a href="#">Thông báo thành lập Công ty TNHH Hải Đăng</a></li>
-                <li><a href="#">Thông báo thành lập Công ty TNHH Hải Đăng</a></li>
-                <li><a href="#">Thông báo thành lập Công ty TNHH Hải Đăng</a></li>
-            </ul>--%>
+        <div class="inner_news_Readmore">           
             <asp:Repeater ID="rptTopViews" runat="server">
                 <HeaderTemplate>
                     <ul>
