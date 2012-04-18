@@ -17,6 +17,7 @@ namespace CQ.SharePoint.QN
             CreateNewsRecordsList(web);
             CreateSupportUserList(web);
             CreateCorporateCategoryList(web);
+            CreateCorporateRecordList(web);
             CreateMenuList(web);
             CreateLinkSite(web);
             CreateServiceInfo(web);
