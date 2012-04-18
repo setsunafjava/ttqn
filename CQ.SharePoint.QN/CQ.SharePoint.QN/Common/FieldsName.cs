@@ -108,7 +108,7 @@ namespace CQ.SharePoint.QN.Common
         #endregion
 
         #region Nested type: Corporate
-        public static class CorporateCategory
+        public static class CompanyCategory
         {
             public static class English
             {
@@ -135,7 +135,7 @@ namespace CQ.SharePoint.QN.Common
         #endregion
 
         #region Nested type: CorporateRecord
-        public static class CorporateRecord
+        public static class CompanyRecord
         {
             public static class English
             {
@@ -145,8 +145,10 @@ namespace CQ.SharePoint.QN.Common
                 public const string TelePhone = "Phone";
                 public const string Information = "Information";
                 public const string Email = "Email";
-                public const string TieuBieu = "TieuBieu";
+                public const string FocusNews = "FocusNews";
                 public const string QuangCao = "QuangCao";//Neu la true => se hien len muc quang cao' o home page
+                public const string Dissolved = "Dissolved";
+                public const string ChangeInformation = "ChangeInformation";
                 public const string Status = "Status";//Doanh nghiep moi la true, doanh nghiep thay doi la` false
             }
 
@@ -158,8 +160,10 @@ namespace CQ.SharePoint.QN.Common
                 public const string TelePhone = "Phone";
                 public const string Information = "Information";
                 public const string Email = "Email";
-                public const string TieuBieu = "TieuBieu";
+                public const string FocusNews = "FocusNews";
                 public const string QuangCao = "QuangCao";
+                public const string Dissolved = "Dissolved";//Giai the
+                public const string ChangeInformation = "ChangeInformation";//Thay doi thong tin
                 public const string Status = "Status";
             }
         }

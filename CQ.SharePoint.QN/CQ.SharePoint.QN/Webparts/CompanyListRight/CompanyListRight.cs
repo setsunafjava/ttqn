@@ -1,11 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Serialization;
-
+using CQ.SharePoint.QN.Common;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.WebControls;
 using Microsoft.SharePoint.WebPartPages;
@@ -13,11 +14,29 @@ using Microsoft.SharePoint.WebPartPages;
 namespace CQ.SharePoint.QN.Webparts
 {
     [Guid("9cfb6b2a-8a9c-404a-bac8-c12f2bc9876a")]
-    public class CompanyListRight : System.Web.UI.WebControls.WebParts.WebPart
+    public class CompanyListRight : Microsoft.SharePoint.WebPartPages.WebPart
     {
         public CompanyListRight()
         {
         }
+
+        public string GroupName { get; set; }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Nhập số tin muốn hiển thị")]
+        [Description("Số tin muốn hiển thị")]
+        [Category("Cấu hình")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        public string NumberOfNews { get; set; }
+
+        [WebBrowsable(false)]
+        [FriendlyName("Kiểu doanh nghiệp được chọn")]
+        [Description("Kiểu doanh nghiệp được chọn")]
+        [Category("Cấu hình")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        public string CompanyType { get; set; }
 
         protected override void CreateChildControls()
         {
@@ -26,11 +45,87 @@ namespace CQ.SharePoint.QN.Webparts
             try
             {
                 CompanyListRightUS control = (CompanyListRightUS)this.Page.LoadControl("WebPartsUS/CompanyListRightUS.ascx");
+                control.WebpartParent = this;
                 Controls.Add(control);
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Response.Write(ex.ToString());
+            }
+        }
+        public override ToolPart[] GetToolParts()
+        {
+            ToolPart[] toolparts = new ToolPart[3];
+            WebPartToolPart wptp = new WebPartToolPart();
+            CustomPropertyToolPart cptp = new CustomPropertyToolPart();
+            SelectCompanyStatus ctp = new SelectCompanyStatus();
+            toolparts[0] = wptp;
+            toolparts[1] = cptp;
+            toolparts[2] = ctp;
+            return toolparts;
+        }
+    }
+
+
+    public class SelectCompanyStatus : ToolPart
+    {
+        DropDownList ddlTypes = new DropDownList();
+        //CompanyListRight _myParent = null;
+        public SelectCompanyStatus()
+        {
+            this.Title = "Chọn kiểu hiển thị";
+
+        }
+
+        protected void BindDataToDropdown(DropDownList dropDownList)
+        {
+            dropDownList.ID = "SelectType";
+            dropDownList.Items.Add(new ListItem("Doanh nghiệp mới thành lập", "1"));
+            dropDownList.Items.Add(new ListItem("Doanh nghiệp thay đổi thông tin", "2"));
+            dropDownList.Items.Add(new ListItem("Doanh nghiệp giải thể", "3"));
+            dropDownList.DataBind();
+        }
+
+        protected override void CreateChildControls()
+        {
+            BindDataToDropdown(ddlTypes);
+            //_myParent = (CompanyListRight)ParentToolPane.SelectedWebPart;
+            Controls.Add(ddlTypes);
+        }
+        public override void ApplyChanges()
+        {
+            CompanyListRight parentWebPart = (CompanyListRight)this.ParentToolPane.SelectedWebPart;
+            //base.ApplyChanges();
+//            parentWebPart.CompanyType = ddlTypes.SelectedItem.Text;
+            RetrievePropertyValues(this.Controls, parentWebPart);
+        }
+
+        private void RetrievePropertyValues(ControlCollection controls, CompanyListRight parentWebPart)
+        {
+            foreach (Control ctl in controls)
+            {
+                RetrievePropertyValue(ctl, parentWebPart);
+
+
+                if (ctl.HasControls())
+                {
+                    RetrievePropertyValues(ctl.Controls, parentWebPart);
+                }
+            }
+        }
+
+        private void RetrievePropertyValue(Control ctl, CompanyListRight parentWebPart)
+        {
+            if (ctl is DropDownList)
+            {
+                if ("SelectType".Equals(ctl.ID))
+                {
+                    DropDownList drp = (DropDownList)ctl;
+                    if (drp.SelectedItem.Value != "")
+                    {
+                        parentWebPart.CompanyType = drp.SelectedItem.Text;
+                    }
+                }
             }
         }
     }

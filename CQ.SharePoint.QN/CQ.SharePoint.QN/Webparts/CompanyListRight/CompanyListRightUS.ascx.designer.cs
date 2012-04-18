@@ -11,6 +11,7 @@ namespace CQ.SharePoint.QN.Webparts
 {
     public partial class CompanyListRightUS
     {
-
+        protected global::System.Web.UI.WebControls.Repeater rptCompanyList;
+        protected global::System.Web.UI.WebControls.Label lblcompanyTypeTitle;
     }
 }
