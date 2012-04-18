@@ -28,8 +28,8 @@ namespace CQ.SharePoint.QN
             CreateImagesList(web);
             CreateVideoCatList(web);
             CreateVideosList(web);
-            CreateAdvList(web);
             CreateCustomerAdvList(web);
+            CreateAdvList(web);
         }
         /// <summary>
         /// Se chua nhung muc tin tuc, vi du: Tin Tinh Uy, Hoi Dong Nhan Dan, Thong tin lanh dao, So ban nghanh, dia phuong, doanh nghiep
@@ -74,7 +74,7 @@ namespace CQ.SharePoint.QN
 
             helper.AddField(new NumberFieldCreator(FieldsName.NewsRecord.English.ViewsCount, FieldsName.NewsRecord.VietNamese.ViewsCount));
 
-            helper.AddField(new BooleanFieldCreator(FieldsName.NewsRecord.English.TieuBieu, FieldsName.NewsRecord.VietNamese.TieuBieu));
+            helper.AddField(new BooleanFieldCreator(FieldsName.NewsRecord.English.FocusNews, FieldsName.NewsRecord.VietNamese.FocusNews));
 
             //helper.AddField(new NumberFieldCreator(FieldsName.NewsRecord.English.CategoryId, FieldsName.NewsRecord.VietNamese.CategoryId));
             helper.AddField(new LookupFieldCreator(FieldsName.NewsRecord.English.CategoryName, FieldsName.NewsRecord.VietNamese.CategoryName) { LookupList = ListsName.English.NewsCategory, LookupField = FieldsName.NewsCategory.English.Heading });
