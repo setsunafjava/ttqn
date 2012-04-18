@@ -210,6 +210,7 @@ namespace CQ.SharePoint.QN.Common
                     public const string JS = "JS";
                     public const string IMAGE = "IMAGE";
                     public const string TEMPLATE = "TEMPLATE";
+                    public const string XML = "XML";
                 }
             }
         }

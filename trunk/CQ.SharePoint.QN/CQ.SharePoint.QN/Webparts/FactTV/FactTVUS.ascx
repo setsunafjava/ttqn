@@ -5,7 +5,7 @@
         Truyền hình thực tế</div>
     <div class="inner_pos_Mod">
         <div class="video">
-            <img src="images/video.jpg" />
+            <iframe src="http://farm.vtc.vn/media/vtcnews/resources/swf/flv/flvplayer.swf?file=vtv11&amp;streamer=rtmp://117.103.225.20/live&amp;image=http://tv.xunghe.vn/images/logo.png&amp;autostart=true" style="width:233px ; height:161px " frameborder="0" scrolling="no"></iframe>
         </div>
         <div class="channel">
             <div class="arrow_circle_next">
