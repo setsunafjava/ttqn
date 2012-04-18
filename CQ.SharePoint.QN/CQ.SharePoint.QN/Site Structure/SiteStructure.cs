@@ -82,7 +82,8 @@ namespace CQ.SharePoint.QN
                                                    FieldsName.CQQNResources.FieldValuesDefault.Type.JS,
                                                    FieldsName.CQQNResources.FieldValuesDefault.Type.CSS,
                                                    FieldsName.CQQNResources.FieldValuesDefault.Type.IMAGE,
-                                                   FieldsName.CQQNResources.FieldValuesDefault.Type.TEMPLATE
+                                                   FieldsName.CQQNResources.FieldValuesDefault.Type.TEMPLATE,
+                                                   FieldsName.CQQNResources.FieldValuesDefault.Type.XML
                                                };
                 foreach (var choice in Choices)
                 {
