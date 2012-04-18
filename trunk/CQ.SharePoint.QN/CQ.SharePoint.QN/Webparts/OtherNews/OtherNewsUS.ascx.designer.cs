@@ -12,5 +12,8 @@ namespace CQ.SharePoint.QN.Webparts
     public partial class OtherNewsUS
     {
         protected global::System.Web.UI.WebControls.Repeater rptOtherNews;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDays;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMonths;
+        protected global::System.Web.UI.WebControls.DropDownList ddlYears;
     }
 }
