@@ -20,20 +20,5 @@
             </FooterTemplate>
         </asp:Repeater>        
     </div>
-    <div>        
-        <table>
-            <tr>
-                <td><a href="#" style=" color:Red; font-weight:bold">Xem tin tiếp theo...</a></td>
-                <td>
-                    <asp:DropDownList ID="ddlDays" runat="server" Width="40px"></asp:DropDownList>
-                </td>
-                <td>
-                    <asp:DropDownList ID="ddlMonths" runat="server" Width="40px"></asp:DropDownList>
-                </td>
-                <td>
-                    <asp:DropDownList ID="ddlYears" runat="server" Width="60px"></asp:DropDownList>
-                </td>
-            </tr>
-        </table>
-    </div>
+    
 </div>

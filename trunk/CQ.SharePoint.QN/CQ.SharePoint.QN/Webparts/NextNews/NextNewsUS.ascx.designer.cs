@@ -11,6 +11,8 @@ namespace CQ.SharePoint.QN.Webparts
 {
     public partial class NextNewsUS
     {
-
+        protected global::System.Web.UI.WebControls.DropDownList ddlDays;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMonths;
+        protected global::System.Web.UI.WebControls.DropDownList ddlYears;
     }
 }

@@ -139,6 +139,10 @@ namespace CQ.SharePoint.QN
                 var otherNewsWebpart = WebPartHelper.GetWebPart(web, "OtherNews.webpart");
                 AddCustomWebpart(otherNewsWebpart, Constants.PageInWeb.DetailNews, "OtherNews-position1", web, "LeftCorner", 1);
 
+                //Next news
+                var nextNewsWebpart = WebPartHelper.GetWebPart(web, "NextNews.webpart");
+                AddCustomWebpart(nextNewsWebpart, Constants.PageInWeb.DetailNews, "NextNews-position1", web, "LeftCorner", 2);
+
                 //MostViewNews
                 var mostViewNewsWebpart = WebPartHelper.GetWebPart(web, "MostViewNews.webpart");
                 AddCustomWebpart(mostViewNewsWebpart, Constants.PageInWeb.DetailNews, "MostViewNews-position1", web, "RightCorner", 0);
