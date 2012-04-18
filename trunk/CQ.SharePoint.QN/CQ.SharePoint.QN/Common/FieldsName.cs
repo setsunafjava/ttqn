@@ -4,6 +4,8 @@ namespace CQ.SharePoint.QN.Common
     public static class FieldsName
     {
         public const string Title = "Title";
+        public const string Modified = "Modified";
+        public const string Created = "Created";
         public const string Id = "ID";
         #region Nested type: NewsCategory
         public static class NewsCategory

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.UI;
@@ -18,13 +19,20 @@ namespace CQ.SharePoint.QN.Webparts
         public OtherNews()
         {
         }
+        [WebBrowsable(true)]
+        [FriendlyName("Nhập số tin muốn hiển thị")]
+        [Description("Số tin muốn hiển thị")]
+        [Category("Cấu hình")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        public string NumberOfNews { get; set; }
 
         protected override void CreateChildControls()
         {
             try
             {
                 OtherNewsUS control = (OtherNewsUS)this.Page.LoadControl("WebPartsUS/OtherNewsUS.ascx");
-                control.ParentWP = this;
+                control.WebpartParent = this;
                 Controls.Add(control);
             }
             catch (Exception ex)

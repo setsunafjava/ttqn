@@ -24,7 +24,7 @@ namespace CQ.SharePoint.QN.Webparts
         public string GroupName { get; set; }
 
         [WebBrowsable(true)]
-        [FriendlyName("Chọn số tin hiển thị")]
+        [FriendlyName("Nhập số tin muốn hiển thị")]
         [Description("Số tin muốn hiển thị")]
         [Category("Cấu hình")]
         [WebPartStorage(Storage.Shared)]
@@ -32,8 +32,8 @@ namespace CQ.SharePoint.QN.Webparts
         public string NumberOfNews { get; set; }
 
         [WebBrowsable(false)]
-        [FriendlyName("Chọn số tin hiển thị")]
-        [Description("Số tin muốn hiển thị")]
+        [FriendlyName("Id của nhóm tin")]
+        [Description("Id của nhóm tin")]
         [Category("Cấu hình")]
         [WebPartStorage(Storage.Shared)]
         [Personalizable(PersonalizationScope.Shared)]

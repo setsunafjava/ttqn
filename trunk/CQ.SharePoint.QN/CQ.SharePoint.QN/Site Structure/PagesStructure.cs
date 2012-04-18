@@ -130,9 +130,17 @@ namespace CQ.SharePoint.QN
                 #endregion
 
                 #region NewsDetail
-                //TourInfo
+                //NewsDetail content
                 var newsDetailWebpart = WebPartHelper.GetWebPart(web, "NewsDetail.webpart");
                 AddCustomWebpart(newsDetailWebpart, Constants.PageInWeb.DetailNews, "NewsDetail-position1", web, "LeftCorner", 0);
+
+                //MostViewNews
+                var mostViewNewsWebpart = WebPartHelper.GetWebPart(web, "MostViewNews.webpart");
+                AddCustomWebpart(mostViewNewsWebpart, Constants.PageInWeb.DetailNews, "MostViewNews-position1", web, "LeftCorner", 1);
+
+                //MostViewNews
+                var otherNewsWebpart = WebPartHelper.GetWebPart(web, "OtherNews.webpart");
+                AddCustomWebpart(otherNewsWebpart, Constants.PageInWeb.DetailNews, "OtherNews-position1", web, "LeftCorner", 2);
                 #endregion
                 rootWeb.Update();
                 web.Update();

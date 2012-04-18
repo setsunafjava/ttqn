@@ -7,13 +7,25 @@
     </div>
     <div class="inner_pos_Mod">
         <div class="inner_news_Readmore">
-            <ul>
+            <%-- <ul>
                 <li><a href="#">Thông báo thành lập Công ty TNHH Hải Đăng</a></li>
                 <li><a href="#">Thông báo thành lập Công ty TNHH Hải Đăng</a></li>
                 <li><a href="#">Thông báo thành lập Công ty TNHH Hải Đăng</a></li>
                 <li><a href="#">Thông báo thành lập Công ty TNHH Hải Đăng</a></li>
                 <li><a href="#">Thông báo thành lập Công ty TNHH Hải Đăng</a></li>
-            </ul>
+            </ul>--%>
+            <asp:Repeater ID="rptTopViews" runat="server">
+                <HeaderTemplate>
+                    <ul>
+                </HeaderTemplate>
+                <ItemTemplate>
+                    <li><a href='<%= NewsUrl%><%#Eval("ID") %>'>
+                        <%#Eval("ShortContent")%></a></li>
+                </ItemTemplate>
+                <FooterTemplate>
+                    </ul>
+                </FooterTemplate>
+            </asp:Repeater>
         </div>
     </div>
 </div>

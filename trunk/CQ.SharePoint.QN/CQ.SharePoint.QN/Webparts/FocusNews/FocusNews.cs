@@ -17,7 +17,7 @@ namespace CQ.SharePoint.QN.Webparts
     public class FocusNews : System.Web.UI.WebControls.WebParts.WebPart
     {
         [WebBrowsable(true)]
-        [FriendlyName("Chọn số tin hiển thị")]
+        [FriendlyName("Nhập số tin muốn hiển thị")]
         [Description("Số tin muốn hiển thị")]
         [Category("Cấu hình")]
         [WebPartStorage(Storage.Shared)]
