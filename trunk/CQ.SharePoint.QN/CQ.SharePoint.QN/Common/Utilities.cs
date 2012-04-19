@@ -515,7 +515,7 @@ namespace CQ.SharePoint.QN.Common
                         {
                             SPQuery spQuery = new SPQuery
                             {
-                                Query = query
+                                Query = query, RowLimit = newsNumber
                             };
                             SPList list = Utilities.GetListFromUrl(web, listName);
                             if (list != null)
