@@ -188,6 +188,50 @@ namespace CQ.SharePoint.QN.Common
         }
         #endregion
 
+        #region AdvertisingBotton
+        public static class ProductCategory
+        {
+            public static class English
+            {
+                public const string Name = "Name";
+                public const string ParentId = "ParentId";
+                public const string Description = "Description";
+                public const string Status = "Status";
+            }
+
+            public static class VietNamese
+            {
+                public const string Name = "Name";
+                public const string ParentId = "ParentId";
+                public const string Description = "Description";
+                public const string Status = "Status";
+            }
+        }
+        #endregion
+
+        #region AdvertisingBotton
+        public static class ProductDetail
+        {
+            public static class English
+            {
+                public const string CategoryId = "CategoryId";
+                public const string Name = "Name";
+                public const string Price = "Price";
+                public const string Description = "Description";
+                public const string Status = "Status";
+            }
+
+            public static class VietNamese
+            {
+                public const string CategoryId = "CategoryId";
+                public const string Price = "Price";
+                public const string Description = "Description";
+                public const string Name = "Name";
+                public const string Status = "Status";
+            }
+        }
+        #endregion
+
         #region Nested type:CQQNResources
         public class CQQNResources
         {

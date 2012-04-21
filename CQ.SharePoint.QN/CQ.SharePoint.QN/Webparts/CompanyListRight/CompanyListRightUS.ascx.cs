@@ -27,7 +27,14 @@ namespace CQ.SharePoint.QN.Webparts
                 {
                     NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
                     string companyListQuery = GetQuery(WebpartParent.CompanyType);
-                    var companyList = Utilities.GetNewsRecords(companyListQuery, Convert.ToUInt16(WebpartParent.NumberOfNews), ListsName.English.CompanyRecord);
+                    uint newsNumber = 5;
+
+                    if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
+                    {
+                        newsNumber = Convert.ToUInt16(WebpartParent.NumberOfNews);
+                    }
+
+                    var companyList = Utilities.GetNewsRecords(companyListQuery, newsNumber, ListsName.English.CompanyRecord);
                     lblcompanyTypeTitle.Text = WebpartParent.CompanyType;
                     if (companyList != null && companyList.Rows.Count > 0)
                     {
@@ -38,7 +45,7 @@ namespace CQ.SharePoint.QN.Webparts
                 catch (Exception ex)
                 {
                 }
-            }   
+            }
         }
 
         /// <summary>
@@ -54,13 +61,13 @@ namespace CQ.SharePoint.QN.Webparts
             switch (companytype)
             {
                 case "1":
-                    query = string.Format("");
+                    query = string.Format("<Where><And><Neq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Neq><Neq><FieldRef Name='{1}' /><Value Type='Boolean'>1</Value></Neq></And></Where>", FieldsName.CompanyRecord.English.ChangeInformation, FieldsName.CompanyRecord.English.Dissolved);
                     break;
                 case "2":
-                    query = string.Format("");
+                    query = string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Eq></Where>", FieldsName.CompanyRecord.English.ChangeInformation);
                     break;
                 case "3":
-                    query = string.Format("");
+                    query = string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Eq></Where>", FieldsName.CompanyRecord.English.Dissolved);
                     break;
             }
             return query;

@@ -31,6 +31,8 @@ namespace CQ.SharePoint.QN
             CreateVideosList(web);
             CreateCustomerAdvList(web);
             CreateAdvList(web);
+            CreateProductCategory(web);
+            CreateProductDetail(web);
         }
         /// <summary>
         /// Se chua nhung muc tin tuc, vi du: Tin Tinh Uy, Hoi Dong Nhan Dan, Thong tin lanh dao, So ban nghanh, dia phuong, doanh nghiep
@@ -428,6 +430,47 @@ namespace CQ.SharePoint.QN
             SPList list = helper.Apply();
             var titleField = list.Fields.GetFieldByInternalName("Title");
             titleField.Required = true;
+            titleField.Update();
+            list.Update();
+        }
+
+        public static void CreateProductCategory(SPWeb web)
+        {
+            var helper = new ListHelper(web)
+            {
+                Title = ListsName.VietNamese.ProductCategory,
+                Name = ListsName.English.ProductCategory,
+                OnQuickLaunch = true
+            };
+            helper.AddField(new NumberFieldCreator(FieldsName.ProductCategory.English.ParentId, FieldsName.ProductCategory.VietNamese.ParentId));
+            helper.AddField(new MultipleLinesTextFieldCreator(FieldsName.ProductCategory.English.Description, FieldsName.ProductCategory.VietNamese.Description));
+            helper.AddField(new BooleanFieldCreator(FieldsName.ProductCategory.English.Status, FieldsName.ProductCategory.VietNamese.Status));
+
+            SPList list = helper.Apply();
+            var titleField = list.Fields.GetFieldByInternalName(Constants.Title);
+            titleField.Required = true;
+            titleField.Title = FieldsName.ProductCategory.VietNamese.Name;
+            titleField.Update();
+            list.Update();
+        }
+
+        public static void CreateProductDetail(SPWeb web)
+        {
+            var helper = new ListHelper(web)
+            {
+                Title = ListsName.VietNamese.ProductDetail,
+                Name = ListsName.English.ProductDetail,
+                OnQuickLaunch = true
+            };
+            helper.AddField(new NumberFieldCreator(FieldsName.ProductDetail.English.CategoryId, FieldsName.ProductDetail.VietNamese.CategoryId));
+            helper.AddField(new MultipleLinesTextFieldCreator(FieldsName.ProductDetail.English.Description, FieldsName.ProductDetail.VietNamese.Description));
+            helper.AddField(new NumberFieldCreator(FieldsName.ProductDetail.English.Price, FieldsName.ProductDetail.VietNamese.Price));
+            helper.AddField(new BooleanFieldCreator(FieldsName.ProductDetail.English.Status, FieldsName.ProductDetail.VietNamese.Status));
+
+            SPList list = helper.Apply();
+            var titleField = list.Fields.GetFieldByInternalName(Constants.Title);
+            titleField.Required = true;
+            titleField.Title = FieldsName.ProductDetail.VietNamese.Name;
             titleField.Update();
             list.Update();
         }
