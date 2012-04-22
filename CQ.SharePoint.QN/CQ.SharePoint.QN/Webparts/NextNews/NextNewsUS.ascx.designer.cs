@@ -14,5 +14,6 @@ namespace CQ.SharePoint.QN.Webparts
         protected global::System.Web.UI.WebControls.DropDownList ddlDays;
         protected global::System.Web.UI.WebControls.DropDownList ddlMonths;
         protected global::System.Web.UI.WebControls.DropDownList ddlYears;
+        protected global::System.Web.UI.WebControls.LinkButton lnkNextNews;
     }
 }

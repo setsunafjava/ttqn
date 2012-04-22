@@ -24,7 +24,7 @@ namespace CQ.SharePoint.QN.Common
         public class ErrorMessage
         {
             public const string ResourceFileName = "CQ.SharePoint.QN";
-            public const string Msg1 = "MSG1";
+            public const string Msg1 = "Không có bản nghi nào được tìm thấy!";
             public const string Msg2 = "MSG2";
             public const string Msg3 = "MSG3";
             public const string Msg4 = "MSG4";

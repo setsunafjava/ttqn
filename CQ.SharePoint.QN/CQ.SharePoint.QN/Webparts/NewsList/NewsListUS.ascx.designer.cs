@@ -11,6 +11,7 @@ namespace CQ.SharePoint.QN.Webparts
 {
     public partial class NewsListUS
     {
-
+        protected global::System.Web.UI.WebControls.Repeater rptListCategory;
+        protected global::System.Web.UI.WebControls.Label lblItemNotExist;
     }
 }
