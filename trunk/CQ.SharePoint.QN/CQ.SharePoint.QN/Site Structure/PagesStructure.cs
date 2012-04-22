@@ -73,7 +73,7 @@ namespace CQ.SharePoint.QN
                 AddCustomWebpart("QNadv.webpart", Constants.PageInWeb.DefaultPage, "QNadv-posittion0", web, "LeftContent", 2);
 
                 //Mode news content
-                AddCustomWebpart("ModeNewsContent.webpart", Constants.PageInWeb.DefaultPage, "ModeNewsContent-posittion1", web, "LeftContent", 3);
+                AddCustomWebpart("ModeNewsContent.webpart", Constants.PageInWeb.DefaultPage, "ModeNewsContent-posittion0", web, "LeftContent", 3);
 
                 //Quang cao
                 AddCustomWebpart("QNadv.webpart", Constants.PageInWeb.DefaultPage, "QNadv-posittion1", web, "LeftContent", 4);
