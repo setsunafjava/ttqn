@@ -101,9 +101,9 @@ namespace CQ.SharePoint.QN
                 AddCustomWebpart("FocusCompany.webpart", Constants.PageInWeb.DefaultPage, "FocusCompany-posittion1", web, "RightContent", 4);
 
                 //doanh nghiệp theo catalogy 
-                AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.DefaultPage, "CompanyListRight-posittion1", web, "RightContent", 5);
+                AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.DefaultPage, "CompanyListRight-posittion0", web, "RightContent", 5);
                 AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.DefaultPage, "CompanyListRight-posittion1", web, "RightContent", 6);
-                AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.DefaultPage, "CompanyListRight-posittion1", web, "RightContent", 7);
+                AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.DefaultPage, "CompanyListRight-posittion2", web, "RightContent", 7);
 
                 //quảng cáo doanh nghiệp
                 AddCustomWebpart("CompanyAdv.webpart", Constants.PageInWeb.DefaultPage, "CompanyAdv-posittion1", web, "RightContent", 8);
@@ -120,9 +120,9 @@ namespace CQ.SharePoint.QN
                 AddCustomWebpart("FocusCompany.webpart", Constants.PageInWeb.DetailNews, "FocusCompany-posittion1", web, "RightContent", 4);
 
                 //doanh nghi?p theo catalogy 
-                AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.DetailNews, "CompanyListRight-posittion1", web, "RightContent", 5);
+                AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.DetailNews, "CompanyListRight-posittion0", web, "RightContent", 5);
                 AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.DetailNews, "CompanyListRight-posittion1", web, "RightContent", 6);
-                AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.DetailNews, "CompanyListRight-posittion1", web, "RightContent", 7);
+                AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.DetailNews, "CompanyListRight-posittion2", web, "RightContent", 7);
 
                 //qu?ng cáo doanh nghi?p
                 AddCustomWebpart("CompanyAdv.webpart", Constants.PageInWeb.DetailNews, "CompanyAdv-posittion1", web, "RightContent", 8);
@@ -139,9 +139,9 @@ namespace CQ.SharePoint.QN
                 AddCustomWebpart("FocusCompany.webpart", Constants.PageInWeb.SubPage, "FocusCompany-posittion1", web, "RightContent", 4);
 
                 //doanh nghi?p theo catalogy 
-                AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.SubPage, "CompanyListRight-posittion1", web, "RightContent", 5);
+                AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.SubPage, "CompanyListRight-posittion0", web, "RightContent", 5);
                 AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.SubPage, "CompanyListRight-posittion1", web, "RightContent", 6);
-                AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.SubPage, "CompanyListRight-posittion1", web, "RightContent", 7);
+                AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.SubPage, "CompanyListRight-posittion2", web, "RightContent", 7);
 
                 //qu?ng cáo doanh nghi?p
                 AddCustomWebpart("CompanyAdv.webpart", Constants.PageInWeb.SubPage, "CompanyAdv-posittion1", web, "RightContent", 8);
@@ -158,9 +158,9 @@ namespace CQ.SharePoint.QN
                 AddCustomWebpart("FocusCompany.webpart", Constants.PageInWeb.DownloadPage, "FocusCompany-posittion1", web, "RightContent", 4);
 
                 //doanh nghi?p theo catalogy 
-                AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.DownloadPage, "CompanyListRight-posittion1", web, "RightContent", 5);
+                AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.DownloadPage, "CompanyListRight-posittion0", web, "RightContent", 5);
                 AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.DownloadPage, "CompanyListRight-posittion1", web, "RightContent", 6);
-                AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.DownloadPage, "CompanyListRight-posittion1", web, "RightContent", 7);
+                AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.DownloadPage, "CompanyListRight-posittion2", web, "RightContent", 7);
 
                 //qu?ng cáo doanh nghi?p
                 AddCustomWebpart("CompanyAdv.webpart", Constants.PageInWeb.DownloadPage, "CompanyAdv-posittion1", web, "RightContent", 8);
@@ -177,9 +177,9 @@ namespace CQ.SharePoint.QN
                 AddCustomWebpart("FocusCompany.webpart", Constants.PageInWeb.GalleryPage, "FocusCompany-posittion1", web, "RightContent", 4);
 
                 //doanh nghi?p theo catalogy 
-                AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.GalleryPage, "CompanyListRight-posittion1", web, "RightContent", 5);
+                AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.GalleryPage, "CompanyListRight-posittion0", web, "RightContent", 5);
                 AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.GalleryPage, "CompanyListRight-posittion1", web, "RightContent", 6);
-                AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.GalleryPage, "CompanyListRight-posittion1", web, "RightContent", 7);
+                AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.GalleryPage, "CompanyListRight-posittion2", web, "RightContent", 7);
 
                 //qu?ng cáo doanh nghi?p
                 AddCustomWebpart("CompanyAdv.webpart", Constants.PageInWeb.GalleryPage, "CompanyAdv-posittion1", web, "RightContent", 8);
@@ -196,9 +196,9 @@ namespace CQ.SharePoint.QN
                 AddCustomWebpart("FocusCompany.webpart", Constants.PageInWeb.VideoPage, "FocusCompany-posittion1", web, "RightContent", 4);
 
                 //doanh nghi?p theo catalogy 
-                AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.VideoPage, "CompanyListRight-posittion1", web, "RightContent", 5);
+                AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.VideoPage, "CompanyListRight-posittion0", web, "RightContent", 5);
                 AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.VideoPage, "CompanyListRight-posittion1", web, "RightContent", 6);
-                AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.VideoPage, "CompanyListRight-posittion1", web, "RightContent", 7);
+                AddCustomWebpart("CompanyListRight.webpart", Constants.PageInWeb.VideoPage, "CompanyListRight-posittion2", web, "RightContent", 7);
 
                 //qu?ng cáo doanh nghi?p
                 AddCustomWebpart("CompanyAdv.webpart", Constants.PageInWeb.VideoPage, "CompanyAdv-posittion1", web, "RightContent", 8);
