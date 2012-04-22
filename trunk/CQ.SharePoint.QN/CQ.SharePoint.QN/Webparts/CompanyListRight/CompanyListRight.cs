@@ -113,10 +113,6 @@ namespace CQ.SharePoint.QN.Webparts
                 ddlTypes.DataValueField = FieldsName.Id;
                 ddlTypes.DataBind();
             }
-                       
-
-
-            
             Controls.Add(ddlTypes);
         }
         public override void ApplyChanges()
