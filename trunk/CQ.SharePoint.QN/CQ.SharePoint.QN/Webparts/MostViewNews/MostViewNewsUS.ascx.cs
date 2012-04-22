@@ -25,8 +25,8 @@ namespace CQ.SharePoint.QN.Webparts
                 try
                 {
                     var newsId = Request.QueryString["NewsID"];
-                    if (!string.IsNullOrEmpty(newsId))
-                    {
+                    //if (!string.IsNullOrEmpty(newsId))
+                    //{
                         //Bind data to top view
                         NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url,
                                                 Constants.PageInWeb.DetailNews);
@@ -41,7 +41,7 @@ namespace CQ.SharePoint.QN.Webparts
                             rptTopViews.DataSource = topViewsTable;
                             rptTopViews.DataBind();
                         }
-                    }
+                    //}
                 }
                 catch (Exception ex)
                 {

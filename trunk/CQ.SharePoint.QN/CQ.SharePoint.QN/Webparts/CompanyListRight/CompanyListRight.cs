@@ -38,6 +38,14 @@ namespace CQ.SharePoint.QN.Webparts
         [Personalizable(PersonalizationScope.Shared)]
         public string CompanyType { get; set; }
 
+        [WebBrowsable(false)]
+        [FriendlyName("Kiểu doanh nghiệp được chọn")]
+        [Description("Kiểu doanh nghiệp được chọn")]
+        [Category("Cấu hình")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        public string CompanyId { get; set; }
+
         protected override void CreateChildControls()
         {
             base.CreateChildControls();
@@ -79,24 +87,43 @@ namespace CQ.SharePoint.QN.Webparts
 
         protected void BindDataToDropdown(DropDownList dropDownList)
         {
-            dropDownList.ID = "SelectType";
-            dropDownList.Items.Add(new ListItem("Doanh nghiệp mới thành lập", "1"));
-            dropDownList.Items.Add(new ListItem("Doanh nghiệp thay đổi thông tin", "2"));
-            dropDownList.Items.Add(new ListItem("Doanh nghiệp giải thể", "3"));
-            dropDownList.DataBind();
+            string companyCaml = string.Format(" <Where><Eq><FieldRef Name='{0}' /><Value Type='MultiChoice'>{1}</Value></Eq></Where>", FieldsName.NewsCategory.English.TypeCategory, FieldsName.NewsCategory.FieldValuesDefault.DoanhNghiep);
+            var table = Utilities.GetNewsRecords(companyCaml, 20, ListsName.English.NewsCategory);
+
+
+            if (table != null && table.Rows.Count > 0)
+            {
+                dropDownList.ID = FieldsName.NewsCategory.FieldValuesDefault.SelectType;
+                dropDownList.DataTextField = FieldsName.NewsCategory.English.TypeCategory;
+                dropDownList.DataValueField = FieldsName.Id;
+                dropDownList.DataBind();
+            }
         }
 
         protected override void CreateChildControls()
         {
-            BindDataToDropdown(ddlTypes);
-            //_myParent = (CompanyListRight)ParentToolPane.SelectedWebPart;
+            string companyCaml = string.Format(" <Where><Eq><FieldRef Name='{0}' /><Value Type='MultiChoice'>{1}</Value></Eq></Where>", FieldsName.NewsCategory.English.TypeCategory, FieldsName.NewsCategory.FieldValuesDefault.DoanhNghiep);
+            var table = Utilities.GetNewsRecords(companyCaml, 20, ListsName.English.NewsCategory);
+
+            if (table != null && table.Rows.Count > 0)
+            {
+                ddlTypes.DataSource = table;
+                ddlTypes.ID = FieldsName.NewsCategory.FieldValuesDefault.SelectType;
+                ddlTypes.DataTextField = FieldsName.Title;
+                ddlTypes.DataValueField = FieldsName.Id;
+                ddlTypes.DataBind();
+            }
+                       
+
+
+            
             Controls.Add(ddlTypes);
         }
         public override void ApplyChanges()
         {
             CompanyListRight parentWebPart = (CompanyListRight)this.ParentToolPane.SelectedWebPart;
             //base.ApplyChanges();
-//            parentWebPart.CompanyType = ddlTypes.SelectedItem.Text;
+            //            parentWebPart.CompanyType = ddlTypes.SelectedItem.Text;
             RetrievePropertyValues(this.Controls, parentWebPart);
         }
 
@@ -118,12 +145,13 @@ namespace CQ.SharePoint.QN.Webparts
         {
             if (ctl is DropDownList)
             {
-                if ("SelectType".Equals(ctl.ID))
+                if (FieldsName.NewsCategory.FieldValuesDefault.SelectType.Equals(ctl.ID))
                 {
                     DropDownList drp = (DropDownList)ctl;
                     if (drp.SelectedItem.Value != "")
                     {
                         parentWebPart.CompanyType = drp.SelectedItem.Text;
+                        parentWebPart.CompanyId = drp.SelectedItem.Value;
                     }
                 }
             }

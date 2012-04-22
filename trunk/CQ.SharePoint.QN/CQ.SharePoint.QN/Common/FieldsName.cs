@@ -16,6 +16,7 @@ namespace CQ.SharePoint.QN.Common
                 public const string Heading = "Heading";
                 public const string ParentName = "ParentName";
                 public const string ParentId = "ParentId";
+                public const string TypeCategory = "TypeCategory"; //code here: chua add vao list - fields multichoice
                 public const string ChildName = "ChildName";
                 public const string Status = "Status";
             }
@@ -26,6 +27,7 @@ namespace CQ.SharePoint.QN.Common
                 public const string Heading = "Heading";
                 public const string ParentName = "ParentName";
                 public const string ParentId = "ParentId";
+                public const string TypeCategory = "TypeCategory";
                 public const string ChildName = "ChildName";
                 public const string Status = "Status";
             }
@@ -34,6 +36,10 @@ namespace CQ.SharePoint.QN.Common
             #region Nested type: ExpenseClaimFieldValuesDefault
             public static class FieldValuesDefault
             {
+                public const string TinTuc = "Tin Tức";
+                public const string DoanhNghiep = "Doanh Nghiệp";
+                public const string TinhUy = "Tỉnh Ủy";
+                public const string SelectType = "SelectType";
             }
             #endregion
         }

@@ -22,10 +22,9 @@ namespace CQ.SharePoint.QN.Webparts
          if(!IsPostBack)
          {
              var newsId = Request.QueryString["NewsID"];
-             //lblCurrentDate.Text = DateTime.Now.ToShortDateString();
              if (!string.IsNullOrEmpty(newsId))
              {
-                 string newsQuery = string.Format("");
+                 string newsQuery = string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Counter'>{1}</Value></Eq></Where>", FieldsName.Id, newsId);
                  var newsItem = Utilities.GetNewsRecords(newsQuery, 1, ListsName.English.NewsRecord);
                  if (newsItem != null)
                  {

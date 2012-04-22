@@ -10,27 +10,20 @@
         </div>
         <div class="content_F_Right">
             <div class="inner_list_company_new">
-                <%--<ul>
-                    <li><a href="#">Công ty CP Du lịch Quốc tế Hảo Thịnh</a></li>
-                    <li><a href="#">Công ty TNHH Kỹ Thuật Công Nghiệp Trường Phúc</a></li>
-                    <li><a href="#">Công ty CP Du lịch Quốc tế Hảo Thịnh</a></li>
-                </ul>--%>
-                
                 <asp:Repeater ID="rptCompanyList" runat="server">
                     <HeaderTemplate>
                         <ul>
                     </HeaderTemplate>
                     <ItemTemplate>
-                        <li><a href='<%= NewsUrl%><%#Eval("ID") %>' >
-                            <%#Eval("Title")%></a></li>|                            
+                        <li><a href='<%= NewsUrl%><%#Eval("ID") %>'>
+                            <%#Eval("Title")%></a></li>
                     </ItemTemplate>
                     <FooterTemplate>
                         </ul>
                     </FooterTemplate>
                 </asp:Repeater>
-                
                 <div class="read_more">
-                    <a href="#">&raquo; Xem thêm</a></div>
+                    <a href='<%= NewsUrl%><%=WebpartParent.CompanyId %>'>&raquo; Xem thêm</a></div>
             </div>
         </div>
     </div>

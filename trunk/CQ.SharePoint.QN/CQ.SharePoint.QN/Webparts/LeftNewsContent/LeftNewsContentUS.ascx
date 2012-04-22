@@ -10,14 +10,13 @@
             <div class="name_title_typ_News">
                 <%= WebpartParent.GroupName%>
             </div>
-            <div class="link_cate_more">                
+            <div class="link_cate_more">
                 <asp:Repeater ID="rptNewsGroup" runat="server">
                     <HeaderTemplate>
                         <ul>
                     </HeaderTemplate>
                     <ItemTemplate>
-                        <li><a href="#" >
-                            <%#Eval("Title")%></a></li>|                            
+                        <li><a href='<%= CategoryUrl%><%#Eval("ID") %>'><%#Eval("Title")%></a></li>|                        
                     </ItemTemplate>
                     <FooterTemplate>
                         </ul>
