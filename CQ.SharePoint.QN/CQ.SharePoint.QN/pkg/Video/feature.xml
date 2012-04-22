@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="e38c80e1-badb-41d4-8ee5-6a6506b27699" Title="Video" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="Video\Video.xml" />
+    <ElementFile Location="Video\Video.webpart" />
+    <ElementFile Location="Video\VideoUS.ascx" />
+  </ElementManifests>
+</Feature>

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="76416594-dd38-4976-9052-cfa72cd93a40" Title="Gallery" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="Gallery\Gallery.xml" />
+    <ElementFile Location="Gallery\Gallery.webpart" />
+    <ElementFile Location="Gallery\GalleryUS.ascx" />
+  </ElementManifests>
+</Feature>

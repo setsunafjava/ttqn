@@ -31,5 +31,11 @@
     <FeatureManifest Location="NewsList\feature.xml" />
     <FeatureManifest Location="NextNews\feature.xml" />
     <FeatureManifest Location="OtherNews\feature.xml" />
+    <FeatureManifest Location="Contact\feature.xml" />
+    <FeatureManifest Location="Gallery\feature.xml" />
+    <FeatureManifest Location="ShowDownload\feature.xml" />
+    <FeatureManifest Location="ShowGallery\feature.xml" />
+    <FeatureManifest Location="ShowVideo\feature.xml" />
+    <FeatureManifest Location="Video\feature.xml" />
   </FeatureManifests>
 </Solution>
