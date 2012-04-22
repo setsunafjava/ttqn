@@ -13,6 +13,12 @@ namespace CQ.SharePoint.QN.Common
             public const string DefaultPage = "default";
             public const string DetailNews = "DetailNews";
             public const string SubPage = "SubPage";
+            public const string DownloadPage = "Download";
+            public const string GalleryPage = "Gallery";
+            public const string VideoPage = "Video";
+            public const string ShowGalleryPage = "ShowGallery";
+            public const string ShowVideoPage = "ShowVideo";
+            public const string Contact = "Contact";
         }
 
         public class ErrorMessage

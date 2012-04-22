@@ -11,9 +11,6 @@
 <%@ Register TagPrefix="PublishingVariations" TagName="VariationsLabelMenu" src="~/_controltemplates/VariationsLabelMenu.ascx" %>
 <%@ Register Tagprefix="PublishingConsole" TagName="Console" src="~/_controltemplates/PublishingConsole.ascx" %>
 <%@ Register TagPrefix="PublishingSiteAction" TagName="SiteActionMenu" src="~/_controltemplates/PublishingActionMenu.ascx" %>
-<%@ Register TagPrefix="wssuc" TagName="Header" src="~Site/WebPartsUS/QNHeaderUS.ascx" %>
-<%@ Register TagPrefix="wssuc" TagName="ShouldToKnow" src="~Site/WebPartsUS/ShouldToKnowUS.ascx" %>
-<%@ Register TagPrefix="wssuc" TagName="Footer" src="~Site/WebPartsUS/FooterUS.ascx" %>
 <html dir="<%$Resources:wss, multipages_direction_dir_value %>" runat="server" xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 	<meta name="GENERATOR" content="Microsoft SharePoint">
@@ -51,19 +48,10 @@
                           <PublishingConsole:Console runat="server" /> 
                     </PublishingWebControls:AuthoringContainer>
                 </div>
+                <div class="cleaner"></div>
             </div>
-	        <!-- Header usercontrol -->
-	        <wssuc:Header id="ucHeader" runat="server"/>
-        	
+            <!-- Main content -->
 	        <asp:ContentPlaceHolder id="PlaceHolderMain" runat="server" />
-        	
-	        <div id="Div1">
-		        <!-- ShoudToKnow usercontrol -->
-		        <wssuc:ShouldToKnow id="ucShouldToKnow" runat="server"/>
-		        <!-- Fotter usercontrol -->
-		        <wssuc:Footer id="ucFooter" runat="server"/>
-	        </div>
-        	
         </div>
 		<%-- The PlaceHolderMain content placeholder defines where to place 
 the page content for all the content from the page layout. The page 

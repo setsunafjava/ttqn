@@ -33,6 +33,8 @@ namespace CQ.SharePoint.QN
             CreateAdvList(web);
             CreateProductCategory(web);
             CreateProductDetail(web);
+            CreateDownloadCatList(web);
+            CreateDownloadList(web);
         }
         /// <summary>
         /// Se chua nhung muc tin tuc, vi du: Tin Tinh Uy, Hoi Dong Nhan Dan, Thong tin lanh dao, So ban nghanh, dia phuong, doanh nghiep
@@ -471,6 +473,46 @@ namespace CQ.SharePoint.QN
             var titleField = list.Fields.GetFieldByInternalName(Constants.Title);
             titleField.Required = true;
             titleField.Title = FieldsName.ProductDetail.VietNamese.Name;
+            titleField.Update();
+            list.Update();
+        }
+
+        public static void CreateDownloadCatList(SPWeb web)
+        {
+            var helper = new ListHelper(web)
+            {
+                Title = ListsName.VietNamese.DownloadCatList,
+                Name = ListsName.English.DownloadCatList,
+                OnQuickLaunch = true
+            };
+
+            helper.AddField(new MultipleLinesTextFieldCreator("Description", "Description") { RichText = true, RichTextMode = SPRichTextMode.FullHtml, NumberOfLines = 6 });
+
+            SPList list = helper.Apply();
+            list.EnableAttachments = false;
+            list.Update();
+        }
+
+        public static void CreateDownloadList(SPWeb web)
+        {
+            var helper = new ListHelper(web)
+            {
+                Title = ListsName.VietNamese.DownloadList,
+                Name = ListsName.English.DownloadList,
+                OnQuickLaunch = true,
+                ListTemplateType = SPListTemplateType.DocumentLibrary
+            };
+            helper.AddField(new LookupFieldCreator("CatID", "Chuyên mục") { LookupList = ListsName.English.DownloadCatList, LookupField = "Title" });
+            StringCollection collect1 = new StringCollection();
+            collect1.AddRange(new string[] { "Văn bản", "Tiện ích" });
+            helper.AddField(new ChoiceFieldCreator("FileType", "Thể loại")
+            {
+                Choices = collect1
+            });
+            helper.AddField(new MultipleLinesTextFieldCreator("Description", "Description") { RichText = true, RichTextMode = SPRichTextMode.FullHtml, NumberOfLines = 6 });
+            SPList list = helper.Apply();
+            var titleField = list.Fields.GetFieldByInternalName("Title");
+            titleField.Required = true;
             titleField.Update();
             list.Update();
         }

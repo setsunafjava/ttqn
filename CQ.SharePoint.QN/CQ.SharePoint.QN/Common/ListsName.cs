@@ -29,6 +29,8 @@ namespace CQ.SharePoint.QN.Common
             public const string CustomerAdvList = "CustomerAdvList";
             public const string ProductCategory = "ProductCategory";
             public const string ProductDetail = "ProductDetail";
+            public const string DownloadCatList = "DownloadCatList";
+            public const string DownloadList = "DownloadList";
         }
 
         // Display Name of list
@@ -57,6 +59,8 @@ namespace CQ.SharePoint.QN.Common
             public const string CustomerAdvList = "CustomerAdvList";
             public const string ProductCategory = "ProductCategory";
             public const string ProductDetail = "ProductDetail";
+            public const string DownloadCatList = "DownloadCatList";
+            public const string DownloadList = "DownloadList";
         }
     }
 }

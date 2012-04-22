@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<webParts>
+  <webPart xmlns="http://schemas.microsoft.com/WebPart/v3">
+    <metaData>
+      <!--
+      The following Guid is used as a reference to the web part class, 
+      and it will be automatically replaced with actual type name at deployment time.
+      -->
+      <type name="35edc0d1-9288-46e5-b8d7-d0b1af9d0a82" />
+      <importErrorMessage>Cannot import ShowVideo Web Part.</importErrorMessage>
+    </metaData>
+    <data>
+      <properties>
+        <property name="Title" type="string">ShowVideo Web Part</property>
+        <property name="Description" type="string">ShowVideo Description</property>
+      </properties>
+    </data>
+  </webPart>
+</webParts>

@@ -102,6 +102,14 @@
     <Compile Include="Webparts\CompanyListRight\CompanyListRightUS.ascx.designer.cs">
       <DependentUpon>CompanyListRightUS.ascx.cs</DependentUpon>
     </Compile>
+    <Compile Include="Webparts\Contact\Contact.cs" />
+    <Compile Include="Webparts\Contact\ContactUS.ascx.cs">
+      <DependentUpon>ContactUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\Contact\ContactUS.ascx.designer.cs">
+      <DependentUpon>ContactUS.ascx.cs</DependentUpon>
+    </Compile>
     <Compile Include="Webparts\FactTV\FactTV.cs" />
     <Compile Include="Webparts\FactTV\FactTVUS.ascx.cs">
       <DependentUpon>FactTVUS.ascx</DependentUpon>
@@ -133,6 +141,14 @@
     </Compile>
     <Compile Include="Webparts\Footer\FooterUS.ascx.designer.cs">
       <DependentUpon>FooterUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\Gallery\Gallery.cs" />
+    <Compile Include="Webparts\Gallery\GalleryUS.ascx.cs">
+      <DependentUpon>GalleryUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\Gallery\GalleryUS.ascx.designer.cs">
+      <DependentUpon>GalleryUS.ascx.cs</DependentUpon>
     </Compile>
     <Compile Include="Webparts\HomeVideoRight\HomeVideoRight.cs" />
     <Compile Include="Webparts\HomeVideoRight\HomeVideoRightUS.ascx.cs">
@@ -262,6 +278,30 @@
       <DependentUpon>ShouldToKnowUS.ascx.cs</DependentUpon>
     </Compile>
     <Compile Include="Webparts\ShouldToKnow\ShouldToKnow.cs" />
+    <Compile Include="Webparts\ShowDownload\ShowDownloadUS.ascx.cs">
+      <DependentUpon>ShowDownloadUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\ShowDownload\ShowDownloadUS.ascx.designer.cs">
+      <DependentUpon>ShowDownloadUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\ShowDownload\ShowDownload.cs" />
+    <Compile Include="Webparts\ShowGallery\ShowGalleryUS.ascx.cs">
+      <DependentUpon>ShowGalleryUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\ShowGallery\ShowGalleryUS.ascx.designer.cs">
+      <DependentUpon>ShowGalleryUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\ShowGallery\ShowGallery.cs" />
+    <Compile Include="Webparts\ShowVideo\ShowVideoUS.ascx.cs">
+      <DependentUpon>ShowVideoUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\ShowVideo\ShowVideoUS.ascx.designer.cs">
+      <DependentUpon>ShowVideoUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\ShowVideo\ShowVideo.cs" />
     <Compile Include="Webparts\SlideShowHome\SlideShowHomeUS.ascx.cs">
       <DependentUpon>SlideShowHomeUS.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -278,6 +318,14 @@
       <DependentUpon>TourInfoUS.ascx.cs</DependentUpon>
     </Compile>
     <Compile Include="Webparts\TourInfo\TourInfo.cs" />
+    <Compile Include="Webparts\Video\VideoUS.ascx.cs">
+      <DependentUpon>VideoUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\Video\VideoUS.ascx.designer.cs">
+      <DependentUpon>VideoUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\Video\Video.cs" />
     <Compile Include="Webparts\WebLink\WebLinkUS.ascx.cs">
       <DependentUpon>WebLinkUS.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -295,10 +343,12 @@
     <None Include="Webparts\ClassiFieds\ClassiFieds.webpart" />
     <None Include="Webparts\CompanyAdv\CompanyAdv.webpart" />
     <None Include="Webparts\CompanyListRight\CompanyListRight.webpart" />
+    <None Include="Webparts\Contact\Contact.webpart" />
     <None Include="Webparts\FactTV\FactTV.webpart" />
     <None Include="Webparts\FocusCompany\FocusCompany.webpart" />
     <None Include="Webparts\FocusNews\FocusNews.webpart" />
     <None Include="Webparts\Footer\Footer.webpart" />
+    <None Include="Webparts\Gallery\Gallery.webpart" />
     <None Include="Webparts\HomeVideoRight\HomeVideoRight.webpart" />
     <None Include="Webparts\HotNewsContent\HotNewsContent.webpart" />
     <None Include="Webparts\LeftNewsContent\LeftNewsContent.webpart" />
@@ -315,8 +365,12 @@
     <None Include="Webparts\QNadv\QNadv.webpart" />
     <None Include="Webparts\QNHeader\QNHeader.webpart" />
     <None Include="Webparts\ShouldToKnow\ShouldToKnow.webpart" />
+    <None Include="Webparts\ShowDownload\ShowDownload.webpart" />
+    <None Include="Webparts\ShowGallery\ShowGallery.webpart" />
+    <None Include="Webparts\ShowVideo\ShowVideo.webpart" />
     <None Include="Webparts\SlideShowHome\SlideShowHome.webpart" />
     <None Include="Webparts\TourInfo\TourInfo.webpart" />
+    <None Include="Webparts\Video\Video.webpart" />
     <None Include="Webparts\WebLink\WebLink.webpart" />
   </ItemGroup>
   <ItemGroup>
@@ -430,6 +484,10 @@
     <Content Include="Webparts\CompanyListRight\CompanyListRightUS.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
+    <Content Include="Webparts\Contact\Contact.xml" />
+    <Content Include="Webparts\Contact\ContactUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Webparts\FactTV\FactTV.xml" />
     <Content Include="Webparts\FactTV\FactTVUS.ascx">
       <SubType>ASPXCodeBehind</SubType>
@@ -444,6 +502,10 @@
     </Content>
     <Content Include="Webparts\Footer\Footer.xml" />
     <Content Include="Webparts\Footer\FooterUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\Gallery\Gallery.xml" />
+    <Content Include="Webparts\Gallery\GalleryUS.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\HomeVideoRight\HomeVideoRight.xml" />
@@ -510,6 +572,18 @@
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\ShouldToKnow\ShouldToKnow.xml" />
+    <Content Include="Webparts\ShowDownload\ShowDownloadUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\ShowDownload\ShowDownload.xml" />
+    <Content Include="Webparts\ShowGallery\ShowGalleryUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\ShowGallery\ShowGallery.xml" />
+    <Content Include="Webparts\ShowVideo\ShowVideoUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\ShowVideo\ShowVideo.xml" />
     <Content Include="Webparts\SlideShowHome\SlideShowHomeUS.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
@@ -518,6 +592,10 @@
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\TourInfo\TourInfo.xml" />
+    <Content Include="Webparts\Video\VideoUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\Video\Video.xml" />
     <Content Include="Webparts\WebLink\WebLinkUS.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
