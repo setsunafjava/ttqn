@@ -135,5 +135,35 @@
         <featureElement id="bf205d59-1f9b-47e0-83b3-95629a13eb6a" name="OtherNews" />
       </featureElements>
     </feature>
+    <feature id="5624d7ba-0a47-47f4-93ba-c7d977bb832e">
+      <featureElements>
+        <featureElement id="4907161d-f054-40be-a766-93f3904d9f46" name="Contact" />
+      </featureElements>
+    </feature>
+    <feature id="76416594-dd38-4976-9052-cfa72cd93a40">
+      <featureElements>
+        <featureElement id="2fb13299-518e-4042-8c0d-9ccaedfb4e4c" name="Gallery" />
+      </featureElements>
+    </feature>
+    <feature id="ab911915-ff7b-4b79-87f3-00aca4ff281d">
+      <featureElements>
+        <featureElement id="a86a663f-e2bd-4f48-b35d-4e693c41b159" name="ShowDownload" />
+      </featureElements>
+    </feature>
+    <feature id="a04add3d-6f7f-4753-b09d-2d48c51a4e8e">
+      <featureElements>
+        <featureElement id="90a82510-5a5d-4627-bf8c-aed45bea2003" name="ShowGallery" />
+      </featureElements>
+    </feature>
+    <feature id="e0d9c111-1e69-4988-80b1-4c18996eeb51">
+      <featureElements>
+        <featureElement id="35edc0d1-9288-46e5-b8d7-d0b1af9d0a82" name="ShowVideo" />
+      </featureElements>
+    </feature>
+    <feature id="e38c80e1-badb-41d4-8ee5-6a6506b27699">
+      <featureElements>
+        <featureElement id="2cee7c7d-0453-47af-aa89-3626a3dccb55" name="Video" />
+      </featureElements>
+    </feature>
   </features>
 </solution>

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="e0d9c111-1e69-4988-80b1-4c18996eeb51" Title="ShowVideo" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="ShowVideo\ShowVideo.xml" />
+    <ElementFile Location="ShowVideo\ShowVideo.webpart" />
+    <ElementFile Location="ShowVideo\ShowVideoUS.ascx" />
+  </ElementManifests>
+</Feature>

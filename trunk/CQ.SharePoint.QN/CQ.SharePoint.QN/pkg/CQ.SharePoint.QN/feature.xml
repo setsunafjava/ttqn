@@ -74,6 +74,8 @@
     <ElementFile Location="Resources\Images\wheather.jpg" />
     <ElementFile Location="Resources\Javascript\dw_scroll_c.js" />
     <ElementFile Location="Resources\Javascript\jquery-1.7.1.js" />
+    <ElementFile Location="Resources\Javascript\jwplayer.js" />
+    <ElementFile Location="Resources\Javascript\player.swf" />
     <ElementFile Location="Resources\Javascript\SCRIPT.JS" />
     <ElementFile Location="Resources\Javascript\tabcontent.js" />
     <ElementFile Location="Resources\MasterPages\CqHome.master" />

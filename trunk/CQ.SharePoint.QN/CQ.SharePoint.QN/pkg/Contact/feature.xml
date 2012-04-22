@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="5624d7ba-0a47-47f4-93ba-c7d977bb832e" Title="Contact" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="Contact\Contact.xml" />
+    <ElementFile Location="Contact\Contact.webpart" />
+    <ElementFile Location="Contact\ContactUS.ascx" />
+  </ElementManifests>
+</Feature>
