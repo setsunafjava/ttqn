@@ -17,19 +17,16 @@ namespace CQ.SharePoint.QN.Common
                 public const string ParentName = "ParentName";
                 public const string ParentId = "ParentId";
                 public const string TypeCategory = "TypeCategory"; //code here: chua add vao list - fields multichoice
-                public const string ChildName = "ChildName";
                 public const string Status = "Status";
             }
             #endregion
             #region Nested type: ExpenseClaimJapanese
             public static class VietNamese
             {
-                public const string Heading = "Heading";
-                public const string ParentName = "ParentName";
-                public const string ParentId = "ParentId";
-                public const string TypeCategory = "TypeCategory";
-                public const string ChildName = "ChildName";
-                public const string Status = "Status";
+                public const string Heading = "Tên mục tin";
+                public const string ParentName = "Tên mục tin cấp cha";
+                public const string TypeCategory = "Kiểu mục tin";
+                public const string Status = "Trạng Thái";
             }
             #endregion
 
@@ -40,6 +37,7 @@ namespace CQ.SharePoint.QN.Common
                 public const string DoanhNghiep = "Doanh Nghiệp";
                 public const string TinhUy = "Tỉnh Ủy";
                 public const string SelectType = "SelectType";
+                public const string DuLich = "Du Lịch";
             }
             #endregion
         }
@@ -58,21 +56,19 @@ namespace CQ.SharePoint.QN.Common
                 public const string ShortContent = "ShortContent";
                 public const string ViewsCount = "ViewsCount"; //So luong nguoi doc
                 public const string FocusNews = "FocusNews";
-                public const string LinkToRecord = "LinkToRecord";
                 public const string Status = "Status";
             }
 
             public static class VietNamese
             {
-                public const string Heading = "Heading";
-                public const string Content = "Content";
-                public const string ViewsCount = "ViewsCount"; //So luong nguoi doc
-                public const string FocusNews = "TieuBieu";
+                public const string Heading = "Tiêu đề";
+                public const string Content = "Nội dung";
+                public const string ViewsCount = "Số lượng xem"; //So luong nguoi doc
+                public const string FocusNews = "Tin tiêu biểu";
                 public const string CategoryName = "CategoryName";
-                public const string ThumbnailImage = "Thumbnail";
-                public const string ShortContent = "ShortContent";
-                public const string LinkToRecord = "LinkToRecord";
-                public const string Status = "Status";
+                public const string ThumbnailImage = "Ảnh đại diện";
+                public const string ShortContent = "Mô tả ngắn gọn bài viết";
+                public const string Status = "Trạng thái";
             }
 
             public static class FieldValuesDefault

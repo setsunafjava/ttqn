@@ -13,6 +13,8 @@ namespace CQ.SharePoint.QN.Webparts
     /// </summary>
     public partial class ProvinceInfoUS : UserControl
     {
+        public ProvinceInfo WebpartParent;
+        public string NewsUrl = string.Empty;
         /// <summary>
         /// Page on Load
         /// </summary>
@@ -24,53 +26,27 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
-                    //Bind data to latest news
-                    string latestNewsQuery = string.Format("<OrderBy><FieldRef Name='Date' Ascending='FALSE' /></OrderBy>");
-                    rptProvinceInfo.DataSource = GetNewsRecords(latestNewsQuery);
-                    rptProvinceInfo.DataBind();
+
+                    NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
+                    string companyListQuery = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE' /><Value Type='LookupMulti'>{1}</Value></Eq></Where>", FieldsName.NewsRecord.English.CategoryName, WebpartParent.CategoryId);
+                    uint newsNumber = 5;
+
+                    if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
+                    {
+                        newsNumber = Convert.ToUInt16(WebpartParent.NumberOfNews);
+                    }
+
+                    var companyList = Utilities.GetNewsRecords(companyListQuery, newsNumber, ListsName.English.NewsRecord);
+                    if (companyList != null && companyList.Rows.Count > 0)
+                    {
+                        rptProvinceInfo.DataSource = companyList;
+                        rptProvinceInfo.DataBind();
+                    }
                 }
                 catch (Exception ex)
                 {
                 }
             }
-        }
-
-        /// <summary>
-        /// Get news record form NewsRecord table
-        /// </summary>
-        /// <param name="query">SPquery for query items</param>
-        /// <returns>News record Datatable</returns>
-        public DataTable GetNewsRecords(string query)
-        {
-            DataTable table = new DataTable();
-            SPSecurity.RunWithElevatedPrivileges(() =>
-            {
-                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
-                {
-                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
-                    {
-                        try
-                        {
-                            SPQuery spQuery = new SPQuery
-                            {
-                                Query = query
-                            };
-                            SPList list = Utilities.GetListFromUrl(web, ListsName.English.ProvinceInfoList);
-                            if (list != null)
-                            {
-                                SPListItemCollection items = list.GetItems(spQuery);
-                                table = items.GetDataTable();
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            table = null;
-                        }
-                    }
-
-                }
-            });
-            return table;
         }
 
         /// <summary>
@@ -88,6 +64,6 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 DataRowView drv = (DataRowView)e.Item.DataItem;
             }
-        }   
+        }
     }
 }

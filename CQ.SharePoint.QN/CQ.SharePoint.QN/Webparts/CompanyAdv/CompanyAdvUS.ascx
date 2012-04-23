@@ -5,14 +5,14 @@
     <div class="bg_title_ModNews">
         <div class="title_cate_News">
             <div class="name_F_Right">
-                quảng cáo doanh nghiệp
+                <%= WebpartParent.CompanyType%>
             </div>
         </div>
         <div class="content_F_Right">
             <div class="inner_list_company_adv">
                 <asp:Repeater ID="rptCompanyAdv" runat="server" OnItemDataBound="rptCompanyAdv_OnItemDataBound">
                     <HeaderTemplate><ul></HeaderTemplate>
-                    <ItemTemplate><li><a href="#"><%#Eval("Title") %></a></li></ItemTemplate>
+                    <ItemTemplate><li><a href='<%= NewsUrl%><%#Eval("ID") %>'><%#Eval("Title") %></a></li></ItemTemplate>
                     <FooterTemplate></ul></FooterTemplate>
                 </asp:Repeater>
             </div>

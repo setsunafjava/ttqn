@@ -28,20 +28,22 @@ namespace CQ.SharePoint.QN.Webparts
                     var newsId = Request.QueryString["NewsID"];
                     //if (!string.IsNullOrEmpty(newsId))
                     //{
-                        NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url,
-                                                Constants.PageInWeb.DetailNews);
-                        //Bind data to top view
-                        string topNewsQuery =
-                            string.Format("<OrderBy><FieldRef Name='{0}' Ascending='False' /></OrderBy>",
-                                          FieldsName.NewsRecord.English.ViewsCount);
-                        var topViewsTable = Utilities.GetNewsRecords(topNewsQuery,
-                                                                     Convert.ToUInt16(WebpartParent.NumberOfNews),
-                                                                     ListsName.English.NewsRecord);
-                        if (topViewsTable != null && topViewsTable.Rows.Count > 0)
-                        {
-                            rptOtherNews.DataSource = topViewsTable;
-                            rptOtherNews.DataBind();
-                        }
+                    NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url,
+                                            Constants.PageInWeb.DetailNews);
+                    //Bind data to top view
+                    string topNewsQuery = string.Format("<OrderBy><FieldRef Name='{0}' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.ViewsCount);
+                    uint newsNumber = 5;
+
+                    if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
+                    {
+                        newsNumber = Convert.ToUInt16(WebpartParent.NumberOfNews);
+                    }
+                    var topViewsTable = Utilities.GetNewsRecords(topNewsQuery, newsNumber, ListsName.English.NewsRecord);
+                    if (topViewsTable != null && topViewsTable.Rows.Count > 0)
+                    {
+                        rptOtherNews.DataSource = topViewsTable;
+                        rptOtherNews.DataBind();
+                    }
 
                     //}
                 }

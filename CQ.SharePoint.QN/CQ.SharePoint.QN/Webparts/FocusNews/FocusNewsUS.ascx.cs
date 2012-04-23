@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Data;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.WebControls;
 using CQ.SharePoint.QN.Common;
@@ -34,9 +36,15 @@ namespace CQ.SharePoint.QN.Webparts
                 }
                 catch (Exception ex)
                 {
-                    
-                    
                 }
+            }
+        }
+
+        protected void FocusNews_OnItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                DataRowView drv = (DataRowView)e.Item.DataItem;
             }
         }
     }

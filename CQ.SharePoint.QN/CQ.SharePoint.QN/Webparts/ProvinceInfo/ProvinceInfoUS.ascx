@@ -5,7 +5,7 @@
     <div class="bg_title_ModNews">
         <div class="title_cate_News">
             <div class="name_F_Right">
-                Thông tin chỉ đạo của lãnh đạo tỉnh</div>
+                <%= WebpartParent.NewsType%></div>
         </div>
         <div class="content_F_Right">
             <asp:Repeater ID="rptProvinceInfo" runat="server" OnItemDataBound="rptProvinceInfo_OnItemDataBound">
@@ -16,8 +16,8 @@
                 </HeaderTemplate>
                 <ItemTemplate>
                     <li>
-					    <a href="#"><%#Eval("Title") %></a>
-					    <span class="time_update">Ngay <%#Eval("Date") %></span>
+					    <a href='<%= NewsUrl%><%#Eval("ID") %>'><%#Eval("Title") %></a>
+					    <span class="time_update">Ngày <%#Eval("Created") %></span>
 					</li>
                 </ItemTemplate>
                 <FooterTemplate></ul></marquee></FooterTemplate>
