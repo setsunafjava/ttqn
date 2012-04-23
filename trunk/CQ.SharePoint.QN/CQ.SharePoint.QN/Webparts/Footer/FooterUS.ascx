@@ -2,15 +2,12 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="FooterUS.ascx.cs" Inherits="CQ.SharePoint.QN.Webparts.FooterUS" %>
 <div class="bottom_menu">
     <ul>
-        <li><a href="#">Trang chủ</a></li>
-        <li><a href="#">Giới thiệu</a></li>
-        <li><a href="#">Chuyên đề</a></li>
-        <li><a href="#">VB mới ban hành</a></li>
-        <li><a href="#">Doanh nghiệp</a></li>
-        <li><a href="#">Dịch vụ</a></li>
-        <li><a href="#">Download</a></li>
-        <li><a href="#">Lên hệ</a></li>
-        <li><a href="_layouts/Authenticate.aspx">Dang Nhap</a></li>
+        <asp:Repeater ID="rptMenu" runat="server">
+            <ItemTemplate>
+                <li><a href='<%#Eval("Url") %>'><%#Eval("Title") %></a></li>
+            </ItemTemplate>
+        </asp:Repeater>
+        <li><a runat="server" id="aUser">Đăng nhập</a></li>
     </ul>
 </div>
 <div class="info_footer">

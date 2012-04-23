@@ -11,6 +11,7 @@ namespace CQ.SharePoint.QN.Webparts
 {
     public partial class FooterUS
     {
-
+        protected global::System.Web.UI.WebControls.Repeater rptMenu;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor aUser;
     }
 }

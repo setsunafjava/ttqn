@@ -11,11 +11,11 @@
 				<li><a href="#" style="background:url(images/bg_menu_hover.jpg) top left repeat-x;">Trang chủ</a></li>
                 <asp:Repeater ID="rptMenu" runat="server" OnItemDataBound="rptMenu_OnItemDataBound">
                     <ItemTemplate>
-                        <li><a href="#"><%#Eval("Title") %></a>
+                        <li><a href='<%#Eval("Url") %>'><%#Eval("Title") %></a>
                             <asp:Repeater ID="rptSubMenu" runat="server">
                                 <HeaderTemplate><ul></HeaderTemplate>
                                 <ItemTemplate>
-                                    <li><a href="#"><%#Eval("Title") %></a></li>
+                                    <li><a href='<%#Eval("Url") %>'><%#Eval("Title") %></a></li>
                                 </ItemTemplate>
                                 <FooterTemplate></ul></FooterTemplate>
                             </asp:Repeater>
@@ -36,7 +36,7 @@
 	<div class="cleaner"></div>
 	<div class="bg_bottom_top_menu">
 		<div class="inner_content_bottom_topMenu">
-			<div class="time_date">Hôm nay, ngày 22/02/2012 10:33:55 AM</div>
+			<div class="time_date">Hôm nay, ngày <%=DateTime.Now %></div>
 			<div class="set_hompage"><a href="#">Đặt làm trang chủ</a></div>
 			<div class="RSS"><a href="#">RSS</a></div>
 			<div class="cleaner"></div>
