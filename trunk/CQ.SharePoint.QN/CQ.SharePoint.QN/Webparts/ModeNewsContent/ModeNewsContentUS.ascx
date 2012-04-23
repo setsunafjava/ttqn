@@ -18,7 +18,8 @@
                 <div class="img_thumb_News">
                     <img src="images/images.jpg" /></div>
                 <div class="intro_short_content_News">
-                    <a href="#">Hội nghị xúc tiến thương mại...</a>
+                    <%--<a href="#">Hội nghị xúc tiến thương mại...</a>--%>
+                    <a href="#"><asp:Label ID="lblHeaderTinhUy" runat="server" ></asp:Label></a>
                 </div>
                 <div class="list_other_news">
                     <asp:Repeater ID="rptTinhUy" runat="server">
@@ -39,7 +40,8 @@
                 <div class="img_thumb_News">
                     <img src="images/images.jpg" /></div>
                 <div class="intro_short_content_News">
-                    <a href="#">Hội nghị xúc tiến thương mại...</a>
+                    <%--<a href="#">Hội nghị xúc tiến thương mại...</a>--%>
+                    <a href="#"><asp:Label ID="lblHeaderHoiDongNhanDan" runat="server" ></asp:Label></a>
                 </div>
                 <div class="list_other_news">
                     <asp:Repeater ID="rptHoiDongNhanDan" runat="server">
@@ -60,7 +62,8 @@
                 <div class="img_thumb_News">
                     <img src="images/images.jpg" /></div>
                 <div class="intro_short_content_News">
-                    <a href="#">Hội nghị xúc tiến thương mại...</a>
+                    <%--<a href="#">Hội nghị xúc tiến thương mại...</a>--%>
+                     <a href="#"><asp:Label ID="lblHeaderUyBanNhanDan" runat="server" ></asp:Label></a>
                 </div>
                 <div class="list_other_news">
                     <asp:Repeater ID="rptUyBanNhanDan" runat="server">
