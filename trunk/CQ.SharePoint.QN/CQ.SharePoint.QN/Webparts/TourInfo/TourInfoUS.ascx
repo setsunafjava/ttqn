@@ -4,13 +4,13 @@
 <div class="pos_MOD">
     <div class="bg_title_mod">
         <div class="info_travel">
-            Thông tin du lịch</div>
+            <%= WebpartParent.NewsType%></div>
     </div>
     <div class="inner_pos_Mod">
         <div class="inner_infoTravel">
             <asp:Repeater ID="rptTourInfo" runat="server" OnItemDataBound="rptTourInfo_OnItemDataBound">
                 <HeaderTemplate><ul></HeaderTemplate>
-                <ItemTemplate><li><a href="#"><%#Eval("Title") %></a></li></ItemTemplate>
+                <ItemTemplate><li><a href='<%= NewsUrl%><%#Eval("ID") %>'><%#Eval("Title") %></a></li></ItemTemplate>
                 <FooterTemplate></ul></FooterTemplate>
             </asp:Repeater>
         </div>

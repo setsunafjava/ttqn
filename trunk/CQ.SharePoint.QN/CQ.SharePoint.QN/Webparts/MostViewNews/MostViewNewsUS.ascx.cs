@@ -27,20 +27,22 @@ namespace CQ.SharePoint.QN.Webparts
                     var newsId = Request.QueryString["NewsID"];
                     //if (!string.IsNullOrEmpty(newsId))
                     //{
-                        //Bind data to top view
-                        NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url,
-                                                Constants.PageInWeb.DetailNews);
-                        string topNewsQuery =
-                            string.Format("<OrderBy><FieldRef Name='{0}' Ascending='False' /></OrderBy>",
-                                          FieldsName.NewsRecord.English.ViewsCount);
-                        var topViewsTable = Utilities.GetNewsRecords(topNewsQuery,
-                                                                     Convert.ToUInt16(WebpartParent.NumberOfNews),
-                                                                     ListsName.English.NewsRecord);
-                        if (topViewsTable != null && topViewsTable.Rows.Count > 0)
-                        {
-                            rptTopViews.DataSource = topViewsTable;
-                            rptTopViews.DataBind();
-                        }
+                    //Bind data to top view
+                    NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
+                    string topNewsQuery = string.Format("<OrderBy><FieldRef Name='{0}' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.ViewsCount);
+                    uint newsNumber = 5;
+
+                    if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
+                    {
+                        newsNumber = Convert.ToUInt16(WebpartParent.NumberOfNews);
+                    }
+
+                    var topViewsTable = Utilities.GetNewsRecords(topNewsQuery, newsNumber, ListsName.English.NewsRecord);
+                    if (topViewsTable != null && topViewsTable.Rows.Count > 0)
+                    {
+                        rptTopViews.DataSource = topViewsTable;
+                        rptTopViews.DataBind();
+                    }
                     //}
                 }
                 catch (Exception ex)

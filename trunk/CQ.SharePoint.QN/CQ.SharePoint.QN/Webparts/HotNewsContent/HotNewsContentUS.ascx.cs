@@ -28,8 +28,7 @@ namespace CQ.SharePoint.QN.Webparts
                 {
                     //Bind data to latest news
                     NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
-                    string latestNewsQuery =
-                        string.Format("<OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>");
+                    string latestNewsQuery =string.Format("<OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>");
                     var latestNewsTable = Utilities.GetNewsRecords(latestNewsQuery, 5, ListsName.English.NewsRecord);
                     if (latestNewsTable != null && latestNewsTable.Rows.Count > 0)
                     {

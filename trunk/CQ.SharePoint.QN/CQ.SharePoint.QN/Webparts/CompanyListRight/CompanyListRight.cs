@@ -20,8 +20,6 @@ namespace CQ.SharePoint.QN.Webparts
         {
         }
 
-        public string GroupName { get; set; }
-
         [WebBrowsable(true)]
         [FriendlyName("Nhập số tin muốn hiển thị")]
         [Description("Số tin muốn hiển thị")]
@@ -83,21 +81,6 @@ namespace CQ.SharePoint.QN.Webparts
         {
             this.Title = "Chọn kiểu hiển thị";
 
-        }
-
-        protected void BindDataToDropdown(DropDownList dropDownList)
-        {
-            string companyCaml = string.Format(" <Where><Eq><FieldRef Name='{0}' /><Value Type='MultiChoice'>{1}</Value></Eq></Where>", FieldsName.NewsCategory.English.TypeCategory, FieldsName.NewsCategory.FieldValuesDefault.DoanhNghiep);
-            var table = Utilities.GetNewsRecords(companyCaml, 20, ListsName.English.NewsCategory);
-
-
-            if (table != null && table.Rows.Count > 0)
-            {
-                dropDownList.ID = FieldsName.NewsCategory.FieldValuesDefault.SelectType;
-                dropDownList.DataTextField = FieldsName.NewsCategory.English.TypeCategory;
-                dropDownList.DataValueField = FieldsName.Id;
-                dropDownList.DataBind();
-            }
         }
 
         protected override void CreateChildControls()
