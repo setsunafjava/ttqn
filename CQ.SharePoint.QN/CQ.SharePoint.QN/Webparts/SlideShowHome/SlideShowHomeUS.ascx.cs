@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data;
+using System.Globalization;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.WebControls;
@@ -86,7 +88,19 @@ namespace CQ.SharePoint.QN.Webparts
             // Execute the following logic for Items and Alternating Items.
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
+                var webUrl = "";
+                if (!SPContext.Current.Web.ServerRelativeUrl.Equals("/"))
+                {
+                    webUrl = SPContext.Current.Web.ServerRelativeUrl;
+                }
                 DataRowView drv = (DataRowView)e.Item.DataItem;
+                var aLink = (HtmlAnchor)e.Item.FindControl("aLink");
+                aLink.HRef = webUrl + "/" + Constants.PageInWeb.GalleryPage + ".aspx";
+                aLink.Title = Convert.ToString(drv["Title"], CultureInfo.InvariantCulture);
+                var imgLink = (HtmlImage)e.Item.FindControl("imgLink");
+                imgLink.Src = webUrl + "/" + ListsName.English.ImageCatList + "/" +
+                              Convert.ToString(drv["FileLeafRef"], CultureInfo.InvariantCulture);
+                imgLink.Alt = Convert.ToString(drv["Title"], CultureInfo.InvariantCulture);
             }
         }   
     }
