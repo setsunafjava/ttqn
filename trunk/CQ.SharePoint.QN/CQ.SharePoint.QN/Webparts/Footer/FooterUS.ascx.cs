@@ -19,19 +19,19 @@ namespace CQ.SharePoint.QN.Webparts
         /// <param name="e">EventArgs e</param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
-            {
-                var userName = SPContext.Current.Web.CurrentUser.Name;
-                aUser.Title = "Đăng xuất";
-                aUser.HRef = "/_layouts/SignOut.aspx";
-                aUser.InnerText= "Đăng xuất";
-            }
-            catch (Exception)
-            {
-                aUser.Title = "Đăng nhập";
-                aUser.HRef = "/_layouts/Authenticate.aspx";
-                aUser.InnerText = "Đăng nhập";
-            }
+            //try
+            //{
+            //    var userName = SPContext.Current.Web.CurrentUser.Name;
+            //    aUser.Title = "Đăng xuất";
+            //    aUser.HRef = "/_layouts/SignOut.aspx";
+            //    aUser.InnerText= "Đăng xuất";
+            //}
+            //catch (Exception)
+            //{
+            //    aUser.Title = "Đăng nhập";
+            //    aUser.HRef = "/_layouts/Authenticate.aspx";
+            //    aUser.InnerText = "Đăng nhập";
+            //}
             if (!IsPostBack)
             {
                 try

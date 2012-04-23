@@ -7,7 +7,7 @@
                 <li><a href='<%#Eval("Url") %>'><%#Eval("Title") %></a></li>
             </ItemTemplate>
         </asp:Repeater>
-        <li><a runat="server" id="aUser">Đăng nhập</a></li>
+        <li><a href="/_layouts/Authenticate.aspx">Đăng nhập</a></li>
     </ul>
 </div>
 <div class="info_footer">
