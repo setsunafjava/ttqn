@@ -11,6 +11,7 @@ namespace CQ.SharePoint.QN.Webparts
 {
     public partial class GalleryUS
     {
-
+        protected global::System.Web.UI.WebControls.Repeater rptCat;
+        protected global::System.Web.UI.WebControls.Repeater rptAlbum;
     }
 }

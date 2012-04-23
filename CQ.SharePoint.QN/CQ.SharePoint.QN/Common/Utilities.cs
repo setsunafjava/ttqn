@@ -538,6 +538,43 @@ namespace CQ.SharePoint.QN.Common
             return table;
         }
 
+        public static DataTable GetDocLibRecords(string query, string listName)
+        {
+            DataTable table = new DataTable();
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            SPQuery spQuery = new SPQuery
+                            {
+                                Query = query,
+                                ViewFields = "<FieldRef Name='ID' /><FieldRef Name='Title' /><FieldRef Name='ImageCreateDate' /><FieldRef Name='Description' /><FieldRef Name='FileLeafRef' />"
+                            };
+                            SPList list = Utilities.GetDocListFromUrl(web, listName);
+                            if (list != null)
+                            {
+                                SPListItemCollection items = list.GetItems(spQuery);
+                                if (items != null && items.Count > 0)
+                                {
+                                    table = items.GetDataTable();
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            table = null;
+                        }
+                    }
+
+                }
+            });
+            return table;
+        }
+
         /// <summary>
         /// Get value in resource file by key
         /// </summary>

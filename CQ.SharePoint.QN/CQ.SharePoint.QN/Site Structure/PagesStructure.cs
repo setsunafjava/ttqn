@@ -81,11 +81,6 @@ namespace CQ.SharePoint.QN
                 //Mode news content
                 AddCustomWebpart("ModeNewsContent.webpart", Constants.PageInWeb.DefaultPage, "ModeNewsContent-posittion1", web, "LeftContent", 5);
 
-                AddCustomWebpart("Gallery.webpart", Constants.PageInWeb.GalleryPage, "Gallery-posittion0", web, "LeftContent", 0);
-                AddCustomWebpart("Video.webpart", Constants.PageInWeb.VideoPage, "Video-posittion0", web, "LeftContent", 0);
-                AddCustomWebpart("ShowDownload.webpart", Constants.PageInWeb.DownloadPage, "ShowDownload-posittion0", web, "LeftContent", 0);
-                AddCustomWebpart("Contact.webpart", Constants.PageInWeb.Contact, "Contact-posittion0", web, "LeftContent", 0);
-
                 #endregion
 
                 #region RightContent
@@ -239,6 +234,12 @@ namespace CQ.SharePoint.QN
                 AddCustomWebpart("NewsDetail.webpart", Constants.PageInWeb.DetailNews, "NewsDetail-posittion0", web, "LeftCorner", 0);
                 AddCustomWebpart("OtherNews.webpart", Constants.PageInWeb.DetailNews, "OtherNews-posittion0", web, "LeftCorner", 1);
                 AddCustomWebpart("NextNews.webpart", Constants.PageInWeb.DetailNews, "NextNews-posittion0", web, "LeftCorner", 2);
+
+                AddCustomWebpart("Gallery.webpart", Constants.PageInWeb.GalleryPage, "Gallery-posittion0", web, "LeftCorner", 0);
+                AddCustomWebpart("Video.webpart", Constants.PageInWeb.VideoPage, "Video-posittion0", web, "LeftCorner", 0);
+                AddCustomWebpart("ShowDownload.webpart", Constants.PageInWeb.DownloadPage, "ShowDownload-posittion0", web, "LeftCorner", 0);
+                AddCustomWebpart("Contact.webpart", Constants.PageInWeb.Contact, "Contact-posittion0", web, "LeftCorner", 0);
+
                 #endregion
 
                 #region RightCorner
