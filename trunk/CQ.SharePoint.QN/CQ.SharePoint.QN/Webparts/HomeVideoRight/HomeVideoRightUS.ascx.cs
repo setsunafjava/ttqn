@@ -30,6 +30,11 @@ namespace CQ.SharePoint.QN.Webparts
                         {
                             try
                             {
+                                var webUrl = "";
+                                if (!web.ServerRelativeUrl.Equals("/"))
+                                {
+                                    webUrl = web.ServerRelativeUrl;
+                                }
                                 SPQuery spQuery = new SPQuery
                                 {
                                     Query = "<OrderBy><FieldRef Name='Title' Ascending='TRUE' /></OrderBy>"
@@ -45,7 +50,7 @@ namespace CQ.SharePoint.QN.Webparts
                                         {
                                             videoStr +=
                                                 @"{
-                                                    'file': '" + web.Url + "/" + item.Url +
+                                                    'file': '" + webUrl + "/" + item.Url +
                                                 @"', 
                                                     'image': '" + web.Url + "/" + ListsName.English.CQQNResources + "/images.jpg" +
                                                 @"',
