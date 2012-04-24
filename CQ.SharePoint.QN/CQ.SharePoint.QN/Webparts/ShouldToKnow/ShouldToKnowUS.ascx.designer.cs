@@ -13,5 +13,7 @@ namespace CQ.SharePoint.QN.Webparts
     {
         protected global::System.Web.UI.WebControls.Repeater rptShouldYouKnow;
         protected global::System.Web.UI.WebControls.Repeater rptNewsGroup;
+
+        protected global::System.Web.UI.WebControls.Image imgThumbnail;
     }
 }

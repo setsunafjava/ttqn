@@ -43,8 +43,7 @@ namespace CQ.SharePoint.QN.Webparts
                         rptShouldYouKnow.DataBind();
                     }
 
-
-
+                    CategoryUrl = string.Format("{0}/{1}.aspx?CategoryId=", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage);
                     string newsTitle = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='{2}' Ascending='True' /></OrderBy>", FieldsName.NewsCategory.English.ParentName, WebpartParent.CategoryId, FieldsName.Title);
                     var newsTitleItems = Utilities.GetNewsRecords(newsTitle, 5, ListsName.English.NewsCategory);
                     if (newsTitleItems != null && newsTitleItems.Rows.Count > 0)
