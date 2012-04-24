@@ -30,7 +30,7 @@
             <div class="hotnews_test">
                 <img src="images/images.jpg" />
                 <h3>
-                    <a href="#">
+                    <a href='<%= NewsFirstUrl1%>'>
                         <asp:Label ID="lblHeader" runat="server"></asp:Label></a></h3>
                 <span>
                     <asp:Label ID="lblShortContent" runat="server"></asp:Label></span>

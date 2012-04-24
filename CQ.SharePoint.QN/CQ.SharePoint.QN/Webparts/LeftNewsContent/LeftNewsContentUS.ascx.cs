@@ -20,6 +20,7 @@ namespace CQ.SharePoint.QN.Webparts
         private string _newsCategoryTitle;
         public string NewsUrl = string.Empty;
         public string CategoryUrl = string.Empty;
+        public string NewsFirstUrl1 = string.Empty;
 
         /// <summary>
         /// Page on Load
@@ -39,6 +40,7 @@ namespace CQ.SharePoint.QN.Webparts
                     {
                         lblHeader.Text = Convert.ToString(newsGroups.Rows[0][FieldsName.Title]);
                         lblShortContent.Text = Convert.ToString(newsGroups.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
+                        NewsFirstUrl1 = string.Format("{0}/{1}.aspx?NewsId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Convert.ToString(newsGroups.Rows[0][FieldsName.Id]));
                         if (newsGroups.Rows.Count > 2)
                         {
                             newsGroups.Rows.RemoveAt(0);

@@ -25,7 +25,7 @@
                         </HeaderTemplate>
                         <ItemTemplate>
                             <li>
-                                <a href='<%= NewsUrl%><%#Eval("ID") %>'><%#Eval("ShortContent")%></a>
+                                <a href='<%= NewsUrl%><%#Eval("ID") %>'><%#Eval("Title")%></a>
                                 <span>(ngày <%#Eval("Created")%>)</span>
                             </li>
                         </ItemTemplate>
