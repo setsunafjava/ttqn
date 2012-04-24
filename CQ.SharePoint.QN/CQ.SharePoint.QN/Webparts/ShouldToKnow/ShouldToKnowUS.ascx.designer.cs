@@ -11,6 +11,7 @@ namespace CQ.SharePoint.QN.Webparts
 {
     public partial class ShouldToKnowUS
     {
-
+        protected global::System.Web.UI.WebControls.Repeater rptShouldYouKnow;
+        protected global::System.Web.UI.WebControls.Repeater rptNewsGroup;
     }
 }

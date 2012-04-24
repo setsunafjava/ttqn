@@ -5,11 +5,11 @@
     <div class="bg_title_ModNews">
         <div class="cate_News_Mod1">
             <div>
-                Tỉnh Ủy</div>
+                <asp:Label ID="lblFirstGroup" runat="server" /></div>
             <div>
-                Hội đồng nhân dân</div>
+                <asp:Label ID="lblSecondGroup" runat="server" /></div>
             <div>
-                Ủy ban nhân dân</div>
+                <asp:Label ID="lblThirdGroup" runat="server" /></div>
             <div class="cleaner">
             </div>
         </div>
