@@ -11,6 +11,7 @@ namespace CQ.SharePoint.QN.Webparts
     /// </summary>
     public partial class MailBoxUS : UserControl
     {
+        public MailBox WebpartParent;
         /// <summary>
         /// Page on Load
         /// </summary>

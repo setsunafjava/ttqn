@@ -15,6 +15,9 @@ namespace CQ.SharePoint.QN.Webparts
     {
         public ModeNewsContent WebpartParent;
         public string NewsUrl = string.Empty;
+        public string NewsFirstUrl1 = string.Empty;
+        public string NewsFirstUrl2 = string.Empty;
+        public string NewsFirstUrl3 = string.Empty;
         /// <summary>
         /// Page on Load
         /// </summary>
@@ -29,24 +32,21 @@ namespace CQ.SharePoint.QN.Webparts
                     //if select tinh uy
                     if ("1".Equals(WebpartParent.NewsType))
                     {
-                        NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url,
-                                                Constants.PageInWeb.DetailNews);
+                        NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
                         lblFirstGroup.Text = FieldsName.NewsRecord.FieldValuesDefault.TinhUy;
                         lblSecondGroup.Text = FieldsName.NewsRecord.FieldValuesDefault.HoiDongNhanDan;
                         lblThirdGroup.Text = FieldsName.NewsRecord.FieldValuesDefault.UyBanNhanDan;
                         //Tinh uy
                         string tinhUyNewsQuery =
-                            string.Format(
-                                "<Where><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>",
+                            string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>",
                                 FieldsName.NewsRecord.English.CategoryName,
                                 SPHttpUtility.HtmlEncode(FieldsName.NewsRecord.FieldValuesDefault.TinhUy));
                         var tinhUyNewsTable = Utilities.GetNewsRecords(tinhUyNewsQuery, 5, ListsName.English.NewsRecord);
 
                         if (tinhUyNewsTable != null && tinhUyNewsTable.Rows.Count > 0)
                         {
-                            lblHeaderTinhUy.Text =
-                                Convert.ToString(tinhUyNewsTable.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
-
+                            lblHeaderTinhUy.Text = Convert.ToString(tinhUyNewsTable.Rows[0][FieldsName.Title]);
+                            NewsFirstUrl1 = string.Format("{0}/{1}.aspx?NewsId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Convert.ToString(tinhUyNewsTable.Rows[0][FieldsName.Id]));
                             tinhUyNewsTable.Rows.RemoveAt(0);
                             rptTinhUy.DataSource = tinhUyNewsTable;
                             rptTinhUy.DataBind();
@@ -54,34 +54,28 @@ namespace CQ.SharePoint.QN.Webparts
 
                         //Hoi dong nhan dan
                         string hoiDongNhanDanNewsQuery =
-                            string.Format(
-                                "<Where><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>",
+                            string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>",
                                 FieldsName.NewsRecord.English.CategoryName,
                                 SPHttpUtility.HtmlEncode(FieldsName.NewsRecord.FieldValuesDefault.HoiDongNhanDan));
-                        var hoiDongNhanDanNewsTable = Utilities.GetNewsRecords(hoiDongNhanDanNewsQuery, 5,
-                                                                               ListsName.English.NewsRecord);
+                        var hoiDongNhanDanNewsTable = Utilities.GetNewsRecords(hoiDongNhanDanNewsQuery, 5,ListsName.English.NewsRecord);
                         if (hoiDongNhanDanNewsTable != null && hoiDongNhanDanNewsTable.Rows.Count > 0)
                         {
-                            lblHeaderHoiDongNhanDan.Text =
-                                Convert.ToString(
-                                    hoiDongNhanDanNewsTable.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
+                            lblHeaderHoiDongNhanDan.Text =Convert.ToString(hoiDongNhanDanNewsTable.Rows[0][FieldsName.Title]);
+                            NewsFirstUrl2 = string.Format("{0}/{1}.aspx?NewsId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Convert.ToString(hoiDongNhanDanNewsTable.Rows[0][FieldsName.Id]));
                             hoiDongNhanDanNewsTable.Rows.RemoveAt(0);
                             rptHoiDongNhanDan.DataSource = hoiDongNhanDanNewsTable;
                             rptHoiDongNhanDan.DataBind();
                         }
                         //Ủy ban nhân dân
                         string uyBanNhanDanNewsQuery =
-                            string.Format(
-                                "<Where><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>",
+                            string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>",
                                 FieldsName.NewsRecord.English.CategoryName,
                                 SPHttpUtility.HtmlEncode(FieldsName.NewsRecord.FieldValuesDefault.UyBanNhanDan));
-                        var uyBanNhanDanNewsTable = Utilities.GetNewsRecords(uyBanNhanDanNewsQuery, 5,
-                                                                             ListsName.English.NewsRecord);
+                        var uyBanNhanDanNewsTable = Utilities.GetNewsRecords(uyBanNhanDanNewsQuery, 5,ListsName.English.NewsRecord);
                         if (uyBanNhanDanNewsTable != null && uyBanNhanDanNewsTable.Rows.Count > 0)
                         {
-                            lblHeaderUyBanNhanDan.Text =
-                                Convert.ToString(
-                                    uyBanNhanDanNewsTable.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
+                            lblHeaderUyBanNhanDan.Text = Convert.ToString(uyBanNhanDanNewsTable.Rows[0][FieldsName.Title]);
+                            NewsFirstUrl3 = string.Format("{0}/{1}.aspx?NewsId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Convert.ToString(uyBanNhanDanNewsTable.Rows[0][FieldsName.Id]));
                             uyBanNhanDanNewsTable.Rows.RemoveAt(0);
                             rptUyBanNhanDan.DataSource = uyBanNhanDanNewsTable;
                             rptUyBanNhanDan.DataBind();
@@ -105,8 +99,8 @@ namespace CQ.SharePoint.QN.Webparts
 
                         if (tinhUyNewsTable != null && tinhUyNewsTable.Rows.Count > 0)
                         {
-                            lblHeaderTinhUy.Text =
-                                Convert.ToString(tinhUyNewsTable.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
+                            lblHeaderTinhUy.Text =Convert.ToString(tinhUyNewsTable.Rows[0][FieldsName.Title]);
+                            NewsFirstUrl1 = string.Format("{0}/{1}.aspx?NewsId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Convert.ToString(tinhUyNewsTable.Rows[0][FieldsName.Id]));
 
                             tinhUyNewsTable.Rows.RemoveAt(0);
                             rptTinhUy.DataSource = tinhUyNewsTable;
@@ -119,13 +113,12 @@ namespace CQ.SharePoint.QN.Webparts
                                 "<Where><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>",
                                 FieldsName.NewsRecord.English.CategoryName,
                                 SPHttpUtility.HtmlEncode(FieldsName.NewsRecord.FieldValuesDefault.DiaPhuong));
-                        var hoiDongNhanDanNewsTable = Utilities.GetNewsRecords(hoiDongNhanDanNewsQuery, 5,
-                                                                               ListsName.English.NewsRecord);
+                        var hoiDongNhanDanNewsTable = Utilities.GetNewsRecords(hoiDongNhanDanNewsQuery, 5,ListsName.English.NewsRecord);
                         if (hoiDongNhanDanNewsTable != null && hoiDongNhanDanNewsTable.Rows.Count > 0)
                         {
-                            lblHeaderHoiDongNhanDan.Text =
-                                Convert.ToString(
-                                    hoiDongNhanDanNewsTable.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
+                            lblHeaderHoiDongNhanDan.Text =Convert.ToString(hoiDongNhanDanNewsTable.Rows[0][FieldsName.Title]);
+                            NewsFirstUrl2 = string.Format("{0}/{1}.aspx?NewsId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Convert.ToString(hoiDongNhanDanNewsTable.Rows[0][FieldsName.Id]));
+
                             hoiDongNhanDanNewsTable.Rows.RemoveAt(0);
                             rptHoiDongNhanDan.DataSource = hoiDongNhanDanNewsTable;
                             rptHoiDongNhanDan.DataBind();
@@ -136,13 +129,11 @@ namespace CQ.SharePoint.QN.Webparts
                                 "<Where><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>",
                                 FieldsName.NewsRecord.English.CategoryName,
                                 SPHttpUtility.HtmlEncode(FieldsName.NewsRecord.FieldValuesDefault.DoanhNghiep));
-                        var uyBanNhanDanNewsTable = Utilities.GetNewsRecords(uyBanNhanDanNewsQuery, 5,
-                                                                             ListsName.English.NewsRecord);
+                        var uyBanNhanDanNewsTable = Utilities.GetNewsRecords(uyBanNhanDanNewsQuery, 5,ListsName.English.NewsRecord);
                         if (uyBanNhanDanNewsTable != null && uyBanNhanDanNewsTable.Rows.Count > 0)
                         {
-                            lblHeaderUyBanNhanDan.Text =
-                                Convert.ToString(
-                                    uyBanNhanDanNewsTable.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
+                            lblHeaderUyBanNhanDan.Text =Convert.ToString(uyBanNhanDanNewsTable.Rows[0][FieldsName.Title]);
+                            NewsFirstUrl3 = string.Format("{0}/{1}.aspx?NewsId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Convert.ToString(uyBanNhanDanNewsTable.Rows[0][FieldsName.Id]));
                             uyBanNhanDanNewsTable.Rows.RemoveAt(0);
                             rptUyBanNhanDan.DataSource = uyBanNhanDanNewsTable;
                             rptUyBanNhanDan.DataBind();
