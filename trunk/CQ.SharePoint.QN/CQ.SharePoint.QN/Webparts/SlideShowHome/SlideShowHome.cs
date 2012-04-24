@@ -25,7 +25,7 @@ namespace CQ.SharePoint.QN.Webparts
 
             try
             {
-                SlideShowHomeUS control = (SlideShowHomeUS)this.Page.LoadControl("WebPartsUS/SlideShowHomeUS.ascx");
+                SlideShowHomeUS control = (SlideShowHomeUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/SlideShowHomeUS.ascx");
                 Controls.Add(control);
             }
             catch (Exception ex)

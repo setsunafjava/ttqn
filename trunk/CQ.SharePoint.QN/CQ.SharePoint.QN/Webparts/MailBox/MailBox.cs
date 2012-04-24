@@ -25,7 +25,7 @@ namespace CQ.SharePoint.QN.Webparts
 
             try
             {
-                MailBoxUS control = (MailBoxUS)this.Page.LoadControl("WebPartsUS/MailBoxUS.ascx");
+                MailBoxUS control = (MailBoxUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/MailBoxUS.ascx");
                 Controls.Add(control);
             }
             catch (Exception ex)

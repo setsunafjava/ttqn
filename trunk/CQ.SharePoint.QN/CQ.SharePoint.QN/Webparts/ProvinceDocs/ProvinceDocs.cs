@@ -25,7 +25,7 @@ namespace CQ.SharePoint.QN.Webparts
 
             try
             {
-                ProvinceDocsUS control = (ProvinceDocsUS)this.Page.LoadControl("WebPartsUS/ProvinceDocsUS.ascx");
+                ProvinceDocsUS control = (ProvinceDocsUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/ProvinceDocsUS.ascx");
                 Controls.Add(control);
             }
             catch (Exception ex)

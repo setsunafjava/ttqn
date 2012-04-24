@@ -84,7 +84,7 @@ namespace CQ.SharePoint.QN.Webparts
         {
             try
             {
-                QNadvUS control = (QNadvUS)this.Page.LoadControl("WebPartsUS/QNadvUS.ascx");
+                QNadvUS control = (QNadvUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/QNadvUS.ascx");
                 control.ParentWP = this;
                 Controls.Add(control);
             }

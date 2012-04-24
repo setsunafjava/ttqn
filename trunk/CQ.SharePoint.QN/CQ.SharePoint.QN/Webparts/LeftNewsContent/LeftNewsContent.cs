@@ -49,7 +49,7 @@ namespace CQ.SharePoint.QN.Webparts
             base.CreateChildControls();
             try
             {
-                LeftNewsContentUS control = (LeftNewsContentUS)this.Page.LoadControl("WebPartsUS/LeftNewsContentUS.ascx");
+                LeftNewsContentUS control = (LeftNewsContentUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/LeftNewsContentUS.ascx");
                 control.WebpartParent = this;
                 Controls.Add(control);
             }
