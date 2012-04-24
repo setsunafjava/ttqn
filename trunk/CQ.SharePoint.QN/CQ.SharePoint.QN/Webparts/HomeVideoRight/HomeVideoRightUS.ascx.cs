@@ -21,7 +21,8 @@ namespace CQ.SharePoint.QN.Webparts
             if (!IsPostBack)
             {
                 var videoStr = "$(document).ready(function() {jwplayer(\"video-right-player-div\").setup({'flashplayer': '" +
-                               SPContext.Current.Web.Url + "/" + ListsName.English.CQQNResources + "/player.swf',width: 285,";
+                               SPContext.Current.Web.Url + "/" + ListsName.English.CQQNResources + "/player.swf','width': 285,'playlist.position': 'bottom','playlist.size': '100',";
+                               //"_layouts/player.swf',width: 285,";
                 SPSecurity.RunWithElevatedPrivileges(() =>
                 {
                     using (var site = new SPSite(SPContext.Current.Web.Site.ID))
@@ -50,9 +51,9 @@ namespace CQ.SharePoint.QN.Webparts
                                         {
                                             videoStr +=
                                                 @"{
-                                                    'file': '" + webUrl + "/" + item.Url +
-                                                @"', 
-                                                    'image': '" + web.Url + "/" + ListsName.English.CQQNResources + "/images.jpg" +
+                                                    'file': '" + SPContext.Current.Web.Url + "/" + item.Url +
+                                                //@"', 
+                                                    //'image': '" + web.Url + "/" + ListsName.English.CQQNResources + "/images.jpg" +
                                                 @"',
                                                     'title': '" + item.Title + @"'
                                                 },";
