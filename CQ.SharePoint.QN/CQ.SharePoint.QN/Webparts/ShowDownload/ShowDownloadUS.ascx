@@ -7,13 +7,8 @@
                 <div class="name_artical">
                     <a runat="server" id="aLink"><%#Eval("Title") %></a> <span class="time_update">
                         (ngày <%#Eval("Modified")%>)</span></div>
-                <div class="interpre">
-                    <div class="short_content">
-                        <%#Eval("Description")%></div>
-                    <div class="cleaner">
-                    </div>
-                </div>
             </div>
         </div>
+        <div class="cleaner"></div>
     </ItemTemplate>
 </asp:Repeater>
