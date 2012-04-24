@@ -565,7 +565,6 @@
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\QNHeader\QNHeaderUS.ascx">
-      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\QNHeader\QNHeader.xml" />
     <Content Include="Webparts\ShouldToKnow\ShouldToKnowUS.ascx">
