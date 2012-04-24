@@ -26,10 +26,11 @@ namespace CQ.SharePoint.QN.Webparts
                 try
                 {
                     var categoryId = Request.QueryString["CategoryId"];
+                    var focusNews = Request.QueryString["FocusNews"];
+                    NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
                     if (!string.IsNullOrEmpty(categoryId))
                     {
-                        NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url,
-                                                   Constants.PageInWeb.DetailNews);
+
                         if (!"-1".Equals(categoryId))
                         {
 
@@ -62,6 +63,25 @@ namespace CQ.SharePoint.QN.Webparts
 
 
                             var companyList = Utilities.GetNewsRecords(categoryQuery, newsNumber, ListsName.English.NewsRecord);
+                            if (companyList != null && companyList.Rows.Count > 0)
+                            {
+                                rptListCategory.DataSource = companyList;
+                                rptListCategory.DataBind();
+                            }
+                            else
+                            {
+                                lblItemNotExist.Text = Constants.ErrorMessage.Msg1;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ("1".Equals(focusNews))
+                        {
+                            string newsQuery = string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Eq></Where>", FieldsName.NewsRecord.English.FocusNews);
+                            uint newsNumber = 10;
+
+                            var companyList = Utilities.GetNewsRecords(newsQuery, newsNumber, ListsName.English.NewsRecord);
                             if (companyList != null && companyList.Rows.Count > 0)
                             {
                                 rptListCategory.DataSource = companyList;

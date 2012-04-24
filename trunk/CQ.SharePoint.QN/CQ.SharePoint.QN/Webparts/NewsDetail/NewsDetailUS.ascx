@@ -4,7 +4,9 @@
 <div class="detail_artical">
     <div class="path">
         <div class="arr_B">
-            Doanh nghiệp &nbsp; &gt;&gt;&nbsp; &nbsp; Doanh nghiệp mới thành lập</div>
+            <%--Doanh nghiệp &nbsp; &gt;&gt;&nbsp; &nbsp; Doanh nghiệp mới thành lập--%>
+            <asp:Label ID="lblBreadCrum" runat="server"></asp:Label>
+            </div>
     </div>
     <div>
         <div class="time_up">
