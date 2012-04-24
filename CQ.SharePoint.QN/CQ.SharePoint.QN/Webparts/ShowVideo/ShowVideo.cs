@@ -23,7 +23,7 @@ namespace CQ.SharePoint.QN.Webparts
         {
             try
             {
-                ShowVideoUS control = (ShowVideoUS)this.Page.LoadControl("WebPartsUS/ShowVideoUS.ascx");
+                ShowVideoUS control = (ShowVideoUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/ShowVideoUS.ascx");
                 control.ParentWP = this;
                 Controls.Add(control);
             }

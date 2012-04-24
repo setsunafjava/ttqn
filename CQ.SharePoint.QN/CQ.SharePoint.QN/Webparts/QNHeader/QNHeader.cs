@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using CQ.SharePoint.QN.Webparts;
 using System.Web;
+using Microsoft.SharePoint;
 
 namespace CQ.SharePoint.QN.Webparts
 {
@@ -18,7 +19,7 @@ namespace CQ.SharePoint.QN.Webparts
             
             try
             {
-                QNHeaderUS control = (QNHeaderUS)this.Page.LoadControl("WebPartsUS/QNHeaderUS.ascx");
+                QNHeaderUS control = (QNHeaderUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/QNHeaderUS.ascx");
                 Controls.Add(control);
             }
             catch (Exception ex)

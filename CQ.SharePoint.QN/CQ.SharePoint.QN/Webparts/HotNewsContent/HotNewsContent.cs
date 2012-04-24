@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.UI.WebControls.WebParts;
+using Microsoft.SharePoint;
 using Microsoft.SharePoint.WebPartPages;
 
 namespace CQ.SharePoint.QN.Webparts
@@ -32,7 +33,7 @@ namespace CQ.SharePoint.QN.Webparts
 
             try
             {
-                HotNewsContentUS control = (HotNewsContentUS)this.Page.LoadControl("WebPartsUS/HotNewsContentUS.ascx");
+                HotNewsContentUS control = (HotNewsContentUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/HotNewsContentUS.ascx");
                 Controls.Add(control);
             }
             catch (Exception ex)

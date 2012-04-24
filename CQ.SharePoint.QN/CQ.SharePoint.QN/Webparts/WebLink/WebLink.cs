@@ -25,7 +25,7 @@ namespace CQ.SharePoint.QN.Webparts
 
             try
             {
-                WebLinkUS control = (WebLinkUS)this.Page.LoadControl("WebPartsUS/WebLinkUS.ascx");
+                WebLinkUS control = (WebLinkUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/WebLinkUS.ascx");
                 Controls.Add(control);
             }
             catch (Exception ex)

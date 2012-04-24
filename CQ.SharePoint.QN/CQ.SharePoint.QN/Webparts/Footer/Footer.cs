@@ -25,7 +25,7 @@ namespace CQ.SharePoint.QN.Webparts
 
             try
             {
-                FooterUS control = (FooterUS)this.Page.LoadControl("WebPartsUS/FooterUS.ascx");
+                FooterUS control = (FooterUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/FooterUS.ascx");
                 Controls.Add(control);
             }
             catch (Exception ex)

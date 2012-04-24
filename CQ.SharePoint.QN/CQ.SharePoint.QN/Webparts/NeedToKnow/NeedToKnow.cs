@@ -25,7 +25,7 @@ namespace CQ.SharePoint.QN.Webparts
 
             try
             {
-                NeedToKnowUS control = (NeedToKnowUS)this.Page.LoadControl("WebPartsUS/NeedToKnowUS.ascx");
+                NeedToKnowUS control = (NeedToKnowUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/NeedToKnowUS.ascx");
                 Controls.Add(control);
             }
             catch (Exception ex)

@@ -15,7 +15,7 @@ namespace CQ.SharePoint.QN
             //System.Diagnostics.Debugger.Launch();
 
             //Change master page
-            var webUrl = web.ServerRelativeUrl;
+            var webUrl = web.Site.ServerRelativeUrl;
             if (webUrl.Equals("/"))
             {
                 webUrl = "";

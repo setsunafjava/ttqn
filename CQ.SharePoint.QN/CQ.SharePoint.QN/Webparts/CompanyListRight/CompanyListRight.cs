@@ -50,7 +50,7 @@ namespace CQ.SharePoint.QN.Webparts
 
             try
             {
-                CompanyListRightUS control = (CompanyListRightUS)this.Page.LoadControl("WebPartsUS/CompanyListRightUS.ascx");
+                CompanyListRightUS control = (CompanyListRightUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/CompanyListRightUS.ascx");
                 control.WebpartParent = this;
                 Controls.Add(control);
             }

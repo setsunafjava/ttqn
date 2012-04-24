@@ -34,7 +34,7 @@ namespace CQ.SharePoint.QN.Webparts
 
             try
             {
-                FocusNewsUS control = (FocusNewsUS)this.Page.LoadControl("WebPartsUS/FocusNewsUS.ascx");
+                FocusNewsUS control = (FocusNewsUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/FocusNewsUS.ascx");
                 control.WebpartParent = this;
                 Controls.Add(control);
             }

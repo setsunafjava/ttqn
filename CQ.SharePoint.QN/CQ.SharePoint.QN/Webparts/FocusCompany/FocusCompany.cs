@@ -25,7 +25,7 @@ namespace CQ.SharePoint.QN.Webparts
 
             try
             {
-                FocusCompanyUS control = (FocusCompanyUS)this.Page.LoadControl("WebPartsUS/FocusCompanyUS.ascx");
+                FocusCompanyUS control = (FocusCompanyUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/FocusCompanyUS.ascx");
                 Controls.Add(control);
             }
             catch (Exception ex)

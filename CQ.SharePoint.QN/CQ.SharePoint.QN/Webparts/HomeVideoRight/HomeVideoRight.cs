@@ -25,7 +25,7 @@ namespace CQ.SharePoint.QN.Webparts
 
             try
             {
-                HomeVideoRightUS control = (HomeVideoRightUS)this.Page.LoadControl("WebPartsUS/HomeVideoRightUS.ascx");
+                HomeVideoRightUS control = (HomeVideoRightUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/HomeVideoRightUS.ascx");
                 Controls.Add(control);
             }
             catch (Exception ex)

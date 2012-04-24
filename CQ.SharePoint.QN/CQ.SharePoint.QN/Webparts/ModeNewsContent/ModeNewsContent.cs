@@ -34,7 +34,7 @@ namespace CQ.SharePoint.QN.Webparts
 
             try
             {
-                ModeNewsContentUS control = (ModeNewsContentUS)this.Page.LoadControl("WebPartsUS/ModeNewsContentUS.ascx");
+                ModeNewsContentUS control = (ModeNewsContentUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/ModeNewsContentUS.ascx");
                 control.WebpartParent = this;
                 Controls.Add(control);
             }

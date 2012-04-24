@@ -50,7 +50,7 @@ namespace CQ.SharePoint.QN.Webparts
 
             try
             {
-                ProvinceInfoUS control = (ProvinceInfoUS)this.Page.LoadControl("WebPartsUS/ProvinceInfoUS.ascx");
+                ProvinceInfoUS control = (ProvinceInfoUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/ProvinceInfoUS.ascx");
                 control.WebpartParent = this;
                 Controls.Add(control);
             }

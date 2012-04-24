@@ -51,7 +51,7 @@ namespace CQ.SharePoint.QN.Webparts
 
             try
             {
-                ShouldToKnowUS control = (ShouldToKnowUS)this.Page.LoadControl("WebPartsUS/ShouldToKnowUS.ascx");
+                ShouldToKnowUS control = (ShouldToKnowUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/ShouldToKnowUS.ascx");
                 control.WebpartParent = this;
                 Controls.Add(control);
             }

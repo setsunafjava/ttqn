@@ -25,7 +25,7 @@ namespace CQ.SharePoint.QN.Webparts
 
             try
             {
-                FactTVUS control = (FactTVUS)this.Page.LoadControl("WebPartsUS/FactTVUS.ascx");
+                FactTVUS control = (FactTVUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/FactTVUS.ascx");
                 Controls.Add(control);
             }
             catch (Exception ex)

@@ -32,7 +32,7 @@ namespace CQ.SharePoint.QN.Webparts
         {
             try
             {
-                MostViewNewsUS control = (MostViewNewsUS)this.Page.LoadControl("WebPartsUS/MostViewNewsUS.ascx");
+                MostViewNewsUS control = (MostViewNewsUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/MostViewNewsUS.ascx");
                 control.WebpartParent = this;
                 Controls.Add(control);
             }

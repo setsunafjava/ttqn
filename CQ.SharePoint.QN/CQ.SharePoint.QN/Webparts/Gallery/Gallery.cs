@@ -23,7 +23,7 @@ namespace CQ.SharePoint.QN.Webparts
         {
             try
             {
-                GalleryUS control = (GalleryUS)this.Page.LoadControl("WebPartsUS/GalleryUS.ascx");
+                GalleryUS control = (GalleryUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/GalleryUS.ascx");
                 control.ParentWP = this;
                 Controls.Add(control);
             }

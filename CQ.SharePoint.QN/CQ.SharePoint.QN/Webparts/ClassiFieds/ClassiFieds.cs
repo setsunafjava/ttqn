@@ -25,7 +25,7 @@ namespace CQ.SharePoint.QN.Webparts
 
             try
             {
-                ClassiFiedsUS control = (ClassiFiedsUS)this.Page.LoadControl("WebPartsUS/ClassiFiedsUS.ascx");
+                ClassiFiedsUS control = (ClassiFiedsUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/ClassiFiedsUS.ascx");
                 Controls.Add(control);
             }
             catch (Exception ex)
