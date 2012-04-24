@@ -44,6 +44,15 @@ namespace CQ.SharePoint.QN.Webparts
                         rptTopViews.DataSource = topViewsTable;
                         rptTopViews.DataBind();
                     }
+
+                    string mainItemQuery = string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Eq></Where>", FieldsName.NewsRecord.English.ShowInHomePage);
+                    var mainItem = Utilities.GetNewsRecords(mainItemQuery, 1, ListsName.English.NewsRecord);
+                    if(mainItem!=null && mainItem.Rows.Count>0)
+                    {
+                        imgMainImage.ImageUrl = Convert.ToString(mainItem.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
+                        lblShortContent.Text = Convert.ToString(mainItem.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
+                    }
+
                 }
                 catch (Exception ex)
                 {

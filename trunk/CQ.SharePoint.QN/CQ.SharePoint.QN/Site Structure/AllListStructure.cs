@@ -88,7 +88,11 @@ namespace CQ.SharePoint.QN
             
             helper.AddField(new MultipleLinesTextFieldCreator(FieldsName.NewsRecord.English.Content, FieldsName.NewsRecord.VietNamese.Content) { RichText = true, RichTextMode = SPRichTextMode.FullHtml });
 
+            helper.AddField(new MultipleLinesTextFieldCreator(FieldsName.NewsRecord.English.ShortContent, FieldsName.NewsRecord.VietNamese.ShortContent));
+
             helper.AddField(new BooleanFieldCreator(FieldsName.NewsRecord.English.FocusNews, FieldsName.NewsRecord.VietNamese.FocusNews));
+
+            helper.AddField(new BooleanFieldCreator(FieldsName.NewsRecord.English.ShowInHomePage, FieldsName.NewsRecord.VietNamese.ShowInHomePage));
 
             helper.AddField(new BooleanFieldCreator(FieldsName.NewsCategory.English.Status, FieldsName.NewsCategory.VietNamese.Status));
 

@@ -1,10 +1,9 @@
 ﻿<%@ Assembly Name="CQ.SharePoint.QN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="HotNewsContentUS.ascx.cs"
     Inherits="CQ.SharePoint.QN.Webparts.HotNewsContentUS" %>
-<div class="News_top_pos">
     <div class="hot_news-content">
-        <div class="artical_hottest">
-            <img src="images/News_post.jpg" /></div>
+        <div class="artical_hottest"><asp:Image ID="imgMainImage" runat="server" Width="390px" Height="305px" />
+            <%--<img src="images/News_post.jpg" /></div>--%>
         <div class="short_content-hottest">
             <asp:Label ID="lblShortContent" runat="server"></asp:Label>
         </div>

@@ -38,6 +38,7 @@ namespace CQ.SharePoint.QN.Common
                 public const string TinhUy = "Tỉnh Ủy";
                 public const string SelectType = "SelectType";
                 public const string DuLich = "Du Lịch";
+                public const string BanNenBiet = "Bạn Nên Biết";
             }
             #endregion
         }
@@ -56,6 +57,8 @@ namespace CQ.SharePoint.QN.Common
                 public const string ShortContent = "ShortContent";
                 public const string ViewsCount = "ViewsCount"; //So luong nguoi doc
                 public const string FocusNews = "FocusNews";
+                public const string ShowInHomePage = "ShowInHomePage";
+                public const string LinkAdv = "LinkAdv";
                 public const string Status = "Status";
             }
 
@@ -68,6 +71,8 @@ namespace CQ.SharePoint.QN.Common
                 public const string CategoryName = "CategoryName";
                 public const string ThumbnailImage = "Ảnh đại diện";
                 public const string ShortContent = "Mô tả ngắn gọn bài viết";
+                public const string ShowInHomePage = "Hiển thị ở trang chủ";
+                public const string LinkAdv = "Liên kết trang web";
                 public const string Status = "Trạng thái";
             }
 
@@ -77,6 +82,9 @@ namespace CQ.SharePoint.QN.Common
                 public const string HoiDongNhanDan = "Hội đồng nhân dân";
                 public const string UyBanNhanDan = "Ủy ban nhân dân";
                 public const string CaiCachHanhChinh = "Cải cách hành chính";
+                public const string SoBanNganh = "Sở ban ngành";
+                public const string DiaPhuong = "Địa Phương";
+                public const string DoanhNghiep = "Doanh nghiệp";
 
             }
         }

@@ -40,5 +40,9 @@ namespace CQ.SharePoint.QN.Webparts
         protected global::System.Web.UI.WebControls.Label lblHeaderTinhUy;
         protected global::System.Web.UI.WebControls.Label lblHeaderHoiDongNhanDan;
         protected global::System.Web.UI.WebControls.Label lblHeaderUyBanNhanDan;
+
+        protected global::System.Web.UI.WebControls.Label lblFirstGroup;
+        protected global::System.Web.UI.WebControls.Label lblSecondGroup;
+        protected global::System.Web.UI.WebControls.Label lblThirdGroup;
     }
 }

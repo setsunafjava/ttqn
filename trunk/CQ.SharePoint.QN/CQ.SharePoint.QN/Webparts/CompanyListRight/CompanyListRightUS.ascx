@@ -23,7 +23,7 @@
                     </FooterTemplate>
                 </asp:Repeater>
                 <div class="read_more">
-                    <a href='<%= NewsUrl%><%=WebpartParent.CompanyId %>'>&raquo; Xem thêm</a></div>
+                    <a href='<%= CategoryUrl%><%=WebpartParent.CompanyId %>'>&raquo; Xem thêm</a></div>
             </div>
         </div>
     </div>

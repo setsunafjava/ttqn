@@ -39,12 +39,16 @@ namespace CQ.SharePoint.QN.Webparts
                     {
                         lblHeader.Text = Convert.ToString(newsGroups.Rows[0][FieldsName.Title]);
                         lblShortContent.Text = Convert.ToString(newsGroups.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
-                        rptCaiCachThuTucHanhChinh.DataSource = newsGroups;
-                        rptCaiCachThuTucHanhChinh.DataBind();
+                        if (newsGroups.Rows.Count > 2)
+                        {
+                            newsGroups.Rows.RemoveAt(0);
+                            rptCaiCachThuTucHanhChinh.DataSource = newsGroups;
+                            rptCaiCachThuTucHanhChinh.DataBind();
+                        }
                     }
 
                     CategoryUrl = string.Format("{0}/{1}.aspx?CategoryId=", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage);
-                    string newsTitle = string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Number'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='{2}' Ascending='True' /></OrderBy>", FieldsName.NewsCategory.English.ParentId, WebpartParent.NewsGroupID, FieldsName.Title);
+                    string newsTitle = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='{2}' Ascending='True' /></OrderBy>", FieldsName.NewsCategory.English.ParentName, WebpartParent.NewsGroupID, FieldsName.Title);
                     var newsTitleItems = Utilities.GetNewsRecords(newsTitle, 4, ListsName.English.NewsCategory);
                     if (newsTitleItems != null && newsTitleItems.Rows.Count > 0)
                     {

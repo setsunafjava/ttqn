@@ -32,5 +32,7 @@ namespace CQ.SharePoint.QN.Webparts
         protected global::System.Web.UI.WebControls.Label lblShortContent;
 
         protected global::System.Web.UI.WebControls.Label lblTimeUpdate;
+
+        protected global::System.Web.UI.WebControls.Image imgMainImage;
     }
 }
