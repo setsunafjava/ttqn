@@ -25,7 +25,7 @@
                     </asp:Repeater>
 						</marquee>
             <div class="read_more">
-                <a href="#">&raquo; Xem thêm</a></div>
+                <a href='<%= CategoryUrl %>'>&raquo; Xem thêm</a></div>
         </div>
     </div>
 </div>

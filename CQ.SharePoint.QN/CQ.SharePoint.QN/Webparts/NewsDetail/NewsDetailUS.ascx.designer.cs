@@ -13,5 +13,6 @@ namespace CQ.SharePoint.QN.Webparts
     {
         protected global::System.Web.UI.WebControls.Literal ltrNewsContent;
         protected global::System.Web.UI.WebControls.Label lblCurrentDate;
+        protected global::System.Web.UI.WebControls.Label lblBreadCrum;
     }
 }
