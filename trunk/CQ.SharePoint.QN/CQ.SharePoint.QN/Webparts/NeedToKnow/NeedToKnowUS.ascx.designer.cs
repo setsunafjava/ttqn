@@ -11,6 +11,6 @@ namespace CQ.SharePoint.QN.Webparts
 {
     public partial class NeedToKnowUS
     {
-
+        protected global::System.Web.UI.WebControls.Repeater rptTiGia;
     }
 }

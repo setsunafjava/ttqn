@@ -2,7 +2,8 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NeedToKnowUS.ascx.cs"
     Inherits="CQ.SharePoint.QN.Webparts.NeedToKnowUS" %>
     <style type="text/css">
-        .img-weather{float:left; vertical-align:top;}
+        .img-weather{display:inline; vertical-align:top;}
+        .tbl-tygia th{text-align:left; background-color:#E7F3FF;color:#1028A5}
     </style>
     <script type="text/javascript">
  // ==================================================================
@@ -204,7 +205,6 @@ function gmobj(o){
     <div class="inner_pos_Mod">
         <div class="wheather">
             <div class="area">
-                <img style="float:left" src="http://vnexpress.net/Images/search.gif" alt="">
                 <select class="txt_s" style="width: 190px;" onchange="ShowWeatherBox(this.value);">
                     <option value="1">Sơn La</option>
 			        <option value="2">Việt Trì</option>
@@ -226,7 +226,35 @@ function gmobj(o){
                 Tỷ Giá
             </div>
             <div>
-                <img src="images/info_rate.jpg" /></div>
+                <script type="text/javascript" language="javascript" src="http://vnexpress.net/Service/Forex_Content.js"></script>
+                <script type="text/javascript" language="JavaScript" src="http://vnexpress.net/Service/Gold_Content.js"></Script>
+                <table width="100%" style="margin:0;" cellpadding="4" cellspacing="0" class="tbl-tygia">
+                    <tr>
+                        <th align='left'>Vàng</th>
+                        <th>Mua</th>
+                        <th>Bán</th>
+                    </tr>
+                    <tr>
+                        <td>SJC</td>
+                        <td><script type="text/javascript">document.write(vGoldSbjBuy);</script></td>
+                        <td><script type="text/javascript">document.write(vGoldSbjSell);</script></td>
+                    </tr>
+                    <tr>
+                        <th>Ngoại tệ</th>
+                        <th>Mua</th>
+                        <th>Bán</th>
+                    </tr>
+                    <asp:Repeater ID="rptTiGia" runat="server">
+                        <ItemTemplate>
+                            <tr>
+                                <td><%#Eval("CurrencyCode") %></td>
+                                <td><%#Eval("Transfer")%></td>
+                                <td><%#Eval("Sell")%></td>
+                            </tr>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </table>
+            </div>
             <div class="ball">
                 <a href="#">Bóng đá</a>
             </div>
