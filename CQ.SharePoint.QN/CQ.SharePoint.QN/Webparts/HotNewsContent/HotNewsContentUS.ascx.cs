@@ -53,6 +53,12 @@ namespace CQ.SharePoint.QN.Webparts
                         lblShortContent.Text = Convert.ToString(mainItem.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
                     }
 
+                    if("0".Equals(WebPartParent.WebpartName))
+                    {
+                        lblLatest.Visible = false;
+                        rptLatestNews.Visible = false;
+                        lblReadMost.Text = "Tin mới nhận";
+                    }
                 }
                 catch (Exception ex)
                 {

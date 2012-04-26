@@ -9,7 +9,7 @@ using Microsoft.SharePoint.WebPartPages;
 namespace CQ.SharePoint.QN.Webparts
 {
     [Guid("8b4fb7d8-b280-4d98-8921-9e137f6f7dae")]
-    public class HotNewsContent : System.Web.UI.WebControls.WebParts.WebPart
+    public class HotNewsContent : Microsoft.SharePoint.WebPartPages.WebPart
     {
         public HotNewsContent()
         {
@@ -34,6 +34,7 @@ namespace CQ.SharePoint.QN.Webparts
             try
             {
                 HotNewsContentUS control = (HotNewsContentUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/HotNewsContentUS.ascx");
+                control.WebPartParent = this;
                 Controls.Add(control);
             }
             catch (Exception ex)

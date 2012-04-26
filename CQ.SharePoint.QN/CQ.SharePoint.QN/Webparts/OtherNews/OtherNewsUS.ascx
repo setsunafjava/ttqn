@@ -19,6 +19,7 @@
                 </ul>
             </FooterTemplate>
         </asp:Repeater>        
+        <asp:Label ID="lblItemsNotFound" runat="server" ForeColor="Red" />
     </div>
-    
+        
 </div>
