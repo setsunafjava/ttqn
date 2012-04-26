@@ -236,6 +236,11 @@ function gmobj(o){
                     </tr>
                     <tr>
                         <td>SJC</td>
+                        <td><script type="text/javascript">document.write(vGoldSjcBuy);</script></td>
+                        <td><script type="text/javascript">document.write(vGoldSjcSell);</script></td>
+                    </tr>
+                    <tr>
+                        <td>SBJ</td>
                         <td><script type="text/javascript">document.write(vGoldSbjBuy);</script></td>
                         <td><script type="text/javascript">document.write(vGoldSbjSell);</script></td>
                     </tr>
