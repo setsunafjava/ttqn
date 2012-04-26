@@ -56,7 +56,7 @@ namespace CQ.SharePoint.QN.Webparts
                     if("0".Equals(WebPartParent.WebpartName))
                     {
                         lblLatest.Visible = false;
-                        rptLatestNews.Visible = false;
+                        rptTopViews.Visible = false;
                         lblReadMost.Text = "Tin mới nhận";
                     }
                 }
