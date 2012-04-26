@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -24,6 +25,31 @@ namespace CQ.SharePoint.QN.Webparts
         {
             if (!IsPostBack)
             {
+                try
+                {
+                    string Url = "http://www.vietcombank.com.vn/ExchangeRates/ExrateXML.aspx";
+                    DataSet ds = new DataSet();
+
+                    ds.ReadXml(Url);
+
+                    if (ds.Tables.Count > 0)
+                    {
+
+                        DataTable dt = new DataTable();
+
+                        dt = ds.Tables["Exrate"];
+
+                        rptTiGia.DataSource = dt;
+
+                        rptTiGia.DataBind();
+
+                    }
+
+                }
+                catch (Exception)
+                {
+
+                }
                 try
                 {
                     SaveFileToDocLib("http://vnexpress.net/ListFile/Weather/Sonla.xml", "Sonla");
