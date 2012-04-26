@@ -25,13 +25,17 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
-                    var newsId = Request.QueryString["NewsID"];
+                    var newsId = Convert.ToInt32(Request.QueryString["NewsID"]);
                     //if (!string.IsNullOrEmpty(newsId))
                     //{
-                    NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url,
-                                            Constants.PageInWeb.DetailNews);
+                    NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
                     //Bind data to top view
-                    string topNewsQuery = string.Format("<OrderBy><FieldRef Name='{0}' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.ViewsCount);
+
+                    var categoryId = Utilities.GetCategoryIdByItemId(newsId, ListsName.English.NewsRecord);
+
+                    //string topNewsQuery = string.Format("<OrderBy><FieldRef Name='{0}' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.ViewsCount);
+                    string topNewsQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='LookupMulti'>{1}</Value></Eq><Neq><FieldRef Name='{2}' /><Value Type='Counter'>{3}</Value></Neq></And></Where>",
+                        FieldsName.NewsRecord.English.CategoryName, categoryId, FieldsName.Id, newsId);
                     uint newsNumber = 5;
 
                     if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
@@ -43,6 +47,10 @@ namespace CQ.SharePoint.QN.Webparts
                     {
                         rptOtherNews.DataSource = topViewsTable;
                         rptOtherNews.DataBind();
+                    }
+                    else
+                    {
+                        lblItemsNotFound.Text = "Không tìm thấy thêm bài viết nào thuộc mục này!";
                     }
 
                     //}

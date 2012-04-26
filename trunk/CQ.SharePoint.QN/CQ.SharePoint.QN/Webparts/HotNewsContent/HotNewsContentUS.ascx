@@ -14,8 +14,8 @@
     <div class="tab_content_News">
         <div class="info_tab_content">
             <ul id="countrytabs" class="shadetabs">
-                <li><a href="#" rel="country1" class="selected" onclick="javascript:alert('sss');">Mới nhất</a></li>
-                <li><a href="#" rel="country2">Đọc nhiều</a></li>
+                <li><a href="#" rel="country1" class="selected" ><asp:Label ID="lblLatest" runat="server" Text="Mới nhất"></asp:Label></li>
+                <li><a href="#" rel="country2"><asp:Label ID="lblReadMost" runat="server" Text="Đọc nhiều"></asp:Label></a></li>
             </ul>
             <div class="inner_content_tab">
                 <div id="country1" class="tabcontent">

@@ -34,5 +34,9 @@ namespace CQ.SharePoint.QN.Webparts
         protected global::System.Web.UI.WebControls.Label lblTimeUpdate;
 
         protected global::System.Web.UI.WebControls.Image imgMainImage;
+
+        protected global::System.Web.UI.WebControls.Label lblLatest;
+
+        protected global::System.Web.UI.WebControls.Label lblReadMost;
     }
 }

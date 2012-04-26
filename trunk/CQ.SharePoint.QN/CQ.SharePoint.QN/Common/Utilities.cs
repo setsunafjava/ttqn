@@ -515,7 +515,8 @@ namespace CQ.SharePoint.QN.Common
                         {
                             SPQuery spQuery = new SPQuery
                             {
-                                Query = query, RowLimit = newsNumber
+                                Query = query,
+                                RowLimit = newsNumber
                             };
                             SPList list = Utilities.GetListFromUrl(web, listName);
                             if (list != null)
@@ -536,6 +537,39 @@ namespace CQ.SharePoint.QN.Common
                 }
             });
             return table;
+        }
+
+
+        public static int GetCategoryIdByItemId(int itemId, string listName)
+        {
+            int categoryId = 0;
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            SPList list = GetListFromUrl(web, listName);
+                            if (list != null)
+                            {
+                                SPItem items = list.GetItemById(itemId);
+                                if (items != null)
+                                {
+                                    string categoryName = Convert.ToString(items[FieldsName.NewsRecord.English.CategoryName]);
+                                    categoryId = Convert.ToInt32(categoryName.Substring(0, categoryName.IndexOf(";#")));
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            categoryId = 0;
+                        }
+                    }
+                }
+            });
+            return categoryId;
         }
 
         public static DataTable GetDocLibRecords(string query, string listName)
