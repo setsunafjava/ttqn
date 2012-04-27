@@ -28,7 +28,17 @@ namespace CQ.SharePoint.QN.Webparts
                 {
                     //Bind data to latest news
                     NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
-                    string latestNewsQuery =string.Format("<OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>");
+                    var categoryId = Request.QueryString["CategoryId"];
+                    string latestNewsQuery = string.Empty;
+                    if (!string.IsNullOrEmpty(categoryId))
+                    {
+                        latestNewsQuery = string.Format(" <Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='LookupMulti'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.CategoryName, categoryId);
+                    }
+                    else
+                    {
+                        latestNewsQuery = string.Format("<OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>");
+                    }
+
                     var latestNewsTable = Utilities.GetNewsRecords(latestNewsQuery, 5, ListsName.English.NewsRecord);
                     if (latestNewsTable != null && latestNewsTable.Rows.Count > 0)
                     {
@@ -36,8 +46,16 @@ namespace CQ.SharePoint.QN.Webparts
                         rptLatestNews.DataBind();
                     }
                     //Bind data to top view
-                    string topNewsQuery = string.Format("<OrderBy><FieldRef Name='{0}' Ascending='False' /></OrderBy>",
-                                                        FieldsName.NewsRecord.English.ViewsCount);
+                    string topNewsQuery = string.Empty;
+                    if (!string.IsNullOrEmpty(categoryId))
+                    {
+                        topNewsQuery = string.Format(" <Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='LookupMulti'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='ViewsCount' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.CategoryName, categoryId);
+                    }
+                    else
+                    {
+                        topNewsQuery = string.Format("<OrderBy><FieldRef Name='{0}' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.ViewsCount);
+                    }
+
                     var topViewsTable = Utilities.GetNewsRecords(topNewsQuery, 5, ListsName.English.NewsRecord);
                     if (topViewsTable != null && topViewsTable.Rows.Count > 0)
                     {
@@ -47,13 +65,13 @@ namespace CQ.SharePoint.QN.Webparts
 
                     string mainItemQuery = string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Eq></Where>", FieldsName.NewsRecord.English.ShowInHomePage);
                     var mainItem = Utilities.GetNewsRecords(mainItemQuery, 1, ListsName.English.NewsRecord);
-                    if(mainItem!=null && mainItem.Rows.Count>0)
+                    if (mainItem != null && mainItem.Rows.Count > 0)
                     {
                         imgMainImage.ImageUrl = Convert.ToString(mainItem.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
                         lblShortContent.Text = Convert.ToString(mainItem.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
                     }
 
-                    if("0".Equals(WebPartParent.WebpartName))
+                    if ("0".Equals(WebPartParent.WebpartName))
                     {
                         lblLatest.Visible = false;
                         rptTopViews.Visible = false;

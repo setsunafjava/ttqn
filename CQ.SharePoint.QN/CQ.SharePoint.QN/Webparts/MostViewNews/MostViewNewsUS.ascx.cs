@@ -25,11 +25,22 @@ namespace CQ.SharePoint.QN.Webparts
                 try
                 {
                     var newsId = Request.QueryString["NewsID"];
+                    var categoryId = Request.QueryString["CategoryId"];
                     //if (!string.IsNullOrEmpty(newsId))
                     //{
                     //Bind data to top view
                     NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
-                    string topNewsQuery = string.Format("<OrderBy><FieldRef Name='{0}' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.ViewsCount);
+                    string topNewsQuery = string.Empty;
+
+                    if (!string.IsNullOrEmpty(categoryId))
+                    {
+                        topNewsQuery = string.Format(" <Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='LookupMulti'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.CategoryName, categoryId);
+                    }
+                    else
+                    {
+                        topNewsQuery = string.Format("<OrderBy><FieldRef Name='{0}' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.ViewsCount);    
+                    }
+                    
                     uint newsNumber = 5;
 
                     if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
@@ -42,6 +53,10 @@ namespace CQ.SharePoint.QN.Webparts
                     {
                         rptTopViews.DataSource = topViewsTable;
                         rptTopViews.DataBind();
+                    }
+                    else
+                    {
+                        lblItemsNotFound.Text = "Không tìm thấy thêm bài viết nào thuộc mục này!";
                     }
                     //}
                 }
