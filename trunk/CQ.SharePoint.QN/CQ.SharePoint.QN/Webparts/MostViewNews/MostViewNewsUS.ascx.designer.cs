@@ -12,5 +12,6 @@ namespace CQ.SharePoint.QN.Webparts
     public partial class MostViewNewsUS
     {
         protected global::System.Web.UI.WebControls.Repeater rptTopViews;
+        protected global::System.Web.UI.WebControls.Label lblItemsNotFound;
     }
 }

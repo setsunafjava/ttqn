@@ -14,6 +14,22 @@ namespace CQ.SharePoint.QN.Webparts
     {
         public NewsList ParentWP;
         public string NewsUrl = string.Empty;
+
+        public void GetAllSubCategoryId(int parentId)
+        {
+            string query = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where>", FieldsName.NewsCategory.English.ParentName, parentId);
+            uint newsNumber = 30;
+            string[] categoryIdArr = new string[]{};
+            var newCategoryItems = Utilities.GetNewsRecords(query, newsNumber, ListsName.English.NewsCategory);
+            if (newCategoryItems != null && newCategoryItems.Rows.Count > 0)
+            {
+                for (int i = 0; i < newCategoryItems.Rows.Count - 1; i++)
+                {
+
+                }
+            }
+        }
+
         /// <summary>
         /// Page on Load
         /// </summary>
@@ -27,6 +43,7 @@ namespace CQ.SharePoint.QN.Webparts
                 {
                     var categoryId = Request.QueryString["CategoryId"];
                     var focusNews = Request.QueryString["FocusNews"];
+                    var isMenu = Request.QueryString["isMenu"];
                     NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
                     if (!string.IsNullOrEmpty(categoryId))
                     {
@@ -34,10 +51,9 @@ namespace CQ.SharePoint.QN.Webparts
                         if (!"-1".Equals(categoryId))
                         {
 
-                            string categoryQuery =
-                                string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE' /><Value Type='LookupMulti'>{1}</Value></Eq></Where>",
+                            string categoryQuery = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE' /><Value Type='LookupMulti'>{1}</Value></Eq></Where>",
                                     FieldsName.NewsRecord.English.CategoryName, categoryId);
-                            uint newsNumber = 10;
+                            uint newsNumber = 30;
 
                             var companyList = Utilities.GetNewsRecords(categoryQuery, newsNumber,
                                                                        ListsName.English.NewsRecord);

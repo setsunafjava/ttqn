@@ -35,7 +35,45 @@ namespace CQ.SharePoint.QN.Webparts
                             ltrNewsContent.Text = Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.Content]);
                             lblCurrentDate.Text = Convert.ToString(newsItem.Rows[0][FieldsName.Modified]);
 
+                            //Update viewcount
 
+
+                            SPSecurity.RunWithElevatedPrivileges(() =>
+                            {
+                                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                                {
+                                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                                    {
+                                        try
+                                        {
+                                            string listUrl = web.Url + "/Lists/" + ListsName.English.NewsRecord;
+                                            var result = web.GetList(listUrl);
+                                            int id = Convert.ToInt32(newsId);
+                                            SPListItem items = result.GetItemById(id);
+                                            if (items != null)
+                                            {
+                                                string viewcount = Convert.ToString(items[FieldsName.NewsRecord.English.ViewsCount]);
+                                                if (!string.IsNullOrEmpty(viewcount))
+                                                {
+                                                    int count = Convert.ToInt32(viewcount);
+                                                    items[FieldsName.NewsRecord.English.ViewsCount] = ++count;
+
+                                                    web.AllowUnsafeUpdates = true;
+                                                    items.Update();
+                                                }
+                                            }
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            Utilities.LogToUls(ex);
+                                        }
+                                    }
+
+                                }
+                            });
+
+
+                            //end update
                             newsQuery = string.Format("<Where><Eq><FieldRef Name='Title' /><Value Type='Text'>{0}</Value></Eq></Where>", categoryName);
                             var categoryItem = Utilities.GetNewsRecords(newsQuery, 1, ListsName.English.NewsCategory);
 
@@ -76,7 +114,7 @@ namespace CQ.SharePoint.QN.Webparts
                 }
                 else
                 {
-                    
+
                 }
 
 

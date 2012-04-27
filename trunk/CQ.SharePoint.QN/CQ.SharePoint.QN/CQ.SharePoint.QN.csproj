@@ -549,7 +549,6 @@
     <Content Include="Webparts\NextNews\NextNews.xml" />
     <Content Include="Webparts\OtherNews\OtherNews.xml" />
     <Content Include="Webparts\OtherNews\OtherNewsUS.ascx">
-      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\ProvinceDocs\ProvinceDocs.xml" />
     <Content Include="Webparts\ProvinceDocs\ProvinceDocsUS.ascx">
