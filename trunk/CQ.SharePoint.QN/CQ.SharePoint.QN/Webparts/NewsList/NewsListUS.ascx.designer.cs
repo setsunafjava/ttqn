@@ -13,5 +13,8 @@ namespace CQ.SharePoint.QN.Webparts
     {
         protected global::System.Web.UI.WebControls.Repeater rptListCategory;
         protected global::System.Web.UI.WebControls.Label lblItemNotExist;
+        protected global::System.Web.UI.WebControls.Label  lblCurrpage;
+        protected global::System.Web.UI.WebControls.HyperLink lnkPrev;
+        protected global::System.Web.UI.WebControls.HyperLink lnkNext;
     }
 }
