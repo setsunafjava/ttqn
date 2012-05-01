@@ -12,17 +12,20 @@
 </div>
 <div class="info_footer">
     <div class="info_website">
-        <b>TRUNG TÂM THÔNG TIN - VĂN PHÒNG UBND TỈNH QUẢNG NINH</b><br />
+        <%--<b>TRUNG TÂM THÔNG TIN - VĂN PHÒNG UBND TỈNH QUẢNG NINH</b><br />
         GPXB: số 143/GP-TTĐT của Bộ TT&TT cấp ngày 04/08/2011 - Chiụ trách nhiệm chính:
         Ông Lê Quang Ngọc<br />
         <b>Giám đốc TRUNG TÂM THÔNG TIN</b><br />
         Địa chỉ : Số 219 Đường Nguyễn Văn Cừ - Tp. Hạ Long - Quảng Ninh<br />
-        TEL: (033)3836088 - 08033116. FAX: (033)3636622 - Email: qnp@quangninh.gov.vn
+        TEL: (033)3836088 - 08033116. FAX: (033)3636622 - Email: qnp@quangninh.gov.vn--%>
+        <%=WebsiteInfo%>
     </div>
     <div class="statistic">
         <div>
             Số lượt truy cập:
-            <img src="images/statistic.jpg" />
+            <div style="background-image:url('/QNResources/statistic.jpg'); width:118px; height:35px;">
+                <div><%=HitCount%></div>
+            </div>
         </div>
         <div class="design_by">
             Thiết kế bởi VIETEC</div>

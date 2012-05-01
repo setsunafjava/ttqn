@@ -12,6 +12,9 @@ namespace CQ.SharePoint.QN.Webparts
     /// </summary>
     public partial class FooterUS : UserControl
     {
+        public Footer ParentWP;
+        protected string WebsiteInfo;
+        protected int HitCount = 1;
         /// <summary>
         /// Page on Load
         /// </summary>
@@ -40,6 +43,7 @@ namespace CQ.SharePoint.QN.Webparts
                     string latestNewsQuery = string.Format("<Where><IsNull><FieldRef Name='ParentId' /></IsNull></Where><OrderBy><FieldRef Name='Position' Ascending='TRUE' /></OrderBy>");
                     rptMenu.DataSource = GetNewsRecords(latestNewsQuery);
                     rptMenu.DataBind();
+                    WebsiteInfo = Utilities.GetConfigValue(ParentWP.ConfigKey);
                 }
                 catch (Exception ex)
                 {
@@ -61,6 +65,14 @@ namespace CQ.SharePoint.QN.Webparts
                 {
                     using (var web = site.OpenWeb(SPContext.Current.Web.ID))
                     {
+                        try
+                        {
+                            HitCount = Utilities.GetListFromUrl(web, ListsName.English.StatisticsList).ItemCount;
+                        }
+                        catch (Exception)
+                        {
+
+                        }
                         try
                         {
                             SPQuery spQuery = new SPQuery

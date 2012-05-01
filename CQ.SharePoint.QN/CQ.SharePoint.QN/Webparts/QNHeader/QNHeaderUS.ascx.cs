@@ -96,5 +96,11 @@ namespace CQ.SharePoint.QN.Webparts
                 rptSubMenu.DataBind();
             }
         }   
+
+        protected void lbRSS_OnClick(object sender, EventArgs e)
+        {
+            var categoryId = Convert.ToString(Request.QueryString["CategoryId"]);
+            Utilities.GetRSS(categoryId);
+        }
     }
 }

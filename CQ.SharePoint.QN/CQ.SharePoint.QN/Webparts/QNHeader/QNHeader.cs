@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using CQ.SharePoint.QN.Common;
 using CQ.SharePoint.QN.Webparts;
 using System.Web;
 using Microsoft.SharePoint;
+using Microsoft.SharePoint.Utilities;
 
 namespace CQ.SharePoint.QN.Webparts
 {
@@ -25,6 +27,77 @@ namespace CQ.SharePoint.QN.Webparts
             catch (Exception ex)
             {
                 HttpContext.Current.Response.Write(ex.ToString());
+            }
+        }
+
+        protected override void Render(System.Web.UI.HtmlTextWriter writer)
+        {
+            base.Render(writer);
+
+            var cLoginName = string.Empty;
+            var cDate = SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now);
+            var cURL = System.Web.HttpContext.Current.Request.Url.AbsoluteUri.ToString();
+
+            if (SPContext.Current.Web.CurrentUser == null || string.IsNullOrEmpty(SPContext.Current.Web.CurrentUser.LoginName))
+            {
+                cLoginName = "Annonymous";
+            }
+            else
+            {
+                cLoginName = SPContext.Current.Web.CurrentUser.LoginName;
+            }
+            var cIP = HttpContext.Current.Request.UserHostAddress;
+            var cBrowser = HttpContext.Current.Request.Browser.Browser;
+            var camlQuery = "<Where><And><Eq>" +
+                            "<FieldRef Name='Url' />" +
+                            "<Value Type='Text'>" + cURL + "</Value></Eq>" +
+                            "<And><Eq><FieldRef Name='Title' />" +
+                            "<Value Type='Text'>" + cLoginName + "</Value></Eq>" +
+                            "<And><Eq><FieldRef Name='DateHit' /><Value Type='DateTime' IncludeTime='FALSE'>" + cDate +
+                            "</Value></Eq>" +
+                            "<And><Eq><FieldRef Name='Browser' /><Value Type='Text'>" + cBrowser +
+                            "</Value></Eq><Eq><FieldRef Name='IP' /><Value Type='Text'>" + cIP +
+                            "</Value></Eq>" +
+                            "</And></And></And></And></Where>";
+
+            if (!this.Page.IsPostBack)
+            {
+                SPSecurity.RunWithElevatedPrivileges(() =>
+                {
+                    using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                    {
+                        using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                        {
+                            try
+                            {
+                                SPQuery spQuery = new SPQuery
+                                {
+                                    Query = camlQuery, RowLimit = 1
+                                };
+                                SPList list = Utilities.GetListFromUrl(web, ListsName.English.StatisticsList);
+                                if (list != null)
+                                {
+                                    SPListItemCollection items = list.GetItems(spQuery);
+                                    if (items == null || items.Count <= 0)
+                                    {
+                                        var item = list.Items.Add();
+                                        item["Title"] = cLoginName;
+                                        item["Url"] = cURL;
+                                        item["IP"] = cIP;
+                                        item["DateHit"] = DateTime.Now;
+                                        item["Browser"] = cBrowser;
+                                        web.AllowUnsafeUpdates = true;
+                                        item.Update();
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+
+                            }
+                        }
+                    }
+                });
             }
         }
     }

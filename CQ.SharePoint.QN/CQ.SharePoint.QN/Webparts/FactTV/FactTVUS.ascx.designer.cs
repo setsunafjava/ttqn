@@ -11,6 +11,7 @@ namespace CQ.SharePoint.QN.Webparts
 {
     public partial class FactTVUS
     {
-
+        protected global::System.Web.UI.WebControls.Repeater rptTV;
+        protected global::System.Web.UI.WebControls.Repeater rptTVLink;
     }
 }

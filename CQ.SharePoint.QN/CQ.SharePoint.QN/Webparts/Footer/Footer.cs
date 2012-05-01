@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.UI;
@@ -19,6 +20,18 @@ namespace CQ.SharePoint.QN.Webparts
         {
         }
 
+        [WebBrowsable(true)]
+        [FriendlyName("Từ khóa cấu hình")]
+        [Description("Nhập từ khóa để lấy thông tin mô tả website")]
+        [Category("Cấu hình")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        public string ConfigKey
+        {
+            get;
+            set;
+        }
+
         protected override void CreateChildControls()
         {
             base.CreateChildControls();
@@ -26,6 +39,7 @@ namespace CQ.SharePoint.QN.Webparts
             try
             {
                 FooterUS control = (FooterUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/FooterUS.ascx");
+                control.ParentWP = this;
                 Controls.Add(control);
             }
             catch (Exception ex)

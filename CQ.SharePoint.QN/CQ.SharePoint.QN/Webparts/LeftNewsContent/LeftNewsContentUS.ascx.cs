@@ -33,6 +33,14 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
+                    if (!string.IsNullOrEmpty(WebpartParent.GroupName))
+                    {
+                        lbRSS.Text = WebpartParent.GroupName;
+                    }
+                    else
+                    {
+                        lbRSS.Text = "&nbsp;";
+                    }
                     NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
                     string newsGroupQuery = string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.CategoryName, SPHttpUtility.HtmlEncode(WebpartParent.GroupName));
                     var newsGroups = Utilities.GetNewsRecords(newsGroupQuery, Convert.ToUInt16(WebpartParent.NumberOfNews), ListsName.English.NewsRecord);
@@ -71,6 +79,11 @@ namespace CQ.SharePoint.QN.Webparts
         {
             base.OnPreRender(e);
             WebPartManager webPartManager = WebPartManager.GetCurrentWebPartManager(Page);
+        }
+
+        protected void lbRSS_OnClick(object sender, EventArgs e)
+        {
+            Utilities.GetRSS(WebpartParent.NewsGroupID);
         }
     }
 }

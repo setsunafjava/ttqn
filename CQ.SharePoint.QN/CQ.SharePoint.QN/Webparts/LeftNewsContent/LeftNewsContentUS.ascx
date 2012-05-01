@@ -8,7 +8,7 @@
     <div class="bg_title_ModNews">
         <div class="title_cate_News">
             <div class="name_title_typ_News">
-                <%= WebpartParent.GroupName%>
+                <asp:LinkButton ID="lbRSS" runat="server" OnClick="lbRSS_OnClick"></asp:LinkButton>
             </div>
             <div class="link_cate_more">
                 <asp:Repeater ID="rptNewsGroup" runat="server">

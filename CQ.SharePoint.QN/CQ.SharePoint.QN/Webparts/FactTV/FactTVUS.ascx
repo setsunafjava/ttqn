@@ -5,18 +5,24 @@
         Truyền hình thực tế</div>
     <div class="inner_pos_Mod">
         <div class="video">
-            <iframe src="http://farm.vtc.vn/media/vtcnews/resources/swf/flv/flvplayer.swf?file=vtv11&amp;streamer=rtmp://117.103.225.20/live&amp;image=http://tv.xunghe.vn/images/logo.png&amp;autostart=true" style="width:233px ; height:161px " frameborder="0" scrolling="no"></iframe>
+            <asp:Repeater ID="rptTV" runat="server">
+                <ItemTemplate>
+                   <div id='qn-tv-div'>
+                        <%#Eval("Value")%>
+                   </div>
+                </ItemTemplate>
+            </asp:Repeater>
         </div>
         <div class="channel">
             <div class="arrow_circle_next">
                 <a href="#">
                     <img src="images/arrow_next_circle.jpg" /></a></div>
             <div class="inner_channel">
-                <a href="#">
-                    <img src="images/qtv.jpg" /></a> <a href="#">
-                        <img src="images/qtv.jpg" /></a> <a href="#">
-                            <img src="images/qtv.jpg" /></a> <a href="#">
-                                <img src="images/qtv.jpg" /></a>
+                <asp:Repeater ID="rptTVLink" runat="server" OnItemDataBound="rptTVLink_OnItemDataBound">
+                <ItemTemplate>
+                   <a runat="server" id="aLink"><img runat="server" id="imgLink" /></a>
+                </ItemTemplate>
+            </asp:Repeater>
             </div>
             <div class="arrow_circle_back">
                 <a href="#">
@@ -24,3 +30,8 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function setTVPlay(strID, value){
+        document.getElementById("qn-tv-div").innerHTML = value;
+    }
+</script>
