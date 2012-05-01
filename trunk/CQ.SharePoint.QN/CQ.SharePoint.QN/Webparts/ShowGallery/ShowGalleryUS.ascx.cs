@@ -87,7 +87,7 @@ namespace CQ.SharePoint.QN.Webparts
                 }
                 DataRowView drv = (DataRowView)e.Item.DataItem;
                 var aLink = (HtmlAnchor)e.Item.FindControl("aLink");
-                aLink.HRef = webUrl + "/" + ListsName.English.ImageCatList + "/" +
+                aLink.HRef = webUrl + "/" + ListsName.English.ImagesList + "/" +
                               Convert.ToString(drv["FileLeafRef"], CultureInfo.InvariantCulture);
                 aLink.Title = Convert.ToString(drv["Title"], CultureInfo.InvariantCulture);
 
@@ -96,7 +96,7 @@ namespace CQ.SharePoint.QN.Webparts
                 filename += ".jpg";
 
                 var imgLink = (HtmlImage)e.Item.FindControl("imgLink");
-                imgLink.Src = webUrl + "/" + ListsName.English.ImageCatList + "/_t/" + filename;
+                imgLink.Src = webUrl + "/" + ListsName.English.ImagesList + "/_t/" + filename;
                 imgLink.Alt = Convert.ToString(drv["Description"], CultureInfo.InvariantCulture);
             }
         }   
