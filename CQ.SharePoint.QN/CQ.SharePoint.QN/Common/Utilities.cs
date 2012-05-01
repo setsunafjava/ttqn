@@ -941,7 +941,7 @@ namespace CQ.SharePoint.QN.Common
             }
             else
             {
-                var dtNews = new DataTable("News");
+                DataTable dtNews = null;
                 GetNewsByCatID(catID, ref dtNews);
                 GetRSS(dtNews);
             }
