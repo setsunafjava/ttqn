@@ -382,22 +382,22 @@ namespace CQ.SharePoint.QN
 
         private static void CreatePage(SPWeb web, string pageName)
         {
-            WebPageHelper.CreateDefaultWebPage(web, string.Format(CultureInfo.InvariantCulture, "{0}.aspx", pageName), false);
+            WebPageHelper.CreateDefaultWebPage(web, string.Format(CultureInfo.InvariantCulture, "{0}.aspx", pageName), true);
         }
 
         private static void CreateDetailPage(SPWeb web, string pageName)
         {
-            WebPageHelper.CreateDetailWebPage(web, string.Format(CultureInfo.InvariantCulture, "{0}.aspx", pageName), false);
+            WebPageHelper.CreateDetailWebPage(web, string.Format(CultureInfo.InvariantCulture, "{0}.aspx", pageName), true);
         }
 
         private static void CreateSubPage(SPWeb web, string pageName)
         {
-            WebPageHelper.CreateSubWebPage(web, string.Format(CultureInfo.InvariantCulture, "{0}.aspx", pageName), false);
+            WebPageHelper.CreateSubWebPage(web, string.Format(CultureInfo.InvariantCulture, "{0}.aspx", pageName), true);
         }
 
         private static void CreateBlankPage(SPWeb web, string pageName)
         {
-            WebPageHelper.CreateBlankWebPage(web, string.Format(CultureInfo.InvariantCulture, "{0}.aspx", pageName), false);
+            WebPageHelper.CreateBlankWebPage(web, string.Format(CultureInfo.InvariantCulture, "{0}.aspx", pageName), true);
         }
     }
 }

@@ -26,24 +26,32 @@ namespace CQ.SharePoint.QN.Webparts
         {
             if (!IsPostBack)
             {
-                if (string.IsNullOrEmpty(ParentWP.KQXSUrl))
+                try
                 {
-                    aBD.HRef = "http://kqxs.vn";
+                    if (string.IsNullOrEmpty(ParentWP.KQXSUrl))
+                    {
+                        aBD.HRef = "http://kqxs.vn";
+                    }
+                    else
+                    {
+                        aBD.HRef = ParentWP.KQXSUrl;
+                    }
+                    if (string.IsNullOrEmpty(ParentWP.BDUrl))
+                    {
+                        aBD.HRef = "http://bongdaso.vn/livescore.aspx";
+                    }
+                    else
+                    {
+                        aBD.HRef = ParentWP.BDUrl;
+                    }
+                    aBD.Target = "_blank";
+                    aKQXS.Target = "_blank";
                 }
-                else
+                catch (Exception)
                 {
-                    aBD.HRef = ParentWP.KQXSUrl;
+
                 }
-                if (string.IsNullOrEmpty(ParentWP.BDUrl))
-                {
-                    aBD.HRef = "http://bongdaso.vn/livescore.aspx";
-                }
-                else
-                {
-                    aBD.HRef = ParentWP.BDUrl;
-                }
-                aBD.Target = "_blank";
-                aKQXS.Target = "_blank";
+                
 
                 try
                 {
