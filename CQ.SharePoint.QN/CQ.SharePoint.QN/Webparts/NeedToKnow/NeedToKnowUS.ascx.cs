@@ -26,6 +26,25 @@ namespace CQ.SharePoint.QN.Webparts
         {
             if (!IsPostBack)
             {
+                if (string.IsNullOrEmpty(ParentWP.KQXSUrl))
+                {
+                    aBD.HRef = "http://kqxs.vn";
+                }
+                else
+                {
+                    aBD.HRef = ParentWP.KQXSUrl;
+                }
+                if (string.IsNullOrEmpty(ParentWP.BDUrl))
+                {
+                    aBD.HRef = "http://bongdaso.vn/livescore.aspx";
+                }
+                else
+                {
+                    aBD.HRef = ParentWP.BDUrl;
+                }
+                aBD.Target = "_blank";
+                aKQXS.Target = "_blank";
+
                 try
                 {
                     string Url = "http://www.vietcombank.com.vn/ExchangeRates/ExrateXML.aspx";
@@ -45,10 +64,6 @@ namespace CQ.SharePoint.QN.Webparts
                         rptTiGia.DataBind();
 
                     }
-                    aBD.HRef = ParentWP.BDUrl;
-                    aBD.Target = "_blank";
-                    aKQXS.HRef = ParentWP.KQXSUrl;
-                    aKQXS.Target = "_blank";
                 }
                 catch (Exception)
                 {
