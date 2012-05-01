@@ -35,6 +35,9 @@ namespace CQ.SharePoint.QN
             CreateProductDetail(web);
             CreateDownloadCatList(web);
             CreateDownloadList(web);
+            CreateQNConfigList(web);
+            CreateQNTVList(web);
+            CreateStatisticsList(web);
         }
         /// <summary>
         /// Se chua nhung muc tin tuc, vi du: Tin Tinh Uy, Hoi Dong Nhan Dan, Thong tin lanh dao, So ban nghanh, dia phuong, doanh nghiep
@@ -82,7 +85,7 @@ namespace CQ.SharePoint.QN
 
             helper.AddField(new NumberFieldCreator(FieldsName.NewsRecord.English.ViewsCount, FieldsName.NewsRecord.VietNamese.ViewsCount));
 
-            helper.AddField(new LookupFieldCreator(FieldsName.NewsRecord.English.CategoryName, FieldsName.NewsRecord.VietNamese.CategoryName) { LookupList = ListsName.English.NewsCategory, LookupField = FieldsName.NewsCategory.English.Heading });
+            helper.AddField(new LookupFieldCreator(FieldsName.NewsRecord.English.CategoryName, FieldsName.NewsRecord.VietNamese.CategoryName) { LookupList = ListsName.English.NewsCategory, LookupField = FieldsName.NewsCategory.English.Heading, AllowMultipleValues = true});
 
             helper.AddField(new SingleLineTextFieldCreator(FieldsName.NewsRecord.English.ThumbnailImage, FieldsName.NewsRecord.VietNamese.ThumbnailImage));
             
@@ -450,6 +453,96 @@ namespace CQ.SharePoint.QN
             var titleField = list.Fields.GetFieldByInternalName("Title");
             titleField.Required = true;
             titleField.Update();
+            list.Update();
+        }
+
+        public static void CreateQNConfigList(SPWeb web)
+        {
+            var helper = new ListHelper(web)
+            {
+                Title = ListsName.VietNamese.QNConfigList,
+                Name = ListsName.English.QNConfigList,
+                OnQuickLaunch = true
+            };
+
+            helper.AddField(new MultipleLinesTextFieldCreator("Value", "Giá trị") { RichText = true, RichTextMode = SPRichTextMode.FullHtml, NumberOfLines = 6 });
+
+            SPList list = helper.Apply();
+
+            var titleField = list.Fields.GetFieldByInternalName("Title");
+            titleField.ShowInEditForm = false;
+            titleField.ShowInViewForms = false;
+            titleField.ShowInListSettings = false;
+            titleField.Update();
+            list.EnableAttachments = false;
+            list.Update();
+        }
+
+        public static void CreateQNTVList(SPWeb web)
+        {
+            var helper = new ListHelper(web)
+            {
+                Title = ListsName.VietNamese.QNTVList,
+                Name = ListsName.English.QNTVList,
+                OnQuickLaunch = true
+            };
+
+            helper.AddField(new MultipleLinesTextFieldCreator("Value", "Embed code") { RichText = false, RichTextMode = SPRichTextMode.Compatible, NumberOfLines = 6 });
+            helper.AddField(new SingleLineTextFieldCreator("Logo", "Logo url"));
+            helper.AddField(new NumberFieldCreator("Position", "Thứ tự"));
+            SPList list = helper.Apply();
+
+            var titleField = list.Fields.GetFieldByInternalName("Title");
+            titleField.Title = "Tên kênh";
+            titleField.Update();
+            list.EnableAttachments = false;
+            list.Update();
+        }
+
+        public static void CreateStatisticsList(SPWeb web)
+        {
+            var helper = new ListHelper(web)
+            {
+                Title = ListsName.VietNamese.StatisticsList,
+                Name = ListsName.English.StatisticsList,
+                OnQuickLaunch = true
+            };
+
+            helper.AddField(new SingleLineTextFieldCreator("Url", "Url"));
+            helper.AddField(new SingleLineTextFieldCreator("Browser", "Browser"));
+            helper.AddField(new SingleLineTextFieldCreator("IP", "IP"));
+            helper.AddField(new DateTimeFieldCreator("DateHit", "Ngày tháng"));
+            SPList list = helper.Apply();
+
+            var titleField = list.Fields.GetFieldByInternalName("Title");
+            titleField.Title = "Người truy cập";
+            titleField.Update();
+            list.EnableAttachments = false;
+            list.Update();
+        }
+
+        public static void CreateContactList(SPWeb web)
+        {
+            var helper = new ListHelper(web)
+            {
+                Title = ListsName.VietNamese.ContactList,
+                Name = ListsName.English.ContactList,
+                OnQuickLaunch = true
+            };
+
+            helper.AddField(new SingleLineTextFieldCreator("FullName", "FullName"));
+            helper.AddField(new SingleLineTextFieldCreator("Browser", "Browser"));
+            helper.AddField(new SingleLineTextFieldCreator("IP", "IP"));
+            helper.AddField(new SingleLineTextFieldCreator("Address", "Address"));
+            helper.AddField(new SingleLineTextFieldCreator("Mobile", "Mobile"));
+            helper.AddField(new MultipleLinesTextFieldCreator("Content", "Content") { RichText = false, RichTextMode = SPRichTextMode.Compatible, NumberOfLines = 6 });
+            SPList list = helper.Apply();
+
+            var titleField = list.Fields.GetFieldByInternalName("Title");
+            titleField.Title = "Tiêu đề";
+            titleField.Required = false;
+            titleField.Update();
+            list.EnableAttachments = false;
             list.Update();
         }
     }

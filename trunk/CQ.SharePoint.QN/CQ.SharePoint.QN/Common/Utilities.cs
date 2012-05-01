@@ -8,6 +8,7 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.Administration;
 using Microsoft.SharePoint.Utilities;
@@ -754,6 +755,236 @@ namespace CQ.SharePoint.QN.Common
             }
 
             return item;
+        }
+
+        public static string GetConfigValue(string key)
+        {
+            if (string.IsNullOrEmpty(key))
+            {
+                return string.Empty;
+            }
+            string result = "";
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            SPList list = GetListFromUrl(web, ListsName.English.QNConfigList);
+                            if (list != null)
+                            {
+                                var query = new SPQuery();
+                                query.Query = "<Where><Eq><FieldRef Name='Title' />" +
+                                              "<Value Type='Text'>" + key + "</Value></Eq></Where>";
+                                query.RowLimit = 1;
+                                var items = list.GetItems(query);
+                                if (items != null && items.Count > 0)
+                                {
+                                    result = Convert.ToString(items[0]["Value"]);
+                                }
+                                else
+                                {
+                                    var item = list.Items.Add();
+                                    item["Title"] = key;
+                                    item["Value"] = "Hãy nhập giá trị";
+                                    result = "Hãy nhập giá trị";
+                                    web.AllowUnsafeUpdates = true;
+                                    item.Update();
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                }
+            });
+            return result;
+        }
+
+        public static DataTable GetNewsByCatID(string catID)
+        {
+            string camlQuery = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='LookupMulti'>{1}</Value></Eq></Where>", FieldsName.NewsRecord.English.CategoryName, catID);
+            var query = new SPQuery();
+            query.Query = camlQuery;
+            DataTable table = null;
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            string listUrl = web.Url + "/Lists/" + ListsName.English.NewsRecord;
+                            var list = web.GetList(listUrl);
+                            if (list != null)
+                            {
+                                var items = list.GetItems(query);
+                                if (items != null && items.Count > 0)
+                                {
+                                    table = items.GetDataTable();
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Utilities.LogToUls(ex);
+                        }
+                    }
+
+                }
+            });
+            return table;
+        }
+
+        public static DataTable GetNewsCatByParent(string catID)
+        {
+            string camlQuery = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='LookupMulti'>{1}</Value></Eq></Where>", FieldsName.NewsCategory.English.ParentName, catID);
+            var query = new SPQuery();
+            query.Query = camlQuery;
+            DataTable table = null;
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            string listUrl = web.Url + "/Lists/" + ListsName.English.NewsCategory;
+                            var list = web.GetList(listUrl);
+                            if (list != null)
+                            {
+                                var items = list.GetItems(query);
+                                if (items != null && items.Count > 0)
+                                {
+                                    table = items.GetDataTable();
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Utilities.LogToUls(ex);
+                        }
+                    }
+
+                }
+            });
+            return table;
+        }
+
+        public static void GetNewsByCatID(string catID, ref DataTable dtNews)
+        {
+            var dt = GetNewsByCatID(catID);
+            if (dt != null && dtNews == null)
+            {
+                dtNews = dt.Clone();
+            }
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow dataRow in dt.Rows)
+                {
+                    dtNews.ImportRow(dataRow);
+                }
+            }
+            var catTbl = GetNewsCatByParent(catID);
+            if (catTbl != null && catTbl.Rows.Count > 0)
+            {
+                foreach (DataRow row in catTbl.Rows)
+                {
+                    GetNewsByCatID(Convert.ToString(row["ID"]), ref dtNews);
+                }
+            }
+        }
+
+        public static void GetRSS(string catID)
+        {
+            if (string.IsNullOrEmpty(catID))
+            {
+                string camlQuery = "<OrderBy><FieldRef Name='ID' Ascending='FALSE' /></OrderBy>";
+                var query = new SPQuery();
+                query.Query = camlQuery;
+                query.RowLimit = 20;
+                DataTable table = null;
+                SPSecurity.RunWithElevatedPrivileges(() =>
+                {
+                    using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                    {
+                        using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                        {
+                            try
+                            {
+                                string listUrl = web.Url + "/Lists/" + ListsName.English.NewsRecord;
+                                var list = web.GetList(listUrl);
+                                if (list != null)
+                                {
+                                    var items = list.GetItems(query);
+                                    if (items != null && items.Count > 0)
+                                    {
+                                        table = items.GetDataTable();
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Utilities.LogToUls(ex);
+                            }
+                        }
+
+                    }
+                });
+                GetRSS(table);
+            }
+            else
+            {
+                var dtNews = new DataTable("News");
+                GetNewsByCatID(catID, ref dtNews);
+                GetRSS(dtNews);
+            }
+        }
+
+        public static void GetRSS(DataTable dtNews)
+        {
+            if (dtNews != null && dtNews.Rows.Count > 0)
+            {
+                HttpContext.Current.Response.Clear();
+                HttpContext.Current.Response.ContentType = "text/xml";
+                XmlTextWriter feedWriter
+                  = new XmlTextWriter(HttpContext.Current.Response.OutputStream, Encoding.UTF8);
+
+                feedWriter.WriteStartDocument();
+
+                // These are RSS Tags
+                feedWriter.WriteStartElement("rss");
+                feedWriter.WriteAttributeString("version", "2.0");
+
+                feedWriter.WriteStartElement("channel");
+                feedWriter.WriteElementString("title", "Trung tâm công nghệ thông tin tỉnh Quảng Ninh");
+                feedWriter.WriteElementString("link", SPContext.Current.Web.Url);
+                feedWriter.WriteElementString("description", "Trung tâm công nghệ thông tin tỉnh Quảng Ninh");
+                feedWriter.WriteElementString("copyright", "Copyright 2012 Trung tâm thông tin công nghệ Quảng Ninh. All rights reserved.");
+                foreach (DataRow row in dtNews.Rows)
+                {
+                    feedWriter.WriteStartElement("item");
+                    feedWriter.WriteElementString("title", Convert.ToString(row["Title"]));
+                    feedWriter.WriteElementString("description", Convert.ToString(row[FieldsName.NewsRecord.English.ShortContent]));
+                    feedWriter.WriteElementString("link", string.Format("{0}/{1}.aspx?NewsId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Convert.ToString(row["ID"])));
+                    feedWriter.WriteElementString("pubDate", Convert.ToString(row["Modified"]));
+                    feedWriter.WriteEndElement();
+                }
+                // Close all open tags tags
+                feedWriter.WriteEndElement();
+                feedWriter.WriteEndElement();
+                feedWriter.WriteEndDocument();
+                feedWriter.Flush();
+                feedWriter.Close();
+
+                HttpContext.Current.Response.End();
+            }
         }
     }
 }

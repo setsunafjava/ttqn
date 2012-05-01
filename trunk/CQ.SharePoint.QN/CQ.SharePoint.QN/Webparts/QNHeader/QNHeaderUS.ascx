@@ -6,7 +6,7 @@ function setHomepage()
  if (document.all) 
     { 
         document.body.style.behavior='url(#default#homepage)'; 
-  document.body.setHomePage('http://serbackup:8888/default.aspx'); 
+        document.body.setHomePage(location.href); 
  
 
     } 
@@ -26,7 +26,7 @@ function setHomepage()
     } 
     var prefs = Components.classes['@mozilla.org/preferences-service;1'].getService(Components. interfaces.nsIPrefBranch);
 
-    prefs.setCharPref('browser.startup.homepage','http://serbackup:8888/default.aspx');
+    prefs.setCharPref('browser.startup.homepage',location.href);
 
  } 
 } 
@@ -67,8 +67,8 @@ function setHomepage()
 	<div class="bg_bottom_top_menu">
 		<div class="inner_content_bottom_topMenu">
 			<div class="time_date">Hôm nay, ngày <%=DateTime.Now %></div>
-			<div class="set_hompage"><a href="#" onclick="setHomepage();">Đặt làm trang chủ</a></div>
-			<div class="RSS"><a href="#">RSS</a></div>
+			<div class="set_hompage"><a href="javascript:void(0)" onclick="javascript:setHomepage();">Đặt làm trang chủ</a></div>
+			<div class="RSS"><asp:LinkButton ID="lbRSS" runat="server" OnClick="lbRSS_OnClick">RSS</asp:LinkButton></div>
 			<div class="cleaner"></div>
 		</div>
 	</div>

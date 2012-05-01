@@ -31,6 +31,10 @@ namespace CQ.SharePoint.QN.Common
             public const string ProductDetail = "ProductDetail";
             public const string DownloadCatList = "DownloadCatList";
             public const string DownloadList = "DownloadList";
+            public const string QNConfigList = "QNConfigList";
+            public const string QNTVList = "QNTVList";
+            public const string StatisticsList = "StatisticsList";
+            public const string ContactList = "ContactList";
         }
 
         // Display Name of list
@@ -61,6 +65,10 @@ namespace CQ.SharePoint.QN.Common
             public const string ProductDetail = "ProductDetail";
             public const string DownloadCatList = "DownloadCatList";
             public const string DownloadList = "DownloadList";
+            public const string QNConfigList = "QNConfigList";
+            public const string QNTVList = "QNTVList";
+            public const string StatisticsList = "StatisticsList";
+            public const string ContactList = "ContactList";
         }
     }
 }
