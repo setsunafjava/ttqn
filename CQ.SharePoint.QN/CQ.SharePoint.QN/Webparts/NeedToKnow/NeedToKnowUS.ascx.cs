@@ -16,6 +16,7 @@ namespace CQ.SharePoint.QN.Webparts
     /// </summary>
     public partial class NeedToKnowUS : UserControl
     {
+        public NeedToKnow ParentWP;
         /// <summary>
         /// Page on Load
         /// </summary>
@@ -44,7 +45,10 @@ namespace CQ.SharePoint.QN.Webparts
                         rptTiGia.DataBind();
 
                     }
-
+                    aBD.HRef = ParentWP.BDUrl;
+                    aBD.Target = "_blank";
+                    aKQXS.HRef = ParentWP.KQXSUrl;
+                    aKQXS.Target = "_blank";
                 }
                 catch (Exception)
                 {

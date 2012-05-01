@@ -261,10 +261,10 @@ function gmobj(o){
                 </table>
             </div>
             <div class="ball">
-                <a href="#">Bóng đá</a>
+                <a runat="server" id="aBD">Bóng đá</a>
             </div>
             <div class="resul">
-                <a href="#">Kết quả Xổ Số</a>
+                <a runat="server" id="aKQXS">Kết quả Xổ Số</a>
             </div>
         </div>
     </div>
