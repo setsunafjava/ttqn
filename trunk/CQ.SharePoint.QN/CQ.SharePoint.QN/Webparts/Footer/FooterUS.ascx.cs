@@ -13,7 +13,7 @@ namespace CQ.SharePoint.QN.Webparts
     public partial class FooterUS : UserControl
     {
         public Footer ParentWP;
-        protected string WebsiteInfo;
+        protected string WebsiteInfo = string.Empty;
         protected int HitCount = 1;
         /// <summary>
         /// Page on Load
