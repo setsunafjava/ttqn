@@ -24,7 +24,7 @@
         <div>
             Số lượt truy cập:
             <div style="background-image:url('/QNResources/statistic.jpg'); width:118px; height:35px;">
-                <div><%=HitCount%></div>
+                <div style="color:#ffffff;text-align:center;position:relative;top:9px;"><%=HitCount%></div>
             </div>
         </div>
         <div class="design_by">
