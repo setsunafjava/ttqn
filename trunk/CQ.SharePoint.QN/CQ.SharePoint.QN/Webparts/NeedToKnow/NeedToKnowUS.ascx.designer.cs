@@ -12,5 +12,7 @@ namespace CQ.SharePoint.QN.Webparts
     public partial class NeedToKnowUS
     {
         protected global::System.Web.UI.WebControls.Repeater rptTiGia;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor aBD;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor aKQXS;
     }
 }

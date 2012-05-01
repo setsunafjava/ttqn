@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.UI;
@@ -19,6 +20,30 @@ namespace CQ.SharePoint.QN.Webparts
         {
         }
 
+        [WebBrowsable(true)]
+        [FriendlyName("Link kết quả xổ số")]
+        [Description("Link kết quả xổ số")]
+        [Category("Cấu hình")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        public string KQXSUrl
+        {
+            get;
+            set;
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Link kết quả bóng đá")]
+        [Description("Link kết quả bóng đá")]
+        [Category("Cấu hình")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        public string BDUrl
+        {
+            get;
+            set;
+        }
+
         protected override void CreateChildControls()
         {
             base.CreateChildControls();
@@ -26,6 +51,7 @@ namespace CQ.SharePoint.QN.Webparts
             try
             {
                 NeedToKnowUS control = (NeedToKnowUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/NeedToKnowUS.ascx");
+                control.ParentWP = this;
                 Controls.Add(control);
             }
             catch (Exception ex)
