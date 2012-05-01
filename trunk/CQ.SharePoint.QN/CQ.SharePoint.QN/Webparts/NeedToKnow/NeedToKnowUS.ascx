@@ -261,10 +261,10 @@ function gmobj(o){
                 </table>
             </div>
             <div class="ball">
-                <a runat="server" id="aBD">Bóng đá</a>
+                <asp:LinkButton ID="lbBD" runat="server">Bóng đá</asp:LinkButton>
             </div>
             <div class="resul">
-                <a runat="server" id="aKQXS">Kết quả Xổ Số</a>
+                <asp:LinkButton ID="lbKQXS" runat="server">Kết quả Xổ Số</asp:LinkButton>
             </div>
         </div>
     </div>

@@ -30,22 +30,20 @@ namespace CQ.SharePoint.QN.Webparts
                 {
                     if (string.IsNullOrEmpty(ParentWP.KQXSUrl))
                     {
-                        aBD.HRef = "http://kqxs.vn";
+                        lbKQXS.OnClientClick = "javascript:location.href='http://kqxs.vn';return false;";
                     }
                     else
                     {
-                        aBD.HRef = ParentWP.KQXSUrl;
+                        lbKQXS.OnClientClick = "javascript:location.href='" + ParentWP.KQXSUrl + "';return false;";
                     }
                     if (string.IsNullOrEmpty(ParentWP.BDUrl))
                     {
-                        aBD.HRef = "http://bongdaso.vn/livescore.aspx";
+                        lbBD.OnClientClick = "javascript:location.href='http://bongdaso.vn/livescore.aspx';return false;";
                     }
                     else
                     {
-                        aBD.HRef = ParentWP.BDUrl;
+                        lbBD.OnClientClick = "javascript:location.href='" + ParentWP.BDUrl + "';return false;";
                     }
-                    aBD.Target = "_blank";
-                    aKQXS.Target = "_blank";
                 }
                 catch (Exception)
                 {
