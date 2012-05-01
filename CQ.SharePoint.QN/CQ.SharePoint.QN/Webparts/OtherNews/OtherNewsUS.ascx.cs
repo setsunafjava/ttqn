@@ -25,18 +25,30 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
-                    var newsId = Convert.ToInt32(Request.QueryString["NewsID"]);
+                    var newsId = Convert.ToInt32(Request.QueryString[Constants.NewsId]);
+                    var cateId = Convert.ToInt32(Request.QueryString[Constants.CategoryId]);
                     //if (!string.IsNullOrEmpty(newsId))
                     //{
-                    NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
+                    NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId);
                     //Bind data to top view
-
-                    var categoryId = Utilities.GetCategoryIdByItemId(newsId, ListsName.English.NewsRecord);
-
-                    //string topNewsQuery = string.Format("<OrderBy><FieldRef Name='{0}' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.ViewsCount);
-                    string topNewsQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='LookupMulti'>{1}</Value></Eq><Neq><FieldRef Name='{2}' /><Value Type='Counter'>{3}</Value></Neq></And></Where>",
-                        FieldsName.NewsRecord.English.CategoryName, categoryId, FieldsName.Id, newsId);
+                    int categoryId = 0;
+                    string topNewsQuery = string.Empty;
                     uint newsNumber = 5;
+
+                    if (newsId > 0)
+                    {
+                        categoryId = Utilities.GetCategoryIdByItemId(newsId, ListsName.English.NewsRecord);
+                        topNewsQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='LookupMulti'>{1}</Value></Eq><Neq><FieldRef Name='{2}' /><Value Type='Counter'>{3}</Value></Neq></And></Where>",
+                        FieldsName.NewsRecord.English.CategoryName, categoryId, FieldsName.Id, newsId);
+                    }
+                    else if (cateId > 0) //If have CategoryId => show many item of this category
+                    {
+                        topNewsQuery = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='LookupMulti'>{1}</Value></Eq></Where>", FieldsName.NewsRecord.English.CategoryName, categoryId);
+                    }
+                    else
+                    {
+                        topNewsQuery = string.Format("");
+                    }
 
                     if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
                     {

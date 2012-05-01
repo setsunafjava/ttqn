@@ -16,5 +16,6 @@ namespace CQ.SharePoint.QN.Webparts
         protected global::System.Web.UI.WebControls.Label  lblCurrpage;
         protected global::System.Web.UI.WebControls.HyperLink lnkPrev;
         protected global::System.Web.UI.WebControls.HyperLink lnkNext;
+        protected global::System.Web.UI.WebControls.Image imgLogo;
     }
 }

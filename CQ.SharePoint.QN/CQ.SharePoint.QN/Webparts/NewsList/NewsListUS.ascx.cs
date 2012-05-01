@@ -54,7 +54,7 @@ namespace CQ.SharePoint.QN.Webparts
                 AppendEq(sb, "all");
             }
 
-            // "AND" each parameter to the query
+            // "Or" each parameter to the query
             for (int i = 0; i < dictionary.Count; i++)
             {
                 AppendEq(sb, dictionary[i]);
@@ -80,37 +80,25 @@ namespace CQ.SharePoint.QN.Webparts
             sb.AppendFormat("<Value Type='LookupMulti'>{0}</Value>", value);
             sb.Append("</Eq>");
         }
-        
-        protected void RepeaterPaging(DataTable table, Repeater rp)
+
+        protected string BuildUrl(string pageorder)
         {
-            PagedDataSource pageds = new PagedDataSource
-                                         {
-                                             DataSource = table.DefaultView, AllowPaging = true, PageSize = 15
-                                         };
-            int curpage = 0;
-            var pageNum = Request.QueryString["Page"];
-            if (string.IsNullOrEmpty(pageNum))
-            {
-                curpage = Convert.ToInt32(pageNum);
-            }
-            else
-            {
-                curpage = 1;
-            }
-            pageds.CurrentPageIndex = curpage - 1;
+            StringBuilder stringBuilder = new StringBuilder();
 
-            if (!pageds.IsFirstPage)
+            var allkeys = Request.QueryString.AllKeys;
+            for (int i = 0; i < allkeys.Length; i++)
             {
-                lnkPrev.NavigateUrl = Request.CurrentExecutionFilePath + "?Page=" + Convert.ToString(curpage - 1);
+                if ("Page".Equals(allkeys[i]))
+                {
+                    stringBuilder.Append(string.Format("{0}={1}&", "Page", pageorder));
+                }
+                else
+                {
+                    stringBuilder.Append(string.Format("{0}={1}&", allkeys[i], Request.QueryString[allkeys[i]]));
+                }
             }
 
-            if (!pageds.IsLastPage)
-            {
-                lnkNext.NavigateUrl = Request.CurrentExecutionFilePath + "?Page=" + Convert.ToString(curpage + 1);
-            }
-
-            rp.DataSource = pageds;
-            rp.DataBind();
+            return stringBuilder.ToString().Substring(0, stringBuilder.ToString().Length - 1);
         }
 
         /// <summary>
@@ -127,7 +115,7 @@ namespace CQ.SharePoint.QN.Webparts
                     var categoryId = Request.QueryString["CategoryId"];
                     var focusNews = Request.QueryString["FocusNews"];
                     var isMenu = Request.QueryString["isMenu"];
-                    NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
+                    NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId);
                     if (!string.IsNullOrEmpty(categoryId))
                     {
 
@@ -148,8 +136,14 @@ namespace CQ.SharePoint.QN.Webparts
                                     FieldsName.NewsRecord.English.CategoryName, categoryId);
                             }
                             var companyList = Utilities.GetNewsRecords(categoryQuery, newsNumber, ListsName.English.NewsRecord);
+                            string imagepath = string.Empty;
 
-
+                            for (int i = 0; i < companyList.Rows.Count; i++)
+                            {
+                                imagepath = Convert.ToString(companyList.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage]);
+                                if (imagepath.Length > 2)
+                                    companyList.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath.Trim().Substring(0, imagepath.Length - 2);
+                            }
 
                             if (companyList != null && companyList.Rows.Count > 0)
                             {
@@ -173,15 +167,16 @@ namespace CQ.SharePoint.QN.Webparts
                                     curpage = 1;
                                 }
                                 pageds.CurrentPageIndex = curpage - 1;
+                                lblCurrpage.Text = "Trang: " + curpage;
 
                                 if (!pageds.IsFirstPage)
                                 {
-                                    lnkPrev.NavigateUrl = Request.CurrentExecutionFilePath + "?Page=" + Convert.ToString(curpage - 1);
+                                    lnkPrev.NavigateUrl = Request.CurrentExecutionFilePath + "?" + BuildUrl(Convert.ToString(curpage - 1));
                                 }
 
                                 if (!pageds.IsLastPage)
                                 {
-                                    lnkNext.NavigateUrl = Request.CurrentExecutionFilePath + "?Page=" + Convert.ToString(curpage + 1);
+                                    lnkNext.NavigateUrl = Request.CurrentExecutionFilePath + "?" + BuildUrl(Convert.ToString(curpage + 1));
                                 }
 
                                 rptListCategory.DataSource = pageds;

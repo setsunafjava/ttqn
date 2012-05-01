@@ -32,7 +32,7 @@ namespace CQ.SharePoint.QN.Webparts
                     //if select tinh uy
                     if ("1".Equals(WebpartParent.NewsType))
                     {
-                        NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
+                        NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId);
                         lblFirstGroup.Text = FieldsName.NewsRecord.FieldValuesDefault.TinhUy;
                         lblSecondGroup.Text = FieldsName.NewsRecord.FieldValuesDefault.HoiDongNhanDan;
                         lblThirdGroup.Text = FieldsName.NewsRecord.FieldValuesDefault.UyBanNhanDan;
@@ -46,7 +46,7 @@ namespace CQ.SharePoint.QN.Webparts
                         if (tinhUyNewsTable != null && tinhUyNewsTable.Rows.Count > 0)
                         {
                             lblHeaderTinhUy.Text = Convert.ToString(tinhUyNewsTable.Rows[0][FieldsName.Title]);
-                            NewsFirstUrl1 = string.Format("{0}/{1}.aspx?NewsId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Convert.ToString(tinhUyNewsTable.Rows[0][FieldsName.Id]));
+                            NewsFirstUrl1 = string.Format("{0}/{1}.aspx?{2}={3}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId, Convert.ToString(tinhUyNewsTable.Rows[0][FieldsName.Id]));
                             tinhUyNewsTable.Rows.RemoveAt(0);
                             rptTinhUy.DataSource = tinhUyNewsTable;
                             rptTinhUy.DataBind();
@@ -61,7 +61,7 @@ namespace CQ.SharePoint.QN.Webparts
                         if (hoiDongNhanDanNewsTable != null && hoiDongNhanDanNewsTable.Rows.Count > 0)
                         {
                             lblHeaderHoiDongNhanDan.Text =Convert.ToString(hoiDongNhanDanNewsTable.Rows[0][FieldsName.Title]);
-                            NewsFirstUrl2 = string.Format("{0}/{1}.aspx?NewsId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Convert.ToString(hoiDongNhanDanNewsTable.Rows[0][FieldsName.Id]));
+                            NewsFirstUrl2 = string.Format("{0}/{1}.aspx?{2}={3}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId, Convert.ToString(hoiDongNhanDanNewsTable.Rows[0][FieldsName.Id]));
                             hoiDongNhanDanNewsTable.Rows.RemoveAt(0);
                             rptHoiDongNhanDan.DataSource = hoiDongNhanDanNewsTable;
                             rptHoiDongNhanDan.DataBind();
@@ -75,7 +75,7 @@ namespace CQ.SharePoint.QN.Webparts
                         if (uyBanNhanDanNewsTable != null && uyBanNhanDanNewsTable.Rows.Count > 0)
                         {
                             lblHeaderUyBanNhanDan.Text = Convert.ToString(uyBanNhanDanNewsTable.Rows[0][FieldsName.Title]);
-                            NewsFirstUrl3 = string.Format("{0}/{1}.aspx?NewsId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Convert.ToString(uyBanNhanDanNewsTable.Rows[0][FieldsName.Id]));
+                            NewsFirstUrl3 = string.Format("{0}/{1}.aspx?{2}={3}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId, Convert.ToString(uyBanNhanDanNewsTable.Rows[0][FieldsName.Id]));
                             uyBanNhanDanNewsTable.Rows.RemoveAt(0);
                             rptUyBanNhanDan.DataSource = uyBanNhanDanNewsTable;
                             rptUyBanNhanDan.DataBind();
@@ -83,8 +83,8 @@ namespace CQ.SharePoint.QN.Webparts
                     }
                     else if ("2".Equals(WebpartParent.NewsType))
                     {
-                        NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url,
-                                                Constants.PageInWeb.DetailNews);
+                        NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url,
+                                                Constants.PageInWeb.DetailNews, Constants.NewsId);
 
                         lblFirstGroup.Text = FieldsName.NewsRecord.FieldValuesDefault.SoBanNganh;
                         lblSecondGroup.Text = FieldsName.NewsRecord.FieldValuesDefault.DiaPhuong;
@@ -100,7 +100,7 @@ namespace CQ.SharePoint.QN.Webparts
                         if (tinhUyNewsTable != null && tinhUyNewsTable.Rows.Count > 0)
                         {
                             lblHeaderTinhUy.Text =Convert.ToString(tinhUyNewsTable.Rows[0][FieldsName.Title]);
-                            NewsFirstUrl1 = string.Format("{0}/{1}.aspx?NewsId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Convert.ToString(tinhUyNewsTable.Rows[0][FieldsName.Id]));
+                            NewsFirstUrl1 = string.Format("{0}/{1}.aspx?{2}={3}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId, Convert.ToString(tinhUyNewsTable.Rows[0][FieldsName.Id]));
 
                             tinhUyNewsTable.Rows.RemoveAt(0);
                             rptTinhUy.DataSource = tinhUyNewsTable;
@@ -117,7 +117,7 @@ namespace CQ.SharePoint.QN.Webparts
                         if (hoiDongNhanDanNewsTable != null && hoiDongNhanDanNewsTable.Rows.Count > 0)
                         {
                             lblHeaderHoiDongNhanDan.Text =Convert.ToString(hoiDongNhanDanNewsTable.Rows[0][FieldsName.Title]);
-                            NewsFirstUrl2 = string.Format("{0}/{1}.aspx?NewsId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Convert.ToString(hoiDongNhanDanNewsTable.Rows[0][FieldsName.Id]));
+                            NewsFirstUrl2 = string.Format("{0}/{1}.aspx?{2}={3}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId, Convert.ToString(hoiDongNhanDanNewsTable.Rows[0][FieldsName.Id]));
 
                             hoiDongNhanDanNewsTable.Rows.RemoveAt(0);
                             rptHoiDongNhanDan.DataSource = hoiDongNhanDanNewsTable;
@@ -133,7 +133,7 @@ namespace CQ.SharePoint.QN.Webparts
                         if (uyBanNhanDanNewsTable != null && uyBanNhanDanNewsTable.Rows.Count > 0)
                         {
                             lblHeaderUyBanNhanDan.Text =Convert.ToString(uyBanNhanDanNewsTable.Rows[0][FieldsName.Title]);
-                            NewsFirstUrl3 = string.Format("{0}/{1}.aspx?NewsId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Convert.ToString(uyBanNhanDanNewsTable.Rows[0][FieldsName.Id]));
+                            NewsFirstUrl3 = string.Format("{0}/{1}.aspx?{2}={3}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId, Convert.ToString(uyBanNhanDanNewsTable.Rows[0][FieldsName.Id]));
                             uyBanNhanDanNewsTable.Rows.RemoveAt(0);
                             rptUyBanNhanDan.DataSource = uyBanNhanDanNewsTable;
                             rptUyBanNhanDan.DataBind();
