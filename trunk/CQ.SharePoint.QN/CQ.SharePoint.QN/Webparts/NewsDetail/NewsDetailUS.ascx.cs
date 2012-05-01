@@ -24,7 +24,7 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
-                    var newsId = Request.QueryString["NewsID"];
+                    var newsId = Request.QueryString[Constants.NewsId];
                     if (!string.IsNullOrEmpty(newsId))
                     {
                         string newsQuery = string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Counter'>{1}</Value></Eq></Where>", FieldsName.Id, newsId);

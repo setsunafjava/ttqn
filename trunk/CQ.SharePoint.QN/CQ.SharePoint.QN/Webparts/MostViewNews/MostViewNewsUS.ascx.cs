@@ -24,12 +24,12 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
-                    var newsId = Request.QueryString["NewsID"];
+                    var newsId = Request.QueryString[Constants.NewsId];
                     var categoryId = Request.QueryString["CategoryId"];
                     //if (!string.IsNullOrEmpty(newsId))
                     //{
                     //Bind data to top view
-                    NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
+                    NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId);
                     string topNewsQuery = string.Empty;
 
                     if (!string.IsNullOrEmpty(categoryId))

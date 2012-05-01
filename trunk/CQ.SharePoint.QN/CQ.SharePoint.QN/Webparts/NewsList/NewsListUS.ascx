@@ -17,7 +17,9 @@
                             <%#Eval("Modified")%>)</span></div>
                 <div class="interpre">
                     <div class="img_thumb">
-                        <img src="images/logo.jpg" /></div>
+                        <%--<img src="images/logo.jpg" />--%>
+                        <asp:Image ID="imgLogo" runat="server" Width="120px" Height="70px" ImageUrl='<%#Eval("Thumbnail") %>' />
+                    </div>
                     <div class="short_content">
                         <%#Eval("ShortContent")%></div>
                     <div class="cleaner">
@@ -27,17 +29,17 @@
         </div>
     </ItemTemplate>
 </asp:Repeater>
- <table>
-        <tr>
-            <td>
-                <asp:HyperLink ID="lnkPrev" runat="server" Text="Trước"></asp:HyperLink>
-            </td>
-            <td>
-                <asp:Label ID="lblCurrpage" runat="server"></asp:Label>
-            </td>
-            <td>
-                <asp:HyperLink ID="lnkNext" runat="server" Text="Sau"></asp:HyperLink>
-            </td>
-        </tr>
-    </table>
+<table>
+    <tr>
+        <td>
+            <asp:HyperLink ID="lnkPrev" runat="server" Text="Trước"></asp:HyperLink>
+        </td>
+        <td>
+            <asp:Label ID="lblCurrpage" runat="server"></asp:Label>
+        </td>
+        <td>
+            <asp:HyperLink ID="lnkNext" runat="server" Text="Sau"></asp:HyperLink>
+        </td>
+    </tr>
+</table>
 <asp:Label ID="lblItemNotExist" CssClass="redtext" runat="server"></asp:Label>

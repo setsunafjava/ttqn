@@ -14,7 +14,7 @@ namespace CQ.SharePoint.QN.Webparts
     public partial class FocusNewsUS : UserControl
     {
         public FocusNews WebpartParent;
-        public string NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
+        public string NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId);
         public string CategoryUrl = string.Empty;
         /// <summary>
         /// Page on Load

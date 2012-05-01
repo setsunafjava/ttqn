@@ -67,7 +67,8 @@ namespace CQ.SharePoint.QN.Webparts
                     var mainItem = Utilities.GetNewsRecords(mainItemQuery, 1, ListsName.English.NewsRecord);
                     if (mainItem != null && mainItem.Rows.Count > 0)
                     {
-                        imgMainImage.ImageUrl = Convert.ToString(mainItem.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
+                        string imagePath = Convert.ToString(mainItem.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
+                        imgMainImage.ImageUrl = imagePath.Trim().Substring(0, imagePath.Length - 2);
                         lblShortContent.Text = Convert.ToString(mainItem.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
                     }
 
