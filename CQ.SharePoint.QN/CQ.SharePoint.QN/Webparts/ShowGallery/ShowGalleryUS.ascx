@@ -5,10 +5,9 @@
     <div class="ad-image-wrapper">
         <div class="ad-image" style="width: 600px; height: 400px; top: 0px; left: 0px;">
             <a target="_blank" href="http://coffeescripter.com/">
-                <img height="400" width="600" src="http://coffeescripter.com/code/ad-gallery/images/1.jpg"></a><p
+                <img height="400" width="600" src="/QNResources/images.jpg" /></a><p
                     class="ad-image-description" style="width: 586px;">
-                    <strong class="ad-description-title">A title for 1.jpg</strong><span>This is a nice,
-                        and incredibly descriptive, description of the image 1.jpg</span></p>
+                    <strong class="ad-description-title">Thư viện ảnh</strong><span>Trung tâm thông tin công nghệ tỉnh Quảng Ninh</span></p>
         </div>
         <img src="/QNResources/loader.gif" class="ad-loader" style="display: none;"><div class="ad-next"
             style="height: 400px;">
@@ -28,7 +27,7 @@
                 <HeaderTemplate><ul class="ad-thumb-list" style="width: 1454px;"></HeaderTemplate>
                 <ItemTemplate>
                     <li><a runat="server" id="aLink" class='ad-thumb<%#Eval("ID")%> ad-active'>
-                        <img runat="server" id="imgLink" class='image<%#Eval("ID")%>' title='<%#Eval("Title")%>' style="opacity: 1;" />
+                        <img runat="server" id="imgLink" class='image<%#Eval("ID")%>' title='<%#Eval("Title")%>' style="opacity: 1; height: 60px;" />
                     </a></li>
                 </ItemTemplate>
                 <FooterTemplate></ul></FooterTemplate>
