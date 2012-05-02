@@ -149,14 +149,19 @@ namespace CQ.SharePoint.QN
         public static void UploadFileToDocumentLibrary(string sourceFolderPath, SPWeb web, string type)
         {
             var sourceFolder = new DirectoryInfo(sourceFolderPath);
-            foreach (FileInfo file in sourceFolder.GetFiles())
+            var sourceFile = sourceFolder.GetFiles();
+            if (sourceFile.Length > 0)
             {
-                UploadFileToDocumentLibrary(file.FullName,
-                                            string.Format(CultureInfo.InvariantCulture, "{0}/{1}/{2}", web.Url,
-                                                          ListsName.English.CQQNResources, file.Name),
-                                            web,
-                                            type, file.Name);
+                foreach (FileInfo file in sourceFolder.GetFiles())
+                {
+                    UploadFileToDocumentLibrary(file.FullName,
+                                                string.Format(CultureInfo.InvariantCulture, "{0}/{1}/{2}", web.Url,
+                                                              ListsName.English.CQQNResources, file.Name),
+                                                web,
+                                                type, file.Name);
+                }
             }
+
         }
         #endregion
     }

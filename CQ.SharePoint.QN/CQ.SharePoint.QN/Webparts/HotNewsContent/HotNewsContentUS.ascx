@@ -6,7 +6,9 @@
         <asp:Image ID="imgMainImage" runat="server" Width="396px" Height="305px" />
     </div>
     <div class="short_content-hottest">
+    <a href='<%=Linktoitem %>'>
         <asp:Label ID="lblShortContent" runat="server"></asp:Label>
+    </a>
     </div>
     <div class="time_update">
         <asp:Label ID="lblTimeUpdate" runat="server" />

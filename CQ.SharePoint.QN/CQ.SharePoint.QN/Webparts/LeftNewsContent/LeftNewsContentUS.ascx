@@ -16,7 +16,8 @@
                         <ul>
                     </HeaderTemplate>
                     <ItemTemplate>
-                        <li><a href='<%= CategoryUrl%><%#Eval("ID") %>'><%#Eval("Title")%></a></li>|                        
+                        <li><a href='<%= CategoryUrl%><%#Eval("ID") %>'>
+                            <%#Eval("Title")%></a></li>|
                     </ItemTemplate>
                     <FooterTemplate>
                         </ul>
@@ -28,7 +29,7 @@
         </div>
         <div class="content_typ_News">
             <div class="hotnews_test">
-                <img src="images/images.jpg" />
+                <asp:Image ID="imgThumb" runat="server" />
                 <h3>
                     <a href='<%= NewsFirstUrl1%>'>
                         <asp:Label ID="lblHeader" runat="server"></asp:Label></a></h3>

@@ -15,6 +15,7 @@ namespace CQ.SharePoint.QN.Webparts
     {
         public HotNewsContent WebPartParent;
         public string NewsUrl = string.Empty;
+        public string Linktoitem = string.Empty;
         /// <summary>
         /// Page on Load
         /// </summary>
@@ -28,16 +29,17 @@ namespace CQ.SharePoint.QN.Webparts
                 {
                     //Bind data to latest news
                     NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
+
                     var categoryId = Request.QueryString["CategoryId"];
                     string latestNewsQuery = string.Empty;
-                    if (!string.IsNullOrEmpty(categoryId))
-                    {
-                        latestNewsQuery = string.Format(" <Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='LookupMulti'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.CategoryName, categoryId);
-                    }
-                    else
-                    {
+                    //if (!string.IsNullOrEmpty(categoryId))
+                    //{
+                    //    latestNewsQuery = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='LookupMulti'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.CategoryName, categoryId);
+                    //}
+                    //else
+                    //{
                         latestNewsQuery = string.Format("<OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>");
-                    }
+                    //}
 
                     var latestNewsTable = Utilities.GetNewsRecords(latestNewsQuery, 5, ListsName.English.NewsRecord);
                     if (latestNewsTable != null && latestNewsTable.Rows.Count > 0)
@@ -67,6 +69,7 @@ namespace CQ.SharePoint.QN.Webparts
                     var mainItem = Utilities.GetNewsRecords(mainItemQuery, 1, ListsName.English.NewsRecord);
                     if (mainItem != null && mainItem.Rows.Count > 0)
                     {
+                        Linktoitem = string.Format("{0}/{1}.aspx?NewsId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Convert.ToString(mainItem.Rows[0][FieldsName.Id])); 
                         string imagePath = Convert.ToString(mainItem.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
                         imgMainImage.ImageUrl = imagePath.Trim().Substring(0, imagePath.Length - 2);
                         lblShortContent.Text = Convert.ToString(mainItem.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
