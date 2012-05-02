@@ -33,9 +33,9 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
-                    //<<<<<<< .mine
+
                     NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId);
-                    //=======
+
                     if (!string.IsNullOrEmpty(WebpartParent.GroupName))
                     {
                         lbRSS.Text = WebpartParent.GroupName;
@@ -44,13 +44,14 @@ namespace CQ.SharePoint.QN.Webparts
                     {
                         lbRSS.Text = "&nbsp;";
                     }
-                    //                    NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
-                    //>>>>>>> .r87
                     string newsGroupQuery = string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.CategoryName, SPHttpUtility.HtmlEncode(WebpartParent.GroupName));
                     var newsGroups = Utilities.GetNewsRecords(newsGroupQuery, Convert.ToUInt16(WebpartParent.NumberOfNews), ListsName.English.NewsRecord);
                     if (newsGroups != null && newsGroups.Rows.Count > 0)
                     {
                         lblHeader.Text = Convert.ToString(newsGroups.Rows[0][FieldsName.Title]);
+                        var tempTable = Utilities.GetTableWithCorrectUrl(newsGroups);
+                        imgThumb.ImageUrl = Convert.ToString(tempTable.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
+
                         lblShortContent.Text = Convert.ToString(newsGroups.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
                         NewsFirstUrl1 = string.Format("{0}/{1}.aspx?{2}={3}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId, Convert.ToString(newsGroups.Rows[0][FieldsName.Id]));
                         if (newsGroups.Rows.Count > 2)

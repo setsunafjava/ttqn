@@ -39,7 +39,7 @@
                         </div>
                         <div class="img_short_content">
                             <div class="img_thumb">
-                                <img src='<%#Eval("Thumbnail") %>' />
+                                <img src='<%#Eval("Thumbnail") %>' />                                
                             </div>
                             <div class="short_info">
                                 <%#Eval("ShortContent") %>

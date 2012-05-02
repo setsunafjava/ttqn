@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Web.UI;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.Utilities;
@@ -39,7 +40,7 @@ namespace CQ.SharePoint.QN.Webparts
                     var companyList = Utilities.GetNewsRecords(advQuery, newsNumber, ListsName.English.NewsRecord);
                     if (companyList != null && companyList.Rows.Count > 0)
                     {
-                        rptShouldYouKnow.DataSource = companyList;
+                        rptShouldYouKnow.DataSource = Utilities.GetTableWithCorrectUrl(companyList);
                         rptShouldYouKnow.DataBind();
                     }
 

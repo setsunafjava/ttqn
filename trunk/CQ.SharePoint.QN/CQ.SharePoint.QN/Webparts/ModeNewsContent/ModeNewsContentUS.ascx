@@ -16,7 +16,9 @@
         <div class="inner_content_ModNews1">
             <div class="cont_News">
                 <div class="img_thumb_News">
-                    <img src="images/images.jpg" /></div>
+                    <%--<img src="images/images.jpg" />--%>
+                    <asp:Image ID="img1" runat="server" />
+                </div>
                 <div class="intro_short_content_News">                    
                     <a href='<%= NewsFirstUrl1%>'><asp:Label ID="lblHeaderTinhUy" runat="server" ></asp:Label></a>
                 </div>
@@ -37,7 +39,8 @@
             </div>
             <div class="cont_News">
                 <div class="img_thumb_News">
-                    <img src="images/images.jpg" /></div>
+                    <asp:Image ID="Img2" runat="server" />
+                </div>
                 <div class="intro_short_content_News">                    
                     <a href='<%= NewsFirstUrl2%>'><asp:Label ID="lblHeaderHoiDongNhanDan" runat="server" ></asp:Label></a>
                 </div>
@@ -58,7 +61,8 @@
             </div>
             <div class="cont_News">
                 <div class="img_thumb_News">
-                    <img src="images/images.jpg" /></div>
+                    <asp:Image ID="Img3" runat="server" />
+                </div>
                 <div class="intro_short_content_News">                    
                      <a href='<%= NewsFirstUrl3%>'><asp:Label ID="lblHeaderUyBanNhanDan" runat="server" ></asp:Label></a>
                 </div>

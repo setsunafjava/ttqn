@@ -45,10 +45,12 @@ namespace CQ.SharePoint.QN.Webparts
 
                         if (tinhUyNewsTable != null && tinhUyNewsTable.Rows.Count > 0)
                         {
+                            var table1 = Utilities.GetTableWithCorrectUrl(tinhUyNewsTable);
                             lblHeaderTinhUy.Text = Convert.ToString(tinhUyNewsTable.Rows[0][FieldsName.Title]);
+                            img1.ImageUrl = Convert.ToString(table1.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
                             NewsFirstUrl1 = string.Format("{0}/{1}.aspx?{2}={3}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId, Convert.ToString(tinhUyNewsTable.Rows[0][FieldsName.Id]));
                             tinhUyNewsTable.Rows.RemoveAt(0);
-                            rptTinhUy.DataSource = tinhUyNewsTable;
+                            rptTinhUy.DataSource = table1;
                             rptTinhUy.DataBind();
                         }
 
@@ -57,13 +59,15 @@ namespace CQ.SharePoint.QN.Webparts
                             string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>",
                                 FieldsName.NewsRecord.English.CategoryName,
                                 SPHttpUtility.HtmlEncode(FieldsName.NewsRecord.FieldValuesDefault.HoiDongNhanDan));
-                        var hoiDongNhanDanNewsTable = Utilities.GetNewsRecords(hoiDongNhanDanNewsQuery, 5,ListsName.English.NewsRecord);
+                        var hoiDongNhanDanNewsTable = Utilities.GetNewsRecords(hoiDongNhanDanNewsQuery, 5, ListsName.English.NewsRecord);
                         if (hoiDongNhanDanNewsTable != null && hoiDongNhanDanNewsTable.Rows.Count > 0)
                         {
-                            lblHeaderHoiDongNhanDan.Text =Convert.ToString(hoiDongNhanDanNewsTable.Rows[0][FieldsName.Title]);
+                            var table2 = Utilities.GetTableWithCorrectUrl(hoiDongNhanDanNewsTable);
+                            lblHeaderHoiDongNhanDan.Text = Convert.ToString(hoiDongNhanDanNewsTable.Rows[0][FieldsName.Title]);
+                            Img2.ImageUrl = Convert.ToString(table2.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
                             NewsFirstUrl2 = string.Format("{0}/{1}.aspx?{2}={3}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId, Convert.ToString(hoiDongNhanDanNewsTable.Rows[0][FieldsName.Id]));
                             hoiDongNhanDanNewsTable.Rows.RemoveAt(0);
-                            rptHoiDongNhanDan.DataSource = hoiDongNhanDanNewsTable;
+                            rptHoiDongNhanDan.DataSource = table2;
                             rptHoiDongNhanDan.DataBind();
                         }
                         //Ủy ban nhân dân
@@ -71,13 +75,15 @@ namespace CQ.SharePoint.QN.Webparts
                             string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>",
                                 FieldsName.NewsRecord.English.CategoryName,
                                 SPHttpUtility.HtmlEncode(FieldsName.NewsRecord.FieldValuesDefault.UyBanNhanDan));
-                        var uyBanNhanDanNewsTable = Utilities.GetNewsRecords(uyBanNhanDanNewsQuery, 5,ListsName.English.NewsRecord);
+                        var uyBanNhanDanNewsTable = Utilities.GetNewsRecords(uyBanNhanDanNewsQuery, 5, ListsName.English.NewsRecord);
                         if (uyBanNhanDanNewsTable != null && uyBanNhanDanNewsTable.Rows.Count > 0)
                         {
+                            var table3 = Utilities.GetTableWithCorrectUrl(uyBanNhanDanNewsTable);
                             lblHeaderUyBanNhanDan.Text = Convert.ToString(uyBanNhanDanNewsTable.Rows[0][FieldsName.Title]);
+                            Img3.ImageUrl = Convert.ToString(table3.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
                             NewsFirstUrl3 = string.Format("{0}/{1}.aspx?{2}={3}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId, Convert.ToString(uyBanNhanDanNewsTable.Rows[0][FieldsName.Id]));
                             uyBanNhanDanNewsTable.Rows.RemoveAt(0);
-                            rptUyBanNhanDan.DataSource = uyBanNhanDanNewsTable;
+                            rptUyBanNhanDan.DataSource = table3;
                             rptUyBanNhanDan.DataBind();
                         }
                     }
@@ -99,11 +105,13 @@ namespace CQ.SharePoint.QN.Webparts
 
                         if (tinhUyNewsTable != null && tinhUyNewsTable.Rows.Count > 0)
                         {
-                            lblHeaderTinhUy.Text =Convert.ToString(tinhUyNewsTable.Rows[0][FieldsName.Title]);
+                            var table4 = Utilities.GetTableWithCorrectUrl(tinhUyNewsTable);
+                            lblHeaderTinhUy.Text = Convert.ToString(tinhUyNewsTable.Rows[0][FieldsName.Title]);
+                            img1.ImageUrl = Convert.ToString(table4.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
                             NewsFirstUrl1 = string.Format("{0}/{1}.aspx?{2}={3}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId, Convert.ToString(tinhUyNewsTable.Rows[0][FieldsName.Id]));
 
                             tinhUyNewsTable.Rows.RemoveAt(0);
-                            rptTinhUy.DataSource = tinhUyNewsTable;
+                            rptTinhUy.DataSource = table4;
                             rptTinhUy.DataBind();
                         }
 
@@ -113,14 +121,16 @@ namespace CQ.SharePoint.QN.Webparts
                                 "<Where><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>",
                                 FieldsName.NewsRecord.English.CategoryName,
                                 SPHttpUtility.HtmlEncode(FieldsName.NewsRecord.FieldValuesDefault.DiaPhuong));
-                        var hoiDongNhanDanNewsTable = Utilities.GetNewsRecords(hoiDongNhanDanNewsQuery, 5,ListsName.English.NewsRecord);
+                        var hoiDongNhanDanNewsTable = Utilities.GetNewsRecords(hoiDongNhanDanNewsQuery, 5, ListsName.English.NewsRecord);
                         if (hoiDongNhanDanNewsTable != null && hoiDongNhanDanNewsTable.Rows.Count > 0)
                         {
-                            lblHeaderHoiDongNhanDan.Text =Convert.ToString(hoiDongNhanDanNewsTable.Rows[0][FieldsName.Title]);
+                            var table5 = Utilities.GetTableWithCorrectUrl(hoiDongNhanDanNewsTable);
+                            lblHeaderHoiDongNhanDan.Text = Convert.ToString(hoiDongNhanDanNewsTable.Rows[0][FieldsName.Title]);
+                            Img2.ImageUrl = Convert.ToString(table5.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
                             NewsFirstUrl2 = string.Format("{0}/{1}.aspx?{2}={3}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId, Convert.ToString(hoiDongNhanDanNewsTable.Rows[0][FieldsName.Id]));
 
                             hoiDongNhanDanNewsTable.Rows.RemoveAt(0);
-                            rptHoiDongNhanDan.DataSource = hoiDongNhanDanNewsTable;
+                            rptHoiDongNhanDan.DataSource = table5;
                             rptHoiDongNhanDan.DataBind();
                         }
                         //Ủy ban nhân dân
@@ -129,13 +139,15 @@ namespace CQ.SharePoint.QN.Webparts
                                 "<Where><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>",
                                 FieldsName.NewsRecord.English.CategoryName,
                                 SPHttpUtility.HtmlEncode(FieldsName.NewsRecord.FieldValuesDefault.DoanhNghiep));
-                        var uyBanNhanDanNewsTable = Utilities.GetNewsRecords(uyBanNhanDanNewsQuery, 5,ListsName.English.NewsRecord);
+                        var uyBanNhanDanNewsTable = Utilities.GetNewsRecords(uyBanNhanDanNewsQuery, 5, ListsName.English.NewsRecord);
                         if (uyBanNhanDanNewsTable != null && uyBanNhanDanNewsTable.Rows.Count > 0)
                         {
-                            lblHeaderUyBanNhanDan.Text =Convert.ToString(uyBanNhanDanNewsTable.Rows[0][FieldsName.Title]);
+                            var table6 = Utilities.GetTableWithCorrectUrl(hoiDongNhanDanNewsTable);
+                            lblHeaderUyBanNhanDan.Text = Convert.ToString(uyBanNhanDanNewsTable.Rows[0][FieldsName.Title]);
+                            Img3.ImageUrl = Convert.ToString(table6.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
                             NewsFirstUrl3 = string.Format("{0}/{1}.aspx?{2}={3}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId, Convert.ToString(uyBanNhanDanNewsTable.Rows[0][FieldsName.Id]));
                             uyBanNhanDanNewsTable.Rows.RemoveAt(0);
-                            rptUyBanNhanDan.DataSource = uyBanNhanDanNewsTable;
+                            rptUyBanNhanDan.DataSource = table6;
                             rptUyBanNhanDan.DataBind();
                         }
                     }

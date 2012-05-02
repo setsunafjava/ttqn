@@ -35,6 +35,19 @@ namespace CQ.SharePoint.QN.Common
             AddStandardView(list, viewTitle, viewFields, query, rowLimit, makeDefaultView, String.Empty);
         }
 
+        public static DataTable GetTableWithCorrectUrl(DataTable oldTable)
+        {
+            string imagepath = string.Empty;
+
+            for (int i = 0; i < oldTable.Rows.Count; i++)
+            {
+                imagepath = Convert.ToString(oldTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage]);
+                if (imagepath.Length > 2)
+                    oldTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath.Trim().Substring(0, imagepath.Length - 2);
+            }
+            return oldTable;
+        }
+
         /// <summary>
         /// Create a standard SharePoint view and add to given list
         /// </summary>
