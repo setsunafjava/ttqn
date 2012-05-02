@@ -19,67 +19,67 @@ namespace CQ.SharePoint.QN.Webparts
         public NewsList ParentWP;
         public string NewsUrl = string.Empty;
 
-        /// <summary>
-        /// Get all id of category's child
-        /// </summary>
-        /// <param name="parentId"></param>
-        public Dictionary<int, string> GetAllSubCategoryId(int parentId)
-        {
-            string query = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where>", FieldsName.NewsCategory.English.ParentName, parentId);
-            uint newsNumber = 30;
-            Dictionary<int, string> dictionary = new Dictionary<int, string>();
-            var newCategoryItems = Utilities.GetNewsRecords(query, newsNumber, ListsName.English.NewsCategory);
-            if (newCategoryItems != null && newCategoryItems.Rows.Count > 0)
-            {
-                int j = 0;
-                for (int i = 0; i < newCategoryItems.Rows.Count; i++)
-                {
-                    if (!string.IsNullOrEmpty(Convert.ToString(newCategoryItems.Rows[i][FieldsName.NewsCategory.English.ParentName])))
-                    {
-                        dictionary.Add(j, Convert.ToString(newCategoryItems.Rows[i][FieldsName.Id]));
-                        j++;
-                    }//Xet xem cac chau' cua no co khogn = cach de quy
-                }
-            }
-            return dictionary;
-        }
+        ///// <summary>
+        ///// Get all id of category's child
+        ///// </summary>
+        ///// <param name="parentId"></param>
+        //public Dictionary<int, string> GetAllSubCategoryId(int parentId)
+        //{
+        //    string query = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where>", FieldsName.NewsCategory.English.ParentName, parentId);
+        //    uint newsNumber = 30;
+        //    Dictionary<int, string> dictionary = new Dictionary<int, string>();
+        //    var newCategoryItems = Utilities.GetNewsRecords(query, newsNumber, ListsName.English.NewsCategory);
+        //    if (newCategoryItems != null && newCategoryItems.Rows.Count > 0)
+        //    {
+        //        int j = 0;
+        //        for (int i = 0; i < newCategoryItems.Rows.Count; i++)
+        //        {
+        //            if (!string.IsNullOrEmpty(Convert.ToString(newCategoryItems.Rows[i][FieldsName.NewsCategory.English.ParentName])))
+        //            {
+        //                dictionary.Add(j, Convert.ToString(newCategoryItems.Rows[i][FieldsName.Id]));
+        //                j++;
+        //            }//Xet xem cac chau' cua no co khogn = cach de quy
+        //        }
+        //    }
+        //    return dictionary;
+        //}
 
-        private static string CreateCamlQuery(Dictionary<int, string> dictionary)
-        {
-            StringBuilder sb = new StringBuilder();
+        //private static string CreateCamlQuery(Dictionary<int, string> dictionary)
+        //{
+        //    StringBuilder sb = new StringBuilder();
 
-            if (dictionary.Count == 0)
-            {
-                // perhaps set a default query?
-                AppendEq(sb, "all");
-            }
+        //    if (dictionary.Count == 0)
+        //    {
+        //        // perhaps set a default query?
+        //        AppendEq(sb, "all");
+        //    }
 
-            // "Or" each parameter to the query
-            for (int i = 0; i < dictionary.Count; i++)
-            {
-                AppendEq(sb, dictionary[i]);
+        //    // "Or" each parameter to the query
+        //    for (int i = 0; i < dictionary.Count; i++)
+        //    {
+        //        AppendEq(sb, dictionary[i]);
 
-                if (i > 0)
-                {
-                    sb.Insert(0, "<Or>");
-                    sb.Append("</Or>");
-                }
-            }
+        //        if (i > 0)
+        //        {
+        //            sb.Insert(0, "<Or>");
+        //            sb.Append("</Or>");
+        //        }
+        //    }
 
-            sb.Insert(0, "<Where>");
-            sb.Append("</Where>");
+        //    sb.Insert(0, "<Where>");
+        //    sb.Append("</Where>");
 
-            return sb.ToString();
-        }
+        //    return sb.ToString();
+        //}
 
-        private static void AppendEq(StringBuilder sb, string value)
-        {
-            // put your field's internal name in place of Category
-            sb.Append("<Eq>");
-            sb.Append("<FieldRef Name='CategoryName' LookupId='TRUE'/>");
-            sb.AppendFormat("<Value Type='LookupMulti'>{0}</Value>", value);
-            sb.Append("</Eq>");
-        }
+        //private static void AppendEq(StringBuilder sb, string value)
+        //{
+        //    // put your field's internal name in place of Category
+        //    sb.Append("<Eq>");
+        //    sb.Append("<FieldRef Name='CategoryName' LookupId='TRUE'/>");
+        //    sb.AppendFormat("<Value Type='LookupMulti'>{0}</Value>", value);
+        //    sb.Append("</Eq>");
+        //}
 
         protected string BuildUrl(string pageorder)
         {
@@ -114,47 +114,34 @@ namespace CQ.SharePoint.QN.Webparts
                 {
                     var categoryId = Request.QueryString["CategoryId"];
                     var focusNews = Request.QueryString["FocusNews"];
-                    var isMenu = Request.QueryString["isMenu"];
+
                     NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId);
                     if (!string.IsNullOrEmpty(categoryId))
                     {
 
                         if (!"-1".Equals(categoryId))
                         {
+                            DataTable companyList = null;
 
-                            string categoryQuery = string.Empty;
-                            uint newsNumber = 30;
+                            Utilities.GetNewsByCatID(Convert.ToString(categoryId), ref companyList);
+                            string imagepath;
 
-                            if ("1".Equals(isMenu))
-                            {
-                                var cateId = Convert.ToInt32(categoryId);
-                                categoryQuery = CreateCamlQuery(GetAllSubCategoryId(cateId));
-                            }
-                            else
-                            {
-                                categoryQuery = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE' /><Value Type='LookupMulti'>{1}</Value></Eq></Where>",
-                                    FieldsName.NewsRecord.English.CategoryName, categoryId);
-                            }
-                            var companyList = Utilities.GetNewsRecords(categoryQuery, newsNumber, ListsName.English.NewsRecord);
-                            string imagepath = string.Empty;
 
-                            for (int i = 0; i < companyList.Rows.Count; i++)
-                            {
-                                imagepath = Convert.ToString(companyList.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage]);
-                                if (imagepath.Length > 2)
-                                    companyList.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath.Trim().Substring(0, imagepath.Length - 2);
-                            }
 
-                            if (companyList != null && companyList.Rows.Count > 0)
+                            if (companyList.Rows.Count > 0)
                             {
-                                //rptListCategory.DataSource = companyList;
-                                //rptListCategory.DataBind();
+                                for (int i = 0; i < companyList.Rows.Count; i++)
+                                {
+                                    imagepath = Convert.ToString(companyList.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage]);
+                                    if (imagepath.Length > 2)
+                                        companyList.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath.Trim().Substring(0, imagepath.Length - 2);
+                                }
 
                                 PagedDataSource pageds = new PagedDataSource
                                 {
                                     DataSource = companyList.DefaultView,
                                     AllowPaging = true,
-                                    PageSize = 2
+                                    PageSize = 10
                                 };
                                 int curpage = 0;
                                 var pageNum = Request.QueryString["Page"];

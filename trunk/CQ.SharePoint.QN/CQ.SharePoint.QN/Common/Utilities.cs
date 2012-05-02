@@ -554,9 +554,9 @@ namespace CQ.SharePoint.QN.Common
         }
 
 
-        public static int GetCategoryIdByItemId(int itemId, string listName)
+        public static string GetCategoryIdByItemId(int itemId, string listName)
         {
-            int categoryId = 0;
+            string categoryId = string.Empty;
             SPSecurity.RunWithElevatedPrivileges(() =>
             {
                 using (var site = new SPSite(SPContext.Current.Web.Site.ID))
@@ -572,13 +572,13 @@ namespace CQ.SharePoint.QN.Common
                                 if (items != null)
                                 {
                                     string categoryName = Convert.ToString(items[FieldsName.NewsRecord.English.CategoryName]);
-                                    categoryId = Convert.ToInt32(categoryName.Substring(0, categoryName.IndexOf(";#")));
+                                    categoryId = categoryName.Substring(0, categoryName.IndexOf(";#"));
                                 }
                             }
                         }
                         catch (Exception ex)
                         {
-                            categoryId = 0;
+                            //categoryId = 0;
                         }
                     }
                 }
@@ -622,6 +622,8 @@ namespace CQ.SharePoint.QN.Common
             });
             return table;
         }
+              
+       
 
         /// <summary>
         /// Get value in resource file by key
