@@ -29,17 +29,10 @@ namespace CQ.SharePoint.QN.Webparts
                 {
                     //Bind data to latest news
                     NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
-
-                    var categoryId = Request.QueryString["CategoryId"];
                     string latestNewsQuery = string.Empty;
-                    //if (!string.IsNullOrEmpty(categoryId))
-                    //{
-                    //    latestNewsQuery = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='LookupMulti'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.CategoryName, categoryId);
-                    //}
-                    //else
-                    //{
-                        latestNewsQuery = string.Format("<OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>");
-                    //}
+
+                    latestNewsQuery = string.Format("<OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>");
+
 
                     var latestNewsTable = Utilities.GetNewsRecords(latestNewsQuery, 5, ListsName.English.NewsRecord);
                     if (latestNewsTable != null && latestNewsTable.Rows.Count > 0)
@@ -47,16 +40,9 @@ namespace CQ.SharePoint.QN.Webparts
                         rptLatestNews.DataSource = latestNewsTable;
                         rptLatestNews.DataBind();
                     }
-                    //Bind data to top view
-                    string topNewsQuery = string.Empty;
-                    if (!string.IsNullOrEmpty(categoryId))
-                    {
-                        topNewsQuery = string.Format(" <Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='LookupMulti'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='ViewsCount' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.CategoryName, categoryId);
-                    }
-                    else
-                    {
-                        topNewsQuery = string.Format("<OrderBy><FieldRef Name='{0}' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.ViewsCount);
-                    }
+
+                    string topNewsQuery = string.Format("<OrderBy><FieldRef Name='{0}' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.ViewsCount);
+
 
                     var topViewsTable = Utilities.GetNewsRecords(topNewsQuery, 5, ListsName.English.NewsRecord);
                     if (topViewsTable != null && topViewsTable.Rows.Count > 0)
@@ -69,23 +55,77 @@ namespace CQ.SharePoint.QN.Webparts
                     var mainItem = Utilities.GetNewsRecords(mainItemQuery, 1, ListsName.English.NewsRecord);
                     if (mainItem != null && mainItem.Rows.Count > 0)
                     {
-                        Linktoitem = string.Format("{0}/{1}.aspx?NewsId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Convert.ToString(mainItem.Rows[0][FieldsName.Id])); 
-                        string imagePath = Convert.ToString(mainItem.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
-                        imgMainImage.ImageUrl = imagePath.Trim().Substring(0, imagePath.Length - 2);
-                        lblShortContent.Text = Convert.ToString(mainItem.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
+                        BinDataToMainScreen(mainItem.Rows[0]);
                     }
 
                     if ("0".Equals(WebPartParent.WebpartName))
                     {
-                        lblLatest.Visible = false;
                         rptTopViews.Visible = false;
-                        lblReadMost.Text = "Tin mới nhận";
+                        pnlIndex.Visible = false;
+                        pnlSubPage.Visible = true;
+                        DataTable tempTable;
+                        DataTable otherNewsTable = null;
+                        var categoryId = Request.QueryString["CategoryId"];
+
+                        if (!string.IsNullOrEmpty(categoryId))
+                        {
+                            Utilities.GetNewsByCatID(Convert.ToString(categoryId), ref otherNewsTable);
+                        }
+
+                        if (otherNewsTable != null && otherNewsTable.Rows.Count > 0)
+                        {
+                            //Bind data to main screen
+                            BinDataToMainScreen(otherNewsTable.Rows[0]);
+                            otherNewsTable.Rows.RemoveAt(0);
+                            //end
+                            tempTable = otherNewsTable.Clone();
+                            if (otherNewsTable.Rows.Count > 5)
+                            {
+                                for (int i = 0; i < 5; i++)
+                                {
+                                    tempTable.ImportRow(otherNewsTable.Rows[i]);
+                                }
+                            }
+                            else
+                            {
+                                for (int i = 0; i < otherNewsTable.Rows.Count; i++)
+                                {
+                                    tempTable.ImportRow(otherNewsTable.Rows[i]);
+                                }
+                            }
+                            if (tempTable.Rows.Count > 0)
+                            {
+                                rptLatestNews.DataSource = tempTable;
+                                rptLatestNews.DataBind();
+                            }
+                        }
+                        else
+                        {
+                            rptLatestNews.DataSource = null;
+                            rptLatestNews.DataBind();
+                        }
                     }
                 }
                 catch (Exception ex)
                 {
                 }
             }
+        }
+
+
+        public void BinDataToMainScreen(DataRow row)
+        {
+            Linktoitem = string.Format("{0}/{1}.aspx?NewsId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Convert.ToString(row[FieldsName.Id]));
+            string imagePath = Convert.ToString(row[FieldsName.NewsRecord.English.ThumbnailImage]);
+            if (!string.IsNullOrEmpty(imagePath))
+            {
+                imgMainImage.ImageUrl = imagePath.Trim().Substring(0, imagePath.Length - 2);
+            }
+            else
+            {
+                imgMainImage.ImageUrl = string.Empty;
+            }
+            lblShortContent.Text = Convert.ToString(row[FieldsName.NewsRecord.English.ShortContent]);
         }
     }
 }

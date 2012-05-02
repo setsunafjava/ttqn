@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.SharePoint;
@@ -13,6 +14,7 @@ namespace CQ.SharePoint.QN.Webparts
     public partial class OtherNewsUS : UserControl
     {
         public OtherNews WebpartParent;
+        public NewsList newslistwp;
         public string NewsUrl = string.Empty;
         /// <summary>
         /// Page on Load
@@ -27,45 +29,54 @@ namespace CQ.SharePoint.QN.Webparts
                 {
                     var newsId = Convert.ToInt32(Request.QueryString[Constants.NewsId]);
                     var cateId = Convert.ToInt32(Request.QueryString[Constants.CategoryId]);
-                    //if (!string.IsNullOrEmpty(newsId))
-                    //{
+
                     NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId);
                     //Bind data to top view
-                    int categoryId = 0;
-                    string topNewsQuery = string.Empty;
-                    uint newsNumber = 5;
+                    DataTable otherNewsTable = null;
 
-                    if (newsId > 0)
+                    if (cateId > 0)
                     {
-                        categoryId = Utilities.GetCategoryIdByItemId(newsId, ListsName.English.NewsRecord);
-                        topNewsQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='LookupMulti'>{1}</Value></Eq><Neq><FieldRef Name='{2}' /><Value Type='Counter'>{3}</Value></Neq></And></Where>",
-                        FieldsName.NewsRecord.English.CategoryName, categoryId, FieldsName.Id, newsId);
+                        Utilities.GetNewsByCatID(Convert.ToString(cateId), ref otherNewsTable);
                     }
-                    else if (cateId > 0) //If have CategoryId => show many item of this category
+                    else if (newsId > 0)
                     {
-                        topNewsQuery = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='LookupMulti'>{1}</Value></Eq></Where>", FieldsName.NewsRecord.English.CategoryName, categoryId);
-                    }
-                    else
-                    {
-                        topNewsQuery = string.Format("");
+                        string categoryId = Utilities.GetCategoryIdByItemId(newsId, ListsName.English.NewsRecord);
+                        Utilities.GetNewsByCatID(categoryId, ref otherNewsTable);
                     }
 
-                    if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
+                    if (otherNewsTable != null && otherNewsTable.Rows.Count > 0)
                     {
-                        newsNumber = Convert.ToUInt16(WebpartParent.NumberOfNews);
-                    }
-                    var topViewsTable = Utilities.GetNewsRecords(topNewsQuery, newsNumber, ListsName.English.NewsRecord);
-                    if (topViewsTable != null && topViewsTable.Rows.Count > 0)
-                    {
-                        rptOtherNews.DataSource = topViewsTable;
+                        DataTable overTenItems = null;
+                        if (otherNewsTable.Rows.Count > 10)
+                        {
+                            overTenItems = otherNewsTable.Clone();
+                            if (otherNewsTable.Rows.Count > 15)
+                            {
+                                for (int i = 10; i < 15; i++)
+                                {
+                                    overTenItems.ImportRow(otherNewsTable.Rows[i]);
+                                }
+                            }
+                            else
+                            {
+                                for (int i = 10; i < otherNewsTable.Rows.Count; i++)
+                                {
+                                    overTenItems.ImportRow(otherNewsTable.Rows[i]);
+                                }
+                            }
+                        }
+                        else if (GetCurrentPageName().Contains(Constants.PageInWeb.DetailNews))
+                        {
+                            overTenItems = otherNewsTable;
+                        }
+
+                        rptOtherNews.DataSource = overTenItems;
                         rptOtherNews.DataBind();
                     }
                     else
                     {
                         lblItemsNotFound.Text = "Không tìm thấy thêm bài viết nào thuộc mục này!";
                     }
-
-                    //}
                 }
                 catch (Exception ex)
                 {
@@ -74,6 +85,13 @@ namespace CQ.SharePoint.QN.Webparts
             }
         }
 
+
+        public string GetCurrentPageName()
+        {
+            string sPath = System.Web.HttpContext.Current.Request.Url.AbsolutePath;
+            System.IO.FileInfo oInfo = new System.IO.FileInfo(sPath);
+            return oInfo.Name;
+        }
 
     }
 }

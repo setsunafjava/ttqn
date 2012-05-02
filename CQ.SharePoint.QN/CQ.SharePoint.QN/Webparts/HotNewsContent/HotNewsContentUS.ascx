@@ -6,9 +6,9 @@
         <asp:Image ID="imgMainImage" runat="server" Width="396px" Height="305px" />
     </div>
     <div class="short_content-hottest">
-    <a href='<%=Linktoitem %>'>
-        <asp:Label ID="lblShortContent" runat="server"></asp:Label>
-    </a>
+        <a href='<%=Linktoitem %>'>
+            <asp:Label ID="lblShortContent" runat="server"></asp:Label>
+        </a>
     </div>
     <div class="time_update">
         <asp:Label ID="lblTimeUpdate" runat="server" />
@@ -17,10 +17,13 @@
 <div class="tab_content_News">
     <div class="info_tab_content">
         <ul id="countrytabs" class="shadetabs">
-            <li><a href="#" rel="country1" class="selected">
-                <asp:Label ID="lblLatest" runat="server" Text="Mới nhất"></asp:Label></li>
-            <li><a href="#" rel="country2">
-                <asp:Label ID="lblReadMost" runat="server" Text="Đọc nhiều"></asp:Label></a></li>
+        <asp:Panel id="pnlIndex" runat="server">
+            <li><a href="#" rel="country1" class="selected">Mới nhất</a></li>
+            <li><a href="#" rel="country2">Đọc nhiều</a></li>
+        </asp:Panel>
+        <asp:Panel id="pnlSubPage" Visible="false" runat="server">
+            <a rel="country1" class="title_news_hot">Tin mới nhận</a>
+        </asp:Panel>            
         </ul>
         <div class="inner_content_tab">
             <div id="country1" class="tabcontent">
