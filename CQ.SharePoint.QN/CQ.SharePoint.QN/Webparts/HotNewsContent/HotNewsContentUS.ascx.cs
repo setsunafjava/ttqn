@@ -101,6 +101,7 @@ namespace CQ.SharePoint.QN.Webparts
                         }
                         else
                         {
+                            BinDataToMainScreen(null);
                             rptLatestNews.DataSource = null;
                             rptLatestNews.DataBind();
                         }
