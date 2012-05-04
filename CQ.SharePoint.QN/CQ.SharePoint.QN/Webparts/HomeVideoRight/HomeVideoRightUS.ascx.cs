@@ -20,8 +20,11 @@ namespace CQ.SharePoint.QN.Webparts
         {
             if (!IsPostBack)
             {
-                var videoStr = "$(document).ready(function() {jwplayer(\"video-right-player-div\").setup({'flashplayer': '" +
-                               SPContext.Current.Web.Url + "/" + ListsName.English.CQQNResources + "/player.swf','width': 285,'playlist.position': 'bottom','playlist.size': '100',";
+                var videoStr =
+                    "$(document).ready(function() {jwplayer(\"video-right-player-div\").setup({'flashplayer': '" +
+                    SPContext.Current.Web.Url + "/" + ListsName.English.CQQNResources +
+                    "/player.swf','width': 285,'playlist.position': 'bottom','playlist.size': '100','skin': '" +
+                    SPContext.Current.Web.Url + "/" + ListsName.English.CQQNResources + "/stylish_slim.swf',";
                                //"_layouts/player.swf',width: 285,";
                 SPSecurity.RunWithElevatedPrivileges(() =>
                 {
@@ -38,7 +41,8 @@ namespace CQ.SharePoint.QN.Webparts
                                 }
                                 SPQuery spQuery = new SPQuery
                                 {
-                                    Query = "<OrderBy><FieldRef Name='Title' Ascending='TRUE' /></OrderBy>"
+                                    Query = "<OrderBy><FieldRef Name='Title' Ascending='TRUE' /></OrderBy>",
+                                    RowLimit = 5
                                 };
                                 SPList list = Utilities.GetDocListFromUrl(web, ListsName.English.VideosList);
                                 if (list != null)

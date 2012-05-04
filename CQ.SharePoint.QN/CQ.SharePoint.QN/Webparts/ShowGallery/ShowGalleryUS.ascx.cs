@@ -30,6 +30,14 @@ namespace CQ.SharePoint.QN.Webparts
                 {
                     //Bind data to latest news
                     string latestNewsQuery = string.Format("<OrderBy><FieldRef Name='Title' Ascending='TRUE' /></OrderBy>");
+                    var fieldName = Convert.ToString(Request.QueryString["FieldName"]);
+                    var fieldValue = Convert.ToString(Request.QueryString["FieldValue"]);
+                    if (!string.IsNullOrEmpty(fieldName) && !string.IsNullOrEmpty(fieldValue))
+                    {
+                        latestNewsQuery =
+                            string.Format(
+                                "<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where>", fieldName, fieldValue) + latestNewsQuery;
+                    }
                     rptImages.DataSource = GetImages(latestNewsQuery);
                     rptImages.DataBind();
                 }

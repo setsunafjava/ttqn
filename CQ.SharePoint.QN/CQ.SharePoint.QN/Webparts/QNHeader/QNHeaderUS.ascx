@@ -38,10 +38,10 @@ function setHomepage()
 	<div class="top_menu">
 		<div class="menu">
 		    <ul id="nav">
-				<li><a href="/" style="background:url(images/bg_menu_hover.jpg) top left repeat-x;">Trang chủ</a></li>
+				<li <%=CurrentStyle%>><a href="/">Trang chủ</a></li>
                 <asp:Repeater ID="rptMenu" runat="server" OnItemDataBound="rptMenu_OnItemDataBound">
                     <ItemTemplate>
-                        <li><a href='<%#Eval("Url") %>'><%#Eval("Title") %></a>
+                        <li <asp:Literal ID="ltrStyle" runat="server"></asp:Literal>><a href='<%#Eval("Url") %>'><%#Eval("Title") %></a>
                             <asp:Repeater ID="rptSubMenu" runat="server">
                                 <HeaderTemplate><ul></HeaderTemplate>
                                 <ItemTemplate>

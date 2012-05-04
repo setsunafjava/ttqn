@@ -6,7 +6,7 @@
     </div>
     <div class="inner_scroll_slide">
         <h3>
-            Thư viện ảnh quảng ninh</h3>
+            <a href="/Gallery.aspx">Thư viện ảnh quảng ninh</a></h3>
         <div>
             <div class="arrow_left">
                 <a href="#">
