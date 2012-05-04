@@ -5,6 +5,7 @@ using System.Web.UI.WebControls;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.WebControls;
 using CQ.SharePoint.QN.Common;
+using System.Web;
 
 namespace CQ.SharePoint.QN.Webparts
 {
@@ -13,6 +14,7 @@ namespace CQ.SharePoint.QN.Webparts
     /// </summary>
     public partial class QNHeaderUS : UserControl
     {
+        protected string CurrentStyle = string.Empty;
         /// <summary>
         /// Page on Load
         /// </summary>
@@ -20,6 +22,11 @@ namespace CQ.SharePoint.QN.Webparts
         /// <param name="e">EventArgs e</param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            var currentUrl = HttpContext.Current.Request.Url.AbsolutePath;
+            if (!currentUrl.Contains(".aspx") || currentUrl.Contains("default.aspx"))
+            {
+                CurrentStyle = " class='current'";
+            }
             if (!IsPostBack)
             {
                 try
@@ -88,6 +95,13 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 DataRowView drv = (DataRowView) e.Item.DataItem;
                 Repeater rptSubMenu = (Repeater) e.Item.FindControl("rptSubMenu");
+                Literal ltrStyle = (Literal) e.Item.FindControl("ltrStyle");
+
+                var currentUrl = HttpContext.Current.Request.Url.AbsoluteUri;
+                if (!string.IsNullOrEmpty(Convert.ToString(drv["Url"])) && currentUrl.Contains(Convert.ToString(drv["Url"])))
+                {
+                    ltrStyle.Text = " class='current'";
+                }
 
                 //Bind data to latest news
                 string latestNewsQuery = string.Format("<Where><Eq><FieldRef Name='ParentId' LookupId='TRUE' />" +

@@ -95,7 +95,8 @@ namespace CQ.SharePoint.QN.Webparts
                 }
                 DataRowView drv = (DataRowView)e.Item.DataItem;
                 var aLink = (HtmlAnchor)e.Item.FindControl("aLink");
-                aLink.HRef = webUrl + "/" + Constants.PageInWeb.GalleryPage + ".aspx";
+                aLink.HRef = webUrl + "/" + Constants.PageInWeb.ShowGalleryPage + ".aspx?FieldName=CatID&FieldValue=" +
+                             Convert.ToString(drv["ID"], CultureInfo.InvariantCulture);
                 aLink.Title = Convert.ToString(drv["Title"], CultureInfo.InvariantCulture);
                 var imgLink = (HtmlImage)e.Item.FindControl("imgLink");
                 imgLink.Src = webUrl + "/" + ListsName.English.ImageCatList + "/" +
