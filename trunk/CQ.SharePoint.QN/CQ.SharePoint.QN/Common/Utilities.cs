@@ -622,8 +622,34 @@ namespace CQ.SharePoint.QN.Common
             });
             return table;
         }
-              
-       
+
+        public static string GetParentUrl(int parentID)
+        {
+            string result = string.Empty;
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            SPList list = Utilities.GetListFromUrl(web, ListsName.English.MenuList);
+                            if (list != null)
+                            {
+                                var item = list.GetItemById(parentID);
+                                result = Convert.ToString(item["Url"]);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                }
+            });
+            return result;
+        }
 
         /// <summary>
         /// Get value in resource file by key
@@ -1000,6 +1026,44 @@ namespace CQ.SharePoint.QN.Common
 
                 HttpContext.Current.Response.End();
             }
+        }
+
+        public static SPFieldLookupValueCollection GetCatsByNewsID(string newsID)
+        {
+            var result = new SPFieldLookupValueCollection();
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            SPQuery spQuery = new SPQuery
+                            {
+                                Query = string.Format(
+                                "<Where><Eq><FieldRef Name='{0}' /><Value Type='Counter'>{1}</Value></Eq></Where>", FieldsName.Id, newsID),
+                                RowLimit = 1
+                            };
+                            SPList list = Utilities.GetListFromUrl(web, ListsName.English.NewsRecord);
+                            if (list != null)
+                            {
+                                SPListItemCollection items = list.GetItems(spQuery);
+                                if (items != null && items.Count > 0)
+                                {
+                                    result = new SPFieldLookupValueCollection(Convert.ToString(items[0][FieldsName.NewsRecord.English.CategoryName]));
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            
+                        }
+                    }
+
+                }
+            });
+            return result;
         }
     }
 }
