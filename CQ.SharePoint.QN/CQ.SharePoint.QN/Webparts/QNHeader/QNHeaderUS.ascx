@@ -73,3 +73,18 @@ function setHomepage()
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+    $('#nav > li').hover(onOver, onOut);
+	function onOver() {
+        $('#nav > li.current').each(function(index) {
+            $(this).removeClass('current').addClass('current-temp');
+        });
+	};
+
+	function onOut() {
+		$('#nav > li.current-temp').each(function(index) {
+            $(this).removeClass('current-temp').addClass('current');
+        });
+	};
+</script>

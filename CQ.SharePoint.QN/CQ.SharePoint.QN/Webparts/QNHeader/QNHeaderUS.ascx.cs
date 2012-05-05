@@ -95,12 +95,30 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 DataRowView drv = (DataRowView) e.Item.DataItem;
                 Repeater rptSubMenu = (Repeater) e.Item.FindControl("rptSubMenu");
+                rptSubMenu.ItemDataBound += new RepeaterItemEventHandler(rptSubMenu_ItemDataBound);
                 Literal ltrStyle = (Literal) e.Item.FindControl("ltrStyle");
-
+                var itemUrl = Convert.ToString(drv["Url"]);
                 var currentUrl = HttpContext.Current.Request.Url.AbsoluteUri;
-                if (!string.IsNullOrEmpty(Convert.ToString(drv["Url"])) && currentUrl.Contains(Convert.ToString(drv["Url"])))
+                if (!string.IsNullOrEmpty(itemUrl) && currentUrl.Contains(itemUrl))
                 {
                     ltrStyle.Text = " class='current'";
+                }
+                else
+                {
+                    var newsId = Request.QueryString[Constants.NewsId];
+                    if (!string.IsNullOrEmpty(newsId))
+                    {
+                        var catValue = Utilities.GetCatsByNewsID(newsId);
+                        foreach (SPFieldLookupValue value in catValue)
+                        {
+                            var catUrl = "/" + Constants.PageInWeb.SubPage + ".aspx?CategoryId=" + value.LookupId;
+                            if (!string.IsNullOrEmpty(itemUrl) && itemUrl.Contains(catUrl))
+                            {
+                                ltrStyle.Text = " class='current'";
+                                break;
+                            }
+                        }
+                    }
                 }
 
                 //Bind data to latest news
@@ -109,7 +127,42 @@ namespace CQ.SharePoint.QN.Webparts
                 rptSubMenu.DataSource = GetNewsRecords(latestNewsQuery);
                 rptSubMenu.DataBind();
             }
-        }   
+        }
+
+        void rptSubMenu_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            // This event is raised for the header, the footer, separators, and items.
+
+            // Execute the following logic for Items and Alternating Items.
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                DataRowView drv = (DataRowView)e.Item.DataItem;
+                Literal ltrStyle = (Literal)e.Item.Parent.Parent.FindControl("ltrStyle");
+                var itemUrl = Convert.ToString(drv["Url"]);
+                var currentUrl = HttpContext.Current.Request.Url.AbsoluteUri;
+                if (!string.IsNullOrEmpty(itemUrl) && currentUrl.Contains(itemUrl))
+                {
+                    ltrStyle.Text = " class='current'";
+                }
+                else
+                {
+                    var newsId = Request.QueryString[Constants.NewsId];
+                    if (!string.IsNullOrEmpty(newsId))
+                    {
+                        var catValue = Utilities.GetCatsByNewsID(newsId);
+                        foreach (SPFieldLookupValue value in catValue)
+                        {
+                            var catUrl = "/" + Constants.PageInWeb.SubPage + ".aspx?CategoryId=" + value.LookupId;
+                            if (!string.IsNullOrEmpty(itemUrl) && itemUrl.Contains(catUrl))
+                            {
+                                ltrStyle.Text = " class='current'";
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         protected void lbRSS_OnClick(object sender, EventArgs e)
         {

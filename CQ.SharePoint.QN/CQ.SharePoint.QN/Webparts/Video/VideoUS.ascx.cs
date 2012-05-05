@@ -21,8 +21,10 @@ namespace CQ.SharePoint.QN.Webparts
         {
             if (!IsPostBack)
             {
-                var videoStr = "$(document).ready(function() {jwplayer(\"video-center-chan-player-div\").setup({'flashplayer': '" +
-                               SPContext.Current.Web.Url + "/" + ListsName.English.CQQNResources + "/player.swf','width': 420,'height': 320,'playlist.position': 'bottom','playlist.size': '300','skin': '" +
+                var videoStr =
+                    "$(document).ready(function() {jwplayer(\"video-center-chan-player-div\").setup({'flashplayer': '" +
+                    SPContext.Current.Web.Url + "/" + ListsName.English.CQQNResources +
+                    "/player.swf','width': 420,'height': 731,'playlist.position': 'bottom','playlist.size': '400','skin': '" +
                     SPContext.Current.Web.Url + "/" + ListsName.English.CQQNResources + "/stylish_slim.swf',";
                 //"_layouts/player.swf',width: 285,";
                 SPSecurity.RunWithElevatedPrivileges(() =>
@@ -78,7 +80,7 @@ namespace CQ.SharePoint.QN.Webparts
                     }
                 });
 
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "video-center-chan-player-script",
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "video-center-chan-player-div-script",
                                                         videoStr, true);
             }
         }
