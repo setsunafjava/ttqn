@@ -18,7 +18,7 @@ namespace CQ.SharePoint.QN.Webparts
         public string NewsFirstUrl1 = string.Empty;
         public string NewsFirstUrl2 = string.Empty;
         public string NewsFirstUrl3 = string.Empty;
-
+        public string CategoryUrl = string.Empty;
 
         protected uint GetNewsNumber(string newsNumber)
         {
@@ -41,6 +41,7 @@ namespace CQ.SharePoint.QN.Webparts
         /// <param name="e">EventArgs e</param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             if (!IsPostBack)
             {
                 try
@@ -48,7 +49,9 @@ namespace CQ.SharePoint.QN.Webparts
                     NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId);
                     if (!string.IsNullOrEmpty(WebpartParent.NewsCategoryId1))
                     {
-                        lblFirstGroup.Text = WebpartParent.NewsCategoryName1;
+                        hplFirstGroup.Text = WebpartParent.NewsCategoryName1;
+                        hplFirstGroup.NavigateUrl = string.Format("{0}/{1}.aspx?CategoryId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage, WebpartParent.NewsCategoryId1);
+
                         string group1Query = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where>", FieldsName.NewsRecord.English.CategoryName, WebpartParent.NewsCategoryId1);
                         var group1Table = Utilities.GetNewsRecords(group1Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.NewsRecord);
 
@@ -66,7 +69,8 @@ namespace CQ.SharePoint.QN.Webparts
                     }
                     if (!string.IsNullOrEmpty(WebpartParent.NewsCategoryId2))
                     {
-                        lblSecondGroup.Text = WebpartParent.NewsCategoryName2;
+                        hplSecondGroup.Text = WebpartParent.NewsCategoryName2;
+                        hplSecondGroup.NavigateUrl = string.Format("{0}/{1}.aspx?CategoryId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage, WebpartParent.NewsCategoryId2);
                         string group2Query = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where>", FieldsName.NewsRecord.English.CategoryName, WebpartParent.NewsCategoryId2);
                         var group2Table = Utilities.GetNewsRecords(group2Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.NewsRecord);
 
@@ -83,7 +87,8 @@ namespace CQ.SharePoint.QN.Webparts
                     }
                     if (!string.IsNullOrEmpty(WebpartParent.NewsCategoryId3))
                     {
-                        lblThirdGroup.Text = WebpartParent.NewsCategoryName3;
+                        hplThirdGroup.Text = WebpartParent.NewsCategoryName3;
+                        hplThirdGroup.NavigateUrl = string.Format("{0}/{1}.aspx?CategoryId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage, WebpartParent.NewsCategoryId3);
                         string group3Query = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where>", FieldsName.NewsRecord.English.CategoryName, WebpartParent.NewsCategoryId3);
                         var group3Table = Utilities.GetNewsRecords(group3Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.NewsRecord);
 
