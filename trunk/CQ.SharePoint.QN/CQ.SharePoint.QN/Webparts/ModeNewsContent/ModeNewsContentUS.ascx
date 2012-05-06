@@ -4,19 +4,21 @@
 <div class="mod_content_News_1">
     <div class="bg_title_ModNews">
         <div class="cate_News_Mod1">
-            <div>
-                <asp:Label ID="lblFirstGroup" runat="server" /></div>
-            <div>
-                <asp:Label ID="lblSecondGroup" runat="server" /></div>
-            <div>
-                <asp:Label ID="lblThirdGroup" runat="server" /></div>
+            <div>                
+                <asp:HyperLink ID="hplFirstGroup" runat="server"></asp:HyperLink>
+                </div>
+            <div>                
+                <asp:HyperLink ID="hplSecondGroup" runat="server"></asp:HyperLink>
+            </div>
+            <div>                
+                <asp:HyperLink ID="hplThirdGroup" runat="server"></asp:HyperLink>
+            </div>
             <div class="cleaner">
             </div>
         </div>
         <div class="inner_content_ModNews1">
             <div class="cont_News">
-                <div class="img_thumb_News">
-                    <%--<img src="images/images.jpg" />--%>
+                <div class="img_thumb_News">                    
                     <asp:Image ID="img1" runat="server" />
                 </div>
                 <div class="intro_short_content_News">                    

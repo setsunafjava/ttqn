@@ -41,11 +41,11 @@ namespace CQ.SharePoint.QN.Webparts
         protected global::System.Web.UI.WebControls.Label lblHeaderHoiDongNhanDan;
         protected global::System.Web.UI.WebControls.Label lblHeaderUyBanNhanDan;
 
-        protected global::System.Web.UI.WebControls.Label lblFirstGroup;
-        protected global::System.Web.UI.WebControls.Label lblSecondGroup;
-        protected global::System.Web.UI.WebControls.Label lblThirdGroup;
         protected global::System.Web.UI.WebControls.Image img1;
         protected global::System.Web.UI.WebControls.Image Img2;
         protected global::System.Web.UI.WebControls.Image Img3;
+        protected global::System.Web.UI.WebControls.HyperLink hplFirstGroup;
+        protected global::System.Web.UI.WebControls.HyperLink hplSecondGroup;
+        protected global::System.Web.UI.WebControls.HyperLink hplThirdGroup;
     }
 }
