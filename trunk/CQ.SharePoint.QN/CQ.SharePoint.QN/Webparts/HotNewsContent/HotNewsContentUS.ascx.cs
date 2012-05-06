@@ -98,6 +98,11 @@ namespace CQ.SharePoint.QN.Webparts
                                 rptLatestNews.DataSource = tempTable;
                                 rptLatestNews.DataBind();
                             }
+                            else
+                            {
+                                rptLatestNews.DataSource = null;
+                                rptLatestNews.DataBind();
+                            }
                         }
                         else
                         {
