@@ -37,8 +37,12 @@ namespace CQ.SharePoint.QN.Common
                 public const string DoanhNghiep = "Doanh Nghiệp";
                 public const string TinhUy = "Tỉnh Ủy";
                 public const string SelectType = "SelectType";
+                public const string SelectType1 = "SelectType1";
+                public const string SelectType2 = "SelectType2";
+                public const string SelectType3 = "SelectType3";
                 public const string DuLich = "Du Lịch";
                 public const string BanNenBiet = "Bạn Nên Biết";
+                public const string CacCapChinhQuyen = "Các Cấp Chính Quyền";
             }
             #endregion
         }

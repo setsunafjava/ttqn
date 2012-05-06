@@ -17,12 +17,37 @@ namespace CQ.SharePoint.QN.Webparts
     public class ModeNewsContent : Microsoft.SharePoint.WebPartPages.WebPart
     {
         [WebBrowsable(true)]
-        [FriendlyName("Chọn kiểu thông tin muốn hiển thị")]
-        [Description("Chọn kiểu thông tin muốn hiển thị")]
-        [Category("Cấu hình")]
+        [FriendlyName("")]
+        [Description("")]
+        [Category("")]
         [WebPartStorage(Storage.Shared)]
         [Personalizable(PersonalizationScope.Shared)]
-        public string NewsType { get; set; }
+        public string NewsNumber { get; set; }
+
+        [WebBrowsable(false)]
+        [FriendlyName("")]
+        [Description("")]
+        [Category("")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        public string NewsCategoryName1 { get; set; }
+        public string NewsCategoryName2 { get; set; }
+        public string NewsCategoryName3 { get; set; }
+
+        [WebBrowsable(false)]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        public string NewsCategoryId1 { get; set; }
+
+        [WebBrowsable(false)]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        public string NewsCategoryId2 { get; set; }
+
+        [WebBrowsable(false)]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        public string NewsCategoryId3 { get; set; }
 
         public ModeNewsContent()
         {
@@ -31,10 +56,9 @@ namespace CQ.SharePoint.QN.Webparts
         protected override void CreateChildControls()
         {
             base.CreateChildControls();
-
             try
             {
-                ModeNewsContentUS control = (ModeNewsContentUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/ModeNewsContentUS.ascx");
+                var control = (ModeNewsContentUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/ModeNewsContentUS.ascx");
                 control.WebpartParent = this;
                 Controls.Add(control);
             }
@@ -46,10 +70,10 @@ namespace CQ.SharePoint.QN.Webparts
 
         public override ToolPart[] GetToolParts()
         {
-            ToolPart[] toolparts = new ToolPart[3];
-            WebPartToolPart wptp = new WebPartToolPart();
-            CustomPropertyToolPart cptp = new CustomPropertyToolPart();
-            NewsTypeDropdownlist ctp = new NewsTypeDropdownlist();
+            var toolparts = new ToolPart[3];
+            var wptp = new WebPartToolPart();
+            var cptp = new CustomPropertyToolPart();
+            var ctp = new DropDownList1();
             toolparts[0] = wptp;
             toolparts[1] = cptp;
             toolparts[2] = ctp;
@@ -57,40 +81,50 @@ namespace CQ.SharePoint.QN.Webparts
         }
     }
 
-    public class NewsTypeDropdownlist : ToolPart
+    public class DropDownList1 : ToolPart
     {
-        DropDownList ddlTypes = new DropDownList();
+        DropDownList ddlTypes1 = new DropDownList();
+        DropDownList ddlTypes2 = new DropDownList();
+        DropDownList ddlTypes3 = new DropDownList();
         //ModeNewsContent _myParent = null;
-        public NewsTypeDropdownlist()
+        public DropDownList1()
         {
-            this.Title = "Chọn nhóm tin";
-
-        }
-
-        protected void BindDataToDropdown(DropDownList dropDownList)
-        {
-            dropDownList.ID = "SelectType";
-            //dropDownList.DataSource = Utilities.GetListFromUrl(ListsName.English.NewsCategory);
-            //dropDownList.DataTextField = FieldsName.Title;
-            //dropDownList.DataValueField = FieldsName.Id;
-            //dropDownList.DataBind();
-            dropDownList.Items.Add(new ListItem("Tỉnh Ủy", "1"));
-            dropDownList.Items.Add(new ListItem("Sở Ban Nghành", "2"));
-            dropDownList.DataBind();
+            Title = "Chọn kiểu hiển thị";
         }
 
         protected override void CreateChildControls()
         {
-            BindDataToDropdown(ddlTypes);
-            //_myParent = (ModeNewsContent)ParentToolPane.SelectedWebPart;
-            Controls.Add(ddlTypes);
+            string companyCaml = string.Format("<Where><IsNotNull><FieldRef Name='Title' /></IsNotNull></Where>");
+            var table = Utilities.GetNewsRecords(companyCaml, 100, ListsName.English.NewsCategory);
+
+            if (table != null && table.Rows.Count > 0)
+            {
+                ddlTypes1.DataSource = table;
+                ddlTypes1.ID = FieldsName.NewsCategory.FieldValuesDefault.SelectType1;
+                ddlTypes1.DataTextField = FieldsName.Title;
+                ddlTypes1.DataValueField = FieldsName.Id;
+                ddlTypes1.DataBind();
+
+                ddlTypes2.DataSource = table;
+                ddlTypes2.ID = FieldsName.NewsCategory.FieldValuesDefault.SelectType2;
+                ddlTypes2.DataTextField = FieldsName.Title;
+                ddlTypes2.DataValueField = FieldsName.Id;
+                ddlTypes2.DataBind();
+
+                ddlTypes3.DataSource = table;
+                ddlTypes3.ID = FieldsName.NewsCategory.FieldValuesDefault.SelectType3;
+                ddlTypes3.DataTextField = FieldsName.Title;
+                ddlTypes3.DataValueField = FieldsName.Id;
+                ddlTypes3.DataBind();
+            }
+            Controls.Add(ddlTypes1);
+            Controls.Add(ddlTypes2);
+            Controls.Add(ddlTypes3);
         }
         public override void ApplyChanges()
         {
             ModeNewsContent parentWebPart = (ModeNewsContent)this.ParentToolPane.SelectedWebPart;
-            //base.ApplyChanges();
-            //_myParent.GroupName = ddlTypes.SelectedItem.Text;
-            RetrievePropertyValues(this.Controls, parentWebPart);
+            RetrievePropertyValues(Controls, parentWebPart);
         }
 
         private void RetrievePropertyValues(ControlCollection controls, ModeNewsContent parentWebPart)
@@ -98,8 +132,6 @@ namespace CQ.SharePoint.QN.Webparts
             foreach (Control ctl in controls)
             {
                 RetrievePropertyValue(ctl, parentWebPart);
-
-
                 if (ctl.HasControls())
                 {
                     RetrievePropertyValues(ctl.Controls, parentWebPart);
@@ -111,12 +143,31 @@ namespace CQ.SharePoint.QN.Webparts
         {
             if (ctl is DropDownList)
             {
-                if ("SelectType".Equals(ctl.ID))
+                if (FieldsName.NewsCategory.FieldValuesDefault.SelectType1.Equals(ctl.ID))
                 {
                     DropDownList drp = (DropDownList)ctl;
-                    if (drp.SelectedItem.Value != "")
+                    if (drp.SelectedItem.Value.Trim() != "")
                     {
-                        parentWebPart.NewsType = drp.SelectedItem.Value;
+                        parentWebPart.NewsCategoryName1 = drp.SelectedItem.Text;
+                        parentWebPart.NewsCategoryId1 = drp.SelectedItem.Value;
+                    }
+                }
+                else if (FieldsName.NewsCategory.FieldValuesDefault.SelectType2.Equals(ctl.ID))
+                {
+                    DropDownList drp2 = (DropDownList)ctl;
+                    if (drp2.SelectedItem.Value.Trim() != "")
+                    {
+                        parentWebPart.NewsCategoryName2 = drp2.SelectedItem.Text;
+                        parentWebPart.NewsCategoryId2 = drp2.SelectedItem.Value;
+                    }
+                }
+                else if (FieldsName.NewsCategory.FieldValuesDefault.SelectType3.Equals(ctl.ID))
+                {
+                    DropDownList drp3 = (DropDownList)ctl;
+                    if (drp3.SelectedItem.Value.Trim() != "")
+                    {
+                        parentWebPart.NewsCategoryName3 = drp3.SelectedItem.Text;
+                        parentWebPart.NewsCategoryId3 = drp3.SelectedItem.Value;
                     }
                 }
             }
