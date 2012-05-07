@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Text;
 using System.Web.UI;
 using Microsoft.SharePoint;
@@ -13,6 +15,7 @@ namespace CQ.SharePoint.QN.Webparts
     public partial class NewsDetailUS : UserControl
     {
         public NewsDetail ParentWP;
+        public DataTable attachMentFiles = null;
         /// <summary>
         /// Page on Load
         /// </summary>
@@ -35,9 +38,11 @@ namespace CQ.SharePoint.QN.Webparts
                             ltrNewsContent.Text = Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.Content]);
                             lblCurrentDate.Text = Convert.ToString(newsItem.Rows[0][FieldsName.Modified]);
 
+                            attachMentFiles = new DataTable();
+                            attachMentFiles.Columns.Add("key", typeof(string));
+                            attachMentFiles.Columns.Add("value", typeof(string));
+
                             //Update viewcount
-
-
                             SPSecurity.RunWithElevatedPrivileges(() =>
                             {
                                 using (var site = new SPSite(SPContext.Current.Web.Site.ID))
@@ -57,10 +62,18 @@ namespace CQ.SharePoint.QN.Webparts
                                                 {
                                                     int count = Convert.ToInt32(viewcount);
                                                     items[FieldsName.NewsRecord.English.ViewsCount] = ++count;
-
                                                     web.AllowUnsafeUpdates = true;
                                                     items.Update();
                                                 }
+                                                //Get attachment file
+                                                if (items.Attachments.Count > 0)
+                                                {
+                                                    foreach (var attachment in items.Attachments)
+                                                    {
+                                                        attachMentFiles.Rows.Add(Convert.ToString(attachment), items.Attachments.UrlPrefix);
+                                                    }
+                                                }
+
                                             }
                                         }
                                         catch (Exception ex)
@@ -68,10 +81,14 @@ namespace CQ.SharePoint.QN.Webparts
                                             Utilities.LogToUls(ex);
                                         }
                                     }
-
                                 }
                             });
 
+                            if (attachMentFiles.Rows.Count > 0)
+                            {
+                                rptAttachment.DataSource = attachMentFiles;
+                                rptAttachment.DataBind();
+                            }
 
                             //end update
                             newsQuery = string.Format("<Where><Eq><FieldRef Name='Title' /><Value Type='Text'>{0}</Value></Eq></Where>", categoryName);
@@ -88,13 +105,9 @@ namespace CQ.SharePoint.QN.Webparts
                 }
                 catch (Exception ex)
                 {
-
-
                 }
-
             }
         }
-
         public string BuilBreadcrumb(string categoryName)
         {
             string result = string.Empty;

@@ -14,5 +14,9 @@ namespace CQ.SharePoint.QN.Webparts
         protected global::System.Web.UI.WebControls.Literal ltrNewsContent;
         protected global::System.Web.UI.WebControls.Label lblCurrentDate;
         protected global::System.Web.UI.WebControls.Label lblBreadCrum;
+
+        protected global::System.Web.UI.WebControls.Panel pnlAttachment;
+
+        protected global::System.Web.UI.WebControls.Repeater rptAttachment;
     }
 }
