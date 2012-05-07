@@ -24,16 +24,17 @@
         <asp:Repeater ID="rptAttachment" runat="server">
             <HeaderTemplate>
                 <table>
-                    <tr>
             </HeaderTemplate>
             <ItemTemplate>
-                <td>
-                    <asp:HyperLink ID="hplAttachment" runat="server" NavigateUrl='<%#Eval("key") %>'
-                        Text='<%#Eval("value") %>'></asp:HyperLink>
-                </td>
+                <tr>
+                    <td>
+                        <asp:HyperLink ID="hplAttachment" runat="server" NavigateUrl='<%#Eval("value") %>'
+                            Text='<%#Eval("key") %>'></asp:HyperLink>
+                    </td>
+                </tr>
             </ItemTemplate>
             <FooterTemplate>
-                </tr> </table>
+                </table>
             </FooterTemplate>
         </asp:Repeater>
     </asp:Panel>

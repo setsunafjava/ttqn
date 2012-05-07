@@ -70,10 +70,9 @@ namespace CQ.SharePoint.QN.Webparts
                                                 {
                                                     foreach (var attachment in items.Attachments)
                                                     {
-                                                        attachMentFiles.Rows.Add(Convert.ToString(attachment), items.Attachments.UrlPrefix);
+                                                        attachMentFiles.Rows.Add(Convert.ToString(attachment), string.Format("{0}{1}", items.Attachments.UrlPrefix, Convert.ToString(attachment)));
                                                     }
                                                 }
-
                                             }
                                         }
                                         catch (Exception ex)
@@ -86,8 +85,13 @@ namespace CQ.SharePoint.QN.Webparts
 
                             if (attachMentFiles.Rows.Count > 0)
                             {
+                                pnlAttachment.Visible = true;
                                 rptAttachment.DataSource = attachMentFiles;
                                 rptAttachment.DataBind();
+                            }
+                            else
+                            {
+                                pnlAttachment.Visible = false;
                             }
 
                             //end update
