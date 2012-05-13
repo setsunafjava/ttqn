@@ -11,6 +11,7 @@ namespace CQ.SharePoint.QN.Webparts
 {
     public partial class FocusCompanyUS
     {
-
+        protected global::System.Web.UI.WebControls.Label lblFocusCompany;
+        protected global::System.Web.UI.WebControls.Repeater rptFocusCompany;
     }
 }

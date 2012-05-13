@@ -27,7 +27,7 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
-                    string focusNewsQuery = string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Eq></Where>", FieldsName.NewsRecord.English.FocusNews);
+                    string focusNewsQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Eq><Neq><FieldRef Name='{1}' /><Value Type='Boolean'>1</Value></Neq></And></Where>", FieldsName.NewsRecord.English.FocusNews, FieldsName.NewsRecord.English.Status);
                     var focusNewsTable = Utilities.GetNewsRecords(focusNewsQuery, Convert.ToUInt16(WebpartParent.NumberOfNews), ListsName.English.NewsRecord);
                     CategoryUrl = string.Format("{0}/{1}.aspx?FocusNews=1", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage);
                     if (focusNewsTable != null && focusNewsTable.Rows.Count > 0)

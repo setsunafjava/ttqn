@@ -114,7 +114,7 @@ namespace CQ.SharePoint.QN.Webparts
                             var year = Convert.ToInt32(Request.QueryString["Year"]);
                             DateTime dt = new DateTime(year, month, day);
 
-                            string categoryQuery = string.Format("<Where><Eq><FieldRef Name='Created' /><Value IncludeTimeValue='FALSE' Type='DateTime'>{0}</Value></Eq></Where>", SPUtility.CreateISO8601DateTimeFromSystemDateTime(dt));
+                            string categoryQuery = string.Format("<Where><And><Eq><FieldRef Name='Created' /><Value IncludeTimeValue='FALSE' Type='DateTime'>{0}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where>", SPUtility.CreateISO8601DateTimeFromSystemDateTime(dt));
                             uint newsNumber = 10;
 
 
@@ -134,7 +134,7 @@ namespace CQ.SharePoint.QN.Webparts
                     {
                         if ("1".Equals(focusNews))
                         {
-                            string newsQuery = string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Eq></Where>", FieldsName.NewsRecord.English.FocusNews);
+                            string newsQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where>", FieldsName.NewsRecord.English.FocusNews);
                             uint newsNumber = 10;
 
                             var companyList = Utilities.GetNewsRecords(newsQuery, newsNumber, ListsName.English.NewsRecord);

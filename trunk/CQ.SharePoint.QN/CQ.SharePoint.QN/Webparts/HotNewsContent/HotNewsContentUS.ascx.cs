@@ -31,7 +31,7 @@ namespace CQ.SharePoint.QN.Webparts
                     NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
                     string latestNewsQuery = string.Empty;
 
-                    latestNewsQuery = string.Format("<OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>");
+                    latestNewsQuery = string.Format("<Where><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>");
 
 
                     var latestNewsTable = Utilities.GetNewsRecords(latestNewsQuery, 5, ListsName.English.NewsRecord);
@@ -41,7 +41,7 @@ namespace CQ.SharePoint.QN.Webparts
                         rptLatestNews.DataBind();
                     }
 
-                    string topNewsQuery = string.Format("<OrderBy><FieldRef Name='{0}' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.ViewsCount);
+                    string topNewsQuery = string.Format("<Where><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></Where><OrderBy><FieldRef Name='{0}' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.ViewsCount);
 
 
                     var topViewsTable = Utilities.GetNewsRecords(topNewsQuery, 5, ListsName.English.NewsRecord);
@@ -51,7 +51,7 @@ namespace CQ.SharePoint.QN.Webparts
                         rptTopViews.DataBind();
                     }
 
-                    string mainItemQuery = string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Eq></Where>", FieldsName.NewsRecord.English.ShowInHomePage);
+                    string mainItemQuery = string.Format("<Where><And><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq><Eq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Eq></And></Where>", FieldsName.NewsRecord.English.ShowInHomePage);
                     var mainItem = Utilities.GetNewsRecords(mainItemQuery, 1, ListsName.English.NewsRecord);
                     if (mainItem != null && mainItem.Rows.Count > 0)
                     {

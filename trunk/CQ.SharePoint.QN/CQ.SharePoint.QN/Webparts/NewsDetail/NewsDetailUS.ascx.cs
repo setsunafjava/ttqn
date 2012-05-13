@@ -30,7 +30,7 @@ namespace CQ.SharePoint.QN.Webparts
                     var newsId = Request.QueryString[Constants.NewsId];
                     if (!string.IsNullOrEmpty(newsId))
                     {
-                        string newsQuery = string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Counter'>{1}</Value></Eq></Where>", FieldsName.Id, newsId);
+                        string newsQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Counter'>{1}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where>", FieldsName.Id, newsId);
                         var newsItem = Utilities.GetNewsRecords(newsQuery, 1, ListsName.English.NewsRecord);
                         if (newsItem != null)
                         {

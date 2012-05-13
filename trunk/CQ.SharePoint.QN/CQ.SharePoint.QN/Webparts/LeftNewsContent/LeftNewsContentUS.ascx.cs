@@ -44,7 +44,7 @@ namespace CQ.SharePoint.QN.Webparts
                     {
                         lbRSS.Text = "&nbsp;";
                     }
-                    string newsGroupQuery = string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.CategoryName, SPHttpUtility.HtmlEncode(WebpartParent.GroupName));
+                    string newsGroupQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.CategoryName, SPHttpUtility.HtmlEncode(WebpartParent.GroupName));
                     var newsGroups = Utilities.GetNewsRecords(newsGroupQuery, Convert.ToUInt16(WebpartParent.NumberOfNews), ListsName.English.NewsRecord);
                     if (newsGroups != null && newsGroups.Rows.Count > 0)
                     {
