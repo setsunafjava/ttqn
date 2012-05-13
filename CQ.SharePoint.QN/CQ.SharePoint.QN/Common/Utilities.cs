@@ -848,7 +848,7 @@ namespace CQ.SharePoint.QN.Common
 
         public static DataTable GetNewsByCatID(string catID)
         {
-            string camlQuery = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='LookupMulti'>{1}</Value></Eq></Where>", FieldsName.NewsRecord.English.CategoryName, catID);
+            string camlQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='LookupMulti'>{1}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where>", FieldsName.NewsRecord.English.CategoryName, catID);
             var query = new SPQuery();
             query.Query = camlQuery;
             DataTable table = null;
@@ -946,7 +946,7 @@ namespace CQ.SharePoint.QN.Common
         {
             if (string.IsNullOrEmpty(catID))
             {
-                string camlQuery = "<OrderBy><FieldRef Name='ID' Ascending='FALSE' /></OrderBy>";
+                string camlQuery = "<Where><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></Where><OrderBy><FieldRef Name='ID' Ascending='FALSE' /></OrderBy>";
                 var query = new SPQuery();
                 query.Query = camlQuery;
                 query.RowLimit = 20;
@@ -1041,8 +1041,7 @@ namespace CQ.SharePoint.QN.Common
                         {
                             SPQuery spQuery = new SPQuery
                             {
-                                Query = string.Format(
-                                "<Where><Eq><FieldRef Name='{0}' /><Value Type='Counter'>{1}</Value></Eq></Where>", FieldsName.Id, newsID),
+                                Query = string.Format("<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Counter'>{1}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where>", FieldsName.Id, newsID),
                                 RowLimit = 1
                             };
                             SPList list = Utilities.GetListFromUrl(web, ListsName.English.NewsRecord);

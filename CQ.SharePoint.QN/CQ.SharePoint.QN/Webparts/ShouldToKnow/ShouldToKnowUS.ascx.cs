@@ -28,7 +28,7 @@ namespace CQ.SharePoint.QN.Webparts
                 try
                 {
                     NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId);
-                    string advQuery = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE' /><Value Type='LookupMulti'>{1}</Value></Eq></Where>", FieldsName.NewsRecord.English.CategoryName, WebpartParent.CategoryId);
+                    string advQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' LookupId='TRUE' /><Value Type='LookupMulti'>{1}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where>", FieldsName.NewsRecord.English.CategoryName, WebpartParent.CategoryId);
                     uint newsNumber = 5;
 
 

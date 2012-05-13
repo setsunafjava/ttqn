@@ -109,5 +109,11 @@ namespace CQ.SharePoint.QN.Webparts
                 }
             }
         }
+
+        public DataTable GetTable(DataTable oldTable)
+        {
+
+            return null;
+        }
     }
 }
