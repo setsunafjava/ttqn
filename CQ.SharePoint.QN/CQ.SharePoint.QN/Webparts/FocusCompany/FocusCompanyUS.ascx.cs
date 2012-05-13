@@ -38,15 +38,7 @@ namespace CQ.SharePoint.QN.Webparts
                             companyList.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath.Trim().Substring(0, imagepath.Length - 2);
 
                         companyList.Rows[i]["LinkToItem"] = string.Format("{0}/{1}.aspx?NewsId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, companyList.Rows[i][FieldsName.Id]);
-
-                        //foreach (var row in companyList.Rows)
-                        //{
-                        //    NewsUrl = string.Format("{0}/{1}.aspx?NewsId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Convert.ToString(row));
-                        //}
                     }
-                    
-
-
                     rptFocusCompany.DataSource = companyList;
                     rptFocusCompany.DataBind();
                 }
