@@ -98,8 +98,8 @@ namespace CQ.SharePoint.QN.Webparts
                 rptSubMenu.ItemDataBound += new RepeaterItemEventHandler(rptSubMenu_ItemDataBound);
                 Literal ltrStyle = (Literal) e.Item.FindControl("ltrStyle");
                 var itemUrl = Convert.ToString(drv["Url"]);
-                var currentUrl = HttpContext.Current.Request.Url.AbsoluteUri;
-                if (!string.IsNullOrEmpty(itemUrl) && currentUrl.Contains(itemUrl))
+                var currentUrl = HttpContext.Current.Request.Url.AbsoluteUri + "&";
+                if (!string.IsNullOrEmpty(itemUrl) && currentUrl.Contains(itemUrl + "&"))
                 {
                     ltrStyle.Text = " class='current'";
                 }
@@ -111,8 +111,8 @@ namespace CQ.SharePoint.QN.Webparts
                         var catValue = Utilities.GetCatsByNewsID(newsId);
                         foreach (SPFieldLookupValue value in catValue)
                         {
-                            var catUrl = "/" + Constants.PageInWeb.SubPage + ".aspx?CategoryId=" + value.LookupId;
-                            if (!string.IsNullOrEmpty(itemUrl) && itemUrl.Contains(catUrl))
+                            var catUrl = "/" + Constants.PageInWeb.SubPage + ".aspx?CategoryId=" + value.LookupId + "&";
+                            if (!string.IsNullOrEmpty(itemUrl) && (itemUrl + "&").Contains(catUrl))
                             {
                                 ltrStyle.Text = " class='current'";
                                 break;
@@ -139,8 +139,8 @@ namespace CQ.SharePoint.QN.Webparts
                 DataRowView drv = (DataRowView)e.Item.DataItem;
                 Literal ltrStyle = (Literal)e.Item.Parent.Parent.FindControl("ltrStyle");
                 var itemUrl = Convert.ToString(drv["Url"]);
-                var currentUrl = HttpContext.Current.Request.Url.AbsoluteUri;
-                if (!string.IsNullOrEmpty(itemUrl) && currentUrl.Contains(itemUrl))
+                var currentUrl = HttpContext.Current.Request.Url.AbsoluteUri + "&";
+                if (!string.IsNullOrEmpty(itemUrl) && currentUrl.Contains(itemUrl + "&"))
                 {
                     ltrStyle.Text = " class='current'";
                 }
@@ -152,8 +152,8 @@ namespace CQ.SharePoint.QN.Webparts
                         var catValue = Utilities.GetCatsByNewsID(newsId);
                         foreach (SPFieldLookupValue value in catValue)
                         {
-                            var catUrl = "/" + Constants.PageInWeb.SubPage + ".aspx?CategoryId=" + value.LookupId;
-                            if (!string.IsNullOrEmpty(itemUrl) && itemUrl.Contains(catUrl))
+                            var catUrl = "/" + Constants.PageInWeb.SubPage + ".aspx?CategoryId=" + value.LookupId + "&";
+                            if (!string.IsNullOrEmpty(itemUrl) && (itemUrl + "&").Contains(catUrl))
                             {
                                 ltrStyle.Text = " class='current'";
                                 break;
