@@ -41,7 +41,6 @@ namespace CQ.SharePoint.QN.Webparts
         /// <param name="e">EventArgs e</param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            
             if (!IsPostBack)
             {
                 try
@@ -108,12 +107,6 @@ namespace CQ.SharePoint.QN.Webparts
                 {
                 }
             }
-        }
-
-        public DataTable GetTable(DataTable oldTable)
-        {
-
-            return null;
         }
     }
 }
