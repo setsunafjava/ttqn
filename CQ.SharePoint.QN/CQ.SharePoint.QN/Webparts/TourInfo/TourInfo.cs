@@ -65,7 +65,7 @@ namespace CQ.SharePoint.QN.Webparts
             ToolPart[] toolparts = new ToolPart[3];
             WebPartToolPart wptp = new WebPartToolPart();
             CustomPropertyToolPart cptp = new CustomPropertyToolPart();
-            SelectNewsType ctp = new SelectNewsType();
+            SelectTourType ctp = new SelectTourType();
             toolparts[0] = wptp;
             toolparts[1] = cptp;
             toolparts[2] = ctp;
