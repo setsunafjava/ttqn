@@ -86,8 +86,8 @@ namespace CQ.SharePoint.QN.Webparts
 
         protected override void CreateChildControls()
         {
-            string companyCaml = string.Format(" <Where><Eq><FieldRef Name='{0}' /><Value Type='MultiChoice'>{1}</Value></Eq></Where>", FieldsName.NewsCategory.English.TypeCategory, FieldsName.NewsCategory.FieldValuesDefault.DuLich);
-            var table = Utilities.GetNewsRecords(companyCaml, 20, ListsName.English.NewsCategory);
+            string companyCaml = string.Format("<Where><IsNotNull><FieldRef Name='Title' /></IsNotNull></Where>");
+            var table = Utilities.GetNewsRecords(companyCaml, 1000, ListsName.English.NewsCategory);
 
             if (table != null && table.Rows.Count > 0)
             {
