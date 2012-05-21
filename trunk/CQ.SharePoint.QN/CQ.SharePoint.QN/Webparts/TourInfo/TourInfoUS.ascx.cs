@@ -14,7 +14,7 @@ namespace CQ.SharePoint.QN.Webparts
     public partial class TourInfoUS : UserControl
     {
         public TourInfo WebpartParent;
-        public string NewsUrl = string.Empty;
+        public string CategoryUrl = string.Empty;
         /// <summary>
         /// Page on Load
         /// </summary>
@@ -26,8 +26,9 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
-                    NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId);
-                    string companyListQuery = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE' /><Value Type='LookupMulti'>{1}</Value></Eq></Where>", FieldsName.NewsRecord.English.CategoryName, WebpartParent.CategoryId);
+//                    NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage, Constants.NewsId);
+                    CategoryUrl = string.Format("{0}/{1}.aspx?CategoryId=", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage);
+                    string companyListQuery = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where>", FieldsName.NewsCategory.English.ParentName, WebpartParent.CategoryId);
                     uint newsNumber = 5;
 
                     if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
@@ -35,7 +36,7 @@ namespace CQ.SharePoint.QN.Webparts
                         newsNumber = Convert.ToUInt16(WebpartParent.NumberOfNews);
                     }
 
-                    var companyList = Utilities.GetNewsRecords(companyListQuery, newsNumber, ListsName.English.NewsRecord);
+                    var companyList = Utilities.GetNewsRecords(companyListQuery, newsNumber, ListsName.English.NewsCategory);
                     if (companyList != null && companyList.Rows.Count > 0)
                     {
                         rptTourInfo.DataSource = companyList;

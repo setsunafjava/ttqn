@@ -10,7 +10,7 @@
         <div class="inner_infoTravel">
             <asp:Repeater ID="rptTourInfo" runat="server" OnItemDataBound="rptTourInfo_OnItemDataBound">
                 <HeaderTemplate><ul></HeaderTemplate>
-                <ItemTemplate><li><a href='<%= NewsUrl%><%#Eval("ID") %>'><%#Eval("Title") %></a></li></ItemTemplate>
+                <ItemTemplate><li><a href='<%= CategoryUrl%><%#Eval("ID") %>'><%#Eval("Title") %></a></li></ItemTemplate>
                 <FooterTemplate></ul></FooterTemplate>
             </asp:Repeater>
         </div>
