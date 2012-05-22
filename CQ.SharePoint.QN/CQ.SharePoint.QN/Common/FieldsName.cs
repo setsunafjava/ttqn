@@ -17,6 +17,7 @@ namespace CQ.SharePoint.QN.Common
                 public const string ParentName = "ParentName";
                 public const string ParentId = "ParentId";
                 public const string TypeCategory = "TypeCategory"; //code here: chua add vao list - fields multichoice
+                public const string Position = "Position";
                 public const string Status = "Status";
             }
             #endregion
