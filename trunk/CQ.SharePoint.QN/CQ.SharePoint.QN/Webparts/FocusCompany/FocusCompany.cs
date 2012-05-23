@@ -71,13 +71,12 @@ namespace CQ.SharePoint.QN.Webparts
         public SelectFocusCompany()
         {
             this.Title = "Chọn kiểu hiển thị";
-
         }
 
         protected override void CreateChildControls()
         {
-            string companyCaml = string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='MultiChoice'>{1}</Value></Eq></Where>", FieldsName.NewsCategory.English.TypeCategory, FieldsName.NewsCategory.FieldValuesDefault.DoanhNghiep);
-            var table = Utilities.GetNewsRecords(companyCaml, 20, ListsName.English.NewsCategory);
+            string companyCaml = string.Format("<Where><IsNotNull><FieldRef Name='Title' /></IsNotNull></Where>");
+            var table = Utilities.GetNewsRecords(companyCaml, 1000, ListsName.English.NewsCategory);
 
             if (table != null && table.Rows.Count > 0)
             {
@@ -100,8 +99,6 @@ namespace CQ.SharePoint.QN.Webparts
             foreach (Control ctl in controls)
             {
                 RetrievePropertyValue(ctl, parentWebPart);
-
-
                 if (ctl.HasControls())
                 {
                     RetrievePropertyValues(ctl.Controls, parentWebPart);

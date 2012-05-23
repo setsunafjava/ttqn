@@ -482,6 +482,7 @@
     </Content>
     <Content Include="Webparts\CompanyListRight\CompanyListRight.xml" />
     <Content Include="Webparts\CompanyListRight\CompanyListRightUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\Contact\Contact.xml" />
     <Content Include="Webparts\Contact\ContactUS.ascx">

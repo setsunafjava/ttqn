@@ -60,7 +60,7 @@ namespace CQ.SharePoint.QN.Webparts
                             lblHeaderTinhUy.Text = Convert.ToString(group1Table.Rows[0][FieldsName.Title]);
                             img1.ImageUrl = Convert.ToString(table1.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
                             NewsFirstUrl1 = string.Format("{0}/{1}.aspx?{2}={3}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId, Convert.ToString(group1Table.Rows[0][FieldsName.Id]));
-                            group1Table.Rows.RemoveAt(0);
+                            table1.Rows.RemoveAt(0);
                             rptTinhUy.DataSource = table1;
                             rptTinhUy.DataBind();
                         }
@@ -79,7 +79,7 @@ namespace CQ.SharePoint.QN.Webparts
                             lblHeaderHoiDongNhanDan.Text = Convert.ToString(group2Table.Rows[0][FieldsName.Title]);
                             Img2.ImageUrl = Convert.ToString(table2.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
                             NewsFirstUrl2 = string.Format("{0}/{1}.aspx?{2}={3}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId, Convert.ToString(group2Table.Rows[0][FieldsName.Id]));
-                            group2Table.Rows.RemoveAt(0);
+                            table2.Rows.RemoveAt(0);
                             rptHoiDongNhanDan.DataSource = table2;
                             rptHoiDongNhanDan.DataBind();
                         }
@@ -88,8 +88,11 @@ namespace CQ.SharePoint.QN.Webparts
                     {
                         hplThirdGroup.Text = WebpartParent.NewsCategoryName3;
                         hplThirdGroup.NavigateUrl = string.Format("{0}/{1}.aspx?CategoryId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage, WebpartParent.NewsCategoryId3);
-                        string group3Query = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where>", FieldsName.NewsRecord.English.CategoryName, WebpartParent.NewsCategoryId3);
-                        var group3Table = Utilities.GetNewsRecords(group3Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.NewsRecord);
+                        //string group3Query = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where>", FieldsName.NewsRecord.English.CategoryName, WebpartParent.NewsCategoryId3);
+                        //var group3Table = Utilities.GetNewsRecords(group3Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.NewsRecord);
+
+                        DataTable group3Table = null;
+                        Utilities.GetNewsByCatID(Convert.ToString(WebpartParent.NewsCategoryId3), ref group3Table);
 
                         if (group3Table != null && group3Table.Rows.Count > 0)
                         {
@@ -97,8 +100,9 @@ namespace CQ.SharePoint.QN.Webparts
                             lblHeaderUyBanNhanDan.Text = Convert.ToString(group3Table.Rows[0][FieldsName.Title]);
                             Img3.ImageUrl = Convert.ToString(table3.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
                             NewsFirstUrl3 = string.Format("{0}/{1}.aspx?{2}={3}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId, Convert.ToString(group3Table.Rows[0][FieldsName.Id]));
-                            group3Table.Rows.RemoveAt(0);
-                            rptUyBanNhanDan.DataSource = table3;
+                            table3.Rows.RemoveAt(0);
+                            var newTable = GetFiveRows(table3);
+                            rptUyBanNhanDan.DataSource = newTable;
                             rptUyBanNhanDan.DataBind();
                         }
                     }
@@ -107,6 +111,26 @@ namespace CQ.SharePoint.QN.Webparts
                 {
                 }
             }
+        }
+
+        public DataTable GetFiveRows(DataTable oldTable)
+        {
+            DataTable newTable = null;
+            if (oldTable != null)
+            {
+                if (oldTable.Rows.Count > 5)
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        newTable.Rows.Add(oldTable.Rows[i]);
+                    }
+                }
+                else
+                {
+                    newTable = oldTable;
+                }
+            }
+            return newTable;
         }
     }
 }
