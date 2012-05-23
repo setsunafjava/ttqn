@@ -24,8 +24,8 @@ namespace CQ.SharePoint.QN.Webparts
             try
             {
                 DataTable companyList = null;
-
                 Utilities.GetNewsByCatID(Convert.ToString(WebpartParent.CategoryId), ref companyList);
+                lblFocusCompany.Text = WebpartParent.CategoryType;
                 string imagepath;
 
                 if (companyList.Rows.Count > 0)
