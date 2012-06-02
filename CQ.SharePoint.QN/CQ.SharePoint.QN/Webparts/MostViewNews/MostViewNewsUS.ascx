@@ -3,7 +3,8 @@
     Inherits="CQ.SharePoint.QN.Webparts.MostViewNewsUS" %>
 <div class="pos_MOD">
     <div class="bg_title_mod">
-        Bài đọc nhiều nhất
+        
+        <asp:Label ID="lblMostViewNews" runat="server"></asp:Label>
     </div>
     <div class="inner_pos_Mod">
         <div class="inner_news_Readmore">           

@@ -20,7 +20,8 @@
     </p>
     <br />
     <asp:Panel ID="pnlAttachment" runat="server">
-        Tài liệu kèm theo:
+        
+        <asp:Label ID="lblAttachFiles" runat="server"></asp:Label>
         <asp:Repeater ID="rptAttachment" runat="server">
             <HeaderTemplate>
                 <table>

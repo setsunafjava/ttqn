@@ -17,7 +17,8 @@
                 <ItemTemplate>
                     <li>
 					    <a href='<%= NewsUrl%><%#Eval("ID") %>'><%#Eval("Title") %></a>
-					    <span class="time_update">Ngày <%#Eval("Created") %></span>
+					    <span style="color:#003399"><asp:Label ID="lblDay" runat="server"></asp:Label> <%#Eval("Created") %></span>
+					    
 					</li>
                 </ItemTemplate>
                 <FooterTemplate></ul></marquee></FooterTemplate>

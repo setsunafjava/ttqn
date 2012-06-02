@@ -4,26 +4,31 @@
 <style type="text/css">
     .linkcss
     {
-    	color:Red; font-weight:bold
-    	}
+        color: Red;
+        font-weight: bold;
+    }
 </style>
-<div class="select_date">    
+<div class="select_date">
     <table>
         <tr>
             <td>
                 <%--<a href='<%= CategoryUrl%><%#Eval("ID") %>' style="color: Red; font-weight: bold">Xem tin tiếp theo...</a>--%>
-                <asp:LinkButton ID="lnkNextNews"  runat="server" CssClass="linkcss" Text="Xem tin tiếp theo..." OnClick="NextNewsClick"></asp:LinkButton>
+                <asp:LinkButton ID="lnkNextNews" runat="server" CssClass="linkcss" Text="Xem tin tiếp theo..."
+                    OnClick="NextNewsClick"></asp:LinkButton>
             </td>
             <td>
-                Ngày<asp:DropDownList ID="ddlDays" runat="server" Width="40px">
+                <asp:Label ID="lblDay" runat="server"></asp:Label>
+                <asp:DropDownList ID="ddlDays" runat="server" Width="40px">
                 </asp:DropDownList>
             </td>
             <td>
-                Tháng<asp:DropDownList ID="ddlMonths" runat="server" Width="40px">
+                <asp:Label ID="lblMonth" runat="server"></asp:Label>
+                <asp:DropDownList ID="ddlMonths" runat="server" Width="40px">
                 </asp:DropDownList>
             </td>
             <td>
-                Năm<asp:DropDownList ID="ddlYears" runat="server" Width="60px">
+                <asp:Label ID="lblYear" runat="server"></asp:Label>
+                <asp:DropDownList ID="ddlYears" runat="server" Width="60px">
                 </asp:DropDownList>
             </td>
         </tr>

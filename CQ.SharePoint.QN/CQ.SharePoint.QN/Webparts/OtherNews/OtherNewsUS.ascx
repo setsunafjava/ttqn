@@ -4,6 +4,7 @@
 <div class="other_News">
     <div class="top_F">
         Các tin khác
+        <asp:Label ID="OtherNews" runat="server"></asp:Label>
     </div>
     <div class="inner_F_otherNew">        
         <asp:Repeater ID="rptOtherNews" runat="server">

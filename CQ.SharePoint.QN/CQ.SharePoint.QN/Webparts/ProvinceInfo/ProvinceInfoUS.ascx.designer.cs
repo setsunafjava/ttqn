@@ -12,5 +12,6 @@ namespace CQ.SharePoint.QN.Webparts
     public partial class ProvinceInfoUS
     {
         protected global::System.Web.UI.WebControls.Repeater rptProvinceInfo;
+        protected global::System.Web.UI.WebControls.Label lblDay;
     }
 }

@@ -27,6 +27,14 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
+                    //Set language
+                    //if language is VietNamese
+                    lblDay.Text = "Ngày";
+                    lblDay2.Text = "Ngày";
+                    lblLatestNews.Text = "";
+                    lblReadMost.Text = "";
+                    lblNewsLatestSend.Text = "";
+
                     //Bind data to latest news
                     NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
                     string latestNewsQuery = string.Empty;

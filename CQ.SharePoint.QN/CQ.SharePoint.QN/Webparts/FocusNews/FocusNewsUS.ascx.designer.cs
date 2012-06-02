@@ -12,5 +12,8 @@ namespace CQ.SharePoint.QN.Webparts
     public partial class FocusNewsUS
     {
         protected global::System.Web.UI.WebControls.Repeater rptFocusNews;
+        protected global::System.Web.UI.WebControls.Label lblTitle;
+        protected global::System.Web.UI.WebControls.Label lblDate;
+        protected global::System.Web.UI.WebControls.Label lblSeeMore;
     }
 }

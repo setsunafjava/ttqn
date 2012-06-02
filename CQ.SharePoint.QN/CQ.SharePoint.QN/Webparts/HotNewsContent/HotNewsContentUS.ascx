@@ -18,11 +18,17 @@
     <div class="info_tab_content">
         <ul id="countrytabs" class="shadetabs">
         <asp:Panel id="pnlIndex" runat="server">
-            <li><a href="#" rel="country1" class="selected">Mới nhất</a></li>
-            <li><a href="#" rel="country2">Đọc nhiều</a></li>
+            <li><a href="#" rel="country1" class="selected">
+                <asp:Label ID="lblLatestNews" runat="server" Text="Tin mới"></asp:Label>
+            </a></li>
+            <li><a href="#" rel="country2">
+                <asp:Label ID="lblReadMost" Text="Đọc nhiều" runat="server"></asp:Label>
+            </a></li>
         </asp:Panel>
         <asp:Panel id="pnlSubPage" Visible="false" runat="server">
-            <a rel="country1" class="title_news_hot">Tin mới nhận</a>
+            <a rel="country1" class="title_news_hot">
+                <asp:Label ID="lblNewsLatestSend" Text="Tin mới nhận" runat="server"></asp:Label>
+            </a>
         </asp:Panel>            
         </ul>
         <div class="inner_content_tab">
@@ -33,7 +39,8 @@
                     </HeaderTemplate>
                     <ItemTemplate>
                         <li><a href='<%= NewsUrl%><%#Eval("ID") %>'>
-                            <%#Eval("Title")%></a> <span>(ngày
+                            <%#Eval("Title")%></a> <span style="color:#003399">(
+                            <asp:Label ID="lblDay" runat="server"></asp:Label>
                                 <%#Eval("Created")%>)</span> </li>
                     </ItemTemplate>
                     <FooterTemplate>
@@ -48,7 +55,8 @@
                     </HeaderTemplate>
                     <ItemTemplate>
                         <li><a href='<%= NewsUrl%><%#Eval("ID") %>'>
-                            <%#Eval("ShortContent")%></a><span>(ngày
+                            <%#Eval("ShortContent")%></a><span style="color:#003399">(
+                                <asp:Label ID="lblDay2" runat="server"></asp:Label>
                                 <%#Eval("Created")%>)</span></li>
                     </ItemTemplate>
                     <FooterTemplate>
@@ -81,3 +89,4 @@
 </div>
 <div class="cleaner">
 </div>
+

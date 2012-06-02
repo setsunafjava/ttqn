@@ -514,7 +514,6 @@
     </Content>
     <Content Include="Webparts\HotNewsContent\HotNewsContent.xml" />
     <Content Include="Webparts\HotNewsContent\HotNewsContentUS.ascx">
-      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\LeftNewsContent\LeftNewsContent.xml" />
     <Content Include="Webparts\LeftNewsContent\LeftNewsContentUS.ascx">
@@ -534,27 +533,21 @@
     </Content>
     <Content Include="Webparts\NeedToKnow\NeedToKnow.xml" />
     <Content Include="Webparts\NeedToKnow\NeedToKnowUS.ascx">
-      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\NewsDetail\NewsDetail.xml" />
     <Content Include="Webparts\NewsDetail\NewsDetailUS.ascx">
-      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\NewsList\NewsList.xml" />
     <Content Include="Webparts\NewsList\NewsListUS.ascx">
-      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\NextNews\NextNewsUS.ascx">
-      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\NextNews\NextNews.xml" />
     <Content Include="Webparts\OtherNews\OtherNews.xml" />
     <Content Include="Webparts\OtherNews\OtherNewsUS.ascx">
-      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\ProvinceDocs\ProvinceDocs.xml" />
     <Content Include="Webparts\ProvinceDocs\ProvinceDocsUS.ascx">
-      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\ProvinceInfo\ProvinceInfo.xml" />
     <Content Include="Webparts\ProvinceInfo\ProvinceInfoUS.ascx">
@@ -562,10 +555,8 @@
     </Content>
     <Content Include="Webparts\QNadv\QNadv.xml" />
     <Content Include="Webparts\QNadv\QNadvUS.ascx">
-      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\QNHeader\QNHeaderUS.ascx">
-      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\QNHeader\QNHeader.xml" />
     <Content Include="Webparts\ShouldToKnow\ShouldToKnowUS.ascx">
