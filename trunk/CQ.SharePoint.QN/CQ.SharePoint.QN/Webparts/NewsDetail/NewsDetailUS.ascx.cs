@@ -27,6 +27,10 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
+                    //Set language
+                    //if language is VietNamese
+                    lblAttachFiles.Text = "Tài liệu kèm theo:";
+
                     var newsId = Request.QueryString[Constants.NewsId];
                     if (!string.IsNullOrEmpty(newsId))
                     {

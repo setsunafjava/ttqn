@@ -27,8 +27,25 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
+                    //Set language for title Tin tiêu điểm
+                    //if language is VietNamese
+                    lblTitle.Text = "Tin tiêu điểm";
+                    lblDate.Text = "Ngày";
+                    lblSeeMore.Text = "Xem thêm";
+                    //else is language is 
                     string focusNewsQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Eq><Neq><FieldRef Name='{1}' /><Value Type='Boolean'>1</Value></Neq></And></Where>", FieldsName.NewsRecord.English.FocusNews, FieldsName.NewsRecord.English.Status);
-                    var focusNewsTable = Utilities.GetNewsRecords(focusNewsQuery, Convert.ToUInt16(WebpartParent.NumberOfNews), ListsName.English.NewsRecord);
+                    uint numberOfNews = 5;
+                    if(!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
+                    {
+                        try
+                        {
+                            numberOfNews = Convert.ToUInt16(WebpartParent.NumberOfNews);
+                        }
+                        catch (Exception ex)
+                        {}
+                    }
+
+                    var focusNewsTable = Utilities.GetNewsRecords(focusNewsQuery, Convert.ToUInt16(numberOfNews), ListsName.English.NewsRecord);
                     CategoryUrl = string.Format("{0}/{1}.aspx?FocusNews=1", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage);
                     if (focusNewsTable != null && focusNewsTable.Rows.Count > 0)
                     {

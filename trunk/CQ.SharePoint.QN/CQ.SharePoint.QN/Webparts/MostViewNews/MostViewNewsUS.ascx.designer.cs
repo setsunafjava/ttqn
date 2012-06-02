@@ -13,5 +13,6 @@ namespace CQ.SharePoint.QN.Webparts
     {
         protected global::System.Web.UI.WebControls.Repeater rptTopViews;
         protected global::System.Web.UI.WebControls.Label lblItemsNotFound;
+        protected global::System.Web.UI.WebControls.Label lblMostViewNews;
     }
 }

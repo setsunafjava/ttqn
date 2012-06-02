@@ -25,6 +25,12 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
+                    //Set language
+                    //if language is VietNamese
+                    lblDay.Text = "Ngày";
+                    lblMonth.Text = "Tháng";
+                    lblYear.Text = "Năm";
+
                     var nextNews = Request.QueryString["NextNews"];
 
                     CategoryUrl = string.Format("{0}/{1}.aspx?CategoryId=", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage);
