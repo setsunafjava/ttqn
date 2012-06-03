@@ -13,6 +13,7 @@ namespace CQ.SharePoint.QN.Webparts
     {
         protected global::System.Web.UI.WebControls.Repeater rptLatestNews;
         protected global::System.Web.UI.WebControls.Repeater rptTopViews;
+        protected global::System.Web.UI.WebControls.Repeater rptImages;
         protected global::System.Web.UI.WebControls.Label lblShortContent;
 
         protected global::System.Web.UI.WebControls.Label lblTimeUpdate;

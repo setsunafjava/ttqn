@@ -4,10 +4,10 @@
     <ul>
         <asp:Repeater ID="rptMenu" runat="server">
             <ItemTemplate>
-                <li><a href='<%#Eval("Url") %>'><%#Eval("Title") %></a></li>
+                <li><a style=" color:White" href='<%#Eval("Url") %>'><%#Eval("Title") %></a></li>
             </ItemTemplate>
         </asp:Repeater>
-        <li><a href="/_layouts/Authenticate.aspx">Đăng nhập</a></li>
+        <li><a style=" color:White" href="/_layouts/Authenticate.aspx">Đăng nhập</a></li>
     </ul>
 </div>
 <div class="info_footer">

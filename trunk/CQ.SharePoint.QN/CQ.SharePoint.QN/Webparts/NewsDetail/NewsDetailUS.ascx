@@ -19,8 +19,7 @@
         <asp:Literal ID="ltrNewsContent" runat="server"></asp:Literal>
     </p>
     <br />
-    <asp:Panel ID="pnlAttachment" runat="server">
-        
+    <asp:Panel ID="pnlAttachment" runat="server">        
         <asp:Label ID="lblAttachFiles" runat="server"></asp:Label>
         <asp:Repeater ID="rptAttachment" runat="server">
             <HeaderTemplate>

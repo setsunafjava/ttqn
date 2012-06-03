@@ -31,24 +31,25 @@ namespace CQ.SharePoint.QN.Webparts
                     //if language is VietNamese
                     lblDay.Text = "Ngày";
                     lblDay2.Text = "Ngày";
-                    lblLatestNews.Text = "";
-                    lblReadMost.Text = "";
-                    lblNewsLatestSend.Text = "";
+                    lblLatestNews.Text = "Tin mới";
+                    lblReadMost.Text = "Đọc nhiều";
+                    lblNewsLatestSend.Text = "Tin mới nhận";
 
                     //Bind data to latest news
                     NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
                     string latestNewsQuery = string.Empty;
 
+                    #region Latest News
                     latestNewsQuery = string.Format("<Where><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>");
-
-
                     var latestNewsTable = Utilities.GetNewsRecords(latestNewsQuery, 5, ListsName.English.NewsRecord);
                     if (latestNewsTable != null && latestNewsTable.Rows.Count > 0)
                     {
                         rptLatestNews.DataSource = latestNewsTable;
                         rptLatestNews.DataBind();
                     }
+                    #endregion
 
+                    #region Top News
                     string topNewsQuery = string.Format("<Where><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></Where><OrderBy><FieldRef Name='{0}' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.ViewsCount);
 
 
@@ -58,12 +59,28 @@ namespace CQ.SharePoint.QN.Webparts
                         rptTopViews.DataSource = topViewsTable;
                         rptTopViews.DataBind();
                     }
-
-                    string mainItemQuery = string.Format("<Where><And><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq><Eq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Eq></And></Where>", FieldsName.NewsRecord.English.ShowInHomePage);
-                    var mainItem = Utilities.GetNewsRecords(mainItemQuery, 1, ListsName.English.NewsRecord);
+                    #endregion
+                    string mainItemQuery = string.Format(@"<Where>
+                                                              <And>
+                                                                 <Eq>
+                                                                    <FieldRef Name='{0}' />
+                                                                    <Value Type='Boolean'>1</Value>
+                                                                 </Eq>
+                                                                 <Neq>
+                                                                    <FieldRef Name='{1}' />
+                                                                    <Value Type='Boolean'>1</Value>
+                                                                 </Neq>
+                                                              </And>
+                                                           </Where>
+                                                           <OrderBy>
+                                                              <FieldRef Name='Created' Ascending='False' />
+                                                           </OrderBy>", FieldsName.NewsRecord.English.ShowInHomePage,
+                                                                      FieldsName.NewsRecord.English.Status);
+                    var mainItem = Utilities.GetNewsRecords(mainItemQuery, 3, ListsName.English.NewsRecord);
                     if (mainItem != null && mainItem.Rows.Count > 0)
                     {
-                        BinDataToMainScreen(mainItem.Rows[0]);
+                        rptImages.DataSource = GetImageDataTablePath(mainItem);
+                        rptImages.DataBind();
                     }
 
                     if ("0".Equals(WebPartParent.WebpartName))
@@ -83,7 +100,7 @@ namespace CQ.SharePoint.QN.Webparts
                         if (otherNewsTable != null && otherNewsTable.Rows.Count > 0)
                         {
                             //Bind data to main screen
-                            BinDataToMainScreen(otherNewsTable.Rows[0]);
+                            //BinDataToMainScreen(otherNewsTable.Rows[0]);
                             otherNewsTable.Rows.RemoveAt(0);
                             //end
                             tempTable = otherNewsTable.Clone();
@@ -114,7 +131,7 @@ namespace CQ.SharePoint.QN.Webparts
                         }
                         else
                         {
-                            BinDataToMainScreen(null);
+                            //BinDataToMainScreen(null);
                             rptLatestNews.DataSource = null;
                             rptLatestNews.DataBind();
                         }
@@ -140,6 +157,26 @@ namespace CQ.SharePoint.QN.Webparts
                 imgMainImage.ImageUrl = string.Empty;
             }
             lblShortContent.Text = Convert.ToString(row[FieldsName.NewsRecord.English.ShortContent]);
+        }
+
+        /// <summary>
+        /// Get image path form thumbnail field, default the path is "path...;" => function will return "path..."
+        /// </summary>
+        /// <param name="imagePath"></param>
+        /// <returns></returns>
+        public DataTable GetImageDataTablePath(DataTable dataTable)
+        {
+            if (dataTable != null && dataTable.Rows.Count > 0)
+            {
+                string imagepath = string.Empty;
+                for (int i = 0; i < dataTable.Rows.Count; i++)
+                {
+                    imagepath = Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage]);
+                    if (imagepath.Length > 2)
+                        dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath.Trim().Substring(0, imagepath.Length - 2);
+                }
+            }
+            return dataTable;
         }
     }
 }
