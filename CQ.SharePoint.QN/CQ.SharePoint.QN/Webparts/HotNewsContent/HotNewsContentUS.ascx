@@ -115,5 +115,5 @@
 
 <script type="text/javascript" src="/sites/demo/QNResources/wowslider.js"></script>
 
-<script type="text/javascript" src="/sites/demo/QNResources/script.js"></script>
+<script type="text/javascript" src="/sites/demo/QNResources/javascript.js"></script>
 

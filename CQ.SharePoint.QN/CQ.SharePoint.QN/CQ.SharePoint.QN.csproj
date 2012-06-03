@@ -467,7 +467,7 @@
     <Content Include="Resources\Javascript\jquery-1.7.1.js" />
     <Content Include="Resources\Javascript\jwplayer.js" />
     <Content Include="Resources\Javascript\player.swf" />
-    <Content Include="Resources\Javascript\script.js" />
+    <Content Include="Resources\Javascript\javascript.js" />
     <Content Include="Resources\Javascript\tabcontent.js" />
     <Content Include="Resources\Javascript\wowslider.js" />
     <Content Include="Resources\Module.xml" />
