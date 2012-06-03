@@ -30,6 +30,8 @@
 	<script type="text/javascript" src='<asp:Literal runat="server" Text="<%$SPUrl:~Site/QNResources/jquery-1.7.1.js%>" />'></script>
 	<script type="text/javascript" src='<asp:Literal runat="server" Text="<%$SPUrl:~Site/QNResources/tabcontent.js%>" />'></script>
 	<script type="text/javascript" src='<asp:Literal runat="server" Text="<%$SPUrl:~Site/QNResources/jwplayer.js%>" />'></script>
+	<script type="text/javascript" src='<asp:Literal runat="server" Text="<%$SPUrl:~Site/QNResources/wowslider.js%>" />'></script>
+	<script type="text/javascript" src='<asp:Literal runat="server" Text="<%$SPUrl:~Site/QNResources/script.js%>" />'></script>
 
 	<!--Placeholder for additional overrides-->
 	<asp:ContentPlaceHolder id="PlaceHolderAdditionalPageHead" runat="server"/>

@@ -7,9 +7,10 @@
 	  <File Path="Resources\Css\tabcontent.css" Url="Css/tabcontent.css" />
 	  <File Path="Resources\Javascript\jquery-1.7.1.js" Url="Javascript/jquery-1.7.1.js" />
 	  <File Path="Resources\Javascript\dw_scroll_c.js" Url="Javascript/dw_scroll_c.js" />
-	  <File Path="Resources\Javascript\SCRIPT.js" Url="Javascript/SCRIPT.js" />
+	  <File Path="Resources\Javascript\script.js" Url="Javascript/script.js" />
 	  <File Path="Resources\Javascript\tabcontent.js" Url="Javascript/tabcontent.js" />
 	  <File Path="Resources\Javascript\jwplayer.js" Url="Javascript/jwplayer.js" />
+	  <File Path="Resources\Javascript\wowslider.js" Url="Javascript/wowslider.js" />
 	  <File Path="Resources\Javascript\player.swf" Url="Flv/player.swf" />
 	  <File Path="Resources\Images\adv1.jpg" Url="Images/adv1.jpg" />
 	  <File Path="Resources\Images\adv2.jpg" Url="Images/adv2.jpg" />

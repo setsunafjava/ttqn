@@ -16,9 +16,9 @@ namespace CQ.SharePoint.QN.Webparts
         }
 
         [WebBrowsable(true)]
-        [FriendlyName("WebpartName")]
-        [Description("WebpartName")]
-        [Category("QN")]
+        [FriendlyName("Chọn loại mục tin")]
+        [Description("Chọn loại mục tin")]
+        [Category("Chọn loại mục tin")]
         [WebPartStorage(Storage.Shared)]
         [Personalizable(PersonalizationScope.Shared)]
         public string WebpartName

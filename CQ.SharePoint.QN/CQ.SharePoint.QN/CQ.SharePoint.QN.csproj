@@ -338,6 +338,7 @@
   <ItemGroup>
     <None Include="Properties\CQ.SharePoint.QN.snk" />
     <None Include="Resources\MasterPages\CqHome.master">
+      <SubType>ASPXCodeBehind</SubType>
     </None>
     <None Include="Webparts\ClassiFieds\ClassiFieds.webpart" />
     <None Include="Webparts\CompanyAdv\CompanyAdv.webpart" />
@@ -466,8 +467,9 @@
     <Content Include="Resources\Javascript\jquery-1.7.1.js" />
     <Content Include="Resources\Javascript\jwplayer.js" />
     <Content Include="Resources\Javascript\player.swf" />
-    <Content Include="Resources\Javascript\SCRIPT.JS" />
+    <Content Include="Resources\Javascript\script.js" />
     <Content Include="Resources\Javascript\tabcontent.js" />
+    <Content Include="Resources\Javascript\wowslider.js" />
     <Content Include="Resources\Module.xml" />
     <Content Include="Resources\UserControls\MainForm.ascx">
       <SubType>ASPXCodeBehind</SubType>
@@ -514,6 +516,7 @@
     </Content>
     <Content Include="Webparts\HotNewsContent\HotNewsContent.xml" />
     <Content Include="Webparts\HotNewsContent\HotNewsContentUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\LeftNewsContent\LeftNewsContent.xml" />
     <Content Include="Webparts\LeftNewsContent\LeftNewsContentUS.ascx">
@@ -536,6 +539,7 @@
     </Content>
     <Content Include="Webparts\NewsDetail\NewsDetail.xml" />
     <Content Include="Webparts\NewsDetail\NewsDetailUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\NewsList\NewsList.xml" />
     <Content Include="Webparts\NewsList\NewsListUS.ascx">
