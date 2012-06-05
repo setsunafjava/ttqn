@@ -29,8 +29,8 @@ namespace CQ.SharePoint.QN.Webparts
                 {
                     //Set language
                     //if language is VietNamese
-                    lblDay.Text = "Ngày";
-                    lblDay2.Text = "Ngày";
+                    //lblDay.Text = "Ngày";
+                    //lblDay2.Text = "Ngày";
                     lblLatestNews.Text = "Tin mới";
                     lblReadMost.Text = "Đọc nhiều";
                     lblNewsLatestSend.Text = "Tin mới nhận";
@@ -156,7 +156,7 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 imgMainImage.ImageUrl = string.Empty;
             }
-            lblShortContent.Text = Convert.ToString(row[FieldsName.NewsRecord.English.ShortContent]);
+            lblShortContent.Text = Convert.ToString(row[FieldsName.NewsRecord.English.ShortDescription]);
         }
 
         /// <summary>

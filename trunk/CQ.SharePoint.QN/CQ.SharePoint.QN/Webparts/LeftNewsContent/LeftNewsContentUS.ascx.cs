@@ -52,7 +52,7 @@ namespace CQ.SharePoint.QN.Webparts
                         var tempTable = Utilities.GetTableWithCorrectUrl(newsGroups);
                         imgThumb.ImageUrl = Convert.ToString(tempTable.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
 
-                        lblShortContent.Text = Convert.ToString(newsGroups.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
+                        lblShortContent.Text = Convert.ToString(newsGroups.Rows[0][FieldsName.NewsRecord.English.ShortDescription]);
                         NewsFirstUrl1 = string.Format("{0}/{1}.aspx?{2}={3}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId, Convert.ToString(newsGroups.Rows[0][FieldsName.Id]));
                         if (newsGroups.Rows.Count > 2)
                         {
