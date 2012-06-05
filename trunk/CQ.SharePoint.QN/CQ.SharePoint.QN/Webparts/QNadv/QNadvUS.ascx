@@ -2,8 +2,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="QNadvUS.ascx.cs" Inherits="CQ.SharePoint.QN.Webparts.QNadvUS" %>
 <div class="cleaner"></div>
 <div>
-    <a target="_blank" href="<%=ParentWP.ImageLink%>" title="<%=ParentWP.ImageTitle%>">
-        <img style="<%=AdvStyle%>" src="<%=ParentWP.ImageUrl%>" alt="<%=ParentWP.ImageTitle%>" title="<%=ParentWP.ImageTitle%>" />
-    </a>
+    <asp:LinkButton ID="aLink" runat="server" OnClick="aLink_OnClick"><asp:Literal ID="ltrQC" runat="server"></asp:Literal></asp:LinkButton>
 </div>
 <div class="cleaner"></div>

@@ -559,8 +559,10 @@
     </Content>
     <Content Include="Webparts\QNadv\QNadv.xml" />
     <Content Include="Webparts\QNadv\QNadvUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\QNHeader\QNHeaderUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\QNHeader\QNHeader.xml" />
     <Content Include="Webparts\ShouldToKnow\ShouldToKnowUS.ascx">

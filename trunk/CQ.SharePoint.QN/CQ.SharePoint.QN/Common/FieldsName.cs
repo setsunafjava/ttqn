@@ -44,6 +44,7 @@ namespace CQ.SharePoint.QN.Common
                 public const string DuLich = "Du Lịch";
                 public const string BanNenBiet = "Bạn Nên Biết";
                 public const string CacCapChinhQuyen = "Các Cấp Chính Quyền";
+                public const string QCID = "QCIDDDL";
             }
             #endregion
         }

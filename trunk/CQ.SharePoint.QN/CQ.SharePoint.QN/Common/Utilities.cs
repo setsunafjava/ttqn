@@ -516,6 +516,56 @@ namespace CQ.SharePoint.QN.Common
             return result;
         }
 
+        public static SPList GetDocListFromUrl(string listName)
+        {
+            SPList result = null;
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            string listUrl = web.Url + "/" + listName;
+                            result = web.GetList(listUrl);
+                        }
+                        catch (Exception ex)
+                        {
+                            Utilities.LogToUls(ex);
+                        }
+                    }
+
+                }
+            });
+            return result;
+        }
+
+        public static SPListItem GetDocListItemFromUrl(string listName, int docID)
+        {
+            SPListItem result = null;
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            string listUrl = web.Url + "/" + listName;
+                            result = web.GetList(listUrl).GetItemById(docID);
+                        }
+                        catch (Exception ex)
+                        {
+                            Utilities.LogToUls(ex);
+                        }
+                    }
+
+                }
+            });
+            return result;
+        }
+
         public static DataTable GetNewsRecords(string query, uint newsNumber, string listName)
         {
             DataTable table = new DataTable();
