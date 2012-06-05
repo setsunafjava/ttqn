@@ -59,7 +59,7 @@ namespace CQ.SharePoint.QN.Common
                 public const string Content = "Content";
                 public const string CategoryName = "CategoryName";
                 public const string ThumbnailImage = "Thumbnail";
-                public const string ShortContent = "ShortContent";
+                public const string ShortDescription = "ShortDescription";
                 public const string ViewsCount = "ViewsCount"; //So luong nguoi doc
                 public const string FocusNews = "FocusNews";
                 public const string ShowInHomePage = "ShowInHomePage";

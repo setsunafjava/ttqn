@@ -3,7 +3,29 @@
     Inherits="CQ.SharePoint.QN.Webparts.HotNewsContentUS" %>
 <div class="hot_news-content">
     <div class="artical_hottest">
-        <asp:Image ID="imgMainImage" runat="server" Width="396px" Height="305px" />
+        <div id="wowslider-container1">
+            <div class="ws_images">
+                <asp:Repeater ID="rptImages" runat="server">
+                    <HeaderTemplate>
+                        <ul>
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <li><a href='<%= NewsUrl%><%#Eval("ID") %>'>
+                            <img src='<%#Eval("Thumbnail") %>' alt='<%#Eval("Title")%>' title='<%#Eval("Title")%>' style="width: 400px;
+                                height: 330px" /></a><%#Eval("ShortDescription")%></li>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        </ul>
+                    </FooterTemplate>
+                </asp:Repeater>
+            </div>
+            <div class="ws_bullets">
+                <div>
+                    <a href="#" title="004">1</a> <a href="#" title="Anh thu 2">2</a> <a href="#" title="Anh So 3">
+                        3</a>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="short_content-hottest">
         <a href='<%=Linktoitem %>'>
@@ -12,29 +34,6 @@
     </div>
     <div class="time_update">
         <asp:Label ID="lblTimeUpdate" runat="server" />
-    </div>
-    
-    <div id="wowslider-container1">
-        <div class="ws_images">
-            <asp:Repeater ID="rptImages" runat="server">
-                <HeaderTemplate>
-                    <ul>
-                </HeaderTemplate>
-                <ItemTemplate>
-                    <li><a href='<%= NewsUrl%><%#Eval("ID") %>'>
-                        <img src='<%#Eval("") %>' alt="Anh thu 1" title="Anh thu 1" style="width: 400px; height: 330px" /></a>Description 1. </li>
-                </ItemTemplate>
-                <FooterTemplate>
-                    </ul>
-                </FooterTemplate>
-            </asp:Repeater>
-        </div>
-        <div class="ws_bullets">
-            <div>
-                <a href="#" title="004">1</a> <a href="#" title="Anh thu 2">2</a> <a href="#" title="Anh So 3">
-                    3</a>
-            </div>
-        </div>
     </div>
 </div>
 <div class="tab_content_News">
@@ -63,7 +62,7 @@
                     <ItemTemplate>
                         <li><a href='<%= NewsUrl%><%#Eval("ID") %>'>
                             <%#Eval("Title")%></a> <span style="color: #003399">(
-                                <asp:Label ID="lblDay" runat="server"></asp:Label>
+                                <asp:Label ID="lblDay" Text="Ngày" runat="server"></asp:Label>
                                 <%#Eval("Created")%>)</span> </li>
                     </ItemTemplate>
                     <FooterTemplate>
@@ -79,7 +78,7 @@
                     <ItemTemplate>
                         <li><a href='<%= NewsUrl%><%#Eval("ID") %>'>
                             <%#Eval("ShortContent")%></a><span style="color: #003399">(
-                                <asp:Label ID="lblDay2" runat="server"></asp:Label>
+                                <asp:Label ID="lblDay2" Text="Ngày" runat="server"></asp:Label>
                                 <%#Eval("Created")%>)</span></li>
                     </ItemTemplate>
                     <FooterTemplate>
