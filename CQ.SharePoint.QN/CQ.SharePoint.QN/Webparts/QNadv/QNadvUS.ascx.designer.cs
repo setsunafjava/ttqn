@@ -11,6 +11,7 @@ namespace CQ.SharePoint.QN.Webparts
 {
     public partial class QNadvUS
     {
-
+        protected global::System.Web.UI.WebControls.Literal ltrQC;
+        protected global::System.Web.UI.WebControls.LinkButton aLink;
     }
 }
