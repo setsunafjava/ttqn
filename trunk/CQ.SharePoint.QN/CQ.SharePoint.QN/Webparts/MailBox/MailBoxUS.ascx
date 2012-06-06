@@ -3,6 +3,6 @@
 <div class="pos_MOD">
     <div class="bg_title_mod">
         <div class="mailbox">
-            <a href='<%= WebpartParent.WebMailPath %>'><asp:Label ID="lblMailBox" runat="server"></asp:Label></a></div>
+            <a href='<%= WebpartParent.WebMailPath %>'><asp:Label ID="lblMailBox" Text="Hộp thư công vụ" runat="server"></asp:Label></a></div>
     </div>
 </div>

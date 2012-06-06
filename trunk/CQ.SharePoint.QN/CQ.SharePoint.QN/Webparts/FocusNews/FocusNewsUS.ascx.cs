@@ -29,9 +29,9 @@ namespace CQ.SharePoint.QN.Webparts
                 {
                     //Set language for title Tin tiêu điểm
                     //if language is VietNamese
-                    lblTitle.Text = "Tin tiêu điểm";
-                    lblDate.Text = "Ngày";
-                    lblSeeMore.Text = "Xem thêm";
+                    //lblTitle.Text = "Tin tiêu điểm";
+                    //lblDate.Text = "Ngày";
+                    //lblSeeMore.Text = "Xem thêm";
                     //else is language is 
                     string focusNewsQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Eq><Neq><FieldRef Name='{1}' /><Value Type='Boolean'>1</Value></Neq></And></Where>", FieldsName.NewsRecord.English.FocusNews, FieldsName.NewsRecord.English.Status);
                     uint numberOfNews = 5;

@@ -17,17 +17,17 @@
                     OnClick="NextNewsClick"></asp:LinkButton>
             </td>
             <td>
-                <asp:Label ID="lblDay" runat="server"></asp:Label>
+                <asp:Label ID="lblDay" Text="Ngày" runat="server"></asp:Label>
                 <asp:DropDownList ID="ddlDays" runat="server" Width="40px">
                 </asp:DropDownList>
             </td>
             <td>
-                <asp:Label ID="lblMonth" runat="server"></asp:Label>
+                <asp:Label ID="lblMonth" Text="Tháng" runat="server"></asp:Label>
                 <asp:DropDownList ID="ddlMonths" runat="server" Width="40px">
                 </asp:DropDownList>
             </td>
             <td>
-                <asp:Label ID="lblYear" runat="server"></asp:Label>
+                <asp:Label ID="lblYear" Text="Năm" runat="server"></asp:Label>
                 <asp:DropDownList ID="ddlYears" runat="server" Width="60px">
                 </asp:DropDownList>
             </td>

@@ -27,14 +27,7 @@
             </div>
         </div>
     </div>
-    <div class="short_content-hottest">
-        <a href='<%=Linktoitem %>'>
-            <asp:Label ID="lblShortContent" runat="server"></asp:Label>
-        </a>
-    </div>
-    <div class="time_update">
-        <asp:Label ID="lblTimeUpdate" runat="server" />
-    </div>
+    
 </div>
 <div class="tab_content_News">
     <div class="info_tab_content">
@@ -62,7 +55,7 @@
                     <ItemTemplate>
                         <li><a href='<%= NewsUrl%><%#Eval("ID") %>'>
                             <%#Eval("Title")%></a> <span style="color: #003399">(
-                                <asp:Label ID="lblDay" Text="Ngày" runat="server"></asp:Label>
+                                <asp:Label ID="lblDay" Text="Ngày" ForeColor="#003399" runat="server"></asp:Label>
                                 <%#Eval("Created")%>)</span> </li>
                     </ItemTemplate>
                     <FooterTemplate>

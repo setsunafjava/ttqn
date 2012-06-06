@@ -4,7 +4,7 @@
 <div class="pos_MOD">
     <div class="bg_title_mod">
         
-        <asp:Label ID="lblMostViewNews" runat="server"></asp:Label>
+        <asp:Label ID="lblMostViewNews" Text="Bài đọc nhiều nhất" runat="server"></asp:Label>
     </div>
     <div class="inner_pos_Mod">
         <div class="inner_news_Readmore">           
