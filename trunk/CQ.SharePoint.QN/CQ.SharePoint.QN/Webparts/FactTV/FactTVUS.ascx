@@ -2,7 +2,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="FactTVUS.ascx.cs" Inherits="CQ.SharePoint.QN.Webparts.FactTVUS" %>
 <div class="pos_MOD">
     <div class="bg_title_mod">
-        Truyền hình thực tế</div>
+        Truyền hình internet</div>
     <div class="inner_pos_Mod">
         <div class="video">
             <asp:Repeater ID="rptTV" runat="server">
