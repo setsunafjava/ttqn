@@ -6,7 +6,7 @@
         <div class="title_cate_News">
             <div class="name_F_Right">
                 <%--Tin tiêu điểm--%>
-                <asp:Label ID="lblTitle" runat="server"></asp:Label>
+                <asp:Label ID="lblTitle" Text="Tin tiêu điểm" runat="server"></asp:Label>
             </div>
         </div>
         <div class="content_F_Right">

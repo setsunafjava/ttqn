@@ -20,7 +20,7 @@
     </p>
     <br />
     <asp:Panel ID="pnlAttachment" runat="server">        
-        <asp:Label ID="lblAttachFiles" runat="server"></asp:Label>
+        <asp:Label ID="lblAttachFiles" Text="Tài liệu kèm theo:" runat="server"></asp:Label>
         <asp:Repeater ID="rptAttachment" runat="server">
             <HeaderTemplate>
                 <table>

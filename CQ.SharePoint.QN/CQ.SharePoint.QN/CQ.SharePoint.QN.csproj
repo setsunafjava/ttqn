@@ -545,6 +545,7 @@
     <Content Include="Webparts\NewsList\NewsListUS.ascx">
     </Content>
     <Content Include="Webparts\NextNews\NextNewsUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\NextNews\NextNews.xml" />
     <Content Include="Webparts\OtherNews\OtherNews.xml" />

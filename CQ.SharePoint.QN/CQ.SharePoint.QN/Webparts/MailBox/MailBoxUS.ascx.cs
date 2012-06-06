@@ -23,7 +23,7 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 //Set language
                 //if language is Vietnamese
-                lblMailBox.Text = "Hộp thư công vụ";
+                //lblMailBox.Text = "Hộp thư công vụ";
             }
         }
     }

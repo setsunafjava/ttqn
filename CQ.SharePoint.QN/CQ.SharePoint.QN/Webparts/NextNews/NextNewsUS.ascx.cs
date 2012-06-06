@@ -27,9 +27,9 @@ namespace CQ.SharePoint.QN.Webparts
                 {
                     //Set language
                     //if language is VietNamese
-                    lblDay.Text = "Ngày";
-                    lblMonth.Text = "Tháng";
-                    lblYear.Text = "Năm";
+                    //lblDay.Text = "Ngày";
+                    //lblMonth.Text = "Tháng";
+                    //lblYear.Text = "Năm";
 
                     var nextNews = Request.QueryString["NextNews"];
 

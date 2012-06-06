@@ -26,7 +26,7 @@ namespace CQ.SharePoint.QN.Webparts
                 {
                     //Set language
                     //if language is Vietnamese
-                    lblMostViewNews.Text = "Bài đọc nhiều nhất";
+                    //lblMostViewNews.Text = "Bài đọc nhiều nhất";
 
                     var newsId = Request.QueryString[Constants.NewsId];
                     var categoryId = Request.QueryString["CategoryId"];
