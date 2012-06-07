@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.WebControls;
 using CQ.SharePoint.QN.Common;
@@ -55,21 +56,38 @@ namespace CQ.SharePoint.QN.Webparts
                 {
                     string Url = "http://www.vietcombank.com.vn/ExchangeRates/ExrateXML.aspx";
                     DataSet ds = new DataSet();
-
+					string currencyString = "USD SGD JPY EUR RUB";
                     ds.ReadXml(Url);
 
                     if (ds.Tables.Count > 0)
                     {
 
                         DataTable dt = new DataTable();
-
+                        DataTable result = new DataTable("Result");
+                        result.Columns.Add(new DataColumn("CurrencyCode"));
+                        result.Columns.Add(new DataColumn("Transfer"));
+                        result.Columns.Add(new DataColumn("Sell"));
+                        DataRow row;
                         dt = ds.Tables["Exrate"];
 
-                        rptTiGia.DataSource = dt;
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            if (currencyString.Contains(Convert.ToString(dr["CurrencyCode"])))
+                            {
+                                row = result.NewRow();
+                                row["CurrencyCode"] = Convert.ToString(dr["CurrencyCode"]);
+                                row["Transfer"] = Convert.ToString(dr["Transfer"]);
+                                row["Sell"] = Convert.ToString(dr["Sell"]);
 
+                                result.Rows.Add(row);
+
+                            }
+                        }
+
+                        rptTiGia.DataSource = result;
                         rptTiGia.DataBind();
-
                     }
+
                 }
                 catch (Exception)
                 {
@@ -154,3 +172,4 @@ namespace CQ.SharePoint.QN.Webparts
         }
     }
 }
+
