@@ -156,7 +156,7 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 imgMainImage.ImageUrl = string.Empty;
             }
-            lblShortContent.Text = Convert.ToString(row[FieldsName.NewsRecord.English.ShortDescription]);
+            lblShortContent.Text = Convert.ToString(row[FieldsName.NewsRecord.English.ShortContent]);
         }
 
         /// <summary>

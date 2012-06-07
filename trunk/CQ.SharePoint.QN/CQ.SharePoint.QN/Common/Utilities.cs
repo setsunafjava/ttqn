@@ -1062,7 +1062,7 @@ namespace CQ.SharePoint.QN.Common
                 {
                     feedWriter.WriteStartElement("item");
                     feedWriter.WriteElementString("title", Convert.ToString(row["Title"]));
-                    feedWriter.WriteElementString("description", Convert.ToString(row[FieldsName.NewsRecord.English.ShortDescription]));
+                    feedWriter.WriteElementString("description", Convert.ToString(row[FieldsName.NewsRecord.English.ShortContent]));
                     feedWriter.WriteElementString("link", string.Format("{0}/{1}.aspx?NewsId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Convert.ToString(row["ID"])));
                     feedWriter.WriteElementString("pubDate", Convert.ToString(row["Modified"]));
                     feedWriter.WriteEndElement();

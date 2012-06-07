@@ -11,8 +11,8 @@
                     </HeaderTemplate>
                     <ItemTemplate>
                         <li><a href='<%= NewsUrl%><%#Eval("ID") %>'>
-                            <img src='<%#Eval("Thumbnail") %>' alt='<%#Eval("Title")%>' title='<%#Eval("Title")%>' style="width: 400px;
-                                height: 330px" /></a><%#Eval("ShortDescription")%></li>
+                            <img src='<%#Eval("Thumbnail") %>' alt='<%#Eval("Title")%>' title='<b><%#Eval("Title")%></b>'
+                                style="width: 400px; height: 330px" /></a><%#Eval("ShortContent")%></li>
                     </ItemTemplate>
                     <FooterTemplate>
                         </ul>
@@ -27,7 +27,6 @@
             </div>
         </div>
     </div>
-    
 </div>
 <div class="tab_content_News">
     <div class="info_tab_content">
@@ -71,7 +70,7 @@
                     <ItemTemplate>
                         <li><a href='<%= NewsUrl%><%#Eval("ID") %>'>
                             <%#Eval("ShortContent")%></a><span style="color: #003399">(
-                                <asp:Label ID="lblDay2" Text="Ngày" runat="server"></asp:Label>
+                                <asp:Label ID="lblDay2" Text="Ngày" ForeColor="#003399" runat="server"></asp:Label>
                                 <%#Eval("Created")%>)</span></li>
                     </ItemTemplate>
                     <FooterTemplate>
@@ -105,7 +104,6 @@
 <div class="cleaner">
 </div>
 
-<script type="text/javascript" src="/sites/demo/QNResources/wowslider.js"></script>
-
-<script type="text/javascript" src="/sites/demo/QNResources/javascript.js"></script>
+<script type="text/javascript" src="/QNResources/wowslider.js"></script>
+<script type="text/javascript" src="/QNResources/javascript.js"></script>
 
