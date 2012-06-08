@@ -15,7 +15,6 @@ namespace CQ.SharePoint.QN
         {
             CreateNewsCategoryList(web);
             CreateNewsRecordsList(web);
-            CreateSupportUserList(web);
             //CreateCompanyCategoryList(web);
             //CreateCompanyRecordList(web);
             CreateMenuList(web);
@@ -111,37 +110,6 @@ namespace CQ.SharePoint.QN
 
             title.Update();
 
-            list.EnableAttachments = true;
-
-            list.Update();
-        }
-        public static void CreateSupportUserList(SPWeb web)
-        {
-            var helper = new ListHelper(web)
-            {
-                Title = ListsName.VietNamese.SupportUser,
-                Name = ListsName.English.SupportUser,
-                OnQuickLaunch = true
-            };
-
-            //helper.AddField(new SingleLineTextFieldCreator(FieldsName.SupportUser.English.UserName, FieldsName.SupportUser.English.UserName));
-
-            helper.AddField(new SingleLineTextFieldCreator(FieldsName.SupportUser.English.Phone, FieldsName.SupportUser.VietNamese.Phone));
-
-            helper.AddField(new SingleLineTextFieldCreator(FieldsName.SupportUser.English.TelePhone, FieldsName.SupportUser.VietNamese.TelePhone));
-
-            helper.AddField(new NumberFieldCreator(FieldsName.SupportUser.English.NickType, FieldsName.SupportUser.VietNamese.NickType));
-
-            helper.AddField(new SingleLineTextFieldCreator(FieldsName.SupportUser.English.NickName, FieldsName.SupportUser.VietNamese.NickName));
-
-            helper.AddField(new SingleLineTextFieldCreator(FieldsName.SupportUser.English.Email, FieldsName.SupportUser.VietNamese.Email));
-
-            helper.AddField(new BooleanFieldCreator(FieldsName.NewsCategory.English.Status, FieldsName.NewsCategory.VietNamese.Status));
-
-            SPList list = helper.Apply();
-            var title = list.Fields.GetFieldByInternalName(FieldsName.Title);
-            title.Title = FieldsName.SupportUser.English.UserName;
-            title.Update();
             list.EnableAttachments = true;
 
             list.Update();
