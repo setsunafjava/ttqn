@@ -8,18 +8,47 @@
         </div>
     </div>
     <div>
-        <div class="time_up">
-            <asp:Label ID="lblCurrentDate" runat="server" />
-            <span><a href="#">
-                <img src="images/icon_adobereader.jpg" /></a> | <a href="#">
-                    <img src="images/icon_print.jpg" /></a> | <a href="#">
-                        <img src="images/ico_email.jpg" /></a></span></div>
+        <table width="100%">
+            <tr>
+                <td align="left">
+                    <table>
+                        <tr>
+                            <td>
+                                <a>
+                                    <img src="images/icon_date.jpg" /></a>
+                            </td>
+                            <td>
+                                <asp:Label ID="lblCurrentDate" runat="server" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td align="right">
+                    <table>
+                        <tr>
+                            <td>
+                                <a href="#">
+                                    <img src="images/icon_adobereader.jpg" /></a>
+                            </td>
+                            <td>
+                                <a href="#">
+                                    <img src="images/icon_print.jpg" /></a>
+                            </td>
+                            <td>
+                                <a href="#">
+                                    <img src="images/ico_email.jpg" /></a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
     </div>
     <p>
         <asp:Literal ID="ltrNewsContent" runat="server"></asp:Literal>
     </p>
     <br />
-    <asp:Panel ID="pnlAttachment" runat="server">        
+    <asp:Panel ID="pnlAttachment" runat="server">
         <asp:Label ID="lblAttachFiles" Text="Tài liệu kèm theo:" runat="server"></asp:Label>
         <asp:Repeater ID="rptAttachment" runat="server">
             <HeaderTemplate>
