@@ -23,7 +23,8 @@
                     </FooterTemplate>
                 </asp:Repeater>
                 <div class="read_more">
-                    <a href='<%= CategoryUrl%><%=WebpartParent.CompanyId %>'>&raquo; <asp:Label ID="lblSeeMore" runat="server"></asp:Label></a></div>
+                    <a href='<%= CategoryUrl%><%=WebpartParent.CompanyId %>'>&raquo;
+                        <asp:Label ID="lblSeeMore" Text="Xem thêm" runat="server"></asp:Label></a></div>
             </div>
         </div>
     </div>
