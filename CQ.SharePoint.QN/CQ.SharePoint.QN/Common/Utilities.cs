@@ -1028,17 +1028,54 @@ namespace CQ.SharePoint.QN.Common
 
                     }
                 });
-                GetRSS(table);
+                GetRSS(table, "Trung tâm công nghệ thông tin tỉnh Quảng Ninh", SPContext.Current.Web.Url, "Trung tâm công nghệ thông tin tỉnh Quảng Ninh");
             }
             else
             {
                 DataTable dtNews = null;
                 GetNewsByCatID(catID, ref dtNews);
-                GetRSS(dtNews);
+                var rssTitle = "Trung tâm công nghệ thông tin tỉnh Quảng Ninh";
+                var rssDesc = "Trung tâm công nghệ thông tin tỉnh Quảng Ninh";
+                var rssUrl = SPContext.Current.Web.Url;
+                try
+                {
+                    SPSecurity.RunWithElevatedPrivileges(() =>
+                    {
+                        using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                        {
+                            using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                            {
+                                try
+                                {
+                                    string listUrl = web.Url + "/Lists/" + ListsName.English.NewsCategory;
+                                    var list = web.GetList(listUrl);
+                                    if (list != null)
+                                    {
+                                        var catItem = list.GetItemById(Convert.ToInt32(catID));
+                                        rssTitle = catItem.Title;
+                                        rssDesc = "Trung tâm công nghệ thông tin tỉnh Quảng Ninh - " + catItem.Title +
+                                                  " - RSS Feed";
+                                        rssUrl = string.Format("{0}/{1}.aspx?CategoryId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage, catID);
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    Utilities.LogToUls(ex);
+                                }
+                            }
+
+                        }
+                    });
+                }
+                catch (Exception)
+                {
+
+                }
+                GetRSS(dtNews, rssTitle, rssUrl, rssDesc);
             }
         }
 
-        public static void GetRSS(DataTable dtNews)
+        public static void GetRSS(DataTable dtNews, string rssTitle, string rssUrl, string rssDesc)
         {
             if (dtNews != null && dtNews.Rows.Count > 0)
             {
@@ -1054,9 +1091,9 @@ namespace CQ.SharePoint.QN.Common
                 feedWriter.WriteAttributeString("version", "2.0");
 
                 feedWriter.WriteStartElement("channel");
-                feedWriter.WriteElementString("title", "Trung tâm công nghệ thông tin tỉnh Quảng Ninh");
-                feedWriter.WriteElementString("link", SPContext.Current.Web.Url);
-                feedWriter.WriteElementString("description", "Trung tâm công nghệ thông tin tỉnh Quảng Ninh");
+                feedWriter.WriteElementString("title", rssTitle);
+                feedWriter.WriteElementString("link", rssUrl);
+                feedWriter.WriteElementString("description", rssDesc);
                 feedWriter.WriteElementString("copyright", "Copyright 2012 Trung tâm thông tin công nghệ Quảng Ninh. All rights reserved.");
                 foreach (DataRow row in dtNews.Rows)
                 {
@@ -1073,6 +1110,10 @@ namespace CQ.SharePoint.QN.Common
                 feedWriter.WriteEndDocument();
                 feedWriter.Flush();
                 feedWriter.Close();
+
+                HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.UTF8;
+                HttpContext.Current.Response.ContentType = "text/xml";
+                HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.Public);
 
                 HttpContext.Current.Response.End();
             }
@@ -1113,6 +1154,52 @@ namespace CQ.SharePoint.QN.Common
                 }
             });
             return result;
+        }
+
+        public static DataTable SearchNews(string keyWord)
+        {
+            string camlQuery = string.Empty;
+            if (!string.IsNullOrEmpty(keyWord))
+            {
+                keyWord = HttpContext.Current.Server.UrlDecode(keyWord);
+                keyWord = SPEncode.HtmlEncode(keyWord);
+                camlQuery =
+                string.Format(
+                    "<Where><Or><Contains><FieldRef Name='{0}' /><Value Type='Text'>{1}</Value></Contains><Or><Contains><FieldRef Name='{2}' /><Value Type='Note'>{1}</Value></Contains><Contains><FieldRef Name='{3}' /><Value Type='Note'>{1}</Value></Contains></Or></Or></Where>",
+                    "Title", keyWord, FieldsName.NewsRecord.English.ShortContent, FieldsName.NewsRecord.English.Content);
+            }
+            
+            var query = new SPQuery();
+            query.Query = camlQuery;
+            DataTable table = null;
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            string listUrl = web.Url + "/Lists/" + ListsName.English.NewsRecord;
+                            var list = web.GetList(listUrl);
+                            if (list != null)
+                            {
+                                var items = list.GetItems(query);
+                                if (items != null && items.Count > 0)
+                                {
+                                    table = items.GetDataTable();
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Utilities.LogToUls(ex);
+                        }
+                    }
+
+                }
+            });
+            return table;
         }
     }
 }

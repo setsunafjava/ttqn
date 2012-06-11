@@ -56,8 +56,8 @@ namespace CQ.SharePoint.QN.Webparts
                                             videoStr +=
                                                 @"{
                                                     'file': '" + SPContext.Current.Web.Url + "/" + item.Url +
-                                                //@"', 
-                                                    //'image': '" + web.Url + "/" + ListsName.English.CQQNResources + "/images.jpg" +
+                                                @"', 
+                                                    'image': '" + web.Url + "/" + ListsName.English.CQQNResources + "/images.jpg" +
                                                 @"',
                                                     'title': '" + item.Title + @"'
                                                 },";

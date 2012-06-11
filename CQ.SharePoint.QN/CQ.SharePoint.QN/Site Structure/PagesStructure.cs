@@ -370,7 +370,7 @@ namespace CQ.SharePoint.QN
             }
         }
 
-        private static void AddCustomWebpart(string webPartName, string pageName, string title, SPWeb web, string zoneId, int zoneIndex)
+        public static void AddCustomWebpart(string webPartName, string pageName, string title, SPWeb web, string zoneId, int zoneIndex)
         {
             var webPart = WebPartHelper.GetWebPart(web, webPartName);
             if (string.IsNullOrEmpty(webPart.Title))
@@ -390,12 +390,12 @@ namespace CQ.SharePoint.QN
             WebPageHelper.CreateDetailWebPage(web, string.Format(CultureInfo.InvariantCulture, "{0}.aspx", pageName), false);
         }
 
-        private static void CreateSubPage(SPWeb web, string pageName)
+        public static void CreateSubPage(SPWeb web, string pageName)
         {
             WebPageHelper.CreateSubWebPage(web, string.Format(CultureInfo.InvariantCulture, "{0}.aspx", pageName), false);
         }
 
-        private static void CreateBlankPage(SPWeb web, string pageName)
+        public static void CreateBlankPage(SPWeb web, string pageName)
         {
             WebPageHelper.CreateBlankWebPage(web, string.Format(CultureInfo.InvariantCulture, "{0}.aspx", pageName), false);
         }

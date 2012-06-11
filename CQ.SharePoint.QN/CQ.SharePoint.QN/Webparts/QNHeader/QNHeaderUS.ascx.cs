@@ -15,6 +15,10 @@ namespace CQ.SharePoint.QN.Webparts
     public partial class QNHeaderUS : UserControl
     {
         protected string CurrentStyle = string.Empty;
+        protected string CategoryId = string.Empty;
+        protected string LangUrl = "en";
+        protected string LangTitle = "English";
+        protected string LangImg = "en-lang.png";
         /// <summary>
         /// Page on Load
         /// </summary>
@@ -22,6 +26,13 @@ namespace CQ.SharePoint.QN.Webparts
         /// <param name="e">EventArgs e</param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (SPContext.Current.Web.Url.Contains("/en"))
+            {
+                LangUrl = "";
+                LangImg = "vn-lang.png";
+                LangTitle = "VietNam";
+            }
+            CategoryId = Convert.ToString(Request.QueryString["CategoryId"]);
             var currentUrl = HttpContext.Current.Request.Url.AbsolutePath;
             if (!currentUrl.Contains(".aspx") || currentUrl.Contains("default.aspx"))
             {
@@ -40,6 +51,10 @@ namespace CQ.SharePoint.QN.Webparts
                 {
                 }
             }
+
+            var tkStr =
+                "$(document).ready(function() {ganValue('" + Request.QueryString["KeyWord"] + "')});";
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "tkStr-script", tkStr, true);
         }
 
         /// <summary>
@@ -166,8 +181,8 @@ namespace CQ.SharePoint.QN.Webparts
 
         protected void lbRSS_OnClick(object sender, EventArgs e)
         {
-            var categoryId = Convert.ToString(Request.QueryString["CategoryId"]);
-            Utilities.GetRSS(categoryId);
+            //var categoryId = Convert.ToString(Request.QueryString["CategoryId"]);
+            //Utilities.GetRSS(categoryId);
         }
     }
 }

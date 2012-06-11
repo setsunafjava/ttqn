@@ -21,6 +21,9 @@ namespace CQ.SharePoint.QN.Common
             public const string ShowGalleryPage = "ShowGallery";
             public const string ShowVideoPage = "ShowVideo";
             public const string Contact = "Contact";
+            public const string TimKiem = "TimKiem";
+            public const string AllRSS = "AllRSS";
+            public const string RSS = "RSS";
         }
 
         public class ErrorMessage
