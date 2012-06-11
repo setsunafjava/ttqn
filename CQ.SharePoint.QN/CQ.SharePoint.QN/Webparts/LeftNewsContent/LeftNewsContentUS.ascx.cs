@@ -36,14 +36,7 @@ namespace CQ.SharePoint.QN.Webparts
 
                     NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId);
 
-                    if (!string.IsNullOrEmpty(WebpartParent.GroupName))
-                    {
-                        lbRSS.Text = WebpartParent.GroupName;
-                    }
-                    else
-                    {
-                        lbRSS.Text = "&nbsp;";
-                    }
+                  
                     string newsGroupQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.CategoryName, SPHttpUtility.HtmlEncode(WebpartParent.GroupName));
                     var newsGroups = Utilities.GetNewsRecords(newsGroupQuery, Convert.ToUInt16(WebpartParent.NumberOfNews), ListsName.English.NewsRecord);
                     if (newsGroups != null && newsGroups.Rows.Count > 0)
