@@ -443,10 +443,12 @@
     <Content Include="Resources\Images\images.jpg" />
     <Content Include="Resources\Images\Index_02.gif" />
     <Content Include="Resources\Images\info_rate.jpg" />
+    <Content Include="Resources\Images\leftarrow.png" />
     <Content Include="Resources\Images\logo.jpg" />
     <Content Include="Resources\Images\News_post.jpg" />
     <Content Include="Resources\Images\qc_raovat.jpg" />
     <Content Include="Resources\Images\qtv.jpg" />
+    <Content Include="Resources\Images\rightarrow.png" />
     <Content Include="Resources\Images\shade.gif" />
     <Content Include="Resources\Images\shadeactive.gif" />
     <Content Include="Resources\Images\star_icon.jpg" />
@@ -468,6 +470,7 @@
     <Content Include="Resources\Javascript\jwplayer.js" />
     <Content Include="Resources\Javascript\player.swf" />
     <Content Include="Resources\Javascript\javascript.js" />
+    <Content Include="Resources\Javascript\slider.js" />
     <Content Include="Resources\Javascript\tabcontent.js" />
     <Content Include="Resources\Javascript\wowslider.js" />
     <Content Include="Resources\Module.xml" />
