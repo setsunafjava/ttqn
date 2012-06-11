@@ -520,7 +520,6 @@
     </Content>
     <Content Include="Webparts\LeftNewsContent\LeftNewsContent.xml" />
     <Content Include="Webparts\LeftNewsContent\LeftNewsContentUS.ascx">
-      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\MailBox\MailBox.xml" />
     <Content Include="Webparts\MailBox\MailBoxUS.ascx">
