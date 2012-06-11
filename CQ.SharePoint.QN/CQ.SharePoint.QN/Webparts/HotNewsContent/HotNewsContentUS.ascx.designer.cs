@@ -30,5 +30,6 @@ namespace CQ.SharePoint.QN.Webparts
         protected global::System.Web.UI.WebControls.Label lblLatestNews;
         protected global::System.Web.UI.WebControls.Label lblReadMost;
         protected global::System.Web.UI.WebControls.Label lblNewsLatestSend;
+        protected global::System.Web.UI.WebControls.Repeater rptThreeItem;
     }
 }

@@ -27,6 +27,20 @@
             </div>
         </div>
     </div>
+    <div>
+        <asp:Repeater ID="rptThreeItem" runat="server">
+            <HeaderTemplate>
+                <ul>
+            </HeaderTemplate>
+            <ItemTemplate>
+                <li><a href='<%= NewsUrl%><%#Eval("ID") %>'>
+                    <%#Eval("Title")%></a></li>
+            </ItemTemplate>
+            <FooterTemplate>
+                </ul>
+            </FooterTemplate>
+        </asp:Repeater>
+    </div>
 </div>
 <div class="tab_content_News">
     <div class="info_tab_content">
@@ -105,5 +119,6 @@
 </div>
 
 <script type="text/javascript" src="/QNResources/wowslider.js"></script>
+
 <script type="text/javascript" src="/QNResources/javascript.js"></script>
 
