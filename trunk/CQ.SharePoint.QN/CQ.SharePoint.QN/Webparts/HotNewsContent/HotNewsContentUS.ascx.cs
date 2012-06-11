@@ -83,6 +83,33 @@ namespace CQ.SharePoint.QN.Webparts
                         rptImages.DataBind();
                     }
 
+                    #region # tin tuc phia duoi
+                    string threeeItemsBellow = string.Format(@"<Where>
+                                                              <And>
+                                                                 <Eq>
+                                                                    <FieldRef Name='{0}' />
+                                                                    <Value Type='Boolean'>1</Value>
+                                                                 </Eq>
+                                                                 <Neq>
+                                                                    <FieldRef Name='{1}' />
+                                                                    <Value Type='Boolean'>1</Value>
+                                                                 </Neq>
+                                                              </And>
+                                                           </Where>
+                                                           <OrderBy>
+                                                              <FieldRef Name='Created' Ascending='False' />
+                                                           </OrderBy>", FieldsName.NewsRecord.English.ShowInHomePage,
+                                                                      FieldsName.NewsRecord.English.Status);
+                    var threeItemsTable = Utilities.GetNewsRecords(threeeItemsBellow, 6, ListsName.English.NewsRecord);
+                    if (threeItemsTable != null && threeItemsTable.Rows.Count > 0)
+                    {
+                        rptThreeItem.DataSource = GetItemFromThreePosition(threeItemsTable);
+                        rptThreeItem.DataBind();
+                    }
+                    #endregion
+
+
+
                     if ("0".Equals(WebPartParent.WebpartName))
                     {
                         rptTopViews.Visible = false;
@@ -143,20 +170,43 @@ namespace CQ.SharePoint.QN.Webparts
             }
         }
 
-
-        public void BinDataToMainScreen(DataRow row)
+        /// <summary>
+        /// Ham nay se get tiep ra 3 item de bind vao phia duoi tin chinh
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GetItemFromThreePosition(DataTable dataTable)
         {
-            Linktoitem = string.Format("{0}/{1}.aspx?NewsId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Convert.ToString(row[FieldsName.Id]));
-            string imagePath = Convert.ToString(row[FieldsName.NewsRecord.English.ThumbnailImage]);
-            if (!string.IsNullOrEmpty(imagePath))
+            DataTable dataTableTemp = new DataTable("TableTemp");
+            dataTableTemp.Columns.Add(FieldsName.Title);
+            dataTableTemp.Columns.Add(FieldsName.Id);
+
+
+            if (dataTable != null && dataTable.Rows.Count > 3)
             {
-                imgMainImage.ImageUrl = imagePath.Trim().Substring(0, imagePath.Length - 2);
+                if (dataTable.Rows.Count >= 6)
+                {
+                    for (int i = 3; i < 6; i++)
+                    {
+                        DataRow newRow = dataTableTemp.NewRow();
+                        newRow[FieldsName.Title] = Convert.ToString(dataTable.Rows[i][FieldsName.Title]);
+                        newRow[FieldsName.Id] = dataTable.Rows[i][FieldsName.Id];
+
+                        dataTableTemp.Rows.Add(newRow);
+                    }
+                }
+                else
+                {
+                    for (int i = 3; i < dataTable.Rows.Count; i++)
+                    {
+                        DataRow newRow = dataTableTemp.NewRow();
+                        newRow[FieldsName.Title] = Convert.ToString(dataTable.Rows[i][FieldsName.Title]);
+                        newRow[FieldsName.Id] = dataTable.Rows[i][FieldsName.Id];
+                        
+                        dataTableTemp.Rows.Add(newRow);
+                    }
+                }
             }
-            else
-            {
-                imgMainImage.ImageUrl = string.Empty;
-            }
-            lblShortContent.Text = Convert.ToString(row[FieldsName.NewsRecord.English.ShortContent]);
+            return dataTableTemp;
         }
 
         /// <summary>

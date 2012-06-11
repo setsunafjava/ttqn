@@ -36,7 +36,7 @@ namespace CQ.SharePoint.QN.Webparts
                     {
                         string newsQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Counter'>{1}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where>", FieldsName.Id, newsId);
                         var newsItem = Utilities.GetNewsRecords(newsQuery, 1, ListsName.English.NewsRecord);
-                        if (newsItem != null)
+                        if (newsItem != null && newsItem.Rows.Count>0)
                         {
                             string categoryName = Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.CategoryName]);
                             ltrNewsContent.Text = Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.Content]);
