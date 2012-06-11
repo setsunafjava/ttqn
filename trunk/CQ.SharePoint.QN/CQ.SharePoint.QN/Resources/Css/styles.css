@@ -1019,3 +1019,94 @@ ul#nav li:hover > ul li a:hover {
 @-moz-keyframes wsBasic{0%{left:-0%} 26.67%{left:-0%} 33.33%{left:-100%} 60%{left:-100%} 66.67%{left:-200%} 93.33%{left:-200%} }
 @-webkit-keyframes wsBasic{0%{left:-0%} 26.67%{left:-0%} 33.33%{left:-100%} 60%{left:-100%} 66.67%{left:-200%} 93.33%{left:-200%} }
 
+
+
+#intro {
+    padding-bottom: 10px;
+}
+
+#slider {
+    position: relative;
+	border-left: 0px solid #D8DADB;
+    border-right: 0px solid #D8DADB;
+    width: 672px;
+}
+#slider h2{font-family: tahoma; font-size: 12px; text-align: center;padding-top: 3px;}
+.scroll {
+	overflow: hidden;
+	width: 600px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.scrollContainer {
+	position: relative;
+}
+
+.scrollContainer div.panel {
+    padding: 10px;
+    width: 140px;
+}
+
+.inside {
+	padding: 10px;
+	/*border: 1px solid #999;*/
+}
+
+.inside img {
+	display: block;
+	/*border: 1px solid #666;
+	margin: 0 0 10px 0;*/
+	width: 140px;
+	/*height: 82px;*/
+}
+
+.inside h2 {
+	font-weight: normal;
+	color: #111;
+	font-size: 16px;
+	margin: 0 0 8px 0;
+}
+
+.inside p {
+	font-size: 11px;
+	color: #ccc;
+}
+
+a {
+	color: #000;
+	text-decoration: none;
+	border-bottom: 1px dotted #ccc;
+}
+
+a:hover {
+	border-bottom: 1px solid #999;
+}
+
+.scrollButtons {
+    position: absolute;
+    top: 80px;
+    cursor: pointer;
+}
+
+.scrollButtons.left {
+    left: 8px;
+}
+
+.scrollButtons.right {
+    right: 8px;
+}
+.hide {
+    display: none;
+}
+/************************************/
+.bg_top{
+	background: url(../images/bg_top_slide_img.jpg) top left no-repeat;
+	width: 674px;
+	height: 6px;
+}
+.bg_bottom{
+	background: url(../images/bg_bottom_slide_img.jpg) bottom left no-repeat;
+	width: 674px;
+	height: 6px;
+}

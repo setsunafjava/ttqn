@@ -4,35 +4,38 @@
 <div class="scroll_slide">
     <div class="bg_top_scroll">
     </div>
-    <div class="inner_scroll_slide">
-        <h3>
-            <a href="/Gallery.aspx">Thư viện ảnh quảng ninh</a></h3>
-        <div>
-            <div class="arrow_left">
-                <a href="#">
-                    <img src="images/arrow_next.jpg" /></a></div>
-            <div class="img_typ_SC" align="center">
-                <asp:Repeater ID="rptImages" runat="server" OnItemDataBound="rptImages_OnItemDataBound">
-                    <HeaderTemplate><marquee width="600px" onmouseout="this.start()" onmouseover="this.stop()"
-                    scrolldelay="50" scrollamount="1" truespeed="true"></HeaderTemplate>
-                    <ItemTemplate>
-                        <div class="img_typ_Album">
-							<div class="img_album"><img runat="server" id="imgLink" title='<%#Eval("Title") %>' /></div>
-							<div class="name_album"><a runat="server" id="aLink"><%#Eval("Title") %></a></div>
-						</div>
-                    </ItemTemplate>
-                    <FooterTemplate></marquee></FooterTemplate>
-                </asp:Repeater>
-                <div class="cleaner">
+    <div class="img_typ_SC" align="center">
+        <asp:Repeater ID="rptImages" runat="server" OnItemDataBound="rptImages_OnItemDataBound">
+            <HeaderTemplate>
+                <div id="slider">
+                    <p style="text-align: center; font-family: tahoma; font-size: 11px; text-transform: uppercase;
+                        font-weight: bold;">
+                        Thư viện ảnh Quản Ninh</p>
+                    <img class="scrollButtons left" src="QNResources/leftarrow.png" />
+                    <div style="overflow: hidden;" class="scroll">
+                        <div class="scrollContainer">
+            </HeaderTemplate>
+            <ItemTemplate>
+                <div class="panel" id="panel_1">
+                    <div class="inside">
+                        <img runat="server" id="imgLink" title='<%#Eval("Title") %>' />
+                        <a runat="server" id="aLink">
+                            <%#Eval("Title") %></a>
+                    </div>
                 </div>
-            </div>
-            <div class="arrow_right">
-                <a href="#">
-                    <img src="images/arrow_back.jpg" /></a></div>
-            <div class="cleaner">
-            </div>
+            </ItemTemplate>
+            <FooterTemplate>
+                </div> </div>
+                <img class="scrollButtons right" src="QNResources/rightarrow.png" />
+                </div>
+            </FooterTemplate>
+        </asp:Repeater>
+        <div class="cleaner">
         </div>
     </div>
-    <div class="bg_bottom_scroll">
+    <div class="cleaner">
+        <div class="bg_bottom_scroll">
+        </div>
     </div>
-</div>
+
+    <script type="text/javascript" src="/QNResources/slider.js"></script>

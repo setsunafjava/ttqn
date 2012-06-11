@@ -11,6 +11,7 @@
 	  <File Path="Resources\Javascript\tabcontent.js" Url="Javascript/tabcontent.js" />
 	  <File Path="Resources\Javascript\jwplayer.js" Url="Javascript/jwplayer.js" />
 	  <File Path="Resources\Javascript\wowslider.js" Url="Javascript/wowslider.js" />
+	  <File Path="Resources\Javascript\slider.js" Url="Javascript/slider.js" />
 	  <File Path="Resources\Javascript\player.swf" Url="Flv/player.swf" />
 	  <File Path="Resources\Images\adv1.jpg" Url="Images/adv1.jpg" />
 	  <File Path="Resources\Images\adv2.jpg" Url="Images/adv2.jpg" />
@@ -79,6 +80,8 @@
 	  <File Path="Resources\Images\VB7.jpg" Url="Images/VB7.jpg" />
 	  <File Path="Resources\Images\video.jpg" Url="Images/video.jpg" />
 	  <File Path="Resources\Images\wheather.jpg" Url="Images/wheather.jpg" />
+	  <File Path="Resources\Images\leftarrow.jpg" Url="Images/leftarrow.jpg" />
+	  <File Path="Resources\Images\rightarrow.jpg" Url="Images/rightarrow.jpg" />
   </Module>
 	<Module Name="MasterPagesModule" Url="_catalogs/masterpage" RootWebOnly="True" Path="">
 		<File Path="Resources\MasterPages\CqHome.master" Url="CqHome.master" IgnoreIfAlreadyExists="TRUE" Type="GhostableInLibrary"></File>
