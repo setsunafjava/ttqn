@@ -543,6 +543,7 @@
     </Content>
     <Content Include="Webparts\NewsList\NewsList.xml" />
     <Content Include="Webparts\NewsList\NewsListUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\NextNews\NextNewsUS.ascx">
       <SubType>ASPXCodeBehind</SubType>

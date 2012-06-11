@@ -2,6 +2,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ShowVideoUS.ascx.cs" Inherits="CQ.SharePoint.QN.Webparts.ShowVideoUS" %>
 <div class="cleaner"></div>
 <div>
-    Gallery
+    <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
+    <asp:Button ID="btnCreate" runat="server" Text="Tạo page" OnClick="btnCreate_OnClick" />
 </div>
 <div class="cleaner"></div>

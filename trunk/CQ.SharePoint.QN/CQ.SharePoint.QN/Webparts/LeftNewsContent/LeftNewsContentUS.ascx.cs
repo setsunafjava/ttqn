@@ -88,7 +88,7 @@ namespace CQ.SharePoint.QN.Webparts
 
         protected void lbRSS_OnClick(object sender, EventArgs e)
         {
-            Utilities.GetRSS(WebpartParent.NewsGroupID);
+            //Utilities.GetRSS(WebpartParent.NewsGroupID);
         }
     }
 }

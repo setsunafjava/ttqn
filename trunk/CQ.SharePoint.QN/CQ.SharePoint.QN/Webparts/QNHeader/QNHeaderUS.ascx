@@ -33,7 +33,15 @@ function setHomepage()
 </script>
 <div id="header">
 	<div class="banner">
-		<img src="images/Index_02.gif" alt="" />
+		<object width="100%" height="130px" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
+			codebase="http://fpdownload.macromedia.com/
+			pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" alt='Trung tâm thông tin công nghệ tỉnh Quảng Ninh' 
+	title='Trung tâm thông tin công nghệ tỉnh Quảng Ninh'>
+			<param name="movie" value="/QNResources/banerNew.swf" />
+			<embed src="/QNResources/banerNew.swf" width="100%" height="130px" alt='Trung tâm thông tin công nghệ tỉnh Quảng Ninh' 
+	title='Trung tâm thông tin công nghệ tỉnh Quảng Ninh'>
+			</embed>
+		</object>
 	</div>
 	<div class="top_menu">
 		<div class="menu">
@@ -55,10 +63,10 @@ function setHomepage()
             </ul>
 		</div>
 		<div class="search">
-			<input type="text" id="txtData" name="q" onkeypress="return BBEnterPress();" style="border: 0px;"> <a href="#">Tìm kiếm</a>
+			<input type="text" id="txtData" name="q" onkeypress="return BBEnterPress();" style="border: 0px;"> <a href="javascript:void(0)" onclick="javascript:timkiem();">Tìm kiếm</a>
 		</div>
 		<div class="language">
-			<span><img src="images/english.jpg" /></span><span><a href="/en">English</a></span>
+			<span><a href="/<%=LangUrl%>"><img src="/QNResources/<%=LangImg%>" /></a></span><span><a href="/<%=LangUrl%>"><%=LangTitle%></a></span>
 		</div>
 		<div class="cleaner"></div>
 				
@@ -68,7 +76,7 @@ function setHomepage()
 		<div class="inner_content_bottom_topMenu">
 			<div class="time_date">Hôm nay, ngày <%=DateTime.Now %></div>
 			<div class="set_hompage"><a href="javascript:void(0)" onclick="javascript:setHomepage();">Đặt làm trang chủ</a></div>
-			<div class="RSS"><asp:LinkButton ID="lbRSS" runat="server" OnClick="lbRSS_OnClick">RSS</asp:LinkButton></div>
+			<div class="RSS"><%--<asp:LinkButton ID="lbRSS" runat="server" OnClick="lbRSS_OnClick">RSS</asp:LinkButton>--%><a href="/RSS.aspx?CategoryId=<%=CategoryId%>" target="_blank">RSS</a></div>
 			<div class="cleaner"></div>
 		</div>
 	</div>
@@ -87,4 +95,80 @@ function setHomepage()
             $(this).removeClass('current-temp').addClass('current');
         });
 	};
+	
+	function urlencode( str ) {
+
+      
+
+      var ret = str;
+
+
+
+      ret = ret.toString();
+
+
+
+      ret = encodeURIComponent(ret);
+
+
+
+      ret = ret.replace(/%20/g, '+');
+
+      
+
+      ret = ret.replace(/%22/g, "");
+
+      ret = ret.replace(/\'/g, "");
+
+      ret = ret.replace(/%2F/g, "");
+
+      ret = ret.replace(/%3C/g, "");
+
+      ret = ret.replace(/%3E/g, "");
+
+      ret = ret.replace(/%3F/g, "");
+
+      ret = ret.replace(/%25/g, "");
+
+      ret = ret.replace(/\*/g, "");
+
+      ret = ret.replace(/%7C/g, "");
+
+
+
+      return ret;
+
+      }
+
+      
+
+    function timkiem()
+
+    {
+
+        var link;
+
+        var tk = document.getElementById("txtData").value;
+
+        if(tk==""){
+
+            link = "TimKiem.aspx?KeyWord=" + urlencode(tk);
+        }
+
+        else{
+
+            link = "TimKiem.aspx?KeyWord=" + urlencode(tk);
+        }
+
+        //alert(link);
+
+        location.href=link;
+
+    }
+    
+    function ganValue(t){
+
+        document.getElementById("txtData").value = t;
+
+    }
 </script>

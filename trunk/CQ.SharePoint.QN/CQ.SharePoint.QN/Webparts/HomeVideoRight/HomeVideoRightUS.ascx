@@ -6,7 +6,7 @@
         <div class="title_cate_News">
             <div class="name_F_Right">
                 <div class="video_R">
-                    <a href="/Video.aspx">Video Clip</a></div>
+                    <a href="javascript:void(0);">Video Clip</a></div>
             </div>
         </div>
         <div class="content_F_Right">

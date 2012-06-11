@@ -11,6 +11,12 @@ namespace CQ.SharePoint.QN.Webparts
 {
     public partial class ShowDownloadUS
     {
-        protected global::System.Web.UI.WebControls.Repeater rptDownload;
+        //protected global::System.Web.UI.WebControls.Repeater rptDownload;
+        protected global::System.Web.UI.WebControls.Repeater rptListCategory;
+        protected global::System.Web.UI.WebControls.Label lblItemNotExist;
+        protected global::System.Web.UI.WebControls.Label lblCurrpage;
+        protected global::System.Web.UI.WebControls.HyperLink lnkPrev;
+        protected global::System.Web.UI.WebControls.HyperLink lnkNext;
+        protected global::System.Web.UI.WebControls.Image imgLogo;
     }
 }
