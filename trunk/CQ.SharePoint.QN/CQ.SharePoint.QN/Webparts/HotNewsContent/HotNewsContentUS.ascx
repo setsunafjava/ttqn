@@ -83,7 +83,7 @@
                     </HeaderTemplate>
                     <ItemTemplate>
                         <li><a href='<%= NewsUrl%><%#Eval("ID") %>'>
-                            <%#Eval("ShortContent")%></a><span style="color: #003399">(
+                            <%#Eval("Title")%></a><span style="color: #003399">(
                                 <asp:Label ID="lblDay2" Text="Ngày" ForeColor="#003399" runat="server"></asp:Label>
                                 <%#Eval("Created")%>)</span></li>
                     </ItemTemplate>
