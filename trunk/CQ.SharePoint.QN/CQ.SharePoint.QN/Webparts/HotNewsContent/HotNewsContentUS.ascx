@@ -102,14 +102,14 @@
 						
             </script>
 
-            <div class="more_info_tabcontent">
+           <%-- <div class="more_info_tabcontent">
                 <div class="arrow_top">
                     <a href="#">
                         <img src="images/arrow_top.jpg" /></a></div>
                 <div class="arrow_bottom">
                     <a href="#">
                         <img src="images/arrow_bottom.jpg" /></a></div>
-            </div>
+            </div>--%>
             <div class="cleaner">
             </div>
         </div>
