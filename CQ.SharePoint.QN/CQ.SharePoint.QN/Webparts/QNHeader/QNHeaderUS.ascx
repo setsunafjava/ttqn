@@ -20,7 +20,7 @@ function setHomepage()
          } 
          catch(e) 
          { 
-    alert("this action was aviod by your browser，if you want to enable，please enter about:config in your address line,and change the value of signed.applets.codebase_principal_support to true");
+    alert("Hành động của bạn không thể thực hiện được trên trình duyệt này, nếu bạn muốn bạn có thể làm theo cách sau:  \r\n- Gõ 'about:config' vào trình duyệt của bạn. \r\n - Sau đó tìm và thiết lập giá trị của 'signed.applets.codebase_principal_support' là true.");
 
          } 
     } 
