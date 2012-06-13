@@ -1,4 +1,4 @@
-﻿<%@ Assembly Name="CQ.SharePoint.QN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5" %>
+ <%@ Assembly Name="CQ.SharePoint.QN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="FooterUS.ascx.cs" Inherits="CQ.SharePoint.QN.Webparts.FooterUS" %>
 <div class="bottom_menu">
     <ul>
@@ -7,7 +7,6 @@
                 <li><a style=" color:White" href='<%#Eval("Url") %>'><%#Eval("Title") %></a></li>
             </ItemTemplate>
         </asp:Repeater>
-        <li><a style=" color:White" href="/_layouts/Authenticate.aspx">Đăng nhập</a></li>
     </ul>
 </div>
 <div class="info_footer">
