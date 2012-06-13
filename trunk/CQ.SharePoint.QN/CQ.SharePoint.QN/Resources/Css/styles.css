@@ -241,25 +241,52 @@ ul#nav .current a, ul#nav li:hover > a  {
 /* THE SUBMENU LIST HIDDEN BY DEFAULT */
 ul#nav  ul {
   display: none;
+  margin-left:50px;
+  margin-left /*\**/:-120px\9;
+  *margin-left:5px;
 }
 
 /* WHEN THE FIRST LEVEL MENU ITEM IS HOVERED, THE CHILD MENU APPEARS */
 ul#nav li:hover > ul {
 	display: block;
-	width: 812px;
+	width: 769px;
 	height: 48px;
 	position: absolute;
-	padding-left: 230px;
+	z-index: 1002;
+	padding-left: 10px;
 	padding-top: 6px;
-	margin-top: 38px;
-	/*margin-left: 50px;*/
-	 /*background: url(../images/bg_sub_top_menu.jpg) top left repeat-x;*/
+	margin-top: 40px;
+	margin-top: 38px\9;
+	 background: url(../images/bg_sub_top_menu.jpg) top left repeat-x;
 	/* border: 1px solid #000;*/
 	/*-moz-border-radius-bottomright: 10px;
 	-webkit-border-bottom-right-radius: 10px;
 	-moz-border-radius-bottomleft: 10px;
 	-webkit-border-bottom-left-radius: 10px; */
-	
+}
+
+ul#nav .current ul {
+	display: block;
+	width: 769px;
+	height: 48px;
+	position: absolute;
+	z-index: 1001;
+	padding-left: 10px;
+	padding-top: 6px;
+	margin-top: 40px;
+	margin-top: 38px\9;
+	margin-left: 1px;
+	margin-left:-609px\9;
+	 background: url(../images/bg_sub_top_menu.jpg) top left repeat-x;
+	/* border: 1px solid #000;*/
+	/*-moz-border-radius-bottomright: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	-webkit-border-bottom-left-radius: 10px; */
+}
+
+ul#nav li.current:hover > ul {
+	margin-left:-120px;
 }
 
 ul#nav li:hover > ul li a {
@@ -275,7 +302,27 @@ ul#nav li:hover > ul li a {
   
 }
 
+ul#nav .current ul li a {
+  float: left;
+  font: bold 1.1em arial,verdana,tahoma,sans-serif;
+ /* line-height: 45px;*/
+  color: #333333;
+  text-decoration: none;
+  /*text-shadow: 1px 1px 1px #110000;*/
+  margin: 0;
+  padding: 0 15px 0 10px;
+  background: url(../images/bg_sub_menu.jpg) left no-repeat; 
+  
+}
+
 ul#nav li:hover > ul li a:hover {
+  color: #FF6600;
+  text-decoration: none;
+  text-shadow: none;
+  
+}
+
+ul#nav .current ul li a:hover {
   color: #FF6600;
   text-decoration: none;
   text-shadow: none;
@@ -1076,10 +1123,6 @@ ul#nav li:hover > ul li a:hover {
 a {
 	color: #000;
 	text-decoration: none;	
-}
-
-a:hover {
-	border-bottom: 1px solid #999;
 }
 
 .scrollButtons {
