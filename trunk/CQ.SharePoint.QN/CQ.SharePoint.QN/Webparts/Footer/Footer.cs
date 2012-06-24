@@ -26,11 +26,27 @@ namespace CQ.SharePoint.QN.Webparts
         [Category("Cấu hình")]
         [WebPartStorage(Storage.Shared)]
         [Personalizable(PersonalizationScope.Shared)]
-        public string ConfigKey
-        {
-            get;
-            set;
-        }
+        public string ConfigKey{get;set;}
+
+        [WebBrowsable(true)]
+        [FriendlyName("Thiết lập ngôn ngữ = 'Số lượt truy cập:'")]
+        [Description("Thiết lập ngôn ngữ = 'Số lượt truy cập:'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Số lượt truy cập")]
+        public string StatisticTitle { get; set; }
+
+
+        [WebBrowsable(true)]
+        [FriendlyName("Thiết lập ngôn ngữ = 'Thiết kế bởi VIETEC'")]
+        [Description("Thiết lập ngôn ngữ = 'Thiết kế bởi VIETEC'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Thiết kế bởi VIETEC")]
+        public string DesignByTitle { get; set; }
+
 
         protected override void CreateChildControls()
         {

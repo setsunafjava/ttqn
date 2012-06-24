@@ -3,7 +3,7 @@
     Inherits="CQ.SharePoint.QN.Webparts.ClassiFiedsUS" %>
 <div class="pos_MOD">
     <div class="bg_title_mod">
-        Quảng cáo rao vặt</div>
+        <%=ParentWebpart.TitleWebpart%></div>
     <div class="inner_pos_Mod">
         <div class="img_adv">
             <img src="images/qc_raovat.jpg" />

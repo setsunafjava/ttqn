@@ -28,6 +28,19 @@ namespace CQ.SharePoint.QN.Webparts
         [Personalizable(PersonalizationScope.Shared)]
         public string NumberOfNews { get; set; }
 
+        [WebBrowsable(true)]
+        [FriendlyName("Thiết lập ngôn ngữ = 'Bài đọc nhiều nhất'")]
+        [Description("Thiết lập ngôn ngữ = 'Bài đọc nhiều nhất'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Đọc nhiều")]
+        public string MostViews
+        {
+            get;
+            set;
+        }
+
         protected override void CreateChildControls()
         {
             try

@@ -13,6 +13,7 @@ namespace CQ.SharePoint.QN.Webparts
     /// </summary>
     public partial class WebLinkUS : UserControl
     {
+        public WebLink ParentWP;
         /// <summary>
         /// Page on Load
         /// </summary>

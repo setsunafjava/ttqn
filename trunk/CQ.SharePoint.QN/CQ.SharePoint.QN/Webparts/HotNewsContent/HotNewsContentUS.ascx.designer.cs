@@ -24,12 +24,8 @@ namespace CQ.SharePoint.QN.Webparts
 
         protected global::System.Web.UI.WebControls.Panel pnlSubPage;
 
-        protected global::System.Web.UI.WebControls.Label lblDay;
-        protected global::System.Web.UI.WebControls.Label lblDay2;
-
-        protected global::System.Web.UI.WebControls.Label lblLatestNews;
-        protected global::System.Web.UI.WebControls.Label lblReadMost;
-        protected global::System.Web.UI.WebControls.Label lblNewsLatestSend;
         protected global::System.Web.UI.WebControls.Repeater rptThreeItem;
+
+        protected global::System.Web.UI.WebControls.Label lblLate;
     }
 }

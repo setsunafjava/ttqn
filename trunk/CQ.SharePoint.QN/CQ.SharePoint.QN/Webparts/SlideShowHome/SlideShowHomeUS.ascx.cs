@@ -15,6 +15,7 @@ namespace CQ.SharePoint.QN.Webparts
     /// </summary>
     public partial class SlideShowHomeUS : UserControl
     {
+        public SlideShowHome ParentWP;
         /// <summary>
         /// Page on Load
         /// </summary>

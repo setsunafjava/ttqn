@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.UI;
@@ -19,6 +20,15 @@ namespace CQ.SharePoint.QN.Webparts
         {
         }
 
+        [WebBrowsable(true)]
+        [FriendlyName("Tiêu đề 'Quảng cáo rao vặt'")]
+        [Description("Tiêu đề 'Quảng cáo rao vặt'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Quảng cáo rao vặt")]
+        public string TitleWebpart { get; set; }
+
         protected override void CreateChildControls()
         {
             base.CreateChildControls();
@@ -26,6 +36,7 @@ namespace CQ.SharePoint.QN.Webparts
             try
             {
                 ClassiFiedsUS control = (ClassiFiedsUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/ClassiFiedsUS.ascx");
+                control.ParentWebpart = this;
                 Controls.Add(control);
             }
             catch (Exception ex)

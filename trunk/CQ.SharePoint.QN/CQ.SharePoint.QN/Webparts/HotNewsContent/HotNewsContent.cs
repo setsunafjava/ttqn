@@ -27,6 +27,58 @@ namespace CQ.SharePoint.QN.Webparts
             set;
         }
 
+        [WebBrowsable(true)]
+        [FriendlyName("Thiết lập ngôn ngữ = 'Tin mới'")]
+        [Description("Thiết lập ngôn ngữ = 'Tin mới'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Tin mới")]
+        public string LatestNews
+        {
+            get;
+            set;
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Thiết lập ngôn ngữ = 'Đọc nhiều'")]
+        [Description("Thiết lập ngôn ngữ = 'Đọc nhiều'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Đọc nhiều")]
+        public string MostViews
+        {
+            get;
+            set;
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Thiết lập ngôn ngữ = 'Ngày'")]
+        [Description("Thiết lập ngôn ngữ = 'Ngày'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Ngày")]
+        public string Day
+        {
+            get;
+            set;
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Thiết lập ngôn ngữ = 'Tin mới nhận'")]
+        [Description("Thiết lập ngôn ngữ = 'Tin mới nhận'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Tin mới nhận")]
+        public string LatestRecieved
+        {
+            get;
+            set;
+        }
+
         protected override void CreateChildControls()
         {
             base.CreateChildControls();

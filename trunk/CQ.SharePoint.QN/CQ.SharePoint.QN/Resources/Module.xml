@@ -80,8 +80,8 @@
 	  <File Path="Resources\Images\VB7.jpg" Url="Images/VB7.jpg" />
 	  <File Path="Resources\Images\video.jpg" Url="Images/video.jpg" />
 	  <File Path="Resources\Images\wheather.jpg" Url="Images/wheather.jpg" />
-	  <File Path="Resources\Images\leftarrow.jpg" Url="Images/leftarrow.jpg" />
-	  <File Path="Resources\Images\rightarrow.jpg" Url="Images/rightarrow.jpg" />
+	  <File Path="Resources\Images\leftarrow.png" Url="Images/leftarrow.png" />
+	  <File Path="Resources\Images\rightarrow.png" Url="Images/rightarrow.png" />
   </Module>
 	<Module Name="MasterPagesModule" Url="_catalogs/masterpage" RootWebOnly="True" Path="">
 		<File Path="Resources\MasterPages\CqHome.master" Url="CqHome.master" IgnoreIfAlreadyExists="TRUE" Type="GhostableInLibrary"></File>

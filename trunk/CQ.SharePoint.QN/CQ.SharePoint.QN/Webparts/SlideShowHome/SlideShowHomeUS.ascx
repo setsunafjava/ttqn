@@ -10,7 +10,7 @@
                 <div id="slider">
                     <p style="text-align: center; font-family: tahoma; font-size: 11px; text-transform: uppercase;
                         font-weight: bold;">
-                        Thư viện ảnh Quản Ninh</p>
+                        <%= ParentWP.SlideShowHomeTitle %></p>
                     <img class="scrollButtons left" src="QNResources/leftarrow.png" />
                     <div style="overflow: hidden;" class="scroll">
                         <div class="scrollContainer">

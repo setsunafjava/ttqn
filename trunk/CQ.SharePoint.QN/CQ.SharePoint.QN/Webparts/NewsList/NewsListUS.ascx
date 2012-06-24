@@ -13,8 +13,7 @@
             <div class="cont_artical">
                 <div class="name_artical">
                     <a href='<%= NewsUrl%><%#Eval("ID") %>'>
-                        <%#Eval("Title")%></a> <span class="time_update">(ngày
-                            <%#Eval("Modified")%>)</span></div>
+                        <%#Eval("Title")%></a> <span class="time_update">(<%= ParentWP.Day %> <%#Eval("Modified")%>)</span></div>
                 <div class="interpre">
                     <div class="img_thumb">
                         <%--<img src="images/logo.jpg" />--%>

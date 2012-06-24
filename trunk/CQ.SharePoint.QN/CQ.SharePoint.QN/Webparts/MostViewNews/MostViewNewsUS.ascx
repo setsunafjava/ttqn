@@ -2,9 +2,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MostViewNewsUS.ascx.cs"
     Inherits="CQ.SharePoint.QN.Webparts.MostViewNewsUS" %>
 <div class="pos_MOD">
-    <div class="bg_title_mod">
-        
-        <asp:Label ID="lblMostViewNews" Text="Bài đọc nhiều nhất" runat="server"></asp:Label>
+    <div class="bg_title_mod"><%= WebpartParent.MostViews %>
     </div>
     <div class="inner_pos_Mod">
         <div class="inner_news_Readmore">           
@@ -14,7 +12,7 @@
                 </HeaderTemplate>
                 <ItemTemplate>
                     <li><a href='<%= NewsUrl%><%#Eval("ID") %>'>
-                        <%#Eval("ShortContent")%></a></li>
+                        <%#Eval("Title")%></a></li>
                 </ItemTemplate>
                 <FooterTemplate>
                     </ul>

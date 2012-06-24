@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.UI;
@@ -19,6 +20,16 @@ namespace CQ.SharePoint.QN.Webparts
         {
         }
 
+        [WebBrowsable(true)]
+        [FriendlyName("Thiết lập ngôn ngữ = 'Liên kết website'")]
+        [Description("Thiết lập ngôn ngữ = 'Liên kết website'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Liên kết website")]
+        public string LinkToWebsite { get; set; }
+
+
         protected override void CreateChildControls()
         {
             base.CreateChildControls();
@@ -26,6 +37,7 @@ namespace CQ.SharePoint.QN.Webparts
             try
             {
                 WebLinkUS control = (WebLinkUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/WebLinkUS.ascx");
+                control.ParentWP = this;
                 Controls.Add(control);
             }
             catch (Exception ex)

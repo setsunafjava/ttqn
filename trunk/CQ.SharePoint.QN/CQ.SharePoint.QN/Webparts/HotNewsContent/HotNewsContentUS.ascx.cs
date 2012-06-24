@@ -28,14 +28,6 @@ namespace CQ.SharePoint.QN.Webparts
                 try
                 {
                     //Set language
-                    //if language is VietNamese
-                    //lblDay.Text = "Ngày";
-                    //lblDay2.Text = "Ngày";
-                    lblLatestNews.Text = "Tin mới";
-                    lblReadMost.Text = "Đọc nhiều";
-                    lblNewsLatestSend.Text = "Tin mới nhận";
-
-                    //Bind data to latest news
                     NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
                     string latestNewsQuery = string.Empty;
 
@@ -201,7 +193,7 @@ namespace CQ.SharePoint.QN.Webparts
                         DataRow newRow = dataTableTemp.NewRow();
                         newRow[FieldsName.Title] = Convert.ToString(dataTable.Rows[i][FieldsName.Title]);
                         newRow[FieldsName.Id] = dataTable.Rows[i][FieldsName.Id];
-                        
+
                         dataTableTemp.Rows.Add(newRow);
                     }
                 }

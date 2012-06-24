@@ -44,6 +44,15 @@ namespace CQ.SharePoint.QN.Webparts
         [Personalizable(PersonalizationScope.Shared)]
         public string CompanyId { get; set; }
 
+        [WebBrowsable(true)]
+        [FriendlyName("Tiêu đề 'Xem thêm'")]
+        [Description("Tiêu đề 'Xem thêm'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Xem thêm")]
+        public string ReadMore { get; set; }
+
         protected override void CreateChildControls()
         {
             base.CreateChildControls();

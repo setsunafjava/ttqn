@@ -19,6 +19,7 @@ namespace CQ.SharePoint.QN.Webparts
         protected string LangUrl = "en";
         protected string LangTitle = "English";
         protected string LangImg = "en-lang.png";
+        public QNHeader ParentWP;
         /// <summary>
         /// Page on Load
         /// </summary>

@@ -25,30 +25,25 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
-                    //Set language
-                    //if language is VietNamese
-                    //lblDay.Text = "Ngày";
-                    //lblMonth.Text = "Tháng";
-                    //lblYear.Text = "Năm";
-
                     var nextNews = Request.QueryString["NextNews"];
 
                     CategoryUrl = string.Format("{0}/{1}.aspx?CategoryId=", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage);
                     BindDataToDropDownList(1, 31, ddlDays, Convert.ToString(DateTime.Now.Day));
                     BindDataToDropDownList(1, 12, ddlMonths, Convert.ToString(DateTime.Now.Month));
                     BindDataToDropDownList(2000, 2013, ddlYears, Convert.ToString(DateTime.Now.Year));
-
                 }
                 catch (Exception ex)
                 {
                 }
             }
         }
+
         /// <summary>
         /// Bind Days, Months, Year to dropdownlist
         /// </summary>
-        /// <param name="values"></param>
-        /// <param name="maxvalues"></param>
+
+
+        /// <param name="maxvalue"></param>
         /// <param name="dropDownList"></param>
         /// <param name="minvalue"></param>
         /// <param name="selectedvalue"></param>
