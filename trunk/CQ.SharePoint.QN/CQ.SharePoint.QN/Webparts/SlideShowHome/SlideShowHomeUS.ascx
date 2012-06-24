@@ -18,7 +18,7 @@
             <ItemTemplate>
                 <div class="panel" id="panel_1">
                     <div class="inside">
-                        <img runat="server" id="imgLink" title='<%#Eval("Title") %>' />
+                        <img runat="server" id="imgLink" title='<%#Eval("Title") %>' height='92' />
                         <a runat="server" id="aLink">
                             <%#Eval("Title") %></a>
                     </div>
