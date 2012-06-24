@@ -241,9 +241,9 @@ ul#nav .current a, ul#nav li:hover > a  {
 /* THE SUBMENU LIST HIDDEN BY DEFAULT */
 ul#nav  ul {
   display: none;
-  margin-left:50px;
-  margin-left /*\**/:-120px\9;
-  *margin-left:5px;
+  margin-left:49px;
+  margin-left /*\**/:-119px\9;
+  *margin-left:4px;
 }
 
 /* WHEN THE FIRST LEVEL MENU ITEM IS HOVERED, THE CHILD MENU APPEARS */
@@ -275,8 +275,8 @@ ul#nav .current ul {
 	padding-top: 6px;
 	margin-top: 40px;
 	margin-top: 38px\9;
-	margin-left: 1px;
-	margin-left:-609px\9;
+	margin-left: 0px;
+	margin-left:-608px\9;
 	 background: url(../images/bg_sub_top_menu.jpg) top left repeat-x;
 	/* border: 1px solid #000;*/
 	/*-moz-border-radius-bottomright: 10px;

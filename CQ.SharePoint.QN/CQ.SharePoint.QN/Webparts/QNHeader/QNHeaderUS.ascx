@@ -20,7 +20,7 @@ function setHomepage()
          } 
          catch(e) 
          { 
-    alert("Hành động của bạn không thể thực hiện được trên trình duyệt này, nếu bạn muốn bạn có thể làm theo cách sau:  \r\n- Gõ 'about:config' vào trình duyệt của bạn. \r\n - Sau đó tìm và thiết lập giá trị của 'signed.applets.codebase_principal_support' là true.");
+    alert("this action was aviod by your browser，if you want to enable，please enter about:config in your address line,and change the value of signed.applets.codebase_principal_support to true");
 
          } 
     } 
@@ -51,7 +51,7 @@ function setHomepage()
                     <ItemTemplate>
                         <li <asp:Literal ID="ltrStyle" runat="server"></asp:Literal>><a href='<%#Eval("Url") %>'><%#Eval("Title") %></a>
                             <asp:Repeater ID="rptSubMenu" runat="server">
-                                <HeaderTemplate><ul></HeaderTemplate>
+                                <HeaderTemplate><ul><li style="list-style:none;display:inline;float:left;margin-top:-1px;margin-right:2px;">Hôm nay, ngày <%=DateTime.Now %></li></HeaderTemplate>
                                 <ItemTemplate>
                                     <li><a href='<%#Eval("Url") %>'><%#Eval("Title") %></a></li>
                                 </ItemTemplate>
