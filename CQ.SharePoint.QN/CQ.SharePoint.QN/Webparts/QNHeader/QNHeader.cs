@@ -1,10 +1,13 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
+using System.Web.UI.WebControls.WebParts;
 using CQ.SharePoint.QN.Common;
 using CQ.SharePoint.QN.Webparts;
 using System.Web;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.Utilities;
+using Microsoft.SharePoint.WebPartPages;
 
 namespace CQ.SharePoint.QN.Webparts
 {
@@ -15,6 +18,58 @@ namespace CQ.SharePoint.QN.Webparts
         {
         }
 
+        [WebBrowsable(true)]
+        [FriendlyName("Tiêu đề 'Trang chủ'")]
+        [Description("Tiêu đề 'Trang chủ'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Trang chủ")]
+        public string HomePageTitle
+        {
+            get;
+            set;
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Tiêu đề 'Hôm nay, ngày'")]
+        [Description("Tiêu đề 'Hôm nay, ngày'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Hôm nay, ngày ")]
+        public string TodayIsTitle
+        {
+            get;
+            set;
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Tiêu đề 'Đặt làm trang chủ'")]
+        [Description("Tiêu đề 'Đặt làm trang chủ'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Đặt làm trang chủ")]
+        public string SetAsHomePageTitle
+        {
+            get;
+            set;
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Tiêu đề 'Tìm kiếm'")]
+        [Description("Tiêu đề 'Tìm kiếm'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Tìm kiếm")]
+        public string SearchTitle
+        {
+            get;
+            set;
+        }
+
         protected override void CreateChildControls()
         {
             base.CreateChildControls();
@@ -22,6 +77,7 @@ namespace CQ.SharePoint.QN.Webparts
             try
             {
                 QNHeaderUS control = (QNHeaderUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/QNHeaderUS.ascx");
+                control.ParentWP = this;
                 Controls.Add(control);
             }
             catch (Exception ex)

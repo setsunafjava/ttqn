@@ -16,6 +16,7 @@ namespace CQ.SharePoint.QN.Webparts
     [Guid("43766268-a956-4dd4-95e1-bdbb7bba88b7")]
     public class FocusNews : System.Web.UI.WebControls.WebParts.WebPart
     {
+        private string _readmore = "";
         [WebBrowsable(true)]
         [FriendlyName("Nhập số tin muốn hiển thị")]
         [Description("Số tin muốn hiển thị")]
@@ -23,6 +24,25 @@ namespace CQ.SharePoint.QN.Webparts
         [WebPartStorage(Storage.Shared)]
         [Personalizable(PersonalizationScope.Shared)]
         public string NumberOfNews { get; set; }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Tiêu đề 'Tin tiêu điểm'")]
+        [Description("Tiêu đề 'Tin tiêu điểm'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Tin tiêu điểm")]
+        public string FocusNewsTitle { get; set; }
+
+
+        [WebBrowsable(true)]
+        [FriendlyName("Tiêu đề 'Xem thêm'")]
+        [Description("Tiêu đề 'Xem thêm'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Xem thêm")]
+        public string ReadMore { get; set; }
 
         public FocusNews()
         {

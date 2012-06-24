@@ -46,12 +46,12 @@ function setHomepage()
 	<div class="top_menu">
 		<div class="menu">
 		    <ul id="nav">
-				<li <%=CurrentStyle%>><a href="/">Trang chủ</a></li>
+				<li <%=CurrentStyle%>><a href="/"><%= ParentWP.HomePageTitle %></a></li>
                 <asp:Repeater ID="rptMenu" runat="server" OnItemDataBound="rptMenu_OnItemDataBound">
                     <ItemTemplate>
                         <li <asp:Literal ID="ltrStyle" runat="server"></asp:Literal>><a href='<%#Eval("Url") %>'><%#Eval("Title") %></a>
                             <asp:Repeater ID="rptSubMenu" runat="server">
-                                <HeaderTemplate><ul><li style="list-style:none;display:inline;float:left;margin-top:-1px;margin-right:2px;">Hôm nay, ngày <%=DateTime.Now %></li></HeaderTemplate>
+                                <HeaderTemplate><ul><li style="list-style:none;display:inline;float:left;margin-top:-1px;margin-right:2px;"><%= ParentWP.TodayIsTitle %><%=DateTime.Now %></li></HeaderTemplate>
                                 <ItemTemplate>
                                     <li><a href='<%#Eval("Url") %>'><%#Eval("Title") %></a></li>
                                 </ItemTemplate>
@@ -63,7 +63,7 @@ function setHomepage()
             </ul>
 		</div>
 		<div class="search">
-			<input type="text" id="txtData" name="q" onkeypress="return BBEnterPress();" style="border: 0px;"> <a href="javascript:void(0)" onclick="javascript:timkiem();">Tìm kiếm</a>
+			<input type="text" id="txtData" name="q" onkeypress="return BBEnterPress();" style="border: 0px;"> <a href="javascript:void(0)" onclick="javascript:timkiem();"><%= ParentWP.SearchTitle %></a>
 		</div>
 		<div class="language">
 			<span><a href="/<%=LangUrl%>"><img src="/QNResources/<%=LangImg%>" /></a></span><span><a href="/<%=LangUrl%>"><%=LangTitle%></a></span>
@@ -74,8 +74,8 @@ function setHomepage()
 	<div class="cleaner"></div>
 	<div class="bg_bottom_top_menu">
 		<div class="inner_content_bottom_topMenu">
-			<div class="time_date">Hôm nay, ngày <%=DateTime.Now %></div>
-			<div class="set_hompage"><a href="javascript:void(0)" onclick="javascript:setHomepage();">Đặt làm trang chủ</a></div>
+			<div class="time_date"><%= ParentWP.TodayIsTitle %><%=DateTime.Now %></div>
+			<div class="set_hompage"><a href="javascript:void(0)" onclick="javascript:setHomepage();"><%= ParentWP.SetAsHomePageTitle %></a></div>
 			<div class="RSS"><%--<asp:LinkButton ID="lbRSS" runat="server" OnClick="lbRSS_OnClick">RSS</asp:LinkButton>--%><a href="/RSS.aspx?CategoryId=<%=CategoryId%>" target="_blank">RSS</a></div>
 			<div class="cleaner"></div>
 		</div>

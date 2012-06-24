@@ -1,11 +1,21 @@
 ﻿<%@ Assembly Name="CQ.SharePoint.QN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NeedToKnowUS.ascx.cs"
     Inherits="CQ.SharePoint.QN.Webparts.NeedToKnowUS" %>
-    <style type="text/css">
-        .img-weather{display:inline; vertical-align:top;}
-        .tbl-tygia th{text-align:left; background-color:#E7F3FF;color:#1028A5}
-    </style>
-    <script type="text/javascript">
+<style type="text/css">
+    .img-weather
+    {
+        display: inline;
+        vertical-align: top;
+    }
+    .tbl-tygia th
+    {
+        text-align: left;
+        background-color: #E7F3FF;
+        color: #1028A5;
+    }
+</style>
+
+<script type="text/javascript">
  // ==================================================================
 // Author: Matt Kruse <matt@ajaxtoolbox.com>
 // WWW: http://www.AjaxToolbox.com/
@@ -197,74 +207,119 @@ function gmobj(o){
 	else if(document.layers){ m=document[o]; }
 	return m;
 }
-    </script>
-    
+</script>
+
 <div class="pos_MOD">
     <div class="bg_title_mod">
-        Thông tin cần biết</div>
+        <%=ParentWP.NeedToKnowTitle %></div>
     <div class="inner_pos_Mod">
         <div class="wheather">
             <div class="area">
                 <select class="txt_s" style="width: 190px;" onchange="ShowWeatherBox(this.value);">
                     <option value="1">Sơn La</option>
-			        <option value="2">Việt Trì</option>
-			        <option value="3">Hải Phòng</option>
-			        <option value="4" selected="selected">Hà Nội</option>
-			        <option value="5">Vinh</option>
-			        <option value="6">Ðà Nẵng</option>
-			        <option value="7">Nha Trang</option>
-			        <option value="8">Pleiku</option>
-			        <option value="9">TP HCM</option>
+                    <option value="2">Việt Trì</option>
+                    <option value="3">Hải Phòng</option>
+                    <option value="4" selected="selected">Hà Nội</option>
+                    <option value="5">Vinh</option>
+                    <option value="6">Ðà Nẵng</option>
+                    <option value="7">Nha Trang</option>
+                    <option value="8">Pleiku</option>
+                    <option value="9">TP HCM</option>
                 </select>
             </div>
             <div class="info_wheather">
-                <p id="img-Do"></p>
-                <p id="txt-Weather"></p>
+                <p id="img-Do">
+                </p>
+                <p id="txt-Weather">
+                </p>
+
                 <script type="text/javascript" language="javascript">ShowWeatherBox(4);</script>
+
             </div>
             <div class="gold_rate">
-                Tỷ Giá
+                <%=ParentWP.RateTitle %>
             </div>
             <div>
+
                 <script type="text/javascript" language="javascript" src="http://vnexpress.net/Service/Forex_Content.js"></script>
-                <script type="text/javascript" language="JavaScript" src="http://vnexpress.net/Service/Gold_Content.js"></Script>
-                <table width="100%" style="margin:0;" cellpadding="4" cellspacing="0" class="tbl-tygia">
+
+                <script type="text/javascript" language="JavaScript" src="http://vnexpress.net/Service/Gold_Content.js"></script>
+
+                <table width="100%" style="margin: 0;" cellpadding="4" cellspacing="0" class="tbl-tygia">
                     <tr>
-                        <th align='left'>Vàng</th>
-                        <th>Mua</th>
-                        <th>Bán</th>
+                        <th align='left'>
+                            <%=ParentWP.GoldTitle %>
+                        </th>
+                        <th>
+                            <%=ParentWP.BuyTitle %>
+                        </th>
+                        <th>
+                            <%=ParentWP.SaleTitle %>
+                        </th>
                     </tr>
                     <tr>
-                        <td>SJC</td>
-                        <td><script type="text/javascript">document.write(vGoldSjcBuy);</script></td>
-                        <td><script type="text/javascript">document.write(vGoldSjcSell);</script></td>
+                        <td>
+                            SJC
+                        </td>
+                        <td>
+
+                            <script type="text/javascript">document.write(vGoldSjcBuy);</script>
+
+                        </td>
+                        <td>
+
+                            <script type="text/javascript">document.write(vGoldSjcSell);</script>
+
+                        </td>
                     </tr>
                     <tr>
-                        <td>SBJ</td>
-                        <td><script type="text/javascript">document.write(vGoldSbjBuy);</script></td>
-                        <td><script type="text/javascript">document.write(vGoldSbjSell);</script></td>
+                        <td>
+                            SBJ
+                        </td>
+                        <td>
+
+                            <script type="text/javascript">document.write(vGoldSbjBuy);</script>
+
+                        </td>
+                        <td>
+
+                            <script type="text/javascript">document.write(vGoldSbjSell);</script>
+
+                        </td>
                     </tr>
                     <tr>
-                        <th>Ngoại tệ</th>
-                        <th>Mua</th>
-                        <th>Bán</th>
+                        <th>
+                            <%=ParentWP.CurrencyTitle %>
+                        </th>
+                        <th>
+                            <%=ParentWP.BuyTitle %>
+                        </th>
+                        <th>
+                            <%=ParentWP.SaleTitle %>
+                        </th>
                     </tr>
                     <asp:Repeater ID="rptTiGia" runat="server">
                         <ItemTemplate>
                             <tr>
-                                <td><%#Eval("CurrencyCode") %></td>
-                                <td><%#Eval("Transfer")%></td>
-                                <td><%#Eval("Sell")%></td>
+                                <td>
+                                    <%#Eval("CurrencyCode") %>
+                                </td>
+                                <td>
+                                    <%#Eval("Transfer")%>
+                                </td>
+                                <td>
+                                    <%#Eval("Sell")%>
+                                </td>
                             </tr>
                         </ItemTemplate>
                     </asp:Repeater>
                 </table>
             </div>
             <div class="ball">
-                <asp:LinkButton ID="lbBD" runat="server">Bóng đá</asp:LinkButton>
+                <asp:LinkButton ID="lbBD" runat="server"><%=ParentWP.FootballTitle %></asp:LinkButton>
             </div>
             <div class="resul">
-                <asp:LinkButton ID="lbKQXS" runat="server">Kết quả Xổ Số</asp:LinkButton>
+                <asp:LinkButton ID="lbKQXS" runat="server"><%=ParentWP.LotoTitle %></asp:LinkButton>
             </div>
         </div>
     </div>

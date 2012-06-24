@@ -27,6 +27,28 @@ namespace CQ.SharePoint.QN.Webparts
         [Personalizable(PersonalizationScope.Shared)]
         public string NumberOfNews { get; set; }
 
+        [WebBrowsable(true)]
+        [FriendlyName("Thiết lập ngôn ngữ = 'Các tin khác'")]
+        [Description("Thiết lập ngôn ngữ = 'Các tin khác'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Các tin khác")]
+        public string OtherNewsTitle { get; set; }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Thiết lập ngôn ngữ = 'Ngày'")]
+        [Description("Thiết lập ngôn ngữ = 'Ngày'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Ngày")]
+        public string Day
+        {
+            get;
+            set;
+        }
+
         protected override void CreateChildControls()
         {
             try

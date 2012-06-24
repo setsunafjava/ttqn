@@ -43,6 +43,112 @@ namespace CQ.SharePoint.QN.Webparts
             get;
             set;
         }
+        #region Set language
+        [WebBrowsable(true)]
+        [FriendlyName("Tiêu đề 'Thông tin cần biết'")]
+        [Description("Tiêu đề 'Thông tin cần biết'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Thông tin cần biết")]
+        public string NeedToKnowTitle
+        {
+            get;
+            set;
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Tiêu đề 'Tỷ Giá'")]
+        [Description("Tiêu đề 'Tỷ Giá'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Tỷ Giá")]
+        public string RateTitle
+        {
+            get;
+            set;
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Tiêu đề 'Vàng'")]
+        [Description("Tiêu đề 'Vàng'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Vàng")]
+        public string GoldTitle
+        {
+            get;
+            set;
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Tiêu đề 'Mua'")]
+        [Description("Tiêu đề 'Mua'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Mua")]
+        public string BuyTitle
+        {
+            get;
+            set;
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Tiêu đề 'Bán'")]
+        [Description("Tiêu đề 'Bán'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Bán")]
+        public string SaleTitle
+        {
+            get;
+            set;
+        }
+
+
+        [WebBrowsable(true)]
+        [FriendlyName("Tiêu đề 'Ngoại tệ'")]
+        [Description("Tiêu đề 'Ngoại tệ'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Ngoại tệ")]
+        public string CurrencyTitle
+        {
+            get;
+            set;
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Tiêu đề 'Bóng đá'")]
+        [Description("Tiêu đề 'Bóng đá'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Bóng đá")]
+        public string FootballTitle
+        {
+            get;
+            set;
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Tiêu đề 'Kết quả Xổ Số'")]
+        [Description("Tiêu đề 'Kết quả Xổ Số'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Kết quả Xổ Số")]
+        public string LotoTitle
+        {
+            get;
+            set;
+        }
+        #endregion
 
         protected override void CreateChildControls()
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.UI;
@@ -17,6 +18,44 @@ namespace CQ.SharePoint.QN.Webparts
     {
         public NextNews()
         {
+        }
+        [WebBrowsable(true)]
+        [FriendlyName("Thiết lập ngôn ngữ = 'Ngày'")]
+        [Description("Thiết lập ngôn ngữ = 'Ngày'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Ngày")]
+        public string DayTitle
+        {
+            get;
+            set;
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Thiết lập ngôn ngữ = 'Tháng'")]
+        [Description("Thiết lập ngôn ngữ = 'Tháng'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Tháng")]
+        public string MonthTitle
+        {
+            get;
+            set;
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Thiết lập ngôn ngữ = 'Năm'")]
+        [Description("Thiết lập ngôn ngữ = 'Năm'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Năm")]
+        public string YearTitle
+        {
+            get;
+            set;
         }
 
         protected override void CreateChildControls()

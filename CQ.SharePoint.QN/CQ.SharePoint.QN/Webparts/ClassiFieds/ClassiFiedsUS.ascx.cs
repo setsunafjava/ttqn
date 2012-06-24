@@ -11,6 +11,7 @@ namespace CQ.SharePoint.QN.Webparts
     /// </summary>
     public partial class ClassiFiedsUS : UserControl
     {
+        public ClassiFieds ParentWebpart;
         /// <summary>
         /// Page on Load
         /// </summary>

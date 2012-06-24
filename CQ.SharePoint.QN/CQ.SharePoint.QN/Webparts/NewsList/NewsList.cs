@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.UI;
@@ -17,6 +18,19 @@ namespace CQ.SharePoint.QN.Webparts
     {
         public NewsList()
         {
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Thiết lập ngôn ngữ = 'Ngày'")]
+        [Description("Thiết lập ngôn ngữ = 'Ngày'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Ngày")]
+        public string Day
+        {
+            get;
+            set;
         }
 
         protected override void CreateChildControls()

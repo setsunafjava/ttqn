@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.UI;
@@ -18,6 +19,14 @@ namespace CQ.SharePoint.QN.Webparts
         public SlideShowHome()
         {
         }
+        [WebBrowsable(true)]
+        [FriendlyName("Thiết lập ngôn ngữ = 'Thư viện ảnh Quảng Ninh'")]
+        [Description("Thiết lập ngôn ngữ = 'Thư viện ảnh Quảng Ninh'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Thư viện ảnh Quảng Ninh")]
+        public string SlideShowHomeTitle { get; set; }
 
         protected override void CreateChildControls()
         {
@@ -26,6 +35,7 @@ namespace CQ.SharePoint.QN.Webparts
             try
             {
                 SlideShowHomeUS control = (SlideShowHomeUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/SlideShowHomeUS.ascx");
+                control.ParentWP = this;
                 Controls.Add(control);
             }
             catch (Exception ex)

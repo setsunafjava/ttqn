@@ -2,7 +2,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="WebLinkUS.ascx.cs" Inherits="CQ.SharePoint.QN.Webparts.WebLinkUS" %>
 <div class="pos_MOD">
     <div class="bg_title_mod">
-        Liên kết website</div>
+        <%= ParentWP.LinkToWebsite %></div>
     <div class="inner_pos_Mod">
         <div class="link_website">
             <select class="txt_s" style="width: 190px;" onchange='location.href=this.value'>
