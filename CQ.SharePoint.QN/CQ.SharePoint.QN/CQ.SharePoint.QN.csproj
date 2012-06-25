@@ -590,7 +590,6 @@
     </Content>
     <Content Include="Webparts\ShowVideo\ShowVideo.xml" />
     <Content Include="Webparts\SlideShowHome\SlideShowHomeUS.ascx">
-      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\SlideShowHome\SlideShowHome.xml" />
     <Content Include="Webparts\TourInfo\TourInfoUS.ascx">
