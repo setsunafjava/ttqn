@@ -10,16 +10,14 @@
             </div>
         </div>
         <div class="content_F_Right">
-            <%--<marquee direction="up" scrollamount="1" truespeed="true" onmouseover="this.stop()"
-                onmouseout="this.start()" height="350px">	--%>			
-						<div class="img_logo_company_ex">							
-							<asp:Repeater ID="rptFocusCompany" runat="server">
-							    <ItemTemplate>							       
-							        <a href='<%#Eval("LinkToItem")%>'><asp:Image ID="img" runat="server" ImageUrl='<%#Eval("Thumbnail")%>'/></a>
-							    </ItemTemplate>
-							</asp:Repeater>
-						</div>
-						<%--</marquee>--%>
+            <div class="img_logo_company_ex">
+                <asp:Repeater ID="rptFocusCompany" runat="server">
+                    <ItemTemplate>
+                        <a href='<%#Eval("LinkToItem")%>'>
+                            <asp:Image ID="img" runat="server" ImageUrl='<%#Eval("Thumbnail")%>' /></a>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </div>
         </div>
     </div>
 </div>

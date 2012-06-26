@@ -43,7 +43,7 @@ namespace CQ.SharePoint.QN.Webparts
                     CategoryUrl = string.Format("{0}/{1}.aspx?FocusNews=1", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage);
                     if (focusNewsTable != null && focusNewsTable.Rows.Count > 0)
                     {
-                        rptFocusNews.DataSource = focusNewsTable;
+                        rptFocusNews.DataSource = Utilities.GetTableWithCorrectUrl(focusNewsTable);
                         rptFocusNews.DataBind();
                     }
                 }

@@ -35,17 +35,31 @@ namespace CQ.SharePoint.QN.Common
             AddStandardView(list, viewTitle, viewFields, query, rowLimit, makeDefaultView, String.Empty);
         }
 
-        public static DataTable GetTableWithCorrectUrl(DataTable oldTable)
+        public static DataTable GetTableWithCorrectUrl(DataTable dataTable)
         {
-            string imagepath = string.Empty;
-
-            for (int i = 0; i < oldTable.Rows.Count; i++)
+            if (dataTable != null && dataTable.Rows.Count > 0)
             {
-                imagepath = Convert.ToString(oldTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage]);
-                if (imagepath.Length > 2)
-                    oldTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath.Trim().Substring(0, imagepath.Length - 2);
+                string imagepath = string.Empty;
+                string relativeImage = string.Empty;
+                string[] arrayPath = null;
+                string imgPath = string.Empty;
+                for (int i = 0; i < dataTable.Rows.Count; i++)
+                {
+                    imagepath = Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage]);
+                    if (imagepath.Length > 2)
+                    {
+                        imagepath = imagepath.Trim().Substring(0, imagepath.Length - 2);
+                        imagepath = imagepath.Replace("http://news.qnp.vn", string.Empty).Replace("http://qni-wsus", string.Empty).Replace("http://new.qnp.vn", string.Empty);
+                        //arrayPath = imagepath.Split('/');
+                        //imgPath = arrayPath[arrayPath.Length - 1];
+                        //relativeImage = string.Format("/{0}/{1}", arrayPath[arrayPath.Length - 2], arrayPath[arrayPath.Length - 1].Trim().Substring(0, imgPath.Length - 2));
+                        //dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = relativeImage;
+                        dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath;
+
+                    }
+                }
             }
-            return oldTable;
+            return dataTable;
         }
 
         /// <summary>

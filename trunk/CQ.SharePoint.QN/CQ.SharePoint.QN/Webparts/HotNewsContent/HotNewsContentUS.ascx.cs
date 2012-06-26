@@ -71,7 +71,7 @@ namespace CQ.SharePoint.QN.Webparts
                     var mainItem = Utilities.GetNewsRecords(mainItemQuery, 3, ListsName.English.NewsRecord);
                     if (mainItem != null && mainItem.Rows.Count > 0)
                     {
-                        rptImages.DataSource = GetImageDataTablePath(mainItem);
+                        rptImages.DataSource = Utilities.GetTableWithCorrectUrl(mainItem);
                         rptImages.DataBind();
                     }
 
@@ -199,26 +199,6 @@ namespace CQ.SharePoint.QN.Webparts
                 }
             }
             return dataTableTemp;
-        }
-
-        /// <summary>
-        /// Get image path form thumbnail field, default the path is "path...;" => function will return "path..."
-        /// </summary>
-        /// <param name="imagePath"></param>
-        /// <returns></returns>
-        public DataTable GetImageDataTablePath(DataTable dataTable)
-        {
-            if (dataTable != null && dataTable.Rows.Count > 0)
-            {
-                string imagepath = string.Empty;
-                for (int i = 0; i < dataTable.Rows.Count; i++)
-                {
-                    imagepath = Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage]);
-                    if (imagepath.Length > 2)
-                        dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath.Trim().Substring(0, imagepath.Length - 2);
-                }
-            }
-            return dataTable;
         }
     }
 }

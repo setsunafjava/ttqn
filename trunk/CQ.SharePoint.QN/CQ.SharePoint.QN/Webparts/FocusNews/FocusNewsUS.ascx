@@ -14,7 +14,7 @@
                 <ItemTemplate>
                     <div class="line_news">
                         <div class="thumb_img">
-                            <img src="images/images.jpg" /></div>
+                            <asp:Image ID="img" runat="server" ImageUrl='<%#Eval("Thumbnail")%>' /></div>
                         <div class="name_news">
                             <a href='<%= NewsUrl%><%#Eval("ID") %>'>
                                 <%#Eval("Title")%></a> <span style="color: #003399">(<asp:Label ID="lblDate" runat="server"></asp:Label>
