@@ -2,6 +2,8 @@
 using System.Data;
 using System.Web.UI;
 using Microsoft.SharePoint;
+using Microsoft.SharePoint.Publishing.Fields;
+using Microsoft.SharePoint.Publishing.WebControls;
 using Microsoft.SharePoint.WebControls;
 using CQ.SharePoint.QN.Common;
 
@@ -68,8 +70,9 @@ namespace CQ.SharePoint.QN.Webparts
                                                               <FieldRef Name='Created' Ascending='False' />
                                                            </OrderBy>", FieldsName.NewsRecord.English.ShowInHomePage,
                                                                       FieldsName.NewsRecord.English.Status);
-                    var mainItem = Utilities.GetNewsRecords(mainItemQuery, 3, ListsName.English.NewsRecord);
-                    if (mainItem != null && mainItem.Rows.Count > 0)
+                    //var mainItem = Utilities.GetNewsRecords(mainItemQuery, 3, ListsName.English.NewsRecord);
+                    var mainItem = Utilities.GetNewsRecordItems(mainItemQuery, 3, ListsName.English.NewsRecord);
+                    if (mainItem != null && mainItem.Count > 0)
                     {
                         rptImages.DataSource = Utilities.GetTableWithCorrectUrl(mainItem);
                         rptImages.DataBind();

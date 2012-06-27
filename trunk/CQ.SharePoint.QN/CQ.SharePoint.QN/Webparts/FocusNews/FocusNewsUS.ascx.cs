@@ -39,9 +39,10 @@ namespace CQ.SharePoint.QN.Webparts
                         {}
                     }
 
-                    var focusNewsTable = Utilities.GetNewsRecords(focusNewsQuery, Convert.ToUInt16(numberOfNews), ListsName.English.NewsRecord);
+                    //var focusNewsTable = Utilities.GetNewsRecords(focusNewsQuery, Convert.ToUInt16(numberOfNews), ListsName.English.NewsRecord);
+                    var focusNewsTable = Utilities.GetNewsRecordItems(focusNewsQuery, Convert.ToUInt16(numberOfNews), ListsName.English.NewsRecord);
                     CategoryUrl = string.Format("{0}/{1}.aspx?FocusNews=1", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage);
-                    if (focusNewsTable != null && focusNewsTable.Rows.Count > 0)
+                    if (focusNewsTable != null && focusNewsTable.Count > 0)
                     {
                         rptFocusNews.DataSource = Utilities.GetTableWithCorrectUrl(focusNewsTable);
                         rptFocusNews.DataBind();

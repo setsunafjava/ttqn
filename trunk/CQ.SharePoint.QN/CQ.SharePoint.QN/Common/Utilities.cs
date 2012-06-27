@@ -16,6 +16,7 @@ using CQ.SharePoint.QN.Core.Helpers;
 using CQ.SharePoint.QN.Core.WebParts;
 using Microsoft.SharePoint.WebControls;
 using System.Web.UI.HtmlControls;
+using Microsoft.SharePoint.Publishing.Fields;
 
 namespace CQ.SharePoint.QN.Common
 {
@@ -40,22 +41,43 @@ namespace CQ.SharePoint.QN.Common
             if (dataTable != null && dataTable.Rows.Count > 0)
             {
                 string imagepath = string.Empty;
-                string relativeImage = string.Empty;
-                string[] arrayPath = null;
-                string imgPath = string.Empty;
+                ImageFieldValue imageIcon;
+
                 for (int i = 0; i < dataTable.Rows.Count; i++)
                 {
                     imagepath = Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage]);
                     if (imagepath.Length > 2)
                     {
-                        imagepath = imagepath.Trim().Substring(0, imagepath.Length - 2);
-                        imagepath = imagepath.Replace("http://news.qnp.vn", string.Empty).Replace("http://qni-wsus", string.Empty).Replace("http://new.qnp.vn", string.Empty);
-                        //arrayPath = imagepath.Split('/');
-                        //imgPath = arrayPath[arrayPath.Length - 1];
-                        //relativeImage = string.Format("/{0}/{1}", arrayPath[arrayPath.Length - 2], arrayPath[arrayPath.Length - 1].Trim().Substring(0, imgPath.Length - 2));
-                        //dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = relativeImage;
-                        dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath;
+                        imageIcon = dataTable.Rows[i][FieldsName.NewsRecord.English.PublishingPageIcon] as ImageFieldValue;
+                        if (imageIcon != null)
+                            dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imageIcon.ImageUrl;
+                    }
+                }
+            }
+            return dataTable;
+        }
 
+        public static DataTable GetTableWithCorrectUrl(SPListItemCollection items)
+        {
+            var dataTable = items.GetDataTable();
+
+            if (items != null && items.Count > 0)
+            {
+                string imagepath = string.Empty;
+                ImageFieldValue imageIcon;
+
+                for (int i = 0; i < items.Count; i++)
+                {
+                    imagepath = Convert.ToString(items[i][FieldsName.NewsRecord.English.ThumbnailImage]);
+                    if (imagepath.Length > 2)
+                    {
+                        imageIcon = items[i][FieldsName.NewsRecord.English.PublishingPageIcon] as ImageFieldValue;
+                        if (imageIcon != null)
+                            dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imageIcon.ImageUrl;
+                        else
+                        {
+                            dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath.Trim().Substring(0, imagepath.Length - 2);
+                        }
                     }
                 }
             }
@@ -617,6 +639,43 @@ namespace CQ.SharePoint.QN.Common
             return table;
         }
 
+
+        public static SPListItemCollection GetNewsRecordItems(string query, uint newsNumber, string listName)
+        {
+            SPListItemCollection allItems = null;
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            SPQuery spQuery = new SPQuery
+                            {
+                                Query = query,
+                                RowLimit = newsNumber
+                            };
+                            SPList list = Utilities.GetListFromUrl(web, listName);
+                            if (list != null)
+                            {
+                                SPListItemCollection items = list.GetItems(spQuery);
+                                if (items != null && items.Count > 0)
+                                {
+                                    allItems = items;
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            allItems = null;
+                        }
+                    }
+
+                }
+            });
+            return allItems;
+        }
 
         public static string GetCategoryIdByItemId(int itemId, string listName)
         {
