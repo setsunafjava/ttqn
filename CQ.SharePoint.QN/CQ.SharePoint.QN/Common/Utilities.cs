@@ -48,7 +48,7 @@ namespace CQ.SharePoint.QN.Common
                     imagepath = Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage]);
                     if (imagepath.Length > 2)
                     {
-                        imageIcon = dataTable.Rows[i][FieldsName.NewsRecord.English.PublishingPageIcon] as ImageFieldValue;
+                        imageIcon = dataTable.Rows[i][FieldsName.NewsRecord.English.PublishingPageImage] as ImageFieldValue;
                         if (imageIcon != null)
                             dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imageIcon.ImageUrl;
                     }
@@ -71,7 +71,7 @@ namespace CQ.SharePoint.QN.Common
                     imagepath = Convert.ToString(items[i][FieldsName.NewsRecord.English.ThumbnailImage]);
                     if (imagepath.Length > 2)
                     {
-                        imageIcon = items[i][FieldsName.NewsRecord.English.PublishingPageIcon] as ImageFieldValue;
+                        imageIcon = items[i][FieldsName.NewsRecord.English.PublishingPageImage] as ImageFieldValue;
                         if (imageIcon != null)
                             dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imageIcon.ImageUrl;
                         else
