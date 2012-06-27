@@ -38,19 +38,20 @@ namespace CQ.SharePoint.QN.Webparts
 
                   
                     string newsGroupQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.CategoryName, SPHttpUtility.HtmlEncode(WebpartParent.GroupName));
-                    var newsGroups = Utilities.GetNewsRecords(newsGroupQuery, Convert.ToUInt16(WebpartParent.NumberOfNews), ListsName.English.NewsRecord);
-                    if (newsGroups != null && newsGroups.Rows.Count > 0)
+                    //var newsGroups = Utilities.GetNewsRecords(newsGroupQuery, Convert.ToUInt16(WebpartParent.NumberOfNews), ListsName.English.NewsRecord);
+                    var newsGroups = Utilities.GetNewsRecordItems(newsGroupQuery, Convert.ToUInt16(WebpartParent.NumberOfNews), ListsName.English.NewsRecord);
+                    if (newsGroups != null && newsGroups.Count > 0)
                     {
-                        lblHeader.Text = Convert.ToString(newsGroups.Rows[0][FieldsName.Title]);
                         var tempTable = Utilities.GetTableWithCorrectUrl(newsGroups);
+                        lblHeader.Text = Convert.ToString(tempTable.Rows[0][FieldsName.Title]);
                         imgThumb.ImageUrl = Convert.ToString(tempTable.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
 
-                        lblShortContent.Text = Convert.ToString(newsGroups.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
-                        NewsFirstUrl1 = string.Format("{0}/{1}.aspx?{2}={3}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId, Convert.ToString(newsGroups.Rows[0][FieldsName.Id]));
-                        if (newsGroups.Rows.Count > 2)
+                        lblShortContent.Text = Convert.ToString(tempTable.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
+                        NewsFirstUrl1 = string.Format("{0}/{1}.aspx?{2}={3}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId, Convert.ToString(newsGroups[0][FieldsName.Id]));
+                        if (tempTable.Rows.Count > 2)
                         {
-                            newsGroups.Rows.RemoveAt(0);
-                            rptCaiCachThuTucHanhChinh.DataSource = newsGroups;
+                            tempTable.Rows.RemoveAt(0);
+                            rptCaiCachThuTucHanhChinh.DataSource = tempTable;
                             rptCaiCachThuTucHanhChinh.DataBind();
                         }
                     }

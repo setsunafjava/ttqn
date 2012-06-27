@@ -66,6 +66,7 @@ namespace CQ.SharePoint.QN.Common
                 public const string ShowInHomePage = "ShowInHomePage";
                 public const string LinkAdv = "LinkAdv";
                 public const string Status = "Status";
+                public const string PublishingPageIcon = "PublishingPageIcon";
             }
 
             public static class VietNamese
@@ -80,6 +81,7 @@ namespace CQ.SharePoint.QN.Common
                 public const string ShowInHomePage = "Hiển thị ở trang chủ";
                 public const string LinkAdv = "Liên kết trang web";
                 public const string Status = "Trạng thái";
+                public const string PublishingPageIcon = "Biểu tượng Trang";
             }
 
             public static class FieldValuesDefault

@@ -36,8 +36,10 @@ namespace CQ.SharePoint.QN.Webparts
                     newsNumber = Convert.ToUInt16(WebpartParent.NumberOfNews);
                 }
 
-                var companyList = Utilities.GetNewsRecords(companyListQuery, newsNumber, ListsName.English.NewsRecord);
-                if (companyList != null && companyList.Rows.Count > 0)
+                //var companyList = Utilities.GetNewsRecords(companyListQuery, newsNumber, ListsName.English.NewsRecord);
+                var companyList = Utilities.GetNewsRecordItems(companyListQuery, newsNumber,
+                                                               ListsName.English.NewsRecord);
+                if (companyList != null && companyList.Count > 0)
                 {
                     rptFocusCompany.DataSource = Utilities.GetTableWithCorrectUrl(companyList);
                     rptFocusCompany.DataBind();
