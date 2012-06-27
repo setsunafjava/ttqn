@@ -69,14 +69,17 @@ namespace CQ.SharePoint.QN.Common
                 for (int i = 0; i < items.Count; i++)
                 {
                     imagepath = Convert.ToString(items[i][FieldsName.NewsRecord.English.ThumbnailImage]);
-                    if (imagepath.Length > 2)
+
+                    imageIcon = items[i][FieldsName.NewsRecord.English.PublishingPageImage] as ImageFieldValue;
+                    if (imageIcon != null)
+                        dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imageIcon.ImageUrl;
+                    else
                     {
-                        imageIcon = items[i][FieldsName.NewsRecord.English.PublishingPageImage] as ImageFieldValue;
-                        if (imageIcon != null)
-                            dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imageIcon.ImageUrl;
+                        if (imagepath.Length > 2)
+                            dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath.Trim().Substring(0, imagepath.Length - 2);
                         else
                         {
-                            dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath.Trim().Substring(0, imagepath.Length - 2);
+                            dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath;
                         }
                     }
                 }
@@ -1220,7 +1223,7 @@ namespace CQ.SharePoint.QN.Common
                         }
                         catch (Exception ex)
                         {
-                            
+
                         }
                     }
 
@@ -1241,7 +1244,7 @@ namespace CQ.SharePoint.QN.Common
                     "<Where><Or><Contains><FieldRef Name='{0}' /><Value Type='Text'>{1}</Value></Contains><Or><Contains><FieldRef Name='{2}' /><Value Type='Note'>{1}</Value></Contains><Contains><FieldRef Name='{3}' /><Value Type='Note'>{1}</Value></Contains></Or></Or></Where>",
                     "Title", keyWord, FieldsName.NewsRecord.English.ShortContent, FieldsName.NewsRecord.English.Content);
             }
-            
+
             var query = new SPQuery();
             query.Query = camlQuery;
             DataTable table = null;
