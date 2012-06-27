@@ -74,7 +74,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                 {
                                                     foreach (var attachment in items.Attachments)
                                                     {
-                                                        attachMentFiles.Rows.Add(Convert.ToString(attachment), string.Format("{0}{1}", items.Attachments.UrlPrefix, Convert.ToString(attachment)));
+                                                        attachMentFiles.Rows.Add(Convert.ToString(attachment), string.Format("{0}{1}", items.Attachments.UrlPrefix.Replace("qni-wsus", "news.qnp.vn"), Convert.ToString(attachment)));
                                                     }
                                                 }
                                             }
