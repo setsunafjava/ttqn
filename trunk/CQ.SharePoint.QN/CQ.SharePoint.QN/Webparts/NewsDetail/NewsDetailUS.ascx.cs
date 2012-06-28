@@ -69,6 +69,12 @@ namespace CQ.SharePoint.QN.Webparts
                                                     web.AllowUnsafeUpdates = true;
                                                     items.Update();
                                                 }
+                                                else
+                                                {
+                                                    items[FieldsName.NewsRecord.English.ViewsCount] = 1;
+                                                    web.AllowUnsafeUpdates = true;
+                                                    items.Update();
+                                                }
                                                 //Get attachment file
                                                 if (items.Attachments.Count > 0)
                                                 {
