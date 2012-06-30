@@ -19,6 +19,7 @@ namespace CQ.SharePoint.QN.Webparts
         protected string LangUrl = "en";
         protected string LangTitle = "English";
         protected string LangImg = "en-lang.png";
+        protected string HomeUrl = string.Empty;
         public QNHeader ParentWP;
         /// <summary>
         /// Page on Load
@@ -32,6 +33,7 @@ namespace CQ.SharePoint.QN.Webparts
                 LangUrl = "";
                 LangImg = "vn-lang.png";
                 LangTitle = "VietNam";
+                HomeUrl = "en";
             }
             CategoryId = Convert.ToString(Request.QueryString["CategoryId"]);
             var currentUrl = HttpContext.Current.Request.Url.AbsolutePath;
@@ -51,6 +53,7 @@ namespace CQ.SharePoint.QN.Webparts
                 catch (Exception ex)
                 {
                 }
+                
             }
 
             var tkStr =
@@ -184,6 +187,51 @@ namespace CQ.SharePoint.QN.Webparts
         {
             //var categoryId = Convert.ToString(Request.QueryString["CategoryId"]);
             //Utilities.GetRSS(categoryId);
+        }
+
+        protected override void OnPreRender(EventArgs e)
+        {
+            base.OnPreRender(e);
+
+            ContentPlaceHolder contentPlaceHolder = (ContentPlaceHolder)Page.Master.FindControl("PlaceHolderPageTitle");
+            contentPlaceHolder.Controls.Clear();
+            LiteralControl control = new LiteralControl();
+            control.Text = Constants.GetHomeTitle();
+            var currentUrl = HttpContext.Current.Request.Url.AbsolutePath;
+            if (!currentUrl.Contains(".aspx") || currentUrl.Contains("default.aspx"))
+            {
+                CurrentStyle = " class='current'";
+                control.Text = Constants.GetHomeTitle();
+            }
+            else if (currentUrl.Contains(Constants.PageInWeb.SubPage + ".aspx"))
+            {
+                var catID = Convert.ToString(Request.QueryString["CategoryId"]);
+                var catItem = Utilities.GetListItemFromUrlByID(ListsName.English.NewsCategory ,catID);
+                if (catItem != null)
+                {
+                    control.Text += " - " + Convert.ToString(catItem["Title"]);
+                }
+            }
+            else if (currentUrl.Contains(Constants.PageInWeb.DetailNews + ".aspx"))
+            {
+                var newsId = Request.QueryString[Constants.NewsId];
+                var newsItem = Utilities.GetListItemFromUrlByID(ListsName.English.NewsRecord, newsId);
+                if (newsItem != null)
+                {
+                    var catItem = Utilities.GetListItemFromUrlByID(ListsName.English.NewsCategory, Utilities.GetCategoryIdByItemId(Convert.ToInt32(newsId),
+                                                                    ListsName.English.NewsRecord));
+                    if (catItem != null)
+                    {
+                        control.Text += " - " + Convert.ToString(catItem["Title"]);
+                    }
+                    control.Text += " - " + Convert.ToString(newsItem["Title"]);
+                }
+            }
+            else
+            {
+                control.Text = Constants.GetHomeTitle();
+            }
+            contentPlaceHolder.Controls.Add(control);
         }
     }
 }

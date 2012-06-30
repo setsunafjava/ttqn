@@ -514,6 +514,43 @@ namespace CQ.SharePoint.QN.Common
         }
 
         /// <summary>
+        /// GetListItemFromUrlByID
+        /// </summary>
+        /// <param name="listName"></param>
+        /// <param name="itemID"></param>
+        /// <returns></returns>
+        public static DataRow GetListItemFromUrlByID(string listName, string itemID)
+        {
+            DataRow row = null;
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            string listUrl = web.Url + "/Lists/" + listName;
+                            var result = web.GetList(listUrl);
+                            SPQuery query = new SPQuery();
+                            query.RowLimit = 1;
+                            query.Query = string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Counter'>{1}</Value></Eq></Where>", "ID", itemID);
+                            var items = result.GetItems(query);
+                            if (items != null && items.Count > 0)
+                                row = items.GetDataTable().Rows[0];
+                        }
+                        catch (Exception ex)
+                        {
+                            Utilities.LogToUls(ex);
+                        }
+                    }
+
+                }
+            });
+            return row;
+        }
+
+        /// <summary>
         /// GetListFromUrl
         /// </summary>
         /// <param name="web"></param>
@@ -955,8 +992,8 @@ namespace CQ.SharePoint.QN.Common
                                 {
                                     var item = list.Items.Add();
                                     item["Title"] = key;
-                                    item["Value"] = "Hãy nhập giá trị";
-                                    result = "Hãy nhập giá trị";
+                                    item["Value"] = "Hãy vào list QNConfigList để nhập giá trị cho key " + key;
+                                    result = "Hãy vào list QNConfigList để nhập giá trị cho key " + key;
                                     web.AllowUnsafeUpdates = true;
                                     item.Update();
                                 }
