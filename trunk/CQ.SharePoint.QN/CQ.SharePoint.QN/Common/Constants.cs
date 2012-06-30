@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Microsoft.SharePoint;
 
 namespace CQ.SharePoint.QN.Common
 {
@@ -9,6 +10,18 @@ namespace CQ.SharePoint.QN.Common
         public const string Created = "Created";
         public const string CategoryId = "CategoryId";
         public const string NewsId = "NewsId"; 
+
+        public static string GetHomeTitle()
+        {
+            if (SPContext.Current.Web.Url.Contains("/en"))
+            {
+                return Utilities.GetConfigValue("home-title-en");
+            }
+            else
+            {
+                return Utilities.GetConfigValue("home-title");
+            }
+        }
         
         public class PageInWeb
         {

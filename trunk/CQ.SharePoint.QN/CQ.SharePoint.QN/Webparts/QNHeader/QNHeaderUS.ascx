@@ -46,7 +46,7 @@ function setHomepage()
 	<div class="top_menu">
 		<div class="menu">
 		    <ul id="nav">
-				<li <%=CurrentStyle%>><a href="/"><%= ParentWP.HomePageTitle %></a></li>
+				<li <%=CurrentStyle%>><a href="/<%=HomeUrl%>"><%= ParentWP.HomePageTitle %></a></li>
                 <asp:Repeater ID="rptMenu" runat="server" OnItemDataBound="rptMenu_OnItemDataBound">
                     <ItemTemplate>
                         <li <asp:Literal ID="ltrStyle" runat="server"></asp:Literal>><a href='<%#Eval("Url") %>'><%#Eval("Title") %></a>
