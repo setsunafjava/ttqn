@@ -67,6 +67,7 @@ namespace CQ.SharePoint.QN.Common
                 public const string LinkAdv = "LinkAdv";
                 public const string Status = "Status";
                 public const string PublishingPageImage = "PublishingPageImage";
+                public const string PublishingPageContent = "PublishingPageContent";
             }
 
             public static class VietNamese
