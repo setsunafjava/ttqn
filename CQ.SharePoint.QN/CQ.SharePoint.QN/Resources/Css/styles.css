@@ -244,6 +244,7 @@ ul#nav  ul {
   margin-left:49px;
   margin-left /*\**/:-119px\9;
   *margin-left:4px;
+  *margin-left:84px;
 }
 
 /* WHEN THE FIRST LEVEL MENU ITEM IS HOVERED, THE CHILD MENU APPEARS */
@@ -277,6 +278,7 @@ ul#nav .current ul {
 	margin-top: 38px\9;
 	margin-left: 0px;
 	margin-left:-608px\9;
+	*margin-left:-623px;
 	 background: url(../images/bg_sub_top_menu.jpg) top left repeat-x;
 	/* border: 1px solid #000;*/
 	/*-moz-border-radius-bottomright: 10px;
@@ -456,6 +458,7 @@ ul#nav .current ul li a:hover {
 	/*width: 674px;*/
 	margin-bottom: 10px;
     margin-top: 10px;
+	width: 672px\9;
 }
 .bg_title_ModNews{
 	background: url(../images/bg_title_right_corner.jpg) top left repeat-x;
@@ -714,6 +717,7 @@ ul#nav .current ul li a:hover {
 	background: url(../images/icon_video.jpg) left bottom no-repeat;
 	height: 24px;
 }
+.list_video{ height:112px; overflow: auto; -ms-overflow-x:hidden; overflow-x: hidden}
 .list_video ul{ padding-top: 10px;}
 .list_video ul li{
 	background: url(../images/icon_video_list.jpg) left top no-repeat;
