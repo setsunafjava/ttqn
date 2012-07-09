@@ -40,6 +40,18 @@ namespace CQ.SharePoint.QN.Webparts
         [Personalizable(PersonalizationScope.Shared)]
         public string CategoryId { get; set; }
 
+        [WebBrowsable(true)]
+        [FriendlyName("Thiết lập ngôn ngữ = 'Liên hệ quảng cáo: Hotline 0904 555 888'")]
+        [Description("Thiết lập ngôn ngữ = 'Liên hệ quảng cáo: Hotline 0904 555 888'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Liên hệ quảng cáo: Hotline 0904 555 888")]
+        public string ShouldToKnowTitle
+        {
+            get;
+            set;
+        }
 
         public ShouldToKnow()
         {
@@ -48,7 +60,6 @@ namespace CQ.SharePoint.QN.Webparts
         protected override void CreateChildControls()
         {
             base.CreateChildControls();
-
             try
             {
                 ShouldToKnowUS control = (ShouldToKnowUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/ShouldToKnowUS.ascx");
@@ -76,17 +87,15 @@ namespace CQ.SharePoint.QN.Webparts
     public class SelectAdvType : ToolPart
     {
         DropDownList ddlTypes = new DropDownList();
-        //ShouldToKnow _myParent = null;
         public SelectAdvType()
         {
-            this.Title = "Chọn kiểu thông tin muốn hiển thị";
-
+            Title = "Chọn kiểu thông tin muốn hiển thị";
         }
 
         protected override void CreateChildControls()
         {
-            string companyCaml = string.Format(" <Where><Eq><FieldRef Name='{0}' /><Value Type='MultiChoice'>{1}</Value></Eq></Where>", FieldsName.NewsCategory.English.TypeCategory, FieldsName.NewsCategory.FieldValuesDefault.BanNenBiet);
-            var table = Utilities.GetNewsRecords(companyCaml, 20, ListsName.English.NewsCategory);
+            string companyCaml = string.Format("<OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>");
+            var table = Utilities.GetNewsRecords(companyCaml, ListsName.English.ShouldToKnowCategory);
 
             if (table != null && table.Rows.Count > 0)
             {
@@ -110,8 +119,6 @@ namespace CQ.SharePoint.QN.Webparts
             foreach (Control ctl in controls)
             {
                 RetrievePropertyValue(ctl, parentWebPart);
-
-
                 if (ctl.HasControls())
                 {
                     RetrievePropertyValues(ctl.Controls, parentWebPart);

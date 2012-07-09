@@ -95,7 +95,7 @@ namespace CQ.SharePoint.QN.Webparts
         protected override void CreateChildControls()
         {
             string companyCaml = string.Format("<Where><IsNotNull><FieldRef Name='Title' /></IsNotNull></Where>");
-            var table = Utilities.GetNewsRecords(companyCaml, 1000, ListsName.English.NewsCategory);
+            var table = Utilities.GetNewsRecords(companyCaml, ListsName.English.CompanyCategory);
 
             if (table != null && table.Rows.Count > 0)
             {

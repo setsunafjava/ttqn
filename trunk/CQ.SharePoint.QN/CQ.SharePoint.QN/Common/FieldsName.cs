@@ -57,7 +57,7 @@ namespace CQ.SharePoint.QN.Common
             public static class English
             {
                 public const string Heading = "Heading";
-                public const string Content = "Content";
+                //public const string Content = "Content";
                 public const string CategoryName = "CategoryName";
                 public const string ThumbnailImage = "Thumbnail";
                 public const string ShortContent = "ShortContent";
@@ -73,7 +73,7 @@ namespace CQ.SharePoint.QN.Common
             public static class VietNamese
             {
                 public const string Heading = "Tiêu đề";
-                public const string Content = "Nội dung";
+                //public const string Content = "Nội dung";
                 public const string ViewsCount = "Số lượng xem"; //So luong nguoi doc
                 public const string FocusNews = "Tin tiêu biểu";
                 public const string CategoryName = "CategoryName";
@@ -83,6 +83,7 @@ namespace CQ.SharePoint.QN.Common
                 public const string LinkAdv = "Liên kết trang web";
                 public const string Status = "Trạng thái";
                 public const string PublishingPageImage = "Biểu tượng Trang";
+                public const string PublishingPageContent = "PublishingPageContent";
             }
 
             public static class FieldValuesDefault
@@ -95,6 +96,131 @@ namespace CQ.SharePoint.QN.Common
                 public const string DiaPhuong = "Địa Phương";
                 public const string DoanhNghiep = "Doanh nghiệp";
 
+            }
+        }
+        #endregion
+
+        #region Nested type: News Record
+        public static class ProvinceInfoRecord
+        {
+            public static class English
+            {
+                public const string Heading = "Heading";
+                //public const string Content = "Content";
+                public const string CategoryName = "CategoryName";
+                public const string ThumbnailImage = "Thumbnail";
+                public const string ShortContent = "ShortContent";
+                public const string ViewsCount = "ViewsCount"; //So luong nguoi doc
+                public const string FocusNews = "FocusNews";
+                public const string ShowInHomePage = "ShowInHomePage";
+                public const string LinkAdv = "LinkAdv";
+                public const string Status = "Status";
+                public const string PublishingPageImage = "PublishingPageImage";
+                public const string PublishingPageContent = "PublishingPageContent";
+            }
+
+            public static class VietNamese
+            {
+                public const string Heading = "Tiêu đề";
+                //public const string Content = "Nội dung";
+                public const string ViewsCount = "Số lượng xem"; //So luong nguoi doc
+                public const string FocusNews = "Tin tiêu biểu";
+                public const string CategoryName = "CategoryName";
+                public const string ThumbnailImage = "Ảnh đại diện";
+                public const string ShortContent = "Mô tả ngắn gọn bài viết";
+                public const string ShowInHomePage = "Hiển thị ở trang chủ";
+                public const string LinkAdv = "Liên kết trang web";
+                public const string Status = "Trạng thái";
+                public const string PublishingPageImage = "Biểu tượng Trang";
+                public const string PublishingPageContent = "PublishingPageContent";
+            }
+
+            public static class FieldValuesDefault
+            {
+                public const string TinhUy = "Tỉnh Ủy";
+                public const string HoiDongNhanDan = "Hội đồng nhân dân";
+                public const string UyBanNhanDan = "Ủy ban nhân dân";
+                public const string CaiCachHanhChinh = "Cải cách hành chính";
+                public const string SoBanNganh = "Sở ban ngành";
+                public const string DiaPhuong = "Địa Phương";
+                public const string DoanhNghiep = "Doanh nghiệp";
+
+            }
+        }
+        #endregion
+
+
+        #region Nested type: News Record
+        public static class ShouldToKnowRecord
+        {
+
+            public static class English
+            {
+                public const string Heading = "Heading";
+                public const string CategoryName = "CategoryName";
+                public const string ThumbnailImage = "Thumbnail";
+                public const string ShortContent = "ShortContent";
+                public const string ViewsCount = "ViewsCount";
+                public const string FocusNews = "FocusNews";
+                public const string ShowInHomePage = "ShowInHomePage";
+                public const string LinkAdv = "LinkAdv";
+                public const string Status = "Status";
+                public const string PublishingPageImage = "PublishingPageImage";
+                public const string PublishingPageContent = "PublishingPageContent";
+            }
+
+            public static class VietNamese
+            {
+                public const string Heading = "Tiêu đề";
+                public const string ViewsCount = "Số lượng xem"; //So luong nguoi doc
+                public const string FocusNews = "Tin tiêu biểu";
+                public const string CategoryName = "CategoryName";
+                public const string ThumbnailImage = "Ảnh đại diện";
+                public const string ShortContent = "Mô tả ngắn gọn bài viết";
+                public const string ShowInHomePage = "Hiển thị ở trang chủ";
+                public const string LinkAdv = "Liên kết trang web";
+                public const string Status = "Trạng thái";
+                public const string PublishingPageImage = "Biểu tượng Trang";
+                public const string PublishingPageContent = "PublishingPageContent";
+            }
+
+            public static class FieldValuesDefault
+            {
+                public const string TinhUy = "Tỉnh Ủy";
+                public const string HoiDongNhanDan = "Hội đồng nhân dân";
+                public const string UyBanNhanDan = "Ủy ban nhân dân";
+                public const string CaiCachHanhChinh = "Cải cách hành chính";
+                public const string SoBanNganh = "Sở ban ngành";
+                public const string DiaPhuong = "Địa Phương";
+                public const string DoanhNghiep = "Doanh nghiệp";
+
+            }
+        }
+        #endregion
+
+
+        #region Nested type: QuangCaoRaoVat
+        public static class QuangCaoRaoVat
+        {
+
+            public static class English
+            {
+                public const string Heading = "Heading";
+                public const string NgayBatDau = "NgayBatDau";
+                public const string NgayKetThuc = "NgayKetThuc";
+                public const string CountClick = "CountClick";
+                public const string LinkFileName = "LinkFileName";
+                public const string Status = "Status";
+            }
+
+            public static class VietNamese
+            {
+                public const string Heading = "Tiêu đề";
+                public const string NgayBatDau = "Ngày bắt đầu";
+                public const string NgayKetThuc = "Ngày kết thúc";
+                public const string CountClick = "Số lần click";
+                public const string LinkFileName = "LinkFileName";
+                public const string Status = "Ẩn quảng cáo";
             }
         }
         #endregion
@@ -167,6 +293,7 @@ namespace CQ.SharePoint.QN.Common
                 public const string FocusNews = "FocusNews";
                 public const string QuangCao = "QuangCao";//Neu la true => se hien len muc quang cao' o home page
                 public const string Dissolved = "Dissolved";
+                public const string CategoryName = "CategoryName";
                 public const string ChangeInformation = "ChangeInformation";
                 public const string Status = "Status";//Doanh nghiep moi la true, doanh nghiep thay doi la` false
             }
@@ -180,6 +307,7 @@ namespace CQ.SharePoint.QN.Common
                 public const string Information = "Information";
                 public const string Email = "Email";
                 public const string FocusNews = "FocusNews";
+                public const string CategoryName = "CategoryName";
                 public const string QuangCao = "QuangCao";
                 public const string Dissolved = "Dissolved";//Giai the
                 public const string ChangeInformation = "ChangeInformation";//Thay doi thong tin

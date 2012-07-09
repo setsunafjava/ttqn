@@ -12,5 +12,7 @@ namespace CQ.SharePoint.QN.Webparts
     public partial class ClassiFiedsUS
     {
         protected global::System.Web.UI.WebControls.Repeater rptFocusCompany;
+        protected global::System.Web.UI.WebControls.LinkButton lbtImage;
+        protected global::System.Web.UI.WebControls.Image img;
     }
 }

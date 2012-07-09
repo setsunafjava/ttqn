@@ -27,19 +27,18 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
-                    //Set language
-                    //if language is VietNamese
-                    //lblAttachFiles.Text = "Tài liệu kèm theo:";
-
                     var newsId = Request.QueryString[Constants.NewsId];
-                    if (!string.IsNullOrEmpty(newsId))
+                    var listName = Request.QueryString[Constants.ListName];
+                    var listCategoryName = Request.QueryString[Constants.ListCategoryName];
+
+                    if (!string.IsNullOrEmpty(newsId) && !string.IsNullOrEmpty(listName))
                     {
                         string newsQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Counter'>{1}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where>", FieldsName.Id, newsId);
-                        var newsItem = Utilities.GetNewsRecords(newsQuery, 1, ListsName.English.NewsRecord);
-                        if (newsItem != null && newsItem.Rows.Count>0)
+                        var newsItem = Utilities.GetNewsRecords(newsQuery, 1, listName);
+                        if (newsItem != null && newsItem.Rows.Count > 0)
                         {
                             string categoryName = Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.CategoryName]);
-                            ltrNewsContent.Text = Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.Content]);
+                            ltrNewsContent.Text = Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.PublishingPageContent]);
                             lblCurrentDate.Text = Convert.ToString(newsItem.Rows[0][FieldsName.Modified]);
 
                             attachMentFiles = new DataTable();
@@ -55,7 +54,7 @@ namespace CQ.SharePoint.QN.Webparts
                                     {
                                         try
                                         {
-                                            string listUrl = web.Url + "/Lists/" + ListsName.English.NewsRecord;
+                                            string listUrl = web.Url + "/Lists/" + listName;
                                             var result = web.GetList(listUrl);
                                             int id = Convert.ToInt32(newsId);
                                             SPListItem items = result.GetItemById(id);
@@ -105,12 +104,14 @@ namespace CQ.SharePoint.QN.Webparts
                             }
 
                             //end update
+
+                            //Create breadcrumb
                             newsQuery = string.Format("<Where><Eq><FieldRef Name='Title' /><Value Type='Text'>{0}</Value></Eq></Where>", categoryName);
-                            var categoryItem = Utilities.GetNewsRecords(newsQuery, 1, ListsName.English.NewsCategory);
+                            var categoryItem = Utilities.GetNewsRecords(newsQuery, 1, listCategoryName);
 
                             if (categoryItem != null && categoryItem.Rows.Count > 0)
                             {
-                                string parentCategory = Convert.ToString(categoryItem.Rows[0][FieldsName.NewsCategory.English.TypeCategory]);
+                                string parentCategory = Convert.ToString(categoryItem.Rows[0][FieldsName.NewsCategory.English.ParentName]);
                                 parentCategory = parentCategory.Replace(";#", "");
                                 lblBreadCrum.Text = string.Format("{0} &nbsp; &gt;&gt;&nbsp; &nbsp; {1}", parentCategory, categoryName);
                             }
@@ -122,6 +123,11 @@ namespace CQ.SharePoint.QN.Webparts
                 }
             }
         }
+        /// <summary>
+        /// Build beadcrumb for news
+        /// </summary>
+        /// <param name="categoryName"></param>
+        /// <returns></returns>
         public string BuilBreadcrumb(string categoryName)
         {
             string result = string.Empty;

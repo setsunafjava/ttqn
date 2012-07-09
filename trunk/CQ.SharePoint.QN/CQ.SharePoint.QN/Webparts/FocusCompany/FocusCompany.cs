@@ -38,7 +38,6 @@ namespace CQ.SharePoint.QN.Webparts
         protected override void CreateChildControls()
         {
             base.CreateChildControls();
-
             try
             {
                 FocusCompanyUS control = (FocusCompanyUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/FocusCompanyUS.ascx");
@@ -67,7 +66,6 @@ namespace CQ.SharePoint.QN.Webparts
     public class SelectFocusCompany : ToolPart
     {
         DropDownList ddlTypes = new DropDownList();
-        //FocusCompany _myParent = null;
         public SelectFocusCompany()
         {
             this.Title = "Chọn kiểu hiển thị";
@@ -76,7 +74,7 @@ namespace CQ.SharePoint.QN.Webparts
         protected override void CreateChildControls()
         {
             string companyCaml = string.Format("<Where><IsNotNull><FieldRef Name='Title' /></IsNotNull></Where>");
-            var table = Utilities.GetNewsRecords(companyCaml, 1000, ListsName.English.NewsCategory);
+            var table = Utilities.GetNewsRecords(companyCaml, ListsName.English.CompanyCategory);
 
             if (table != null && table.Rows.Count > 0)
             {

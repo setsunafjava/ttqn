@@ -179,7 +179,7 @@ namespace CQ.SharePoint.QN.Webparts
                 var enItem = enNewsList.Items.Add();
                 enItem["Title"] = item["Title"];
                 enItem[FieldsName.NewsRecord.English.CategoryName] = enParentCat;
-                enItem[FieldsName.NewsRecord.English.Content] = item[FieldsName.NewsRecord.English.Content];
+                enItem[FieldsName.NewsRecord.English.PublishingPageContent] = item[FieldsName.NewsRecord.English.PublishingPageContent];
                 enItem[FieldsName.NewsRecord.English.FocusNews] = item[FieldsName.NewsRecord.English.FocusNews];
                 enItem[FieldsName.NewsRecord.English.LinkAdv] = item[FieldsName.NewsRecord.English.LinkAdv];
                 enItem[FieldsName.NewsRecord.English.PublishingPageImage] = item[FieldsName.NewsRecord.English.PublishingPageImage];
@@ -189,8 +189,8 @@ namespace CQ.SharePoint.QN.Webparts
                 }
                 else
                 {
-                    enItem[FieldsName.NewsRecord.English.PublishingPageContent] = item[FieldsName.NewsRecord.English.Content];
-                    item[FieldsName.NewsRecord.English.PublishingPageContent] = item[FieldsName.NewsRecord.English.Content];
+                    enItem[FieldsName.NewsRecord.English.PublishingPageContent] = item[FieldsName.NewsRecord.English.PublishingPageContent];
+                    item[FieldsName.NewsRecord.English.PublishingPageContent] = item[FieldsName.NewsRecord.English.PublishingPageContent];
                     item.Update();
                 }
                 enItem[FieldsName.NewsRecord.English.ShortContent] = item[FieldsName.NewsRecord.English.ShortContent];

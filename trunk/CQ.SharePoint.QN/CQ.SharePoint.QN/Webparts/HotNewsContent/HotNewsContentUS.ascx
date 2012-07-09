@@ -107,6 +107,5 @@
 </div>
 
 <script type="text/javascript" src="/QNResources/wowslider.js"></script>
-
 <script type="text/javascript" src="/QNResources/javascript.js"></script>
 

@@ -15,8 +15,7 @@
                     <a href='<%= NewsUrl%><%#Eval("ID") %>'>
                         <%#Eval("Title")%></a> <span class="time_update">(<%= ParentWP.Day %> <%#Eval("Modified")%>)</span></div>
                 <div class="interpre">
-                    <div class="img_thumb">
-                        <%--<img src="images/logo.jpg" />--%>
+                    <div class="img_thumb">                        
                         <asp:Image ID="imgLogo" runat="server" Width="120px" Height="70px" ImageUrl='<%#Eval("Thumbnail") %>' />
                     </div>
                     <div class="short_content">

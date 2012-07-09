@@ -52,29 +52,32 @@ namespace CQ.SharePoint.QN.Webparts
                 {
                     var categoryId = Request.QueryString["CategoryId"];
                     var focusNews = Request.QueryString["FocusNews"];
+                    var listName = Request.QueryString[Constants.ListName];
+                    var listCategoryName = Request.QueryString[Constants.ListCategoryName];
+                    lnkPrev.Text = ParentWP.Prev;
+                    lnkNext.Text = ParentWP.Next;
 
-                    NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId);
+                    NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
+                       SPContext.Current.Web.Url,
+                       Constants.PageInWeb.DetailNews,
+                       listCategoryName,
+                       listName,
+                       Constants.NewsId);
                     if (!string.IsNullOrEmpty(categoryId))
                     {
                         if (!"-1".Equals(categoryId))
                         {
                             DataTable companyList = null;
-                            Utilities.GetNewsByCatID(Convert.ToString(categoryId), ref companyList);
-                            string imagepath;
+                            Utilities.GetNewsByCatID(listName, listCategoryName, Convert.ToString(categoryId), ref companyList);
                             if (companyList.Rows.Count > 0)
                             {
-                                for (int i = 0; i < companyList.Rows.Count; i++)
-                                {
-                                    imagepath = Convert.ToString(companyList.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage]);
-                                    if (imagepath.Length > 2)
-                                        companyList.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath.Trim().Substring(0, imagepath.Length - 2);
-                                }
+                                var companyListTemp = Utilities.GetTableWithCorrectUrl(companyList);
 
                                 PagedDataSource pageds = new PagedDataSource
                                 {
-                                    DataSource = companyList.DefaultView,
+                                    DataSource = companyListTemp.DefaultView,
                                     AllowPaging = true,
-                                    PageSize = 10
+                                    PageSize = 4
                                 };
                                 int curpage = 0;
                                 var pageNum = Request.QueryString["Page"];
@@ -87,7 +90,7 @@ namespace CQ.SharePoint.QN.Webparts
                                     curpage = 1;
                                 }
                                 pageds.CurrentPageIndex = curpage - 1;
-                                lblCurrpage.Text = "Trang: " + curpage;
+                                lblCurrpage.Text = string.Format("{0}: {1}", ParentWP.PageNumber, curpage);
 
                                 if (!pageds.IsFirstPage)
                                 {
@@ -114,11 +117,10 @@ namespace CQ.SharePoint.QN.Webparts
                             var year = Convert.ToInt32(Request.QueryString["Year"]);
                             DateTime dt = new DateTime(year, month, day);
 
-                            string categoryQuery = string.Format("<Where><And><Eq><FieldRef Name='Created' /><Value IncludeTimeValue='FALSE' Type='DateTime'>{0}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where>", SPUtility.CreateISO8601DateTimeFromSystemDateTime(dt));
-                            uint newsNumber = 10;
+                            string categoryQuery = string.Format("<Where><And><Eq><FieldRef Name='Created' /><Value IncludeTimeValue='FALSE' Type='DateTime'>{0}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where>",
+                                SPUtility.CreateISO8601DateTimeFromSystemDateTime(dt));
 
-
-                            var companyList = Utilities.GetNewsRecords(categoryQuery, newsNumber, ListsName.English.NewsRecord);
+                            var companyList = Utilities.GetNewsRecords(categoryQuery, listCategoryName);
                             if (companyList != null && companyList.Rows.Count > 0)
                             {
                                 rptListCategory.DataSource = companyList;
@@ -134,10 +136,10 @@ namespace CQ.SharePoint.QN.Webparts
                     {
                         if ("1".Equals(focusNews))
                         {
-                            string newsQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where>", FieldsName.NewsRecord.English.FocusNews);
-                            uint newsNumber = 10;
+                            string newsQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where>",
+                                FieldsName.NewsRecord.English.FocusNews);
 
-                            var companyList = Utilities.GetNewsRecords(newsQuery, newsNumber, ListsName.English.NewsRecord);
+                            var companyList = Utilities.GetNewsRecords(newsQuery, listCategoryName);
                             if (companyList != null && companyList.Rows.Count > 0)
                             {
                                 rptListCategory.DataSource = companyList;
@@ -152,6 +154,7 @@ namespace CQ.SharePoint.QN.Webparts
                 }
                 catch (Exception ex)
                 {
+                    Utilities.LogToUls(ex);
                 }
             }
         }

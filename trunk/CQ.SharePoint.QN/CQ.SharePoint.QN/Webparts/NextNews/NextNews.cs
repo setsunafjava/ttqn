@@ -58,6 +58,19 @@ namespace CQ.SharePoint.QN.Webparts
             set;
         }
 
+        [WebBrowsable(true)]
+        [FriendlyName("Thiết lập ngôn ngữ = 'Xem tin tiếp theo...'")]
+        [Description("Thiết lập ngôn ngữ = 'Xem tin tiếp theo...'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Xem tin tiếp theo...")]
+        public string SeeMore
+        {
+            get;
+            set;
+        }
+
         protected override void CreateChildControls()
         {
             try

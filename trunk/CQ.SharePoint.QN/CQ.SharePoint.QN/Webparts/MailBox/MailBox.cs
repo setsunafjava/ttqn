@@ -21,6 +21,15 @@ namespace CQ.SharePoint.QN.Webparts
         }
 
         [WebBrowsable(true)]
+        [FriendlyName("Tiêu đề 'Hộp thư công vụ'")]
+        [Description("Tiêu đề 'Hộp thư công vụ'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Hộp thư công vụ")]
+        public string MailBoxTitle { get; set; }
+
+        [WebBrowsable(true)]
         [FriendlyName("Nhập đường link tới web mail")]
         [Description("Nhập đường link tới web mail")]
         [Category("Cấu hình")]
@@ -31,7 +40,6 @@ namespace CQ.SharePoint.QN.Webparts
         protected override void CreateChildControls()
         {
             base.CreateChildControls();
-
             try
             {
                 MailBoxUS control = (MailBoxUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/MailBoxUS.ascx");

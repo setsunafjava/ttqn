@@ -47,7 +47,6 @@ namespace CQ.SharePoint.QN.Webparts
         protected override void CreateChildControls()
         {
             base.CreateChildControls();
-
             try
             {
                 CompanyAdvUS control = (CompanyAdvUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/CompanyAdvUS.ascx");
@@ -76,18 +75,15 @@ namespace CQ.SharePoint.QN.Webparts
     public class SelectCompanyAdv : ToolPart
     {
         DropDownList ddlTypes = new DropDownList();
-        //CompanyAdv _myParent = null;
         public SelectCompanyAdv()
         {
             this.Title = "Chọn kiểu hiển thị";
-
         }
 
         protected override void CreateChildControls()
         {
-            //string companyCaml = string.Format(" <Where><Eq><FieldRef Name='{0}' /><Value Type='MultiChoice'>{1}</Value></Eq></Where>", FieldsName.NewsCategory.English.TypeCategory, FieldsName.NewsCategory.FieldValuesDefault.DoanhNghiep);
             string companyCaml = string.Format("<Where><IsNotNull><FieldRef Name='Title' /></IsNotNull></Where>");
-            var table = Utilities.GetNewsRecords(companyCaml, 1000, ListsName.English.NewsCategory);
+            var table = Utilities.GetNewsRecords(companyCaml, ListsName.English.CompanyCategory);
 
             if (table != null && table.Rows.Count > 0)
             {

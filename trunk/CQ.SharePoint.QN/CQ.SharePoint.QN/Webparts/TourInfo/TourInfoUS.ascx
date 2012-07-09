@@ -4,7 +4,7 @@
 <div class="pos_MOD">
     <div class="bg_title_mod">
         <div class="info_travel">
-            <%= WebpartParent.NewsType%></div>
+            <%= WebpartParent.TourInfoTitle%></div>
     </div>
     <div class="inner_pos_Mod">
         <div class="inner_infoTravel">
