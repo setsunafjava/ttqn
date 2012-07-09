@@ -72,22 +72,19 @@ namespace CQ.SharePoint.QN.Webparts
             return toolparts;
         }
     }
-
-
     public class SelectNewsType : ToolPart
     {
         DropDownList ddlTypes = new DropDownList();
-        //ProvinceInfo _myParent = null;
         public SelectNewsType()
         {
-            this.Title = "Chọn kiểu thông tin muốn hiển thị";
+            Title = "Chọn kiểu thông tin muốn hiển thị";
 
         }
 
         protected override void CreateChildControls()
         {
-            string companyCaml = string.Format(" <Where><Eq><FieldRef Name='{0}' /><Value Type='MultiChoice'>{1}</Value></Eq></Where>", FieldsName.NewsCategory.English.TypeCategory, FieldsName.NewsCategory.FieldValuesDefault.TinhUy);
-            var table = Utilities.GetNewsRecords(companyCaml, 20, ListsName.English.NewsCategory);
+            string companyCaml = string.Format("<OrderBy><FieldRef Name='Title' Ascending='True' /></OrderBy>");
+            var table = Utilities.GetNewsRecords(companyCaml, ListsName.English.ProvinceInfoCategory);
 
             if (table != null && table.Rows.Count > 0)
             {
@@ -103,9 +100,7 @@ namespace CQ.SharePoint.QN.Webparts
         public override void ApplyChanges()
         {
             ProvinceInfo parentWebPart = (ProvinceInfo)this.ParentToolPane.SelectedWebPart;
-            //base.ApplyChanges();
-            //            parentWebPart.CompanyType = ddlTypes.SelectedItem.Text;
-            RetrievePropertyValues(this.Controls, parentWebPart);
+            RetrievePropertyValues(Controls, parentWebPart);
         }
 
         private void RetrievePropertyValues(ControlCollection controls, ProvinceInfo parentWebPart)

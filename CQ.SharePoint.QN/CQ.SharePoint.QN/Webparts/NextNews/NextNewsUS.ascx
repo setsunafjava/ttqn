@@ -11,22 +11,25 @@
 <div class="select_date">
     <table>
         <tr>
-            <td>                
+            <td>
                 <asp:LinkButton ID="lnkNextNews" runat="server" CssClass="linkcss" Text="Xem tin tiếp theo..."
                     OnClick="NextNewsClick"></asp:LinkButton>
             </td>
             <td>
-                <%=ParentWP.DayTitle %>
+               <%-- <%=ParentWP.DayTitle %>--%>
+               Ngày
                 <asp:DropDownList ID="ddlDays" runat="server" Width="40px">
                 </asp:DropDownList>
             </td>
             <td>
-                <%=ParentWP.MonthTitle %>
+                <%--<%=ParentWP.MonthTitle %>--%>
+                Tháng
                 <asp:DropDownList ID="ddlMonths" runat="server" Width="40px">
                 </asp:DropDownList>
             </td>
             <td>
-                <%=ParentWP.YearTitle %>
+                <%--<%=ParentWP.YearTitle %>--%>
+                Năm
                 <asp:DropDownList ID="ddlYears" runat="server" Width="60px">
                 </asp:DropDownList>
             </td>

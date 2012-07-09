@@ -17,7 +17,6 @@ namespace CQ.SharePoint.QN.Webparts
     public partial class LeftNewsContentUS : UserControl
     {
         public LeftNewsContent WebpartParent;
-        private string _newsCategoryTitle;
         public string NewsUrl = string.Empty;
         public string CategoryUrl = string.Empty;
         public string NewsFirstUrl1 = string.Empty;
@@ -33,12 +32,14 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
+                    NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
+                       SPContext.Current.Web.Url,
+                       Constants.PageInWeb.DetailNews,
+                       ListsName.English.NewsCategory,
+                       ListsName.English.NewsRecord,
+                       Constants.NewsId);
 
-                    NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId);
-
-                  
                     string newsGroupQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.CategoryName, SPHttpUtility.HtmlEncode(WebpartParent.GroupName));
-                    //var newsGroups = Utilities.GetNewsRecords(newsGroupQuery, Convert.ToUInt16(WebpartParent.NumberOfNews), ListsName.English.NewsRecord);
                     var newsGroups = Utilities.GetNewsRecordItems(newsGroupQuery, Convert.ToUInt16(WebpartParent.NumberOfNews), ListsName.English.NewsRecord);
                     if (newsGroups != null && newsGroups.Count > 0)
                     {
@@ -47,7 +48,14 @@ namespace CQ.SharePoint.QN.Webparts
                         imgThumb.ImageUrl = Convert.ToString(tempTable.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
 
                         lblShortContent.Text = Convert.ToString(tempTable.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
-                        NewsFirstUrl1 = string.Format("{0}/{1}.aspx?{2}={3}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId, Convert.ToString(newsGroups[0][FieldsName.Id]));
+                        NewsFirstUrl1 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}",
+                                   SPContext.Current.Web.Url,
+                                   Constants.PageInWeb.DetailNews,
+                                   ListsName.English.NewsCategory,
+                                   ListsName.English.NewsRecord,
+                                   Constants.NewsId,
+                                   Convert.ToString(newsGroups[0][FieldsName.Id]));
+
                         if (tempTable.Rows.Count > 2)
                         {
                             tempTable.Rows.RemoveAt(0);
@@ -55,9 +63,18 @@ namespace CQ.SharePoint.QN.Webparts
                             rptCaiCachThuTucHanhChinh.DataBind();
                         }
                     }
+                    CategoryUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
+                       SPContext.Current.Web.Url,
+                       Constants.PageInWeb.SubPage,
+                       ListsName.English.NewsCategory,
+                       ListsName.English.NewsRecord,
+                       Constants.CategoryId);
 
-                    CategoryUrl = string.Format("{0}/{1}.aspx?CategoryId=", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage);
-                    string newsTitle = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='{2}' Ascending='True' /></OrderBy>", FieldsName.NewsCategory.English.ParentName, WebpartParent.NewsGroupID, FieldsName.Title);
+                    string newsTitle = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='{2}' Ascending='True' /></OrderBy>",
+                        FieldsName.NewsCategory.English.ParentName,
+                        WebpartParent.NewsGroupID,
+                        FieldsName.Title);
+
                     var newsTitleItems = Utilities.GetNewsRecords(newsTitle, 4, ListsName.English.NewsCategory);
                     if (newsTitleItems != null && newsTitleItems.Rows.Count > 0)
                     {

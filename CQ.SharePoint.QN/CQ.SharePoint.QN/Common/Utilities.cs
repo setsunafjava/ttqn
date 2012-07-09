@@ -40,18 +40,38 @@ namespace CQ.SharePoint.QN.Common
         {
             if (dataTable != null && dataTable.Rows.Count > 0)
             {
+                string thumbnailImage = string.Empty;
+                string publishingPageImage = string.Empty;
+                
+                for (int i = 0; i < dataTable.Rows.Count; i++)
+                {
+                    thumbnailImage = Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage]);
+                    publishingPageImage = Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.PublishingPageImage]);
+                    
+                    if (thumbnailImage.Length > 2)
+                    {
+                        dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = thumbnailImage.Trim().Substring(0, thumbnailImage.Length - 2);
+                    }
+                    else if (publishingPageImage.Length > 2)
+                    {
+                        var t = publishingPageImage.Split(' ')[3];
+                        dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = t.Trim().Substring(5, t.Length - 6);
+                    }
+                }
+            }
+            return dataTable;
+        }
+
+        public static DataTable GetTableWithCorrectUrlDoclib(SPWeb web, DataTable dataTable)
+        {
+            if (dataTable != null && dataTable.Rows.Count > 0)
+            {
                 string imagepath = string.Empty;
-                ImageFieldValue imageIcon;
 
                 for (int i = 0; i < dataTable.Rows.Count; i++)
                 {
-                    imagepath = Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage]);
-                    if (imagepath.Length > 2)
-                    {
-                        imageIcon = dataTable.Rows[i][FieldsName.NewsRecord.English.PublishingPageImage] as ImageFieldValue;
-                        if (imageIcon != null)
-                            dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imageIcon.ImageUrl;
-                    }
+                    imagepath = Convert.ToString(dataTable.Rows[i][FieldsName.QuangCaoRaoVat.English.LinkFileName]);
+                    dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = string.Format("{0}/{1}/{2}", web.Url, ListsName.English.QuangCaoRaoVat, imagepath);
                 }
             }
             return dataTable;
@@ -65,6 +85,7 @@ namespace CQ.SharePoint.QN.Common
             {
                 string imagepath = string.Empty;
                 ImageFieldValue imageIcon;
+                SPFieldUrlValue advLink;
 
                 for (int i = 0; i < items.Count; i++)
                 {
@@ -82,9 +103,80 @@ namespace CQ.SharePoint.QN.Common
                             dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath;
                         }
                     }
+
+                    advLink = new SPFieldUrlValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.LinkAdv]));
+                    dataTable.Rows[i][FieldsName.NewsRecord.English.LinkAdv] = advLink.Url;
                 }
             }
             return dataTable;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="sapo"></param>
+        /// <returns></returns>
+        public static DataTable GetTableWithCorrectUrl(SPListItemCollection items, bool sapo)
+        {
+            var dataTable = items.GetDataTable();
+
+            if (items != null && items.Count > 0)
+            {
+                string imagepath = string.Empty;
+                ImageFieldValue imageIcon;
+
+                for (int i = 0; i < items.Count; i++)
+                {
+                    imagepath = Convert.ToString(items[i][FieldsName.NewsRecord.English.ThumbnailImage]);
+                    imageIcon = items[i][FieldsName.NewsRecord.English.PublishingPageImage] as ImageFieldValue;
+                    dataTable.Rows[i][FieldsName.Title] = GetTextForSapo(Convert.ToString(items[i][FieldsName.Title]));
+
+                    if (imageIcon != null)
+                        dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imageIcon.ImageUrl;
+                    else
+                    {
+                        if (imagepath.Length > 2)
+                            dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath.Trim().Substring(0, imagepath.Length - 2);
+                        else
+                        {
+                            dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath;
+                        }
+                    }
+                }
+            }
+            return dataTable;
+        }
+
+        /// <summary>
+        /// Cut many text and set text is sapo
+        /// </summary>
+        /// <param name="strInput"></param>
+        /// <returns></returns>
+        public static string GetTextForSapo(string strInput)
+        {
+            StringBuilder strResult = new StringBuilder();
+            string[] inputArray = null;
+            if (!string.IsNullOrEmpty(strInput))
+            {
+                if (strInput.Length > 55)
+                {
+                    inputArray = strInput.Split(' ');
+                    int numLength = 0;
+                    int i = 0;
+                    while (numLength < 55)
+                    {
+                        strResult.Append(string.Format("{0} ", inputArray[i]));
+                        numLength = strResult.Length;
+                        i++;
+                    }
+                }
+                else
+                {
+                    strResult.Append(strInput);
+                }
+            }
+            return string.Format("{0}...", strResult);
         }
 
         /// <summary>
@@ -451,33 +543,6 @@ namespace CQ.SharePoint.QN.Common
             return null;
         }
 
-        /// <summary>
-        /// format string
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public static string GoodStringForHtml(string value)
-        {
-            var result = value.Trim();
-            result = result.Replace("'", "\'");
-            result = result.Replace("\r\n", "");
-            result = result.Replace("\n\r", "");
-            result = result.Replace("\n", "");
-            result = result.Replace("\r", "");
-            return result;
-        }
-
-        /// <summary>
-        /// format string
-        /// </summary>
-        /// <param name="value">value</param>
-        /// <returns>string</returns>
-        public static string GoodStringForSql(string value)
-        {
-            var result = value.Trim();
-            result = result.Replace("'", "''");
-            return result;
-        }
 
         /// <summary>
         /// GetListFromUrl
@@ -679,6 +744,42 @@ namespace CQ.SharePoint.QN.Common
             return table;
         }
 
+        public static DataTable GetNewsRecords(string query, string listName)
+        {
+            DataTable table = new DataTable();
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            SPQuery spQuery = new SPQuery
+                            {
+                                Query = query
+                            };
+                            SPList list = Utilities.GetListFromUrl(web, listName);
+                            if (list != null)
+                            {
+                                SPListItemCollection items = list.GetItems(spQuery);
+                                if (items != null && items.Count > 0)
+                                {
+                                    table = items.GetDataTable();
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            table = null;
+                        }
+                    }
+
+                }
+            });
+            return table;
+        }
+
 
         public static SPListItemCollection GetNewsRecordItems(string query, uint newsNumber, string listName)
         {
@@ -766,6 +867,43 @@ namespace CQ.SharePoint.QN.Common
                                 ViewFields = "<FieldRef Name='ID' /><FieldRef Name='Title' /><FieldRef Name='ImageCreateDate' /><FieldRef Name='Description' /><FieldRef Name='FileLeafRef' />"
                             };
                             SPList list = Utilities.GetDocListFromUrl(web, listName);
+                            if (list != null)
+                            {
+                                SPListItemCollection items = list.GetItems(spQuery);
+                                if (items != null && items.Count > 0)
+                                {
+                                    table = items.GetDataTable();
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            table = null;
+                        }
+                    }
+
+                }
+            });
+            return table;
+        }
+
+        public static DataTable GetDocLibRecords(string query, uint itemsNumber, string listName)
+        {
+            DataTable table = new DataTable();
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            SPQuery spQuery = new SPQuery
+                            {
+                                Query = query,
+                                RowLimit = itemsNumber
+                            };
+                            SPList list = GetDocListFromUrl(web, listName);
                             if (list != null)
                             {
                                 SPListItemCollection items = list.GetItems(spQuery);
@@ -1009,9 +1147,11 @@ namespace CQ.SharePoint.QN.Common
             return result;
         }
 
-        public static DataTable GetNewsByCatID(string catID)
+        public static DataTable GetNewsByCatID(string listName, string catID)
         {
-            string camlQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='LookupMulti'>{1}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where>", FieldsName.NewsRecord.English.CategoryName, catID);
+            string camlQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where>",
+                FieldsName.NewsRecord.English.CategoryName,
+                catID);
             var query = new SPQuery();
             query.Query = camlQuery;
             DataTable table = null;
@@ -1023,7 +1163,7 @@ namespace CQ.SharePoint.QN.Common
                     {
                         try
                         {
-                            string listUrl = web.Url + "/Lists/" + ListsName.English.NewsRecord;
+                            string listUrl = web.Url + "/Lists/" + listName;
                             var list = web.GetList(listUrl);
                             if (list != null)
                             {
@@ -1045,7 +1185,7 @@ namespace CQ.SharePoint.QN.Common
             return table;
         }
 
-        public static DataTable GetNewsCatByParent(string catID)
+        public static DataTable GetNewsCatByParent(string listCategoryName, string catID)
         {
             string camlQuery = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='LookupMulti'>{1}</Value></Eq></Where>", FieldsName.NewsCategory.English.ParentName, catID);
             var query = new SPQuery();
@@ -1059,7 +1199,7 @@ namespace CQ.SharePoint.QN.Common
                     {
                         try
                         {
-                            string listUrl = web.Url + "/Lists/" + ListsName.English.NewsCategory;
+                            string listUrl = web.Url + "/Lists/" + listCategoryName;
                             var list = web.GetList(listUrl);
                             if (list != null)
                             {
@@ -1081,9 +1221,9 @@ namespace CQ.SharePoint.QN.Common
             return table;
         }
 
-        public static void GetNewsByCatID(string catID, ref DataTable dtNews)
+        public static void GetNewsByCatID(string listName, string listCategoryName, string catID, ref DataTable dtNews)
         {
-            var dt = GetNewsByCatID(catID);
+            var dt = GetNewsByCatID(listName, catID);
             if (dt != null && dtNews == null)
             {
                 dtNews = dt.Clone();
@@ -1095,17 +1235,17 @@ namespace CQ.SharePoint.QN.Common
                     dtNews.ImportRow(dataRow);
                 }
             }
-            var catTbl = GetNewsCatByParent(catID);
+            var catTbl = GetNewsCatByParent(listCategoryName, catID);
             if (catTbl != null && catTbl.Rows.Count > 0)
             {
                 foreach (DataRow row in catTbl.Rows)
                 {
-                    GetNewsByCatID(Convert.ToString(row["ID"]), ref dtNews);
+                    GetNewsByCatID(listName, listCategoryName, Convert.ToString(row["ID"]), ref dtNews);
                 }
             }
         }
 
-        public static void GetRSS(string catID)
+        public static void GetRSS(string listName, string listCategoryName, string catID)
         {
             if (string.IsNullOrEmpty(catID))
             {
@@ -1122,7 +1262,7 @@ namespace CQ.SharePoint.QN.Common
                         {
                             try
                             {
-                                string listUrl = web.Url + "/Lists/" + ListsName.English.NewsRecord;
+                                string listUrl = web.Url + "/Lists/" + listName;
                                 var list = web.GetList(listUrl);
                                 if (list != null)
                                 {
@@ -1146,7 +1286,7 @@ namespace CQ.SharePoint.QN.Common
             else
             {
                 DataTable dtNews = null;
-                GetNewsByCatID(catID, ref dtNews);
+                GetNewsByCatID(listName, listCategoryName, catID, ref dtNews);
                 var rssTitle = "Trung tâm công nghệ thông tin tỉnh Quảng Ninh";
                 var rssDesc = "Trung tâm công nghệ thông tin tỉnh Quảng Ninh";
                 var rssUrl = SPContext.Current.Web.Url;
@@ -1160,7 +1300,7 @@ namespace CQ.SharePoint.QN.Common
                             {
                                 try
                                 {
-                                    string listUrl = web.Url + "/Lists/" + ListsName.English.NewsCategory;
+                                    string listUrl = web.Url + "/Lists/" + listCategoryName;
                                     var list = web.GetList(listUrl);
                                     if (list != null)
                                     {
@@ -1279,7 +1419,7 @@ namespace CQ.SharePoint.QN.Common
                 camlQuery =
                 string.Format(
                     "<Where><Or><Contains><FieldRef Name='{0}' /><Value Type='Text'>{1}</Value></Contains><Or><Contains><FieldRef Name='{2}' /><Value Type='Note'>{1}</Value></Contains><Contains><FieldRef Name='{3}' /><Value Type='Note'>{1}</Value></Contains></Or></Or></Where>",
-                    "Title", keyWord, FieldsName.NewsRecord.English.ShortContent, FieldsName.NewsRecord.English.Content);
+                    "Title", keyWord, FieldsName.NewsRecord.English.ShortContent, FieldsName.NewsRecord.English.PublishingPageContent);
             }
 
             var query = new SPQuery();
@@ -1313,6 +1453,46 @@ namespace CQ.SharePoint.QN.Common
                 }
             });
             return table;
+        }
+
+        public static void ViewCountCalculated(SPWeb spWeb, string listName, string viewCountField, int newsId)
+        {
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(spWeb.Site.ID))
+                {
+                    using (var web = site.OpenWeb(spWeb.ID))
+                    {
+                        try
+                        {
+                            SPList list = GetDocListFromUrl(web, listName);
+                            int id = Convert.ToInt32(newsId);
+                            SPListItem items = list.GetItemById(id);
+                            if (items != null)
+                            {
+                                string viewcount = Convert.ToString(items[viewCountField]);
+                                if (!string.IsNullOrEmpty(viewcount))
+                                {
+                                    int count = Convert.ToInt32(viewcount);
+                                    items[viewCountField] = ++count;
+                                    web.AllowUnsafeUpdates = true;
+                                    items.Update();
+                                }
+                                else
+                                {
+                                    items[viewCountField] = 1;
+                                    web.AllowUnsafeUpdates = true;
+                                    items.Update();
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Utilities.LogToUls(ex);
+                        }
+                    }
+                }
+            });
         }
     }
 }

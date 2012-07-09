@@ -7,8 +7,7 @@
 <div class="mod_News_external">
     <div class="bg_title_ModNews">
         <div class="title_cate_News">
-            <div class="name_title_typ_News">
-                <%--<asp:LinkButton ID="lbRSS" runat="server" OnClick="lbRSS_OnClick"></asp:LinkButton>--%>
+            <div class="name_title_typ_News">                
                 <a href="/RSS.aspx?CategoryId=<%=WebpartParent.NewsGroupID%>" target="_blank"><%=WebpartParent.GroupName%></a>
             </div>
             <div class="link_cate_more">

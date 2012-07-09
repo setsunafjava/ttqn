@@ -92,7 +92,7 @@ namespace CQ.SharePoint.QN.Webparts
         {
             base.OnPreRender(e);
             var categoryId = Convert.ToString(Request.QueryString["CategoryId"]);
-            Utilities.GetRSS(categoryId);
+            //Utilities.GetRSS(categoryId);
         }
     }
 }

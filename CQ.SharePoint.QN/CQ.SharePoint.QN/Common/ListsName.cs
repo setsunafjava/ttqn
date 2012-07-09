@@ -35,6 +35,13 @@ namespace CQ.SharePoint.QN.Common
             public const string QNTVList = "QNTVList";
             public const string StatisticsList = "StatisticsList";
             public const string ContactList = "ContactList";
+            public const string ProvinceInfoRecord = "ProvinceInfoRecord";
+            public const string ProvinceInfoCategory = "ProvinceInfoCategory";
+            public const string ShouldToKnowRecord = "ShouldToKnowRecord";
+            public const string ShouldToKnowCategory = "ShouldToKnowCategory";
+            public const string QuangCaoRaoVat = "QuangCaoRaoVat";
+            public const string TourInforRecord = "TourInforRecord";
+            public const string TourInforCategory = "TourInforCategory";
         }
 
         // Display Name of list
@@ -69,6 +76,12 @@ namespace CQ.SharePoint.QN.Common
             public const string QNTVList = "QNTVList";
             public const string StatisticsList = "StatisticsList";
             public const string ContactList = "ContactList";
+            public const string ProvinceInfoRecord = "ProvinceInfoRecord";
+            public const string ProvinceInfoCategory = "ProvinceInfoCategory";
+            public const string ShouldToKnowRecord = "ShouldToKnowRecord";
+            public const string ShouldToKnowCategory = "ShouldToKnowCategory";
+            public const string TourInforRecord = "TourInforRecord";
+            public const string TourInforCategory = "TourInforCategory";
         }
     }
 }

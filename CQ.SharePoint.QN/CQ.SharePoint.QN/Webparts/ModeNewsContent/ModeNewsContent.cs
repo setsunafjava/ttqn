@@ -17,9 +17,9 @@ namespace CQ.SharePoint.QN.Webparts
     public class ModeNewsContent : Microsoft.SharePoint.WebPartPages.WebPart
     {
         [WebBrowsable(true)]
-        [FriendlyName("")]
-        [Description("")]
-        [Category("")]
+        [FriendlyName("Số tin tức muốn hiển thị")]
+        [Description("Số tin tức muốn hiển thị")]
+        [Category("Cấu hình")]
         [WebPartStorage(Storage.Shared)]
         [Personalizable(PersonalizationScope.Shared)]
         public string NewsNumber { get; set; }
@@ -86,7 +86,6 @@ namespace CQ.SharePoint.QN.Webparts
         DropDownList ddlTypes1 = new DropDownList();
         DropDownList ddlTypes2 = new DropDownList();
         DropDownList ddlTypes3 = new DropDownList();
-        //ModeNewsContent _myParent = null;
         public DropDownList1()
         {
             Title = "Chọn kiểu hiển thị";

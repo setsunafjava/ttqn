@@ -14,7 +14,7 @@ namespace CQ.SharePoint.QN.Webparts
     public partial class FocusNewsUS : UserControl
     {
         public FocusNews WebpartParent;
-        public string NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId);
+        public string NewsUrl = string.Empty;
         public string CategoryUrl = string.Empty;
         /// <summary>
         /// Page on Load
@@ -23,25 +23,40 @@ namespace CQ.SharePoint.QN.Webparts
         /// <param name="e">EventArgs e</param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 try
                 {
-                    string focusNewsQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Eq><Neq><FieldRef Name='{1}' /><Value Type='Boolean'>1</Value></Neq></And></Where>", FieldsName.NewsRecord.English.FocusNews, FieldsName.NewsRecord.English.Status);
+                    NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
+                       SPContext.Current.Web.Url,
+                       Constants.PageInWeb.DetailNews,
+                       ListsName.English.NewsCategory,
+                       ListsName.English.NewsRecord,
+                       Constants.NewsId);
+
+                    string focusNewsQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Eq><Neq><FieldRef Name='{1}' /><Value Type='Boolean'>1</Value></Neq></And></Where>",
+                        FieldsName.NewsRecord.English.FocusNews,
+                        FieldsName.NewsRecord.English.Status);
+
                     uint numberOfNews = 5;
-                    if(!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
+                    if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
                     {
                         try
                         {
                             numberOfNews = Convert.ToUInt16(WebpartParent.NumberOfNews);
                         }
                         catch (Exception ex)
-                        {}
+                        { }
                     }
 
-                    //var focusNewsTable = Utilities.GetNewsRecords(focusNewsQuery, Convert.ToUInt16(numberOfNews), ListsName.English.NewsRecord);
                     var focusNewsTable = Utilities.GetNewsRecordItems(focusNewsQuery, Convert.ToUInt16(numberOfNews), ListsName.English.NewsRecord);
-                    CategoryUrl = string.Format("{0}/{1}.aspx?FocusNews=1", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage);
+                    CategoryUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
+                       SPContext.Current.Web.Url,
+                       Constants.PageInWeb.SubPage,
+                       ListsName.English.NewsCategory,
+                       ListsName.English.NewsRecord,
+                       Constants.CategoryId);
+
                     if (focusNewsTable != null && focusNewsTable.Count > 0)
                     {
                         rptFocusNews.DataSource = Utilities.GetTableWithCorrectUrl(focusNewsTable);

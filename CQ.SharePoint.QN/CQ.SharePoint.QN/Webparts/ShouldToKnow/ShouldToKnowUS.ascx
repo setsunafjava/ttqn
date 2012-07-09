@@ -2,8 +2,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ShouldToKnowUS.ascx.cs"
     Inherits="CQ.SharePoint.QN.Webparts.ShouldToKnowUS" %>
 <%@ Assembly Name="Microsoft.SharePoint.Publishing, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
-<div class="contact_adv">
-    Liên hệ quảng cáo: Hotline 0904 555 888</div>
+<div class="contact_adv"><%= WebpartParent.ShouldToKnowTitle%></div>
 <div class="info_more">
     <div class="bg_title_ModNews">
         <div class="title_cate_News">

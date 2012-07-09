@@ -475,7 +475,6 @@
     <Content Include="Resources\Javascript\wowslider.js" />
     <Content Include="Resources\Module.xml" />
     <Content Include="Resources\UserControls\MainForm.ascx">
-      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\ClassiFieds\ClassiFieds.xml" />
     <Content Include="Webparts\ClassiFieds\ClassiFiedsUS.ascx">

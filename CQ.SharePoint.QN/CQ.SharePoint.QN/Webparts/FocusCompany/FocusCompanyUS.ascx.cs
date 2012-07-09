@@ -24,7 +24,7 @@ namespace CQ.SharePoint.QN.Webparts
             try
             {
                 DataTable companyList = null;
-                Utilities.GetNewsByCatID(Convert.ToString(WebpartParent.CategoryId), ref companyList);
+                Utilities.GetNewsByCatID(ListsName.English.CompanyRecord, ListsName.English.CompanyCategory, Convert.ToString(WebpartParent.CategoryId), ref companyList);
                 lblFocusCompany.Text = WebpartParent.CategoryType;
                 string imagepath;
 
@@ -37,7 +37,13 @@ namespace CQ.SharePoint.QN.Webparts
                         if (imagepath.Length > 2)
                             companyList.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath.Trim().Substring(0, imagepath.Length - 2);
 
-                        companyList.Rows[i]["LinkToItem"] = string.Format("{0}/{1}.aspx?NewsId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, companyList.Rows[i][FieldsName.Id]);
+                        companyList.Rows[i]["LinkToItem"] = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}",
+                                                               SPContext.Current.Web.Url,
+                                                               Constants.PageInWeb.DetailNews,
+                                                               ListsName.English.CompanyCategory,
+                                                               ListsName.English.CompanyRecord,
+                                                               Constants.NewsId,
+                                                               Convert.ToString(companyList.Rows[i]["ID"]));
                     }
                     rptFocusCompany.DataSource = companyList;
                     rptFocusCompany.DataBind();

@@ -26,9 +26,15 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
-//                    NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage, Constants.NewsId);
-                    CategoryUrl = string.Format("{0}/{1}.aspx?CategoryId=", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage);
-                    string companyListQuery = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where>", FieldsName.NewsCategory.English.ParentName, WebpartParent.CategoryId);
+                    CategoryUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
+                       SPContext.Current.Web.Url,
+                       Constants.PageInWeb.SubPage,
+                       ListsName.English.TourInforCategory,
+                       ListsName.English.TourInforRecord,
+                       Constants.CategoryId);
+
+                    string companyListQuery = string.Format("<Where><Neq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Neq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>",
+                        FieldsName.NewsCategory.English.Status);
                     uint newsNumber = 5;
 
                     if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
@@ -36,7 +42,7 @@ namespace CQ.SharePoint.QN.Webparts
                         newsNumber = Convert.ToUInt16(WebpartParent.NumberOfNews);
                     }
 
-                    var companyList = Utilities.GetNewsRecords(companyListQuery, newsNumber, ListsName.English.NewsCategory);
+                    var companyList = Utilities.GetNewsRecords(companyListQuery, newsNumber, ListsName.English.TourInforCategory);
                     if (companyList != null && companyList.Rows.Count > 0)
                     {
                         rptTourInfo.DataSource = companyList;
@@ -55,14 +61,10 @@ namespace CQ.SharePoint.QN.Webparts
         /// <param name="e"></param>
         protected void rptTourInfo_OnItemDataBound(object Sender, RepeaterItemEventArgs e)
         {
-
-            // This event is raised for the header, the footer, separators, and items.
-
-            // Execute the following logic for Items and Alternating Items.
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
                 DataRowView drv = (DataRowView)e.Item.DataItem;
             }
-        }   
+        }
     }
 }

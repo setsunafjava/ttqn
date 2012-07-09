@@ -29,19 +29,26 @@ namespace CQ.SharePoint.QN.Webparts
                 {
                     var newsId = Convert.ToInt32(Request.QueryString[Constants.NewsId]);
                     var cateId = Convert.ToInt32(Request.QueryString[Constants.CategoryId]);
+                    var listName = Request.QueryString[Constants.ListName];
+                    var listCategoryName = Request.QueryString[Constants.ListCategoryName];
 
-                    NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId);
+                    NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
+                        SPContext.Current.Web.Url,
+                        Constants.PageInWeb.DetailNews,
+                        listCategoryName,
+                        listName,
+                        Constants.NewsId);
                     //Bind data to top view
                     DataTable otherNewsTable = null;
 
                     if (cateId > 0)
                     {
-                        Utilities.GetNewsByCatID(Convert.ToString(cateId), ref otherNewsTable);
+                        Utilities.GetNewsByCatID(listName, listCategoryName, Convert.ToString(cateId), ref otherNewsTable);
                     }
                     else if (newsId > 0)
                     {
-                        string categoryId = Utilities.GetCategoryIdByItemId(newsId, ListsName.English.NewsRecord);
-                        Utilities.GetNewsByCatID(categoryId, ref otherNewsTable);
+                        string categoryId = Utilities.GetCategoryIdByItemId(newsId, listName);
+                        Utilities.GetNewsByCatID(listName, listCategoryName, categoryId, ref otherNewsTable);
                     }
 
                     if (otherNewsTable != null && otherNewsTable.Rows.Count > 0)

@@ -33,6 +33,45 @@ namespace CQ.SharePoint.QN.Webparts
             set;
         }
 
+        [WebBrowsable(true)]
+        [FriendlyName("Thiết lập ngôn ngữ = 'Trước'")]
+        [Description("Thiết lập ngôn ngữ = 'Trước'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Trước")]
+        public string Prev
+        {
+            get;
+            set;
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Thiết lập ngôn ngữ = 'Sau'")]
+        [Description("Thiết lập ngôn ngữ = 'Sau'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Sau")]
+        public string Next
+        {
+            get;
+            set;
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Thiết lập ngôn ngữ = 'Trang'")]
+        [Description("Thiết lập ngôn ngữ = 'Trang'")]
+        [Category("Ngôn ngữ")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        [DefaultValue("Trang")]
+        public string PageNumber
+        {
+            get;
+            set;
+        }
+
         protected override void CreateChildControls()
         {
             try

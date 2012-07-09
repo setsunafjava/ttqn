@@ -26,12 +26,14 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
-                    //Set language
-                    //If language is VietNamese
-                    //lblDay.Text = "Ngày";
+                    NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=", 
+                        SPContext.Current.Web.Url,
+                        Constants.PageInWeb.DetailNews,
+                        ListsName.English.ProvinceInfoCategory,
+                        ListsName.English.ProvinceInfoRecord,
+                        Constants.NewsId);
 
-                    NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId);
-                    string companyListQuery = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE' /><Value Type='LookupMulti'>{1}</Value></Eq></Where>", FieldsName.NewsRecord.English.CategoryName, WebpartParent.CategoryId);
+                    string companyListQuery = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE' /><Value Type='Lookup'>{1}</Value></Eq></Where>", FieldsName.ProvinceInfoRecord.English.CategoryName, WebpartParent.CategoryId);
                     uint newsNumber = 5;
 
                     if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
@@ -39,7 +41,7 @@ namespace CQ.SharePoint.QN.Webparts
                         newsNumber = Convert.ToUInt16(WebpartParent.NumberOfNews);
                     }
 
-                    var companyList = Utilities.GetNewsRecords(companyListQuery, newsNumber, ListsName.English.NewsRecord);
+                    var companyList = Utilities.GetNewsRecords(companyListQuery, newsNumber, ListsName.English.ProvinceInfoRecord);
                     if (companyList != null && companyList.Rows.Count > 0)
                     {
                         rptProvinceInfo.DataSource = companyList;
@@ -59,10 +61,6 @@ namespace CQ.SharePoint.QN.Webparts
         /// <param name="e"></param>
         protected void rptProvinceInfo_OnItemDataBound(object Sender, RepeaterItemEventArgs e)
         {
-
-            // This event is raised for the header, the footer, separators, and items.
-
-            // Execute the following logic for Items and Alternating Items.
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
                 DataRowView drv = (DataRowView)e.Item.DataItem;

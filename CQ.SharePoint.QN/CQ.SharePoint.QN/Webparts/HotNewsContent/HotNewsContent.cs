@@ -16,12 +16,36 @@ namespace CQ.SharePoint.QN.Webparts
         }
 
         [WebBrowsable(true)]
-        [FriendlyName("Chọn loại mục tin")]
-        [Description("Chọn loại mục tin")]
-        [Category("Chọn loại mục tin")]
+        [FriendlyName("Chọn loại mục tin - 1 trang chính, 0 trang còn lại")]
+        [Description("Chọn loại mục tin - 1 trang chính, 0 trang còn lại")]
+        [Category("Cấu hình Webpart")]
         [WebPartStorage(Storage.Shared)]
         [Personalizable(PersonalizationScope.Shared)]
         public string WebpartName
+        {
+            get;
+            set;
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Số tin mới nhất muốn hiển thị")]
+        [Description("Số tin mới nhất muốn hiển thị")]
+        [Category("Cấu hình")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        public string LatestNewsNumber
+        {
+            get;
+            set;
+        }
+
+        [WebBrowsable(true)]
+        [FriendlyName("Số tin đọc nhiều muốn hiển thị")]
+        [Description("Số tin đọc nhiều muốn hiển thị")]
+        [Category("Cấu hình")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        public string ReadMoreNumber
         {
             get;
             set;
@@ -82,7 +106,6 @@ namespace CQ.SharePoint.QN.Webparts
         protected override void CreateChildControls()
         {
             base.CreateChildControls();
-
             try
             {
                 HotNewsContentUS control = (HotNewsContentUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/HotNewsContentUS.ascx");

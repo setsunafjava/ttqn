@@ -9,7 +9,9 @@ namespace CQ.SharePoint.QN.Common
         public const string Modified = "Modified";
         public const string Created = "Created";
         public const string CategoryId = "CategoryId";
-        public const string NewsId = "NewsId"; 
+        public const string NewsId = "NewsId";
+        public const string ListName = "ListName";
+        public const string ListCategoryName = "ListCategoryName";
 
         public static string GetHomeTitle()
         {

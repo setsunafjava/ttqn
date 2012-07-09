@@ -14,6 +14,7 @@ namespace CQ.SharePoint.QN.Webparts
     {
         public NextNews ParentWP;
         public string CategoryUrl = string.Empty;
+
         /// <summary>
         /// Page on Load
         /// </summary>
@@ -25,8 +26,6 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
-                    var nextNews = Request.QueryString["NextNews"];
-
                     CategoryUrl = string.Format("{0}/{1}.aspx?CategoryId=", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage);
                     BindDataToDropDownList(1, 31, ddlDays, Convert.ToString(DateTime.Now.Day));
                     BindDataToDropDownList(1, 12, ddlMonths, Convert.ToString(DateTime.Now.Month));
@@ -41,8 +40,6 @@ namespace CQ.SharePoint.QN.Webparts
         /// <summary>
         /// Bind Days, Months, Year to dropdownlist
         /// </summary>
-
-
         /// <param name="maxvalue"></param>
         /// <param name="dropDownList"></param>
         /// <param name="minvalue"></param>
@@ -58,7 +55,17 @@ namespace CQ.SharePoint.QN.Webparts
 
         protected void NextNewsClick(object sender, EventArgs e)
         {
-            CategoryUrl = string.Format("{0}/{1}.aspx?CategoryId=-1&&Day={2}&&Month={3}&&Year={4}", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage, ddlDays.SelectedItem.Text, ddlMonths.SelectedItem.Text, ddlYears.SelectedItem.Text);
+            var listName = Request.QueryString[Constants.ListName];
+            var listCategoryName = Request.QueryString[Constants.ListCategoryName];
+
+            CategoryUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}CategoryId=-1&&Day={4}&&Month={5}&&Year={6}",
+                SPContext.Current.Web.Url,
+                Constants.PageInWeb.SubPage,
+                listCategoryName,
+                listName,
+                ddlDays.SelectedItem.Text,
+                ddlMonths.SelectedItem.Text,
+                ddlYears.SelectedItem.Text);
             Response.Redirect(CategoryUrl);
         }
     }

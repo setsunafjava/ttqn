@@ -26,17 +26,28 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
-                    NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId);
-                    CategoryUrl = string.Format("{0}/{1}.aspx?CategoryId=", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage);
-                    string companyListQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' LookupId='TRUE' /><Value Type='LookupMulti'>{1}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where>", FieldsName.NewsRecord.English.CategoryName, WebpartParent.CompanyId);
+                    NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
+                        SPContext.Current.Web.Url,
+                        Constants.PageInWeb.DetailNews,
+                        ListsName.English.CompanyCategory,
+                        ListsName.English.CompanyRecord,
+                        Constants.NewsId);
+
+                    CategoryUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}Page=1&CategoryId=", 
+                        SPContext.Current.Web.Url, 
+                        Constants.PageInWeb.SubPage,
+                        ListsName.English.CompanyCategory,
+                        ListsName.English.CompanyRecord);
+
+                    string companyListQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' LookupId='TRUE' /><Value Type='Lookup'>{1}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where>",
+                        FieldsName.CompanyRecord.English.CategoryName, WebpartParent.CompanyId);
                     uint newsNumber = 5;
 
                     if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
                     {
                         newsNumber = Convert.ToUInt16(WebpartParent.NumberOfNews);
                     }
-
-                    var companyList = Utilities.GetNewsRecords(companyListQuery, newsNumber, ListsName.English.NewsRecord);
+                    var companyList = Utilities.GetNewsRecords(companyListQuery, newsNumber, ListsName.English.CompanyRecord);
                     if (companyList != null && companyList.Rows.Count > 0)
                     {
                         rptCompanyList.DataSource = companyList;

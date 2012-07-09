@@ -3,15 +3,18 @@
     Inherits="CQ.SharePoint.QN.Webparts.ClassiFiedsUS" %>
 <div class="pos_MOD">
     <div class="bg_title_mod">
-        <%=WebpartParent.CategoryType%>
+        <%=WebpartParent.ClassiFiedsTitle%>
     </div>
     <div class="inner_pos_Mod">
         <div class="img_adv">
-            <%--<img src="images/qc_raovat.jpg" />--%>
             <asp:Repeater ID="rptFocusCompany" runat="server">
                 <ItemTemplate>
-                    <a href='<%= NewsUrl%><%#Eval("ID") %>'>
-                        <asp:Image ID="img" runat="server" ImageUrl='<%#Eval("Thumbnail")%>' /></a>
+                    <asp:LinkButton ID="lbtImage" runat="server" OnClick="Link_OnClick" CommandArgument='<%#Eval("ID")%>'>
+                        <asp:Image ID="img" runat="server" ImageUrl='<%#Eval("Thumbnail")%>' />
+                    </asp:LinkButton>
+                    <%--<a href='<%#Eval("LinkUrl")%>'>
+                        <asp:Image ID="img" runat="server" ImageUrl='<%#Eval("Thumbnail")%>' />
+                    </a>--%>
                 </ItemTemplate>
             </asp:Repeater>
         </div>

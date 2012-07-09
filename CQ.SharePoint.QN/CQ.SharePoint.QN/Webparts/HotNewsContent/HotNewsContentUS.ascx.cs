@@ -29,13 +29,19 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
-                    //Set language
-                    NewsUrl = string.Format("{0}/{1}.aspx?NewsId=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews);
+                    NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
+                        SPContext.Current.Web.Url,
+                        Constants.PageInWeb.DetailNews,
+                        ListsName.English.NewsCategory,
+                        ListsName.English.NewsRecord,
+                        Constants.NewsId);
+
                     string latestNewsQuery = string.Empty;
+
 
                     #region Latest News
                     latestNewsQuery = string.Format("<Where><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>");
-                    var latestNewsTable = Utilities.GetNewsRecords(latestNewsQuery, 5, ListsName.English.NewsRecord);
+                    var latestNewsTable = Utilities.GetNewsRecords(latestNewsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), ListsName.English.NewsRecord);
                     if (latestNewsTable != null && latestNewsTable.Rows.Count > 0)
                     {
                         rptLatestNews.DataSource = latestNewsTable;
@@ -46,8 +52,7 @@ namespace CQ.SharePoint.QN.Webparts
                     #region Top News
                     string topNewsQuery = string.Format("<Where><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></Where><OrderBy><FieldRef Name='{0}' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.ViewsCount);
 
-
-                    var topViewsTable = Utilities.GetNewsRecords(topNewsQuery, 5, ListsName.English.NewsRecord);
+                    var topViewsTable = Utilities.GetNewsRecords(topNewsQuery, GetNewsNumber(WebPartParent.ReadMoreNumber), ListsName.English.NewsRecord);
                     if (topViewsTable != null && topViewsTable.Rows.Count > 0)
                     {
                         rptTopViews.DataSource = topViewsTable;
@@ -70,7 +75,6 @@ namespace CQ.SharePoint.QN.Webparts
                                                               <FieldRef Name='Created' Ascending='False' />
                                                            </OrderBy>", FieldsName.NewsRecord.English.ShowInHomePage,
                                                                       FieldsName.NewsRecord.English.Status);
-                    //var mainItem = Utilities.GetNewsRecords(mainItemQuery, 3, ListsName.English.NewsRecord);
                     var mainItem = Utilities.GetNewsRecordItems(mainItemQuery, 3, ListsName.English.NewsRecord);
                     if (mainItem != null && mainItem.Count > 0)
                     {
@@ -116,13 +120,11 @@ namespace CQ.SharePoint.QN.Webparts
 
                         if (!string.IsNullOrEmpty(categoryId))
                         {
-                            Utilities.GetNewsByCatID(Convert.ToString(categoryId), ref otherNewsTable);
+                            Utilities.GetNewsByCatID(ListsName.English.NewsRecord, ListsName.English.NewsCategory, Convert.ToString(categoryId), ref otherNewsTable);
                         }
 
                         if (otherNewsTable != null && otherNewsTable.Rows.Count > 0)
                         {
-                            //Bind data to main screen
-                            //BinDataToMainScreen(otherNewsTable.Rows[0]);
                             otherNewsTable.Rows.RemoveAt(0);
                             //end
                             tempTable = otherNewsTable.Clone();
@@ -153,7 +155,6 @@ namespace CQ.SharePoint.QN.Webparts
                         }
                         else
                         {
-                            //BinDataToMainScreen(null);
                             rptLatestNews.DataSource = null;
                             rptLatestNews.DataBind();
                         }
@@ -202,6 +203,20 @@ namespace CQ.SharePoint.QN.Webparts
                 }
             }
             return dataTableTemp;
+        }
+
+        private uint GetNewsNumber(string value)
+        {
+            uint newsNumber = 5;
+            try
+            {
+                newsNumber = Convert.ToUInt16(value);
+            }
+            catch (Exception)
+            {
+                return 5;
+            }
+            return newsNumber;
         }
     }
 }

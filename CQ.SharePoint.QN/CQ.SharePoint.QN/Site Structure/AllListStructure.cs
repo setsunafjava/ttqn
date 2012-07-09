@@ -87,8 +87,8 @@ namespace CQ.SharePoint.QN
             helper.AddField(new LookupFieldCreator(FieldsName.NewsRecord.English.CategoryName, FieldsName.NewsRecord.VietNamese.CategoryName) { LookupList = ListsName.English.NewsCategory, LookupField = FieldsName.NewsCategory.English.Heading, AllowMultipleValues = true});
 
             helper.AddField(new SingleLineTextFieldCreator(FieldsName.NewsRecord.English.ThumbnailImage, FieldsName.NewsRecord.VietNamese.ThumbnailImage));
-            
-            helper.AddField(new MultipleLinesTextFieldCreator(FieldsName.NewsRecord.English.Content, FieldsName.NewsRecord.VietNamese.Content) { RichText = true, RichTextMode = SPRichTextMode.FullHtml });
+
+            helper.AddField(new MultipleLinesTextFieldCreator(FieldsName.NewsRecord.English.PublishingPageContent, FieldsName.NewsRecord.VietNamese.PublishingPageContent) { RichText = true, RichTextMode = SPRichTextMode.FullHtml });
 
             helper.AddField(new MultipleLinesTextFieldCreator(FieldsName.NewsRecord.English.ShortContent, FieldsName.NewsRecord.VietNamese.ShortContent));
 
