@@ -61,7 +61,13 @@ namespace CQ.SharePoint.QN.Webparts
                     if (!string.IsNullOrEmpty(WebpartParent.NewsCategoryId1))
                     {
                         hplFirstGroup.Text = WebpartParent.NewsCategoryName1;
-                        hplFirstGroup.NavigateUrl = string.Format("{0}/{1}.aspx?CategoryId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage, WebpartParent.NewsCategoryId1);
+                        hplFirstGroup.NavigateUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}",
+                                                       SPContext.Current.Web.Url,
+                                                       Constants.PageInWeb.SubPage,
+                                                       ListsName.English.NewsCategory,
+                                                       ListsName.English.NewsRecord,
+                                                       Constants.CategoryId,
+                                                       WebpartParent.NewsCategoryId1);
 
                         string group1Query = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where>", FieldsName.NewsRecord.English.CategoryName, WebpartParent.NewsCategoryId1);
                         var group1Table = Utilities.GetNewsRecordItems(group1Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.NewsRecord);
@@ -71,7 +77,15 @@ namespace CQ.SharePoint.QN.Webparts
                             var table1 = Utilities.GetTableWithCorrectUrl(group1Table, true);
                             lblHeaderTinhUy.Text = Convert.ToString(table1.Rows[0][FieldsName.Title]);
                             img1.ImageUrl = Convert.ToString(table1.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
-                            NewsFirstUrl1 = string.Format("{0}/{1}.aspx?{2}={3}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId, Convert.ToString(table1.Rows[0][FieldsName.Id]));
+
+                            NewsFirstUrl1 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}",
+                                                       SPContext.Current.Web.Url,
+                                                       Constants.PageInWeb.DetailNews,
+                                                       ListsName.English.NewsCategory,
+                                                       ListsName.English.NewsRecord,
+                                                       Constants.NewsId,
+                                                       Convert.ToString(table1.Rows[0][FieldsName.Id]));
+
                             table1.Rows.RemoveAt(0);
                             rptTinhUy.DataSource = table1;
                             rptTinhUy.DataBind();
@@ -81,7 +95,14 @@ namespace CQ.SharePoint.QN.Webparts
                     if (!string.IsNullOrEmpty(WebpartParent.NewsCategoryId2))
                     {
                         hplSecondGroup.Text = WebpartParent.NewsCategoryName2;
-                        hplSecondGroup.NavigateUrl = string.Format("{0}/{1}.aspx?CategoryId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage, WebpartParent.NewsCategoryId2);
+                        hplSecondGroup.NavigateUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}",
+                                                       SPContext.Current.Web.Url,
+                                                       Constants.PageInWeb.SubPage,
+                                                       ListsName.English.NewsCategory,
+                                                       ListsName.English.NewsRecord,
+                                                       Constants.CategoryId,
+                                                       WebpartParent.NewsCategoryId2);
+
                         string group2Query = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where>", FieldsName.NewsRecord.English.CategoryName, WebpartParent.NewsCategoryId2);
                         var group2Table = Utilities.GetNewsRecordItems(group2Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.NewsRecord);
 
@@ -90,7 +111,14 @@ namespace CQ.SharePoint.QN.Webparts
                             var table2 = Utilities.GetTableWithCorrectUrl(group2Table, true);
                             lblHeaderHoiDongNhanDan.Text = Convert.ToString(table2.Rows[0][FieldsName.Title]);
                             Img2.ImageUrl = Convert.ToString(table2.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
-                            NewsFirstUrl2 = string.Format("{0}/{1}.aspx?{2}={3}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId, Convert.ToString(table2.Rows[0][FieldsName.Id]));
+                            NewsFirstUrl2 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}",
+                                                       SPContext.Current.Web.Url,
+                                                       Constants.PageInWeb.DetailNews,
+                                                       ListsName.English.NewsCategory,
+                                                       ListsName.English.NewsRecord,
+                                                       Constants.NewsId,
+                                                       Convert.ToString(table2.Rows[0][FieldsName.Id]));
+
                             table2.Rows.RemoveAt(0);
                             rptHoiDongNhanDan.DataSource = table2;
                             rptHoiDongNhanDan.DataBind();
@@ -99,7 +127,13 @@ namespace CQ.SharePoint.QN.Webparts
                     if (!string.IsNullOrEmpty(WebpartParent.NewsCategoryId3))
                     {
                         hplThirdGroup.Text = WebpartParent.NewsCategoryName3;
-                        hplThirdGroup.NavigateUrl = string.Format("{0}/{1}.aspx?CategoryId={2}", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage, WebpartParent.NewsCategoryId3);
+                        hplThirdGroup.NavigateUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}",
+                                                       SPContext.Current.Web.Url,
+                                                       Constants.PageInWeb.SubPage,
+                                                       ListsName.English.NewsCategory,
+                                                       ListsName.English.NewsRecord,
+                                                       Constants.CategoryId,
+                                                       WebpartParent.NewsCategoryId3);
                         string group3Query = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where>", FieldsName.NewsRecord.English.CategoryName, WebpartParent.NewsCategoryId3);
                         var group3Table = Utilities.GetNewsRecordItems(group3Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.NewsRecord);
 
@@ -108,7 +142,14 @@ namespace CQ.SharePoint.QN.Webparts
                             var table3 = Utilities.GetTableWithCorrectUrl(group3Table, true);
                             lblHeaderUyBanNhanDan.Text = Convert.ToString(table3.Rows[0][FieldsName.Title]);
                             Img3.ImageUrl = Convert.ToString(table3.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
-                            NewsFirstUrl3 = string.Format("{0}/{1}.aspx?{2}={3}", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId, Convert.ToString(table3.Rows[0][FieldsName.Id]));
+                            NewsFirstUrl3 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}",
+                                                       SPContext.Current.Web.Url,
+                                                       Constants.PageInWeb.DetailNews,
+                                                       ListsName.English.NewsCategory,
+                                                       ListsName.English.NewsRecord,
+                                                       Constants.NewsId,
+                                                       Convert.ToString(table3.Rows[0][FieldsName.Id]));
+
                             table3.Rows.RemoveAt(0);
                             var newTable = GetFiveRows(table3);
                             rptUyBanNhanDan.DataSource = newTable;
