@@ -3,6 +3,7 @@ using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.SharePoint;
+using Microsoft.SharePoint.Utilities;
 using Microsoft.SharePoint.WebControls;
 using CQ.SharePoint.QN.Common;
 
@@ -34,9 +35,29 @@ namespace CQ.SharePoint.QN.Webparts
                        ListsName.English.NewsRecord,
                        Constants.NewsId);
 
-                    string focusNewsQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Eq><Neq><FieldRef Name='{1}' /><Value Type='Boolean'>1</Value></Neq></And></Where>",
-                        FieldsName.NewsRecord.English.FocusNews,
-                        FieldsName.NewsRecord.English.Status);
+                    string focusNewsQuery = string.Format(@"<Where>
+                                                              <And>
+                                                                 <Eq>
+                                                                    <FieldRef Name='{0}' />
+                                                                    <Value Type='Boolean'>1</Value>
+                                                                 </Eq>
+                                                                 <And>
+                                                                    <Neq>
+                                                                       <FieldRef Name='{1}' />
+                                                                       <Value Type='Boolean'>1</Value>
+                                                                    </Neq>
+                                                                    <Lt>
+                                                                       <FieldRef Name='ArticleStartDate' />
+                                                                       <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                                    </Lt>
+                                                                 </And>
+                                                              </And>
+                                                           </Where><OrderBy>
+                                                              <FieldRef Name='ID' Ascending='False' />
+                                                           </OrderBy>",
+                                                                    FieldsName.NewsRecord.English.FocusNews,
+                                                                    FieldsName.NewsRecord.English.Status,
+                                                                    SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
 
                     uint numberOfNews = 5;
                     if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))

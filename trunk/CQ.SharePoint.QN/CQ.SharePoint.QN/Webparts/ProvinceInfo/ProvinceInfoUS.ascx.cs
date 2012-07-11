@@ -5,6 +5,7 @@ using System.Web.UI.WebControls;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.WebControls;
 using CQ.SharePoint.QN.Common;
+using Microsoft.SharePoint.Utilities;
 
 namespace CQ.SharePoint.QN.Webparts
 {
@@ -26,16 +27,35 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
-                    NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=", 
+                    NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
                         SPContext.Current.Web.Url,
                         Constants.PageInWeb.DetailNews,
                         ListsName.English.ProvinceInfoCategory,
                         ListsName.English.ProvinceInfoRecord,
                         Constants.NewsId);
 
-                    string companyListQuery = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE' /><Value Type='Lookup'>{1}</Value></Eq></Where>", FieldsName.ProvinceInfoRecord.English.CategoryName, WebpartParent.CategoryId);
+                    string companyListQuery = string.Format(@"<Where>
+                                                                  <And>
+                                                                     <Eq>
+                                                                        <FieldRef Name='{0}' />
+                                                                        <Value Type='LookupMulti'>{1}</Value>
+                                                                     </Eq>
+                                                                     <And>
+                                                                        <Neq>
+                                                                           <FieldRef Name='Status' />
+                                                                           <Value Type='Boolean'>1</Value>
+                                                                        </Neq>
+                                                                        <Lt>
+                                                                           <FieldRef Name='ArticleStartDate' />
+                                                                           <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                                        </Lt>
+                                                                     </And>
+                                                                  </And>
+                                                               </Where>",
+                                                                        FieldsName.ProvinceInfoRecord.English.CategoryName,
+                                                                        WebpartParent.CategoryId,
+                                                                        SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
                     uint newsNumber = 5;
-
                     if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
                     {
                         newsNumber = Convert.ToUInt16(WebpartParent.NumberOfNews);

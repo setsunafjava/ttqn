@@ -3,6 +3,7 @@ using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.SharePoint;
+using Microsoft.SharePoint.Utilities;
 using Microsoft.SharePoint.WebControls;
 using CQ.SharePoint.QN.Common;
 
@@ -33,8 +34,21 @@ namespace CQ.SharePoint.QN.Webparts
                        ListsName.English.TourInforRecord,
                        Constants.CategoryId);
 
-                    string companyListQuery = string.Format("<Where><Neq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Neq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>",
-                        FieldsName.NewsCategory.English.Status);
+                    string companyListQuery = string.Format(@"<Where>
+                                                                  <And>
+                                                                     <Neq>
+                                                                        <FieldRef Name='Status' />
+                                                                        <Value Type='Boolean'>1</Value>
+                                                                     </Neq>
+                                                                     <Eq>
+                                                                        <FieldRef Name='ArticleStartDate' />
+                                                                        <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
+                                                                     </Eq>
+                                                                  </And>
+                                                               </Where>
+                                                               <OrderBy>
+                                                                  <FieldRef Name='ID' Ascending='False' />
+                                                               </OrderBy>", SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
                     uint newsNumber = 5;
 
                     if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))

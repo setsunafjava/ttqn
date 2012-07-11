@@ -117,7 +117,7 @@ namespace CQ.SharePoint.QN.Webparts
                             var year = Convert.ToInt32(Request.QueryString["Year"]);
                             DateTime dt = new DateTime(year, month, day);
 
-                            string categoryQuery = string.Format("<Where><And><Eq><FieldRef Name='Created' /><Value IncludeTimeValue='FALSE' Type='DateTime'>{0}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where>",
+                            string categoryQuery = string.Format("<Where><And><Eq><FieldRef Name='Created' /><Value IncludeTimeValue='FALSE' Type='DateTime'>{0}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where><OrderBy><FieldRef Name='ID' Ascending='False' /></OrderBy>",
                                 SPUtility.CreateISO8601DateTimeFromSystemDateTime(dt));
 
                             var companyList = Utilities.GetNewsRecords(categoryQuery, listCategoryName);
@@ -136,8 +136,28 @@ namespace CQ.SharePoint.QN.Webparts
                     {
                         if ("1".Equals(focusNews))
                         {
-                            string newsQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where>",
-                                FieldsName.NewsRecord.English.FocusNews);
+                            string newsQuery = string.Format(@"<Where>
+                                                                  <And>
+                                                                     <Eq>
+                                                                        <FieldRef Name='FocusNews' />
+                                                                        <Value Type='Boolean'>1</Value>
+                                                                     </Eq>
+                                                                     <And>
+                                                                        <Neq>
+                                                                           <FieldRef Name='Status' />
+                                                                           <Value Type='Boolean'>1</Value>
+                                                                        </Neq>
+                                                                        <Eq>
+                                                                           <FieldRef Name='ArticleStartDate' />
+                                                                           <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
+                                                                        </Eq>
+                                                                     </And>
+                                                                  </And>
+                                                               </Where>
+                                                               <OrderBy>
+                                                                  <FieldRef Name='ID' Ascending='False' />
+                                                               </OrderBy>",
+                                                                          SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
 
                             var companyList = Utilities.GetNewsRecords(newsQuery, listCategoryName);
                             if (companyList != null && companyList.Rows.Count > 0)

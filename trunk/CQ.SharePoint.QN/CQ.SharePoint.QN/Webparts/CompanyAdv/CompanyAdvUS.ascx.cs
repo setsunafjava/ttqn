@@ -3,6 +3,7 @@ using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.SharePoint;
+using Microsoft.SharePoint.Utilities;
 using Microsoft.SharePoint.WebControls;
 using CQ.SharePoint.QN.Common;
 
@@ -33,9 +34,11 @@ namespace CQ.SharePoint.QN.Webparts
                         ListsName.English.CompanyRecord,
                         Constants.NewsId);
 
-                    string companyListQuery = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE' /><Value Type='Lookup'>{1}</Value></Eq></Where>",
+                    string companyListQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' LookupId='TRUE' /><Value Type='Lookup'>{1}</Value></Eq></And><Lt><FieldRef Name='ArticleStartDate' /><Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value></Lt></Where><OrderBy><FieldRef Name='ID' Ascending='False' /></OrderBy>",
                         FieldsName.CompanyRecord.English.CategoryName,
-                        WebpartParent.CompanyId);
+                        WebpartParent.CompanyId,
+                        SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+
                     uint newsNumber = 5;
 
                     if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))

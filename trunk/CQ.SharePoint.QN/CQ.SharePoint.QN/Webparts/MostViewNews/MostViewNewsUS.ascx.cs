@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.UI;
 using Microsoft.SharePoint;
+using Microsoft.SharePoint.Utilities;
 using Microsoft.SharePoint.WebControls;
 using CQ.SharePoint.QN.Common;
 
@@ -37,13 +38,51 @@ namespace CQ.SharePoint.QN.Webparts
 
                     if (!string.IsNullOrEmpty(categoryId))
                     {
-                        topNewsQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='LookupMulti'>{1}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>",
-                            FieldsName.NewsRecord.English.CategoryName, categoryId);
+                        topNewsQuery = string.Format(@"<Where>
+                                                              <And>
+                                                                 <Eq>
+                                                                    <FieldRef Name='{0}' />
+                                                                    <Value Type='LookupMulti'>{1}</Value>
+                                                                 </Eq>
+                                                                 <And>
+                                                                    <Neq>
+                                                                       <FieldRef Name='Status' />
+                                                                       <Value Type='Boolean'>1</Value>
+                                                                    </Neq>
+                                                                    <Lt>
+                                                                       <FieldRef Name='ArticleStartDate' />
+                                                                       <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                                    </Lt>
+                                                                 </And>
+                                                              </And>
+                                                           </Where>
+                                                           <OrderBy>
+                                                              <FieldRef Name='ViewsCount' Ascending='False' />
+                                                           </OrderBy>",
+                                                                      FieldsName.NewsRecord.English.CategoryName,
+                                                                      categoryId,
+                                                                      SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
                     }
                     else
                     {
                         topNewsQuery = string.Format("<Where><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></Where><OrderBy><FieldRef Name='{0}' Ascending='False' /></OrderBy>",
                             FieldsName.NewsRecord.English.ViewsCount);
+
+                        topNewsQuery = string.Format(@"<Where>
+                                                          <And>
+                                                             <Neq>
+                                                                <FieldRef Name='Status' />
+                                                                <Value Type='Boolean'>1</Value>
+                                                             </Neq>
+                                                             <Lt>
+                                                                <FieldRef Name='ArticleStartDate' />
+                                                                <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
+                                                             </Lt>
+                                                          </And>
+                                                       </Where>
+                                                       <OrderBy>
+                                                          <FieldRef Name='ViewsCount' Ascending='False' />
+                                                       </OrderBy>", SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
                     }
 
                     var topViewsTable = Utilities.GetNewsRecords(topNewsQuery, GetNewsNumber(WebpartParent.NumberOfNews), ListsName.English.NewsRecord);

@@ -69,7 +69,30 @@ namespace CQ.SharePoint.QN.Webparts
                                                        Constants.CategoryId,
                                                        WebpartParent.NewsCategoryId1);
 
-                        string group1Query = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where>", FieldsName.NewsRecord.English.CategoryName, WebpartParent.NewsCategoryId1);
+                        string group1Query = string.Format(@"<Where>
+                                                              <And>
+                                                                 <Eq>
+                                                                    <FieldRef Name='{0}' />
+                                                                    <Value Type='LookupMulti'>{1}</Value>
+                                                                 </Eq>
+                                                                 <And>
+                                                                    <Neq>
+                                                                       <FieldRef Name='Status' />
+                                                                       <Value Type='Boolean'>1</Value>
+                                                                    </Neq>
+                                                                    <Lt>
+                                                                       <FieldRef Name='ArticleStartDate' />
+                                                                       <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                                    </Lt>
+                                                                 </And>
+                                                              </And>
+                                                           </Where>
+                                                           <OrderBy>
+                                                              <FieldRef Name='ID' Ascending='False' />
+                                                           </OrderBy>",
+                                                                      FieldsName.NewsRecord.English.CategoryName,
+                                                                      WebpartParent.NewsCategoryId1,
+                                                                      SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
                         var group1Table = Utilities.GetNewsRecordItems(group1Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.NewsRecord);
 
                         if (group1Table != null && group1Table.Count > 0)
@@ -103,7 +126,31 @@ namespace CQ.SharePoint.QN.Webparts
                                                        Constants.CategoryId,
                                                        WebpartParent.NewsCategoryId2);
 
-                        string group2Query = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where>", FieldsName.NewsRecord.English.CategoryName, WebpartParent.NewsCategoryId2);
+                        string group2Query = string.Format(@"<Where>
+                                                              <And>
+                                                                 <Eq>
+                                                                    <FieldRef Name='{0}' />
+                                                                    <Value Type='LookupMulti'>{1}</Value>
+                                                                 </Eq>
+                                                                 <And>
+                                                                    <Neq>
+                                                                       <FieldRef Name='Status' />
+                                                                       <Value Type='Boolean'>1</Value>
+                                                                    </Neq>
+                                                                    <Lt>
+                                                                       <FieldRef Name='ArticleStartDate' />
+                                                                       <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                                    </Lt>
+                                                                 </And>
+                                                              </And>
+                                                           </Where>
+                                                           <OrderBy>
+                                                              <FieldRef Name='ID' Ascending='False' />
+                                                           </OrderBy>",
+                                                                      FieldsName.NewsRecord.English.CategoryName,
+                                                                      WebpartParent.NewsCategoryId2,
+                                                                      SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+
                         var group2Table = Utilities.GetNewsRecordItems(group2Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.NewsRecord);
 
                         if (group2Table != null && group2Table.Count > 0)
@@ -134,7 +181,31 @@ namespace CQ.SharePoint.QN.Webparts
                                                        ListsName.English.NewsRecord,
                                                        Constants.CategoryId,
                                                        WebpartParent.NewsCategoryId3);
-                        string group3Query = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where>", FieldsName.NewsRecord.English.CategoryName, WebpartParent.NewsCategoryId3);
+                        string group3Query = string.Format(@"<Where>
+                                                              <And>
+                                                                 <Eq>
+                                                                    <FieldRef Name='{0}' />
+                                                                    <Value Type='LookupMulti'>{1}</Value>
+                                                                 </Eq>
+                                                                 <And>
+                                                                    <Neq>
+                                                                       <FieldRef Name='Status' />
+                                                                       <Value Type='Boolean'>1</Value>
+                                                                    </Neq>
+                                                                    <Lt>
+                                                                       <FieldRef Name='ArticleStartDate' />
+                                                                       <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                                    </Lt>
+                                                                 </And>
+                                                              </And>
+                                                           </Where>
+                                                           <OrderBy>
+                                                              <FieldRef Name='ID' Ascending='False' />
+                                                           </OrderBy>",
+                                                                      FieldsName.NewsRecord.English.CategoryName,
+                                                                      WebpartParent.NewsCategoryId3,
+                                                                      SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+
                         var group3Table = Utilities.GetNewsRecordItems(group3Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.NewsRecord);
 
                         if (group3Table != null && group3Table.Count > 0)
