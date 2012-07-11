@@ -39,7 +39,31 @@ namespace CQ.SharePoint.QN.Webparts
                        ListsName.English.NewsRecord,
                        Constants.NewsId);
 
-                    string newsGroupQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.CategoryName, SPHttpUtility.HtmlEncode(WebpartParent.GroupName));
+                    string newsGroupQuery = string.Format(@"<Where>
+                                                              <And>
+                                                                 <Eq>
+                                                                    <FieldRef Name='{0}' />
+                                                                    <Value Type='Lookup'>{1}</Value>
+                                                                 </Eq>
+                                                                 <And>
+                                                                    <Neq>
+                                                                       <FieldRef Name='Status' />
+                                                                       <Value Type='Boolean'>1</Value>
+                                                                    </Neq>
+                                                                    <Lt>
+                                                                       <FieldRef Name='ArticleStartDate' />
+                                                                       <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                                    </Lt>
+                                                                 </And>
+                                                              </And>
+                                                           </Where>
+                                                           <OrderBy>
+                                                              <FieldRef Name='ID' Ascending='False' />
+                                                           </OrderBy>",
+                                                                      FieldsName.NewsRecord.English.CategoryName,
+                                                                      SPHttpUtility.HtmlEncode(WebpartParent.GroupName),
+                                                                      SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+
                     var newsGroups = Utilities.GetNewsRecordItems(newsGroupQuery, Convert.ToUInt16(WebpartParent.NumberOfNews), ListsName.English.NewsRecord);
                     if (newsGroups != null && newsGroups.Count > 0)
                     {
@@ -73,7 +97,7 @@ namespace CQ.SharePoint.QN.Webparts
                     string newsTitle = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='{2}' Ascending='True' /></OrderBy>",
                         FieldsName.NewsCategory.English.ParentName,
                         WebpartParent.NewsGroupID,
-                        FieldsName.Title);
+                        FieldsName.Id);
 
                     var newsTitleItems = Utilities.GetNewsRecords(newsTitle, 4, ListsName.English.NewsCategory);
                     if (newsTitleItems != null && newsTitleItems.Rows.Count > 0)

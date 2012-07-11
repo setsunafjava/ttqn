@@ -35,9 +35,29 @@ namespace CQ.SharePoint.QN.Webparts
                         ListsName.English.ShouldToKnowRecord,
                         Constants.NewsId);
 
-                    string advQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' LookupId='TRUE' /><Value Type='Lookup'>{1}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where>",
-                        FieldsName.ShouldToKnowRecord.English.CategoryName,
-                        WebpartParent.CategoryId);
+                    string advQuery = string.Format(@"<Where>
+                                                          <And>
+                                                             <Eq>
+                                                                <FieldRef Name='{0}' />
+                                                                <Value Type='Lookup'>{1}</Value>
+                                                             </Eq>
+                                                             <And>
+                                                                <Neq>
+                                                                   <FieldRef Name='Status' />
+                                                                   <Value Type='Boolean'>1</Value>
+                                                                </Neq>
+                                                                <Lt>
+                                                                   <FieldRef Name='ArticleStartDate' />
+                                                                   <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                                </Lt>
+                                                             </And>
+                                                          </And>
+                                                       </Where>
+                                                       <OrderBy>
+                                                          <FieldRef Name='ID' Ascending='False' />
+                                                       </OrderBy>", FieldsName.ShouldToKnowRecord.English.CategoryName,
+                                                                    WebpartParent.CategoryId,
+                                                                    SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
 
                     uint newsNumber = 5;
 
@@ -54,10 +74,29 @@ namespace CQ.SharePoint.QN.Webparts
                     }
 
                     CategoryUrl = string.Format("{0}/{1}.aspx?CategoryId=", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage);
-                    string newsTitle = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='{2}' Ascending='True' /></OrderBy>",
-                        FieldsName.NewsCategory.English.ParentName,
-                        WebpartParent.CategoryId,
-                        FieldsName.Title);
+                    string newsTitle = string.Format(@"<Where>
+                                                          <And>
+                                                             <Eq>
+                                                                <FieldRef Name='{0}' />
+                                                                <Value Type='Lookup'>{1}</Value>
+                                                             </Eq>
+                                                             <And>
+                                                                <Neq>
+                                                                   <FieldRef Name='Status' />
+                                                                   <Value Type='Boolean'>1</Value>
+                                                                </Neq>
+                                                                <Lt>
+                                                                   <FieldRef Name='ArticleStartDate' />
+                                                                   <Value IncludeTimeValue='TRUE' Type='DateTime'>2012-07-12T05:12:59Z</Value>
+                                                                </Lt>
+                                                             </And>
+                                                          </And>
+                                                       </Where>
+                                                       <OrderBy>
+                                                          <FieldRef Name='ID' Ascending='False' />
+                                                       </OrderBy>",
+                                                                  FieldsName.NewsCategory.English.ParentName,
+                                                                    WebpartParent.CategoryId);
 
                     var newsTitleItems = Utilities.GetNewsRecordItems(newsTitle, 5, ListsName.English.ShouldToKnowCategory);
                     if (newsTitleItems != null && newsTitleItems.Count > 0)

@@ -39,8 +39,30 @@ namespace CQ.SharePoint.QN.Webparts
                         ListsName.English.CompanyCategory,
                         ListsName.English.CompanyRecord);
 
-                    string companyListQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' LookupId='TRUE' /><Value Type='Lookup'>{1}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where>",
-                        FieldsName.CompanyRecord.English.CategoryName, WebpartParent.CompanyId);
+                    string companyListQuery = string.Format(@"<Where>
+                                                              <And>
+                                                                 <Eq>
+                                                                    <FieldRef Name='{0}' />
+                                                                    <Value Type='Lookup'>{1}</Value>
+                                                                 </Eq>
+                                                                 <And>
+                                                                    <Neq>
+                                                                       <FieldRef Name='Status' />
+                                                                       <Value Type='Boolean'>1</Value>
+                                                                    </Neq>
+                                                                    <Lt>
+                                                                       <FieldRef Name='ArticleStartDate' />
+                                                                       <Value IncludeTimeValue='TRUE' Type='DateTime'>2012-07-12T03:27:11Z</Value>
+                                                                    </Lt>
+                                                                 </And>
+                                                              </And>
+                                                           </Where>
+                                                           <OrderBy>
+                                                              <FieldRef Name='ID' Ascending='False' />
+                                                           </OrderBy>",
+                                                                      FieldsName.CompanyRecord.English.CategoryName,
+                                                                      WebpartParent.CompanyId);
+
                     uint newsNumber = 5;
 
                     if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
@@ -56,6 +78,7 @@ namespace CQ.SharePoint.QN.Webparts
                 }
                 catch (Exception ex)
                 {
+                    Utilities.LogToUls(ex);
                 }
             }
         }

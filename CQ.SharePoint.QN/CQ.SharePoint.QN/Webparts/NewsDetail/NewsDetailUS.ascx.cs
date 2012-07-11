@@ -4,6 +4,7 @@ using System.Data;
 using System.Text;
 using System.Web.UI;
 using Microsoft.SharePoint;
+using Microsoft.SharePoint.Utilities;
 using Microsoft.SharePoint.WebControls;
 using CQ.SharePoint.QN.Common;
 
@@ -33,7 +34,24 @@ namespace CQ.SharePoint.QN.Webparts
 
                     if (!string.IsNullOrEmpty(newsId) && !string.IsNullOrEmpty(listName))
                     {
-                        string newsQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Counter'>{1}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where>", FieldsName.Id, newsId);
+                        string newsQuery = string.Format(@"<Where>
+                                                              <And>
+                                                                 <Eq>
+                                                                    <FieldRef Name='ID' />
+                                                                    <Value Type='Counter'>{0}</Value>
+                                                                 </Eq>
+                                                                 <And>
+                                                                    <Neq>
+                                                                       <FieldRef Name='Status' />
+                                                                       <Value Type='Boolean'>1</Value>
+                                                                    </Neq>
+                                                                    <Lt>
+                                                                       <FieldRef Name='ArticleStartDate' />
+                                                                       <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
+                                                                    </Lt>
+                                                                 </And>
+                                                              </And>
+                                                           </Where>", newsId, SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
                         var newsItem = Utilities.GetNewsRecords(newsQuery, 1, listName);
                         if (newsItem != null && newsItem.Rows.Count > 0)
                         {

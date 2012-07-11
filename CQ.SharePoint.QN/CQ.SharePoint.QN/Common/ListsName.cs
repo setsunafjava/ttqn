@@ -42,6 +42,7 @@ namespace CQ.SharePoint.QN.Common
             public const string QuangCaoRaoVat = "QuangCaoRaoVat";
             public const string TourInforRecord = "TourInforRecord";
             public const string TourInforCategory = "TourInforCategory";
+            public const string ApproverActionList = "ApproverActionList";
         }
 
         // Display Name of list
@@ -82,6 +83,7 @@ namespace CQ.SharePoint.QN.Common
             public const string ShouldToKnowCategory = "ShouldToKnowCategory";
             public const string TourInforRecord = "TourInforRecord";
             public const string TourInforCategory = "TourInforCategory";
+            public const string ApproverActionList = "ApproverActionList";
         }
     }
 }

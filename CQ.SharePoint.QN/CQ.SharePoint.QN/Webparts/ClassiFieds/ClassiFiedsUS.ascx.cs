@@ -26,8 +26,6 @@ namespace CQ.SharePoint.QN.Webparts
         {
             try
             {
-                //NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId);
-
                 var dtNow = DateTime.Now;
                 string companyListQuery = string.Format(@"<Where>
                                                           <And>
@@ -46,7 +44,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                 </Neq>
                                                              </And>
                                                           </And>
-                                                       </Where>",
+                                                       </Where><OrderBy><FieldRef Name='ID' Ascending='False' /></OrderBy>",
                                                                 FieldsName.QuangCaoRaoVat.English.NgayBatDau,
                                                                 SPUtility.CreateISO8601DateTimeFromSystemDateTime(dtNow),
                                                                 FieldsName.QuangCaoRaoVat.English.NgayKetThuc,

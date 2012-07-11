@@ -4,6 +4,7 @@ using System.Web.UI;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.Publishing.Fields;
 using Microsoft.SharePoint.Publishing.WebControls;
+using Microsoft.SharePoint.Utilities;
 using Microsoft.SharePoint.WebControls;
 using CQ.SharePoint.QN.Common;
 
@@ -40,7 +41,24 @@ namespace CQ.SharePoint.QN.Webparts
 
 
                     #region Latest News
-                    latestNewsQuery = string.Format("<Where><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></Where><OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>");
+                    latestNewsQuery =
+                        string.Format(
+                            @"<Where>
+                              <And>
+                                 <Neq>
+                                    <FieldRef Name='Status' />
+                                    <Value Type='Boolean'>1</Value>
+                                 </Neq>
+                                 <Lt>
+                                    <FieldRef Name='ArticleStartDate' />
+                                    <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
+                                 </Lt>
+                              </And>
+                           </Where>
+                           <OrderBy>
+                              <FieldRef Name='ID' Ascending='False' />
+                           </OrderBy>", SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+
                     var latestNewsTable = Utilities.GetNewsRecords(latestNewsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), ListsName.English.NewsRecord);
                     if (latestNewsTable != null && latestNewsTable.Rows.Count > 0)
                     {
@@ -50,7 +68,22 @@ namespace CQ.SharePoint.QN.Webparts
                     #endregion
 
                     #region Top News
-                    string topNewsQuery = string.Format("<Where><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></Where><OrderBy><FieldRef Name='{0}' Ascending='False' /></OrderBy>", FieldsName.NewsRecord.English.ViewsCount);
+                    string topNewsQuery = string.Format(
+                            @"<Where>
+                              <And>
+                                 <Neq>
+                                    <FieldRef Name='Status' />
+                                    <Value Type='Boolean'>1</Value>
+                                 </Neq>
+                                 <Lt>
+                                    <FieldRef Name='ArticleStartDate' />
+                                    <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
+                                 </Lt>
+                              </And>
+                           </Where>
+                           <OrderBy>
+                              <FieldRef Name='ViewsCount' Ascending='False' />
+                           </OrderBy>", FieldsName.NewsRecord.English.ViewsCount);
 
                     var topViewsTable = Utilities.GetNewsRecords(topNewsQuery, GetNewsNumber(WebPartParent.ReadMoreNumber), ListsName.English.NewsRecord);
                     if (topViewsTable != null && topViewsTable.Rows.Count > 0)
@@ -59,22 +92,28 @@ namespace CQ.SharePoint.QN.Webparts
                         rptTopViews.DataBind();
                     }
                     #endregion
-                    string mainItemQuery = string.Format(@"<Where>
+                    string mainItemQuery = string.Format(@" <Where>
                                                               <And>
                                                                  <Eq>
                                                                     <FieldRef Name='{0}' />
                                                                     <Value Type='Boolean'>1</Value>
                                                                  </Eq>
-                                                                 <Neq>
-                                                                    <FieldRef Name='{1}' />
-                                                                    <Value Type='Boolean'>1</Value>
-                                                                 </Neq>
+                                                                 <And>
+                                                                    <Lt>
+                                                                       <FieldRef Name='ArticleStartDate' />
+                                                                       <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
+                                                                    </Lt>
+                                                                    <Neq>
+                                                                       <FieldRef Name='Status' />
+                                                                       <Value Type='Boolean'>1</Value>
+                                                                    </Neq>
+                                                                 </And>
                                                               </And>
                                                            </Where>
                                                            <OrderBy>
-                                                              <FieldRef Name='Created' Ascending='False' />
+                                                              <FieldRef Name='ID' Ascending='False' />
                                                            </OrderBy>", FieldsName.NewsRecord.English.ShowInHomePage,
-                                                                      FieldsName.NewsRecord.English.Status);
+                                                                      SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
                     var mainItem = Utilities.GetNewsRecordItems(mainItemQuery, 3, ListsName.English.NewsRecord);
                     if (mainItem != null && mainItem.Count > 0)
                     {
@@ -83,22 +122,28 @@ namespace CQ.SharePoint.QN.Webparts
                     }
 
                     #region # tin tuc phia duoi
-                    string threeeItemsBellow = string.Format(@"<Where>
+                    string threeeItemsBellow = string.Format(@" <Where>
                                                               <And>
                                                                  <Eq>
                                                                     <FieldRef Name='{0}' />
                                                                     <Value Type='Boolean'>1</Value>
                                                                  </Eq>
-                                                                 <Neq>
-                                                                    <FieldRef Name='{1}' />
-                                                                    <Value Type='Boolean'>1</Value>
-                                                                 </Neq>
+                                                                 <And>
+                                                                    <Lt>
+                                                                       <FieldRef Name='ArticleStartDate' />
+                                                                       <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
+                                                                    </Lt>
+                                                                    <Neq>
+                                                                       <FieldRef Name='Status' />
+                                                                       <Value Type='Boolean'>1</Value>
+                                                                    </Neq>
+                                                                 </And>
                                                               </And>
                                                            </Where>
                                                            <OrderBy>
-                                                              <FieldRef Name='Created' Ascending='False' />
+                                                              <FieldRef Name='ID' Ascending='False' />
                                                            </OrderBy>", FieldsName.NewsRecord.English.ShowInHomePage,
-                                                                      FieldsName.NewsRecord.English.Status);
+                                                                      SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
                     var threeItemsTable = Utilities.GetNewsRecords(threeeItemsBellow, 6, ListsName.English.NewsRecord);
                     if (threeItemsTable != null && threeItemsTable.Rows.Count > 0)
                     {
