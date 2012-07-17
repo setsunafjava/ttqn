@@ -19,6 +19,8 @@ namespace CQ.SharePoint.QN.Webparts
         public HotNewsContent WebPartParent;
         public string NewsUrl = string.Empty;
         public string Linktoitem = string.Empty;
+        public string listName = ListsName.English.NewsRecord;
+        public string listCategoryName = ListsName.English.NewsCategory;
         /// <summary>
         /// Page on Load
         /// </summary>
@@ -31,45 +33,122 @@ namespace CQ.SharePoint.QN.Webparts
                 try
                 {
                     NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
-                        SPContext.Current.Web.Url,
-                        Constants.PageInWeb.DetailNews,
-                        ListsName.English.NewsCategory,
-                        ListsName.English.NewsRecord,
-                        Constants.NewsId);
-
+                                            SPContext.Current.Web.Url,
+                                            Constants.PageInWeb.DetailNews,
+                                            ListsName.English.NewsCategory,
+                                            ListsName.English.NewsRecord,
+                                            Constants.NewsId);
+                    var categoryId = Request.QueryString["CategoryId"];
                     string latestNewsQuery = string.Empty;
 
+                    var listNameTemp = Request.QueryString[Constants.ListName];
+                    var listCategoryNameTemp = Request.QueryString[Constants.ListCategoryName];
+                    var focusNews = Request.QueryString["FocusNews"];
+                    if (!string.IsNullOrEmpty(listNameTemp)) listName = listNameTemp;
+                    if (!string.IsNullOrEmpty(listCategoryNameTemp)) listCategoryName = listCategoryNameTemp;
 
-                    #region Latest News
-                    latestNewsQuery =
-                        string.Format(
-                            @"<Where>
-                              <And>
-                                 <Neq>
-                                    <FieldRef Name='Status' />
-                                    <Value Type='Boolean'>1</Value>
-                                 </Neq>
-                                 <Lt>
-                                    <FieldRef Name='ArticleStartDate' />
-                                    <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
-                                 </Lt>
-                              </And>
-                           </Where>
-                           <OrderBy>
-                              <FieldRef Name='ID' Ascending='False' />
-                           </OrderBy>", SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
-
-                    var latestNewsTable = Utilities.GetNewsRecords(latestNewsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), ListsName.English.NewsRecord);
-                    if (latestNewsTable != null && latestNewsTable.Rows.Count > 0)
+                    if (!"0".Equals(WebPartParent.WebpartName))
                     {
-                        rptLatestNews.DataSource = latestNewsTable;
-                        rptLatestNews.DataBind();
-                    }
-                    #endregion
+                        #region Latest News
 
-                    #region Top News
-                    string topNewsQuery = string.Format(
-                            @"<Where>
+                        if (!string.IsNullOrEmpty(categoryId)) //if categoryId !=null
+                        {
+                            //CAML query will get all item with category id = categoryId
+                            latestNewsQuery =
+                                string.Format(@"<Where>
+                                                  <And>
+                                                     <Neq>
+                                                        <FieldRef Name='Status' />
+                                                        <Value Type='Boolean'>1</Value>
+                                                     </Neq>
+                                                     <And>
+                                                        <Eq>
+                                                           <FieldRef Name='{0}' LookupId='TRUE' />
+                                                           <Value Type='Lookup'>{1}</Value>
+                                                        </Eq>
+                                                        <Lt>
+                                                           <FieldRef Name='ArticleStartDate' />
+                                                           <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                        </Lt>
+                                                     </And>
+                                                  </And>
+                                               </Where>
+                                               <OrderBy>
+                                                  <FieldRef Name='ID' Ascending='False' />
+                                               </OrderBy>",
+                                    FieldsName.NewsRecord.English.CategoryName,
+                                    categoryId,
+                                    SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+                        }
+                        else
+                        {
+                            //CAML query will get all item 
+                            latestNewsQuery =
+                                string.Format(
+                                    @"<Where>
+                                          <And>
+                                             <Neq>
+                                                <FieldRef Name='Status' />
+                                                <Value Type='Boolean'>1</Value>
+                                             </Neq>
+                                             <Lt>
+                                                <FieldRef Name='ArticleStartDate' />
+                                                <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
+                                             </Lt>
+                                          </And>
+                                       </Where>
+                                       <OrderBy>
+                                          <FieldRef Name='ID' Ascending='False' />
+                                       </OrderBy>",
+                                    SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+                        }
+
+
+                        var latestNewsTable = Utilities.GetNewsRecordItems(latestNewsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
+                        if (latestNewsTable != null && latestNewsTable.Count > 0)
+                        {
+                            rptLatestNews.DataSource = Utilities.GetTableWithCorrectUrl(listCategoryName, latestNewsTable);
+                            rptLatestNews.DataBind();
+                        }
+
+                        #endregion
+
+                        #region Top News
+
+                        string topNewsQuery = string.Empty;
+                        if (!string.IsNullOrEmpty(categoryId)) //if categoryId !=null
+                        {
+                            topNewsQuery =
+                                string.Format(
+                                    @"<Where>
+                                                              <And>
+                                                                 <Neq>
+                                                                    <FieldRef Name='Status' />
+                                                                    <Value Type='Boolean'>1</Value>
+                                                                 </Neq>
+                                                                 <And>
+                                                                    <Eq>
+                                                                       <FieldRef Name='{0}' LookupId='TRUE' />
+                                                                       <Value Type='Lookup'>{1}</Value>
+                                                                    </Eq>
+                                                                    <Lt>
+                                                                       <FieldRef Name='ArticleStartDate' />
+                                                                       <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                                    </Lt>
+                                                                 </And>
+                                                              </And>
+                                                           </Where>
+                                                           <OrderBy>
+                                                              <FieldRef Name='ViewsCount' Ascending='False' />
+                                                           </OrderBy>",
+                                    FieldsName.NewsRecord.English.CategoryName,
+                                    categoryId,
+                                    SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+                        }
+                        else
+                        {
+                            topNewsQuery = string.Format(
+                                @"<Where>
                               <And>
                                  <Neq>
                                     <FieldRef Name='Status' />
@@ -83,16 +162,60 @@ namespace CQ.SharePoint.QN.Webparts
                            </Where>
                            <OrderBy>
                               <FieldRef Name='ViewsCount' Ascending='False' />
-                           </OrderBy>", FieldsName.NewsRecord.English.ViewsCount);
+                           </OrderBy>",
+                                SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+                        }
 
-                    var topViewsTable = Utilities.GetNewsRecords(topNewsQuery, GetNewsNumber(WebPartParent.ReadMoreNumber), ListsName.English.NewsRecord);
-                    if (topViewsTable != null && topViewsTable.Rows.Count > 0)
-                    {
-                        rptTopViews.DataSource = topViewsTable;
-                        rptTopViews.DataBind();
-                    }
-                    #endregion
-                    string mainItemQuery = string.Format(@" <Where>
+                        var topViewsTable = Utilities.GetNewsRecordItems(topNewsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
+                        if (topViewsTable != null && topViewsTable.Count > 0)
+                        {
+                            rptTopViews.DataSource = Utilities.GetTableWithCorrectUrl(listCategoryName, topViewsTable);
+                            rptTopViews.DataBind();
+                        }
+
+                        #endregion
+
+                        string mainItemQuery = string.Empty;
+                        if (!string.IsNullOrEmpty(categoryId)) //if categoryId !=null
+                        {
+                            mainItemQuery =
+                                string.Format(
+                                    @"<Where>
+                                                          <And>
+                                                             <Eq>
+                                                                <FieldRef Name='{0}' />
+                                                                <Value Type='Boolean'>1</Value>
+                                                             </Eq>
+                                                             <And>
+                                                                <Eq>
+                                                                   <FieldRef Name='{1}' />
+                                                                   <Value Type='Lookup'>1</Value>
+                                                                </Eq>
+                                                                <And>
+                                                                   <Lt>
+                                                                      <FieldRef Name='ArticleStartDate' />
+                                                                      <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                                   </Lt>
+                                                                   <Neq>
+                                                                      <FieldRef Name='Status' />
+                                                                      <Value Type='Boolean'>1</Value>
+                                                                   </Neq>
+                                                                </And>
+                                                             </And>
+                                                          </And>
+                                                       </Where>
+                                                       <OrderBy>
+                                                          <FieldRef Name='ID' Ascending='False' />
+                                                       </OrderBy>",
+                                    FieldsName.NewsRecord.English.ShowInHomePage,
+                                    FieldsName.NewsRecord.English.CategoryName,
+                                    SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+                        }
+                        else
+                        {
+                            mainItemQuery =
+                                string.Format(
+                                    @" <Where>
                                                               <And>
                                                                  <Eq>
                                                                     <FieldRef Name='{0}' />
@@ -112,17 +235,62 @@ namespace CQ.SharePoint.QN.Webparts
                                                            </Where>
                                                            <OrderBy>
                                                               <FieldRef Name='ID' Ascending='False' />
-                                                           </OrderBy>", FieldsName.NewsRecord.English.ShowInHomePage,
-                                                                      SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
-                    var mainItem = Utilities.GetNewsRecordItems(mainItemQuery, 3, ListsName.English.NewsRecord);
-                    if (mainItem != null && mainItem.Count > 0)
-                    {
-                        rptImages.DataSource = Utilities.GetTableWithCorrectUrl(mainItem);
-                        rptImages.DataBind();
-                    }
+                                                           </OrderBy>",
+                                    FieldsName.NewsRecord.English.ShowInHomePage,
+                                    SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+                        }
+                        //tai sao lai get duoc moi 1 item, trong khi do camlquery la 3?
+                        var mainItem = Utilities.GetNewsRecordItems(mainItemQuery, 3, listName);
 
-                    #region # tin tuc phia duoi
-                    string threeeItemsBellow = string.Format(@" <Where>
+                        if (mainItem != null && mainItem.Count > 0)
+                        {
+                            rptImages.DataSource = Utilities.GetTableWithCorrectUrl(listCategoryName, mainItem);
+                            rptImages.DataBind();
+                        }
+
+                        #region # tin tuc phia duoi
+
+                        string threeeItemsBellow = string.Empty;
+                        if (!string.IsNullOrEmpty(categoryId)) //if categoryId !=null
+                        {
+                            threeeItemsBellow =
+                                string.Format(
+                                    @"<Where>
+                                                          <And>
+                                                             <Eq>
+                                                                <FieldRef Name='{0}' />
+                                                                <Value Type='Boolean'>1</Value>
+                                                             </Eq>
+                                                             <And>
+                                                                <Eq>
+                                                                   <FieldRef Name='{1}' />
+                                                                   <Value Type='Lookup'>1</Value>
+                                                                </Eq>
+                                                                <And>
+                                                                   <Lt>
+                                                                      <FieldRef Name='ArticleStartDate' />
+                                                                      <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                                   </Lt>
+                                                                   <Neq>
+                                                                      <FieldRef Name='Status' />
+                                                                      <Value Type='Boolean'>1</Value>
+                                                                   </Neq>
+                                                                </And>
+                                                             </And>
+                                                          </And>
+                                                       </Where>
+                                                       <OrderBy>
+                                                          <FieldRef Name='ID' Ascending='False' />
+                                                       </OrderBy>",
+                                    FieldsName.NewsRecord.English.ShowInHomePage,
+                                    FieldsName.NewsRecord.English.CategoryName,
+                                    SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+                        }
+                        else
+                        {
+                            threeeItemsBellow =
+                                string.Format(
+                                    @" <Where>
                                                               <And>
                                                                  <Eq>
                                                                     <FieldRef Name='{0}' />
@@ -142,55 +310,124 @@ namespace CQ.SharePoint.QN.Webparts
                                                            </Where>
                                                            <OrderBy>
                                                               <FieldRef Name='ID' Ascending='False' />
-                                                           </OrderBy>", FieldsName.NewsRecord.English.ShowInHomePage,
-                                                                      SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
-                    var threeItemsTable = Utilities.GetNewsRecords(threeeItemsBellow, 6, ListsName.English.NewsRecord);
-                    if (threeItemsTable != null && threeItemsTable.Rows.Count > 0)
-                    {
-                        rptThreeItem.DataSource = GetItemFromThreePosition(threeItemsTable);
-                        rptThreeItem.DataBind();
+                                                           </OrderBy>",
+                                    FieldsName.NewsRecord.English.ShowInHomePage,
+                                    SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+                        }
+
+                        var threeItemsTable = Utilities.GetNewsRecords(threeeItemsBellow, 6, listName);
+                        if (threeItemsTable != null && threeItemsTable.Rows.Count > 0)
+                        {
+                            rptThreeItem.DataSource = GetItemFromThreePosition(threeItemsTable);
+                            rptThreeItem.DataBind();
+                        }
+
+                        #endregion
                     }
-                    #endregion
 
-
-
-                    if ("0".Equals(WebPartParent.WebpartName))
+                    //Neu khi setup webpart la 0
+                    else if ("0".Equals(WebPartParent.WebpartName))
                     {
                         rptTopViews.Visible = false;
                         pnlIndex.Visible = false;
                         pnlSubPage.Visible = true;
-                        DataTable tempTable;
-                        DataTable otherNewsTable = null;
-                        var categoryId = Request.QueryString["CategoryId"];
 
-                        if (!string.IsNullOrEmpty(categoryId))
-                        {
-                            Utilities.GetNewsByCatID(ListsName.English.NewsRecord, ListsName.English.NewsCategory, Convert.ToString(categoryId), ref otherNewsTable);
-                        }
 
-                        if (otherNewsTable != null && otherNewsTable.Rows.Count > 0)
+                        if ("1".Equals(focusNews))
                         {
-                            otherNewsTable.Rows.RemoveAt(0);
-                            //end
-                            tempTable = otherNewsTable.Clone();
-                            if (otherNewsTable.Rows.Count > 5)
+                            string newsQuery = string.Format(@"<Where>
+                                                                  <And>
+                                                                     <Eq>
+                                                                        <FieldRef Name='FocusNews' />
+                                                                        <Value Type='Boolean'>1</Value>
+                                                                     </Eq>
+                                                                     <And>
+                                                                        <Neq>
+                                                                           <FieldRef Name='Status' />
+                                                                           <Value Type='Boolean'>1</Value>
+                                                                        </Neq>
+                                                                        <Lt>
+                                                                           <FieldRef Name='ArticleStartDate' />
+                                                                           <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
+                                                                        </Lt>
+                                                                     </And>
+                                                                  </And>
+                                                               </Where>
+                                                               <OrderBy>
+                                                                  <FieldRef Name='ID' Ascending='False' />
+                                                               </OrderBy>",
+                                                                          SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+
+                            var companyList = Utilities.GetNewsRecords(newsQuery, listName);
+                            if (companyList != null && companyList.Rows.Count > 0)
                             {
-                                for (int i = 0; i < 5; i++)
-                                {
-                                    tempTable.ImportRow(otherNewsTable.Rows[i]);
-                                }
+                                rptLatestNews.DataSource = companyList;
+                                rptLatestNews.DataBind();
+                            }
+                        }
+                        else //Khong phai la tin tieu bieu
+                        {
+                            DataTable tempTable;
+                            DataTable otherNewsTable = null;
+
+                            if (!string.IsNullOrEmpty(categoryId))
+                            {
+                                Utilities.GetNewsByCatID(listName, listCategoryName, Convert.ToString(categoryId), ref otherNewsTable);
                             }
                             else
                             {
-                                for (int i = 0; i < otherNewsTable.Rows.Count; i++)
-                                {
-                                    tempTable.ImportRow(otherNewsTable.Rows[i]);
-                                }
+                                latestNewsQuery = string.Format(
+                                                               @"<Where>
+                                                                  <And>
+                                                                     <Neq>
+                                                                        <FieldRef Name='Status' />
+                                                                        <Value Type='Boolean'>1</Value>
+                                                                     </Neq>
+                                                                     <Lt>
+                                                                        <FieldRef Name='ArticleStartDate' />
+                                                                        <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
+                                                                     </Lt>
+                                                                  </And>
+                                                               </Where>
+                                                               <OrderBy>
+                                                                  <FieldRef Name='ID' Ascending='False' />
+                                                               </OrderBy>", SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+
+
+
+                                otherNewsTable = Utilities.GetNewsRecords(latestNewsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
                             }
-                            if (tempTable.Rows.Count > 0)
+
+                            if (otherNewsTable != null && otherNewsTable.Rows.Count > 0)
                             {
-                                rptLatestNews.DataSource = tempTable;
-                                rptLatestNews.DataBind();
+                                otherNewsTable.Rows.RemoveAt(0);
+                                //end
+                                tempTable = otherNewsTable.Clone();
+                                if (otherNewsTable.Rows.Count > 5)
+                                {
+                                    for (int i = 0; i < 5; i++)
+                                    {
+                                        tempTable.ImportRow(otherNewsTable.Rows[i]);
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < otherNewsTable.Rows.Count; i++)
+                                    {
+                                        tempTable.ImportRow(otherNewsTable.Rows[i]);
+                                    }
+                                }
+                                if (tempTable.Rows.Count > 0)
+                                {
+                                    Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryId, ref tempTable);
+                                    rptLatestNews.DataSource = tempTable;
+                                    rptLatestNews.DataBind();
+                                }
+                                else
+                                {
+                                    rptLatestNews.DataSource = null;
+                                    rptLatestNews.DataBind();
+                                }
                             }
                             else
                             {
@@ -198,15 +435,11 @@ namespace CQ.SharePoint.QN.Webparts
                                 rptLatestNews.DataBind();
                             }
                         }
-                        else
-                        {
-                            rptLatestNews.DataSource = null;
-                            rptLatestNews.DataBind();
-                        }
                     }
                 }
                 catch (Exception ex)
                 {
+                    Utilities.LogToUls(ex);
                 }
             }
         }
@@ -220,6 +453,7 @@ namespace CQ.SharePoint.QN.Webparts
             DataTable dataTableTemp = new DataTable("TableTemp");
             dataTableTemp.Columns.Add(FieldsName.Title);
             dataTableTemp.Columns.Add(FieldsName.Id);
+            dataTableTemp.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
 
 
             if (dataTable != null && dataTable.Rows.Count > 3)
@@ -231,7 +465,7 @@ namespace CQ.SharePoint.QN.Webparts
                         DataRow newRow = dataTableTemp.NewRow();
                         newRow[FieldsName.Title] = Convert.ToString(dataTable.Rows[i][FieldsName.Title]);
                         newRow[FieldsName.Id] = dataTable.Rows[i][FieldsName.Id];
-
+                        newRow[FieldsName.CategoryId] = Utilities.GetCategoryIdByCategoryName(Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.CategoryName]), listCategoryName);
                         dataTableTemp.Rows.Add(newRow);
                     }
                 }
@@ -242,7 +476,7 @@ namespace CQ.SharePoint.QN.Webparts
                         DataRow newRow = dataTableTemp.NewRow();
                         newRow[FieldsName.Title] = Convert.ToString(dataTable.Rows[i][FieldsName.Title]);
                         newRow[FieldsName.Id] = dataTable.Rows[i][FieldsName.Id];
-
+                        newRow[FieldsName.CategoryId] = Utilities.GetCategoryIdByCategoryName(Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.CategoryName]), listCategoryName);
                         dataTableTemp.Rows.Add(newRow);
                     }
                 }

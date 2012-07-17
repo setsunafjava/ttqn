@@ -72,8 +72,8 @@ namespace CQ.SharePoint.QN.Webparts
                         string group1Query = string.Format(@"<Where>
                                                               <And>
                                                                  <Eq>
-                                                                    <FieldRef Name='{0}' />
-                                                                    <Value Type='LookupMulti'>{1}</Value>
+                                                                    <FieldRef Name='{0}' LookupId='TRUE' />
+                                                                    <Value Type='Lookup'>{1}</Value>
                                                                  </Eq>
                                                                  <And>
                                                                     <Neq>
@@ -110,6 +110,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                        Convert.ToString(table1.Rows[0][FieldsName.Id]));
 
                             table1.Rows.RemoveAt(0);
+                            Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.NewsRecord.English.CategoryName,ref table1);
                             rptTinhUy.DataSource = table1;
                             rptTinhUy.DataBind();
                         }
@@ -129,8 +130,8 @@ namespace CQ.SharePoint.QN.Webparts
                         string group2Query = string.Format(@"<Where>
                                                               <And>
                                                                  <Eq>
-                                                                    <FieldRef Name='{0}' />
-                                                                    <Value Type='LookupMulti'>{1}</Value>
+                                                                    <FieldRef Name='{0}' LookupId='TRUE' />
+                                                                    <Value Type='Lookup'>{1}</Value>
                                                                  </Eq>
                                                                  <And>
                                                                     <Neq>
@@ -167,6 +168,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                        Convert.ToString(table2.Rows[0][FieldsName.Id]));
 
                             table2.Rows.RemoveAt(0);
+                            Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.NewsRecord.English.CategoryName, ref table2);
                             rptHoiDongNhanDan.DataSource = table2;
                             rptHoiDongNhanDan.DataBind();
                         }
@@ -184,8 +186,8 @@ namespace CQ.SharePoint.QN.Webparts
                         string group3Query = string.Format(@"<Where>
                                                               <And>
                                                                  <Eq>
-                                                                    <FieldRef Name='{0}' />
-                                                                    <Value Type='LookupMulti'>{1}</Value>
+                                                                    <FieldRef Name='{0}' LookupId='TRUE' />
+                                                                    <Value Type='Lookup'>{1}</Value>
                                                                  </Eq>
                                                                  <And>
                                                                     <Neq>
@@ -222,6 +224,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                        Convert.ToString(table3.Rows[0][FieldsName.Id]));
 
                             table3.Rows.RemoveAt(0);
+                            Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.NewsRecord.English.CategoryName, ref table3);
                             var newTable = GetFiveRows(table3);
                             rptUyBanNhanDan.DataSource = newTable;
                             rptUyBanNhanDan.DataBind();

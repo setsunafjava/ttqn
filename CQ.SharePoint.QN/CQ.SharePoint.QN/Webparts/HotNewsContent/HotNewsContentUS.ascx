@@ -10,7 +10,7 @@
                         <ul>
                     </HeaderTemplate>
                     <ItemTemplate>
-                        <li><a href='<%= NewsUrl%><%#Eval("ID") %>'>
+                        <li><a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
                             <img src='<%#Eval("Thumbnail") %>' alt='<%#Eval("Title")%>' title='<b><%#Eval("Title")%></b>'
                                 style="width: 400px; height: 330px" /></a><%#Eval("ShortContent")%></li>
                     </ItemTemplate>
@@ -21,7 +21,7 @@
             </div>
             <div class="ws_bullets">
                 <div>
-                     <a href="#" title="Anh thu 1">1</a> <a href="#" title="Anh thu 2">2</a> <a href="#"
+                    <a href="#" title="Anh thu 1">1</a> <a href="#" title="Anh thu 2">2</a> <a href="#"
                         title="Anh So 3">3</a>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                 <ul>
             </HeaderTemplate>
             <ItemTemplate>
-                <li><a href='<%= NewsUrl%><%#Eval("ID") %>'>
+                <li><a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
                     <%#Eval("Title")%></a></li>
             </ItemTemplate>
             <FooterTemplate>
@@ -47,7 +47,7 @@
         <ul id="countrytabs" class="shadetabs">
             <asp:Panel ID="pnlIndex" runat="server">
                 <li><a href="#" rel="country1" class="selected">
-                     <%=WebPartParent.LatestNews %>
+                    <%=WebPartParent.LatestNews %>
                 </a></li>
                 <li><a href="#" rel="country2">
                     <%=WebPartParent.MostViews %>
@@ -66,7 +66,7 @@
                         <ul>
                     </HeaderTemplate>
                     <ItemTemplate>
-                        <li><a href='<%= NewsUrl%><%#Eval("ID") %>'>
+                        <li><a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
                             <%#Eval("Title")%></a> <span style="color: #003399">(<%=WebPartParent.Day %><%#Eval("Created")%>)</span>
                         </li>
                     </ItemTemplate>
@@ -81,8 +81,8 @@
                         <ul>
                     </HeaderTemplate>
                     <ItemTemplate>
-                        <li><a href='<%= NewsUrl%><%#Eval("ID") %>'>
-                             <%#Eval("Title")%></a><span style="color: #003399">(<%=WebPartParent.Day %><%#Eval("Created")%>)</span></li>
+                        <li><a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
+                            <%#Eval("Title")%></a><span style="color: #003399">(<%=WebPartParent.Day %><%#Eval("Created")%>)</span></li>
                     </ItemTemplate>
                     <FooterTemplate>
                         </ul>
@@ -90,14 +90,13 @@
                 </asp:Repeater>
             </div>
 
-            <script type="text/javascript">
-						
+            <script type="text/javascript">						
 						var countries=new ddtabcontent("countrytabs")
 						countries.setpersist(true)
 						countries.setselectedClassTarget("link") //"link" or "linkparent"
-						countries.init()
-						
-            </script>            
+						countries.init()						
+            </script>
+
             <div class="cleaner">
             </div>
         </div>
@@ -107,5 +106,6 @@
 </div>
 
 <script type="text/javascript" src="/QNResources/wowslider.js"></script>
+
 <script type="text/javascript" src="/QNResources/javascript.js"></script>
 

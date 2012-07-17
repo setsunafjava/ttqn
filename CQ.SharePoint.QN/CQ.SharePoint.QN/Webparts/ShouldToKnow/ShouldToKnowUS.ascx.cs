@@ -69,7 +69,7 @@ namespace CQ.SharePoint.QN.Webparts
                     var companyList = Utilities.GetNewsRecordItems(advQuery, newsNumber, ListsName.English.ShouldToKnowRecord);
                     if (companyList != null && companyList.Count > 0)
                     {
-                        rptShouldYouKnow.DataSource = Utilities.GetTableWithCorrectUrl(companyList);
+                        rptShouldYouKnow.DataSource = Utilities.GetTableWithCorrectUrl(ListsName.English.ShouldToKnowCategory, companyList);
                         rptShouldYouKnow.DataBind();
                     }
 
@@ -101,7 +101,7 @@ namespace CQ.SharePoint.QN.Webparts
                     var newsTitleItems = Utilities.GetNewsRecordItems(newsTitle, 5, ListsName.English.ShouldToKnowCategory);
                     if (newsTitleItems != null && newsTitleItems.Count > 0)
                     {
-                        rptNewsGroup.DataSource = Utilities.GetTableWithCorrectUrl(newsTitleItems);
+                        rptNewsGroup.DataSource = Utilities.GetTableWithCorrectUrl(ListsName.English.ShouldToKnowCategory, newsTitleItems);
                         rptNewsGroup.DataBind();
                     }
                 }

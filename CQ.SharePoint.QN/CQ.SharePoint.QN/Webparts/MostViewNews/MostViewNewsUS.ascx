@@ -2,16 +2,17 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MostViewNewsUS.ascx.cs"
     Inherits="CQ.SharePoint.QN.Webparts.MostViewNewsUS" %>
 <div class="pos_MOD">
-    <div class="bg_title_mod"><%= WebpartParent.MostViews %>
+    <div class="bg_title_mod">
+        <%= WebpartParent.MostViews %>
     </div>
     <div class="inner_pos_Mod">
-        <div class="inner_news_Readmore">           
+        <div class="inner_news_Readmore">
             <asp:Repeater ID="rptTopViews" runat="server">
                 <HeaderTemplate>
                     <ul>
                 </HeaderTemplate>
                 <ItemTemplate>
-                    <li><a href='<%= NewsUrl%><%#Eval("ID") %>'>
+                    <li><a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
                         <%#Eval("Title")%></a></li>
                 </ItemTemplate>
                 <FooterTemplate>

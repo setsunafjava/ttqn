@@ -16,7 +16,7 @@
                         <ul>
                     </HeaderTemplate>
                     <ItemTemplate>
-                        <li><a href='<%= CategoryUrl%><%#Eval("ID") %>'>
+                        <li><a href='<%= CategoryUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
                             <%#Eval("Title")%></a></li>|
                     </ItemTemplate>
                     <FooterTemplate>
@@ -44,7 +44,7 @@
                         <ul>
                     </HeaderTemplate>
                     <ItemTemplate>
-                        <li><a href='<%= NewsUrl%><%#Eval("ID") %>'>
+                        <li><a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
                             <%#Eval("ShortContent")%></a></li>
                     </ItemTemplate>
                     <FooterTemplate>
