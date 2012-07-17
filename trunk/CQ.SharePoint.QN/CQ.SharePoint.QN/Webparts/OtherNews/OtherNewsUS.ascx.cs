@@ -26,7 +26,7 @@ namespace CQ.SharePoint.QN.Webparts
             if (!IsPostBack)
             {
                 try
-                {
+                {//cai nay chua lay duoc du lieu khi ma user xem 1 ban ghi => khog get duoc categoryID
                     var newsId = Convert.ToInt32(Request.QueryString[Constants.NewsId]);
                     var cateId = Convert.ToInt32(Request.QueryString[Constants.CategoryId]);
                     var listName = Request.QueryString[Constants.ListName];
@@ -87,7 +87,7 @@ namespace CQ.SharePoint.QN.Webparts
                 }
                 catch (Exception ex)
                 {
-
+                    Utilities.LogToUls(ex);
                 }
             }
         }

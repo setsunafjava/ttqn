@@ -42,7 +42,7 @@ namespace CQ.SharePoint.QN.Webparts
                     string newsGroupQuery = string.Format(@"<Where>
                                                               <And>
                                                                  <Eq>
-                                                                    <FieldRef Name='{0}' />
+                                                                    <FieldRef Name='{0}' LookupId='TRUE' />
                                                                     <Value Type='Lookup'>{1}</Value>
                                                                  </Eq>
                                                                  <And>
@@ -61,29 +61,34 @@ namespace CQ.SharePoint.QN.Webparts
                                                               <FieldRef Name='ID' Ascending='False' />
                                                            </OrderBy>",
                                                                       FieldsName.NewsRecord.English.CategoryName,
-                                                                      SPHttpUtility.HtmlEncode(WebpartParent.GroupName),
+                                                                      SPHttpUtility.HtmlEncode(WebpartParent.NewsGroupID),
                                                                       SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
 
                     var newsGroups = Utilities.GetNewsRecordItems(newsGroupQuery, Convert.ToUInt16(WebpartParent.NumberOfNews), ListsName.English.NewsRecord);
                     if (newsGroups != null && newsGroups.Count > 0)
                     {
-                        var tempTable = Utilities.GetTableWithCorrectUrl(newsGroups);
+                        var tempTable = Utilities.GetTableWithCorrectUrl(ListsName.English.NewsCategory, newsGroups);
                         lblHeader.Text = Convert.ToString(tempTable.Rows[0][FieldsName.Title]);
                         imgThumb.ImageUrl = Convert.ToString(tempTable.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
 
                         lblShortContent.Text = Convert.ToString(tempTable.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
-                        NewsFirstUrl1 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}",
+
+                        Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.NewsRecord.English.CategoryName, ref tempTable);
+                        if (tempTable.Rows.Count > 2)
+                        {
+
+                            tempTable.Rows.RemoveAt(0);
+
+                            rptCaiCachThuTucHanhChinh.DataSource = tempTable;
+                            NewsFirstUrl1 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}&CategoryId={6}",
                                    SPContext.Current.Web.Url,
                                    Constants.PageInWeb.DetailNews,
                                    ListsName.English.NewsCategory,
                                    ListsName.English.NewsRecord,
                                    Constants.NewsId,
-                                   Convert.ToString(newsGroups[0][FieldsName.Id]));
+                                   Convert.ToString(newsGroups[0][FieldsName.Id]), 
+                                   Convert.ToString(newsGroups[0][Constants.CategoryId]));
 
-                        if (tempTable.Rows.Count > 2)
-                        {
-                            tempTable.Rows.RemoveAt(0);
-                            rptCaiCachThuTucHanhChinh.DataSource = tempTable;
                             rptCaiCachThuTucHanhChinh.DataBind();
                         }
                     }
@@ -100,6 +105,7 @@ namespace CQ.SharePoint.QN.Webparts
                         FieldsName.Id);
 
                     var newsTitleItems = Utilities.GetNewsRecords(newsTitle, 4, ListsName.English.NewsCategory);
+                    Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.NewsRecord.English.CategoryName, ref newsTitleItems);
                     if (newsTitleItems != null && newsTitleItems.Rows.Count > 0)
                     {
                         rptNewsGroup.DataSource = newsTitleItems;

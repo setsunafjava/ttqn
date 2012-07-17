@@ -338,7 +338,6 @@
   <ItemGroup>
     <None Include="Properties\CQ.SharePoint.QN.snk" />
     <None Include="Resources\MasterPages\CqHome.master">
-      <SubType>ASPXCodeBehind</SubType>
     </None>
     <None Include="Webparts\ClassiFieds\ClassiFieds.webpart" />
     <None Include="Webparts\CompanyAdv\CompanyAdv.webpart" />

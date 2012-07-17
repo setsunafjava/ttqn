@@ -25,13 +25,14 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
-                    var categoryId = Request.QueryString["CategoryId"];
-
+                    var categoryId = Request.QueryString[Constants.CategoryId];
+                    var listName = Request.QueryString[Constants.ListName];
+                    var listCategoryName = Request.QueryString[Constants.ListCategoryName];
                     NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
                         SPContext.Current.Web.Url,
                         Constants.PageInWeb.DetailNews,
-                        ListsName.English.NewsCategory,
-                        ListsName.English.NewsRecord,
+                        listCategoryName,
+                        listName,
                         Constants.NewsId);
 
                     string topNewsQuery = string.Empty;
@@ -41,8 +42,8 @@ namespace CQ.SharePoint.QN.Webparts
                         topNewsQuery = string.Format(@"<Where>
                                                               <And>
                                                                  <Eq>
-                                                                    <FieldRef Name='{0}' />
-                                                                    <Value Type='LookupMulti'>{1}</Value>
+                                                                    <FieldRef Name='{0}' LookupId='TRUE' />
+                                                                    <Value Type='Lookup'>{1}</Value>
                                                                  </Eq>
                                                                  <And>
                                                                     <Neq>
@@ -65,9 +66,6 @@ namespace CQ.SharePoint.QN.Webparts
                     }
                     else
                     {
-                        topNewsQuery = string.Format("<Where><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></Where><OrderBy><FieldRef Name='{0}' Ascending='False' /></OrderBy>",
-                            FieldsName.NewsRecord.English.ViewsCount);
-
                         topNewsQuery = string.Format(@"<Where>
                                                           <And>
                                                              <Neq>
@@ -84,8 +82,9 @@ namespace CQ.SharePoint.QN.Webparts
                                                           <FieldRef Name='ViewsCount' Ascending='False' />
                                                        </OrderBy>", SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
                     }
-
-                    var topViewsTable = Utilities.GetNewsRecords(topNewsQuery, GetNewsNumber(WebpartParent.NumberOfNews), ListsName.English.NewsRecord);
+                    
+                    var topViewsTable = Utilities.GetNewsRecords(topNewsQuery, GetNewsNumber(WebpartParent.NumberOfNews), listName);
+                    Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.NewsRecord.English.CategoryName, ref topViewsTable);
                     if (topViewsTable != null && topViewsTable.Rows.Count > 0)
                     {
                         rptTopViews.DataSource = topViewsTable;

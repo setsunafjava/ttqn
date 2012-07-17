@@ -4,8 +4,7 @@
 <div class="mod_Corner_Right">
     <div class="bg_title_ModNews">
         <div class="title_cate_News">
-            <div class="name_F_Right">              
-                
+            <div class="name_F_Right">
                 <%=WebpartParent.FocusNewsTitle %>
             </div>
         </div>
@@ -16,7 +15,7 @@
                         <div class="thumb_img">
                             <asp:Image ID="img" runat="server" ImageUrl='<%#Eval("Thumbnail")%>' /></div>
                         <div class="name_news">
-                            <a href='<%= NewsUrl%><%#Eval("ID") %>'>
+                            <a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
                                 <%#Eval("Title")%></a> <span style="color: #003399">(<asp:Label ID="lblDate" runat="server"></asp:Label>
                                     <%#Eval("Modified")%>)</span>
                         </div>
@@ -27,7 +26,7 @@
             </asp:Repeater>
             <div class="read_more">
                 <a href='<%= CategoryUrl %>'>&raquo;
-                     <%= WebpartParent.ReadMore %></a></div>
+                    <%= WebpartParent.ReadMore %></a></div>
         </div>
     </div>
 </div>

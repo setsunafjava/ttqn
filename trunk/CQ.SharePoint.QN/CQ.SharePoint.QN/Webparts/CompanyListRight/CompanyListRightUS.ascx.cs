@@ -33,8 +33,8 @@ namespace CQ.SharePoint.QN.Webparts
                         ListsName.English.CompanyRecord,
                         Constants.NewsId);
 
-                    CategoryUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}Page=1&CategoryId=", 
-                        SPContext.Current.Web.Url, 
+                    CategoryUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}Page=1&CategoryId=",
+                        SPContext.Current.Web.Url,
                         Constants.PageInWeb.SubPage,
                         ListsName.English.CompanyCategory,
                         ListsName.English.CompanyRecord);
@@ -42,7 +42,7 @@ namespace CQ.SharePoint.QN.Webparts
                     string companyListQuery = string.Format(@"<Where>
                                                               <And>
                                                                  <Eq>
-                                                                    <FieldRef Name='{0}' />
+                                                                    <FieldRef Name='{0}' LookupId='TRUE' />
                                                                     <Value Type='Lookup'>{1}</Value>
                                                                  </Eq>
                                                                  <And>
@@ -70,6 +70,7 @@ namespace CQ.SharePoint.QN.Webparts
                         newsNumber = Convert.ToUInt16(WebpartParent.NumberOfNews);
                     }
                     var companyList = Utilities.GetNewsRecords(companyListQuery, newsNumber, ListsName.English.CompanyRecord);
+                    Utilities.AddCategoryIdToTable(ListsName.English.CompanyCategory, FieldsName.CompanyRecord.English.CategoryName, ref companyList);
                     if (companyList != null && companyList.Rows.Count > 0)
                     {
                         rptCompanyList.DataSource = companyList;

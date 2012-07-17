@@ -42,12 +42,12 @@ namespace CQ.SharePoint.QN.Common
             {
                 string thumbnailImage = string.Empty;
                 string publishingPageImage = string.Empty;
-                
+
                 for (int i = 0; i < dataTable.Rows.Count; i++)
                 {
                     thumbnailImage = Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage]);
                     publishingPageImage = Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.PublishingPageImage]);
-                    
+
                     if (thumbnailImage.Length > 2)
                     {
                         dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = thumbnailImage.Trim().Substring(0, thumbnailImage.Length - 2);
@@ -77,9 +77,20 @@ namespace CQ.SharePoint.QN.Common
             return dataTable;
         }
 
-        public static DataTable GetTableWithCorrectUrl(SPListItemCollection items)
+        /// <summary>
+        /// Get and return table with correct url
+        /// </summary>
+        /// <param name="categoryListName">categoryListName</param>
+        /// <param name="items"></param>
+        /// <returns></returns>
+        public static DataTable GetTableWithCorrectUrl(string categoryListName, SPListItemCollection items)
         {
             var dataTable = items.GetDataTable();
+
+            if (!dataTable.Columns.Contains(FieldsName.CategoryId))
+            {
+                dataTable.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
+            }
 
             if (items != null && items.Count > 0)
             {
@@ -106,6 +117,7 @@ namespace CQ.SharePoint.QN.Common
 
                     advLink = new SPFieldUrlValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.LinkAdv]));
                     dataTable.Rows[i][FieldsName.NewsRecord.English.LinkAdv] = advLink.Url;
+                    dataTable.Rows[i][FieldsName.CategoryId] = GetCategoryIdByCategoryName(Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.CategoryName]), categoryListName);
                 }
             }
             return dataTable;
@@ -1139,7 +1151,7 @@ namespace CQ.SharePoint.QN.Common
                         }
                         catch (Exception ex)
                         {
-
+                            Utilities.LogToUls(ex);
                         }
                     }
                 }
@@ -1149,9 +1161,25 @@ namespace CQ.SharePoint.QN.Common
 
         public static DataTable GetNewsByCatID(string listName, string catID)
         {
-            string camlQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where>",
-                FieldsName.NewsRecord.English.CategoryName,
-                catID);
+            string camlQuery = string.Format(@"<Where>
+                                                  <And>
+                                                     <Eq>
+                                                        <FieldRef Name='{0}' LookupId='TRUE' />
+                                                        <Value Type='Lookup'>{1}</Value>
+                                                     </Eq>
+                                                     <And>
+                                                        <Neq>
+                                                           <FieldRef Name='Status' />
+                                                           <Value Type='Boolean'>1</Value>
+                                                        </Neq>
+                                                        <Lt>
+                                                           <FieldRef Name='ArticleStartDate' />
+                                                           <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                        </Lt>
+                                                     </And>
+                                                  </And>
+                                               </Where>", FieldsName.NewsRecord.English.CategoryName,
+                                                catID, SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
             var query = new SPQuery();
             query.Query = camlQuery;
             DataTable table = null;
@@ -1187,7 +1215,7 @@ namespace CQ.SharePoint.QN.Common
 
         public static DataTable GetNewsCatByParent(string listCategoryName, string catID)
         {
-            string camlQuery = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='LookupMulti'>{1}</Value></Eq></Where>", FieldsName.NewsCategory.English.ParentName, catID);
+            string camlQuery = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where>", FieldsName.NewsCategory.English.ParentName, catID);
             var query = new SPQuery();
             query.Query = camlQuery;
             DataTable table = null;
@@ -1249,7 +1277,21 @@ namespace CQ.SharePoint.QN.Common
         {
             if (string.IsNullOrEmpty(catID))
             {
-                string camlQuery = "<Where><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></Where><OrderBy><FieldRef Name='ID' Ascending='FALSE' /></OrderBy>";
+                string camlQuery = string.Format(@"<Where>
+                                                      <And>
+                                                         <Neq>
+                                                            <FieldRef Name='Status' />
+                                                            <Value Type='Boolean'>1</Value>
+                                                         </Neq>
+                                                         <Lt>
+                                                            <FieldRef Name='ArticleStartDate' />
+                                                            <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
+                                                         </Lt>
+                                                      </And>
+                                                   </Where>
+                                                   <OrderBy>
+                                                      <FieldRef Name='ID' Ascending='False' />
+                                                   </OrderBy>", SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
                 var query = new SPQuery();
                 query.Query = camlQuery;
                 query.RowLimit = 20;
@@ -1384,11 +1426,29 @@ namespace CQ.SharePoint.QN.Common
                         try
                         {
                             SPQuery spQuery = new SPQuery
-                            {
-                                Query = string.Format("<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Counter'>{1}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where>", FieldsName.Id, newsID),
-                                RowLimit = 1
-                            };
-                            SPList list = Utilities.GetListFromUrl(web, ListsName.English.NewsRecord);
+                                                  {
+                                                      Query = string.Format(@"<Where>
+                                                                                  <And>
+                                                                                     <Eq>
+                                                                                        <FieldRef Name='ID' />
+                                                                                        <Value Type='Counter'>{0}</Value>
+                                                                                     </Eq>
+                                                                                     <And>
+                                                                                        <Lt>
+                                                                                           <FieldRef Name='ArticleStartDate' />
+                                                                                           <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
+                                                                                        </Lt>
+                                                                                        <Neq>
+                                                                                           <FieldRef Name='Status' />
+                                                                                           <Value Type='Boolean'>1</Value>
+                                                                                        </Neq>
+                                                                                     </And>
+                                                                                  </And>
+                                                                               </Where>", newsID,
+                                                                                        SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now)),
+                                                      RowLimit = 1
+                                                  };
+                            SPList list = GetListFromUrl(web, ListsName.English.NewsRecord);
                             if (list != null)
                             {
                                 SPListItemCollection items = list.GetItems(spQuery);
@@ -1493,6 +1553,116 @@ namespace CQ.SharePoint.QN.Common
                     }
                 }
             });
+        }
+
+        /// <summary>
+        /// Get 
+        /// </summary>
+        /// <param name="categoryNameValue"></param>
+        /// <param name="listCategoryName"></param>
+        /// <returns></returns>
+        public static int GetCategoryIdByCategoryName(string categoryNameValue, string listCategoryName)
+        {
+            string camlQuery = string.Format(@"<Where>
+                                                  <Eq>
+                                                     <FieldRef Name='Title' />
+                                                     <Value Type='Text'>{0}</Value>
+                                                  </Eq>
+                                               </Where>", categoryNameValue);
+            var query = new SPQuery { Query = camlQuery, RowLimit = 1 };
+            int categoryId = 0;
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            string listUrl = web.Url + "/Lists/" + listCategoryName;
+                            var list = web.GetList(listUrl);
+                            if (list != null)
+                            {
+                                var items = list.GetItems(query);
+                                if (items != null && items.Count > 0)
+                                {
+                                    categoryId = Convert.ToInt16(items[0][FieldsName.Id]);
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            LogToUls(ex);
+                        }
+                    }
+                }
+            });
+            return categoryId;
+        }
+
+        /// <summary>
+        /// Get 
+        /// </summary>
+        /// <param name="newsId"></param>
+        /// <param name="listName"></param>
+        /// <param name="listNameCategory"></param>
+        /// <returns></returns>
+        public static int GetCategoryIdByItemId(int newsId, string listName, string listNameCategory)
+        {
+            string categoryName = string.Empty;
+            int categoryId = 0;
+
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            //get listName information by newsId => CategoryName
+                            string listUrl = web.Url + "/Lists/" + listNameCategory;
+                            var list = web.GetList(listUrl);
+                            if (list != null)
+                            {
+                                var items = list.GetItemById(newsId);
+                                if (items != null)
+                                {
+                                    categoryName = Convert.ToString(items[FieldsName.CategoryName]);
+                                    categoryId = GetCategoryIdByCategoryName(categoryName, listNameCategory);
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            LogToUls(ex);
+                        }
+                    }
+                }
+            });
+            return categoryId;
+        }
+
+        /// <summary>
+        /// Update CategoryID field
+        /// </summary>
+        /// <param name="listCategoryName"></param>
+        /// <param name="categoryName"></param>
+        /// <param name="dataTable"></param>
+        public static void AddCategoryIdToTable(string listCategoryName, string categoryName, ref DataTable dataTable)
+        {
+            if (dataTable != null && dataTable.Rows.Count > 0)
+            {
+                if (!dataTable.Columns.Contains(FieldsName.CategoryId))
+                {
+                    dataTable.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
+                }
+
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    row[FieldsName.CategoryId] = GetCategoryIdByCategoryName(Convert.ToString(row[categoryName]), listCategoryName);
+                }
+            }
         }
     }
 }

@@ -71,16 +71,17 @@ namespace CQ.SharePoint.QN.Webparts
                     }
 
                     var focusNewsTable = Utilities.GetNewsRecordItems(focusNewsQuery, Convert.ToUInt16(numberOfNews), ListsName.English.NewsRecord);
-                    CategoryUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
+                    CategoryUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=1",
                        SPContext.Current.Web.Url,
                        Constants.PageInWeb.SubPage,
                        ListsName.English.NewsCategory,
                        ListsName.English.NewsRecord,
-                       Constants.CategoryId);
-
+                       "FocusNews");
+                    var tableFocus = Utilities.GetTableWithCorrectUrl(ListsName.English.NewsCategory, focusNewsTable);
+                    Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory,FieldsName.NewsRecord.English.CategoryName, ref tableFocus);
                     if (focusNewsTable != null && focusNewsTable.Count > 0)
                     {
-                        rptFocusNews.DataSource = Utilities.GetTableWithCorrectUrl(focusNewsTable);
+                        rptFocusNews.DataSource = tableFocus;
                         rptFocusNews.DataBind();
                     }
                 }
