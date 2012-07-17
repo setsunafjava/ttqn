@@ -2,6 +2,7 @@
 using System.Data;
 using System.Web.UI;
 using Microsoft.SharePoint;
+using Microsoft.SharePoint.Utilities;
 using Microsoft.SharePoint.WebControls;
 using CQ.SharePoint.QN.Common;
 
@@ -23,10 +24,45 @@ namespace CQ.SharePoint.QN.Webparts
         {
             try
             {
-                DataTable companyList = null;
-                Utilities.GetNewsByCatID(ListsName.English.CompanyRecord, ListsName.English.CompanyCategory, Convert.ToString(WebpartParent.CategoryId), ref companyList);
-                lblFocusCompany.Text = WebpartParent.CategoryType;
                 string imagepath;
+                string focusCompanyQuery = string.Format(@"<Where>
+                                                              <And>
+                                                                 <Eq>
+                                                                    <FieldRef Name='{0}' />
+                                                                    <Value Type='Boolean'>1</Value>
+                                                                 </Eq>
+                                                                 <And>
+                                                                    <Neq>
+                                                                       <FieldRef Name='{1}' />
+                                                                       <Value Type='Boolean'>1</Value>
+                                                                    </Neq>
+                                                                    <Lt>
+                                                                       <FieldRef Name='ArticleStartDate' />
+                                                                       <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                                    </Lt>
+                                                                 </And>
+                                                              </And>
+                                                           </Where><OrderBy>
+                                                              <FieldRef Name='ID' Ascending='False' />
+                                                           </OrderBy>",
+                                                                   FieldsName.CompanyRecord.English.FocusCompany,
+                                                                   FieldsName.NewsRecord.English.Status,
+                                                                   SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+
+                uint numberOfNews = 5;
+                if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
+                {
+                    try
+                    {
+                        numberOfNews = Convert.ToUInt16(WebpartParent.NumberOfNews);
+                    }
+                    catch (Exception ex)
+                    { }
+                }
+
+                var focusNewsTable = Utilities.GetNewsRecordItems(focusCompanyQuery, Convert.ToUInt16(numberOfNews), ListsName.English.CompanyRecord);
+
+                var companyList = focusNewsTable.GetDataTable();
 
                 if (companyList.Rows.Count > 0)
                 {
