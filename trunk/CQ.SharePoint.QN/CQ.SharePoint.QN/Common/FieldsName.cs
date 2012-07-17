@@ -292,7 +292,7 @@ namespace CQ.SharePoint.QN.Common
                 public const string TelePhone = "Phone";
                 public const string Information = "Information";
                 public const string Email = "Email";
-                public const string FocusNews = "FocusNews";
+                public const string FocusCompany = "FocusCompany";
                 public const string QuangCao = "QuangCao";//Neu la true => se hien len muc quang cao' o home page
                 public const string Dissolved = "Dissolved";
                 public const string CategoryName = "CategoryName";
@@ -308,7 +308,7 @@ namespace CQ.SharePoint.QN.Common
                 public const string TelePhone = "Phone";
                 public const string Information = "Information";
                 public const string Email = "Email";
-                public const string FocusNews = "FocusNews";
+                public const string FocusCompany = "FocusCompany";
                 public const string CategoryName = "CategoryName";
                 public const string QuangCao = "QuangCao";
                 public const string Dissolved = "Dissolved";//Giai the

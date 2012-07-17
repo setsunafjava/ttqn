@@ -87,7 +87,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                 </Neq>
                                                                 <Lt>
                                                                    <FieldRef Name='ArticleStartDate' />
-                                                                   <Value IncludeTimeValue='TRUE' Type='DateTime'>2012-07-12T05:12:59Z</Value>
+                                                                   <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
                                                                 </Lt>
                                                              </And>
                                                           </And>
@@ -96,7 +96,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                           <FieldRef Name='ID' Ascending='False' />
                                                        </OrderBy>",
                                                                   FieldsName.NewsCategory.English.ParentName,
-                                                                    WebpartParent.CategoryId);
+                                                                    WebpartParent.CategoryId, SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
 
                     var newsTitleItems = Utilities.GetNewsRecordItems(newsTitle, 5, ListsName.English.ShouldToKnowCategory);
                     if (newsTitleItems != null && newsTitleItems.Count > 0)

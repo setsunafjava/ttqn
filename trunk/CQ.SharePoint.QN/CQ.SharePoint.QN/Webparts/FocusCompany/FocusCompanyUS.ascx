@@ -5,8 +5,7 @@
     <div class="bg_title_ModNews">
         <div class="title_cate_News">
             <div class="name_F_Right">
-                <%--Doanh nghiệp tiêu biểu--%>
-                <asp:Label ID="lblFocusCompany" runat="server"></asp:Label>
+                <%= WebpartParent.FocusCompanyTitle %>
             </div>
         </div>
         <div class="content_F_Right">
