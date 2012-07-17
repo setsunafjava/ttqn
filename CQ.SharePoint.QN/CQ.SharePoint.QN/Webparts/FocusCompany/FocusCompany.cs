@@ -25,8 +25,8 @@ namespace CQ.SharePoint.QN.Webparts
         public string NumberOfNews { get; set; }
 
         [WebBrowsable(true)]
-        [FriendlyName("Thiết lập ngôn ngữ = 'Doanh nghiệp tiêu biểu:'")]
-        [Description("Thiết lập ngôn ngữ = 'Doanh nghiệp tiêu biểu:'")]
+        [FriendlyName("Thiết lập ngôn ngữ = 'Doanh nghiệp tiêu biểu'")]
+        [Description("Thiết lập ngôn ngữ = 'Doanh nghiệp tiêu biểu'")]
         [Category("Ngôn ngữ")]
         [WebPartStorage(Storage.Shared)]
         [Personalizable(PersonalizationScope.Shared)]
