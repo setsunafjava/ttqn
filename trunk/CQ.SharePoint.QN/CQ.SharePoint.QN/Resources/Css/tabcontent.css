@@ -34,8 +34,11 @@
 	text-decoration: none;
 	position: relative;	
 	padding: 10px 34px;
+	padding: 10px 40px;
+	*padding: 10px 39px\9;
+	padding: 10px 36px\9;
 	color: #2d2b2b;
-	background: url(../images/bg_titletab_content.jpg) top left repeat-x;
+	background: url(/QNResources/bg_titletab_content.jpg) top left repeat-x;
 	margin-top: 5px;
 	border-bottom: 1px solid #ccc;
 	border-left: 1px solid #ccc;
@@ -55,7 +58,7 @@
 
 
 .shadetabs li a.selected{ /*selected main tab style */
-	background: url(../images/bg_titletab_active.jpg);
+	background: url(/QNResources/bg_titletab_active.jpg);
     background-repeat: repeat-x;
 	border-bottom: 1px solid white;
 	/*border-right: 1px solid #ccc;*/
@@ -87,8 +90,9 @@
 .inner_content_tab ul li a{
 	color: #024780;
 	font-weight: bold;
-	background: url(../images/icon_line_news.jpg) left center no-repeat;
+	background: url(../images/icon_line_news.jpg) left top no-repeat;
 	padding-left: 13px;
+	background-position:0 3px;
 }
 .inner_content_tab ul li span{
 	color: #666;
