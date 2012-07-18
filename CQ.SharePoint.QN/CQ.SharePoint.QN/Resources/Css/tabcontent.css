@@ -12,7 +12,7 @@
 	list-style-type: none;
 	text-align: left; /*set to left, center, or right to align the menu as desired*/
 	height: 28px;
-	background: url(../images/bg_titletab_content.jpg) top left repeat-x;
+	background: url(/QNResources/bg_titletab_content.jpg) top left repeat-x;
 
 	
 }
