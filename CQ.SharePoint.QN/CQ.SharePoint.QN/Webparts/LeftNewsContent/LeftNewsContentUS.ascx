@@ -16,7 +16,7 @@
                         <ul>
                     </HeaderTemplate>
                     <ItemTemplate>
-                        <li><a href='<%= CategoryUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
+                        <li><a href='<%= CategoryUrl%><%#Eval("ID") %>'>
                             <%#Eval("Title")%></a></li>|
                     </ItemTemplate>
                     <FooterTemplate>

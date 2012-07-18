@@ -59,10 +59,9 @@ namespace CQ.SharePoint.QN.Webparts
                     catch (Exception ex)
                     { }
                 }
-
+                
                 var focusNewsTable = Utilities.GetNewsRecordItems(focusCompanyQuery, Convert.ToUInt16(numberOfNews), ListsName.English.CompanyRecord);
-
-                var companyList = focusNewsTable.GetDataTable();
+                var companyList = Utilities.GetTableWithCorrectUrl(ListsName.English.CompanyCategory, focusNewsTable);
 
                 if (companyList.Rows.Count > 0)
                 {
