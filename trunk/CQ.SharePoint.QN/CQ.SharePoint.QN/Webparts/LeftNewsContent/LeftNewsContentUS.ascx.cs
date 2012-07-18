@@ -99,13 +99,13 @@ namespace CQ.SharePoint.QN.Webparts
                        ListsName.English.NewsRecord,
                        Constants.CategoryId);
 
-                    string newsTitle = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='{2}' Ascending='True' /></OrderBy>",
+                    string newsTitle = string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='{2}' Ascending='True' /></OrderBy>",
                         FieldsName.NewsCategory.English.ParentName,
-                        WebpartParent.NewsGroupID,
+                        WebpartParent.GroupName,
                         FieldsName.Id);
 
                     var newsTitleItems = Utilities.GetNewsRecords(newsTitle, 4, ListsName.English.NewsCategory);
-                    Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.NewsRecord.English.CategoryName, ref newsTitleItems);
+                    //Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.NewsRecord.English.CategoryName, ref newsTitleItems);
                     if (newsTitleItems != null && newsTitleItems.Rows.Count > 0)
                     {
                         rptNewsGroup.DataSource = newsTitleItems;

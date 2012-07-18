@@ -38,7 +38,7 @@ namespace CQ.SharePoint.QN.Webparts
                     string advQuery = string.Format(@"<Where>
                                                           <And>
                                                              <Eq>
-                                                                <FieldRef Name='{0}' />
+                                                                <FieldRef Name='{0}' LookupId='TRUE' />
                                                                 <Value Type='Lookup'>{1}</Value>
                                                              </Eq>
                                                              <And>
