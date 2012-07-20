@@ -73,35 +73,26 @@ namespace CQ.SharePoint.QN.Webparts
                         rptShouldYouKnow.DataBind();
                     }
 
-                    CategoryUrl = string.Format("{0}/{1}.aspx?CategoryId=", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage);
+                    CategoryUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
+                       SPContext.Current.Web.Url,
+                       Constants.PageInWeb.SubPage,
+                       ListsName.English.ShouldToKnowCategory,
+                       ListsName.English.ShouldToKnowRecord,
+                       Constants.CategoryId);
+
                     string newsTitle = string.Format(@"<Where>
-                                                          <And>
-                                                             <Eq>
-                                                                <FieldRef Name='{0}' />
-                                                                <Value Type='Lookup'>{1}</Value>
-                                                             </Eq>
-                                                             <And>
-                                                                <Neq>
-                                                                   <FieldRef Name='Status' />
-                                                                   <Value Type='Boolean'>1</Value>
-                                                                </Neq>
-                                                                <Lt>
-                                                                   <FieldRef Name='ArticleStartDate' />
-                                                                   <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
-                                                                </Lt>
-                                                             </And>
-                                                          </And>
-                                                       </Where>
-                                                       <OrderBy>
-                                                          <FieldRef Name='ID' Ascending='False' />
-                                                       </OrderBy>",
-                                                                  FieldsName.NewsCategory.English.ParentName,
-                                                                    WebpartParent.CategoryId, SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+                                                          <Eq>
+                                                             <FieldRef Name='{0}' />
+                                                             <Value Type='Lookup'>{1}</Value>
+                                                          </Eq>
+                                                       </Where>", 
+                                                                FieldsName.NewsCategory.English.ParentName, 
+                                                                WebpartParent.NewsType);
 
                     var newsTitleItems = Utilities.GetNewsRecordItems(newsTitle, 5, ListsName.English.ShouldToKnowCategory);
                     if (newsTitleItems != null && newsTitleItems.Count > 0)
                     {
-                        rptNewsGroup.DataSource = Utilities.GetTableWithCorrectUrl(ListsName.English.ShouldToKnowCategory, newsTitleItems);
+                        rptNewsGroup.DataSource = newsTitleItems;
                         rptNewsGroup.DataBind();
                     }
                 }

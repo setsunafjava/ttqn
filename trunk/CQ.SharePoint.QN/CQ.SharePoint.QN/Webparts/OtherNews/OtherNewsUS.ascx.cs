@@ -76,9 +76,12 @@ namespace CQ.SharePoint.QN.Webparts
                         {
                             overTenItems = otherNewsTable;
                         }
-
-                        rptOtherNews.DataSource = overTenItems;
-                        rptOtherNews.DataBind();
+                        if (overTenItems != null && overTenItems.Rows.Count > 0)
+                        {
+                            Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref overTenItems);
+                            rptOtherNews.DataSource = overTenItems;
+                            rptOtherNews.DataBind();
+                        }
                     }
                     else
                     {

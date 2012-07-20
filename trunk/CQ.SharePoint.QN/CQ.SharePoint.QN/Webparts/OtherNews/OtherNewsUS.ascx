@@ -13,7 +13,7 @@ PublicKeyToken=9f4da00116c38ec5" %>
                 <ul>
             </HeaderTemplate>
             <ItemTemplate>
-                <li><a href='<%= NewsUrl%><%#Eval("ID")%>'>
+                <li><a href='<%= NewsUrl%><%#Eval("ID")%>&CategoryId=<%#Eval("CategoryId") %>'>
                     <%#Eval("Title")%></a><span style="color: #003399"> (<%=WebpartParent.Day %> <%#Eval("Modified")%>)</span></li>
             </ItemTemplate>
             <FooterTemplate>

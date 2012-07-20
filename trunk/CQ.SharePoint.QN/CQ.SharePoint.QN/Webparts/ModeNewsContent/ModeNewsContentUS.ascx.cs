@@ -98,16 +98,18 @@ namespace CQ.SharePoint.QN.Webparts
                         if (group1Table != null && group1Table.Count > 0)
                         {
                             var table1 = Utilities.GetTableWithCorrectUrl(group1Table, true);
+                            Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.CategoryName, ref table1);
                             lblHeaderTinhUy.Text = Convert.ToString(table1.Rows[0][FieldsName.Title]);
                             img1.ImageUrl = Convert.ToString(table1.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
 
-                            NewsFirstUrl1 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}",
+                            NewsFirstUrl1 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}&CategoryId={6}",
                                                        SPContext.Current.Web.Url,
                                                        Constants.PageInWeb.DetailNews,
                                                        ListsName.English.NewsCategory,
                                                        ListsName.English.NewsRecord,
                                                        Constants.NewsId,
-                                                       Convert.ToString(table1.Rows[0][FieldsName.Id]));
+                                                       Convert.ToString(table1.Rows[0][FieldsName.Id]),
+                                                       Convert.ToString(table1.Rows[0][FieldsName.CategoryId]));
 
                             table1.Rows.RemoveAt(0);
                             Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.NewsRecord.English.CategoryName,ref table1);
@@ -157,15 +159,17 @@ namespace CQ.SharePoint.QN.Webparts
                         if (group2Table != null && group2Table.Count > 0)
                         {
                             var table2 = Utilities.GetTableWithCorrectUrl(group2Table, true);
+                            Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.CategoryName, ref table2);
                             lblHeaderHoiDongNhanDan.Text = Convert.ToString(table2.Rows[0][FieldsName.Title]);
                             Img2.ImageUrl = Convert.ToString(table2.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
-                            NewsFirstUrl2 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}",
+                            NewsFirstUrl2 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}&CategoryId={6}",
                                                        SPContext.Current.Web.Url,
                                                        Constants.PageInWeb.DetailNews,
                                                        ListsName.English.NewsCategory,
                                                        ListsName.English.NewsRecord,
                                                        Constants.NewsId,
-                                                       Convert.ToString(table2.Rows[0][FieldsName.Id]));
+                                                       Convert.ToString(table2.Rows[0][FieldsName.Id]),
+                                                       Convert.ToString(table2.Rows[0][FieldsName.CategoryId]));
 
                             table2.Rows.RemoveAt(0);
                             Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.NewsRecord.English.CategoryName, ref table2);
@@ -213,15 +217,17 @@ namespace CQ.SharePoint.QN.Webparts
                         if (group3Table != null && group3Table.Count > 0)
                         {
                             var table3 = Utilities.GetTableWithCorrectUrl(group3Table, true);
+                            Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.CategoryName, ref table3);
                             lblHeaderUyBanNhanDan.Text = Convert.ToString(table3.Rows[0][FieldsName.Title]);
                             Img3.ImageUrl = Convert.ToString(table3.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
-                            NewsFirstUrl3 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}",
+                            NewsFirstUrl3 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}&CategoryId={6}",
                                                        SPContext.Current.Web.Url,
                                                        Constants.PageInWeb.DetailNews,
                                                        ListsName.English.NewsCategory,
                                                        ListsName.English.NewsRecord,
                                                        Constants.NewsId,
-                                                       Convert.ToString(table3.Rows[0][FieldsName.Id]));
+                                                       Convert.ToString(table3.Rows[0][FieldsName.Id]),
+                                                       Convert.ToString(table3.Rows[0][FieldsName.CategoryId]));
 
                             table3.Rows.RemoveAt(0);
                             Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.NewsRecord.English.CategoryName, ref table3);

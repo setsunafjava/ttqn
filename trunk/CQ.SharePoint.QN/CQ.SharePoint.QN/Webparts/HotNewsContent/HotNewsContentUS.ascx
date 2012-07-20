@@ -3,27 +3,36 @@
     Inherits="CQ.SharePoint.QN.Webparts.HotNewsContentUS" %>
 <div class="hot_news-content">
     <div class="artical_hottest">
-        <div id="wowslider-container1">
-            <div class="ws_images">
-                <asp:Repeater ID="rptImages" runat="server">
-                    <HeaderTemplate>
-                        <ul>
-                    </HeaderTemplate>
-                    <ItemTemplate>
-                        <li><a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
+        <div id="number_slideshow1" class="number_slideshow">
+            <asp:Repeater ID="rptImages" runat="server">
+                <HeaderTemplate>
+                    <ul>
+                </HeaderTemplate>
+                <ItemTemplate>
+                    <li><a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
+                        <div class="boxgrid captionfull">
                             <img src='<%#Eval("Thumbnail") %>' alt='<%#Eval("Title")%>' title='<b><%#Eval("Title")%></b>'
-                                style="width: 400px; height: 330px" /></a><%#Eval("ShortContent")%></li>
-                    </ItemTemplate>
-                    <FooterTemplate>
-                        </ul>
-                    </FooterTemplate>
-                </asp:Repeater>
-            </div>
-            <div class="ws_bullets">
-                <div>
-                    <a href="#" title="Anh thu 1">1</a> <a href="#" title="Anh thu 2">2</a> <a href="#"
-                        title="Anh So 3">3</a>
-                </div>
+                                style="width: 400px; height: 330px" />
+                            <div class="cover boxcaption">
+                                <h3>
+                                    <%#Eval("Title")%></h3>
+                                <p>
+                                    <br />
+                                    <%#Eval("ShortContent")%></p>
+                            </div>
+                        </div>
+                    </a></li>
+                </ItemTemplate>
+                <FooterTemplate>
+                    </ul>
+                    <ul class="number_slideshow_nav">
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                    </ul>
+                </FooterTemplate>
+            </asp:Repeater>
+            <div style="clear: both">
             </div>
         </div>
     </div>
@@ -105,7 +114,39 @@
 <div class="cleaner">
 </div>
 
-<script type="text/javascript" src="/QNResources/wowslider.js"></script>
+<script language="javascript" type="text/javascript">
+		$(document).ready(function(){
+				
+				//Full Caption Sliding (Hidden to Visible)
+				$('.boxgrid.captionfull').hover(function(){
+					$(".cover", this).stop().animate({top:'200px'},{queue:false,duration:160});
+				}, function() {
+					$(".cover", this).stop().animate({top:'290px'},{queue:false,duration:160});
+				});				
+				
+				$(function() {
+                $("#number_slideshow1").number_slideshow({
+                    slideshow_autoplay: 'enable',//enable disable
+                    slideshow_time_interval: '5000',
+                    slideshow_window_background_color: "#CCFFCC",
+                    slideshow_window_padding: '0',
+                    slideshow_window_width: '400',
+                    slideshow_window_height: '330',
+                    slideshow_border_size: '0',
+                    slideshow_border_color: '#006600',
+                    slideshow_show_button: 'enable',//enable disable
+                    slideshow_show_title: 'disable',//enable disable
+                    slideshow_button_text_color: '#FFF',
+                    slideshow_button_background_color: '#333',
+                    slideshow_button_current_background_color: '#006600',
+                    slideshow_button_border_color: '#006600',
+                    slideshow_loading_gif: 'loading.gif',//loading pic position, you can replace it use youself gif.
+                    slideshow_button_border_size: '0'
+                });
+			});
+			});
+</script>
 
 <script type="text/javascript" src="/QNResources/javascript.js"></script>
 
+<script type="text/javascript" src="/QNResources/number_slideshow.js"></script>
