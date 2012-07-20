@@ -338,6 +338,7 @@
   <ItemGroup>
     <None Include="Properties\CQ.SharePoint.QN.snk" />
     <None Include="Resources\MasterPages\CqHome.master">
+      <SubType>ASPXCodeBehind</SubType>
     </None>
     <None Include="Webparts\ClassiFieds\ClassiFieds.webpart" />
     <None Include="Webparts\CompanyAdv\CompanyAdv.webpart" />
@@ -443,6 +444,7 @@
     <Content Include="Resources\Images\Index_02.gif" />
     <Content Include="Resources\Images\info_rate.jpg" />
     <Content Include="Resources\Images\leftarrow.png" />
+    <Content Include="Resources\Images\loading.gif" />
     <Content Include="Resources\Images\logo.jpg" />
     <Content Include="Resources\Images\News_post.jpg" />
     <Content Include="Resources\Images\qc_raovat.jpg" />
@@ -467,6 +469,7 @@
     <Content Include="Resources\Javascript\dw_scroll_c.js" />
     <Content Include="Resources\Javascript\jquery-1.7.1.js" />
     <Content Include="Resources\Javascript\jwplayer.js" />
+    <Content Include="Resources\Javascript\number_slideshow.js" />
     <Content Include="Resources\Javascript\player.swf" />
     <Content Include="Resources\Javascript\javascript.js" />
     <Content Include="Resources\Javascript\slider.js" />

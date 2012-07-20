@@ -38,7 +38,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                   <And>
                                                                      <Eq>
                                                                         <FieldRef Name='{0}' />
-                                                                        <Value Type='LookupMulti'>{1}</Value>
+                                                                        <Value Type='Lookup'>{1}</Value>
                                                                      </Eq>
                                                                      <And>
                                                                         <Neq>
@@ -53,7 +53,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                   </And>
                                                                </Where>",
                                                                         FieldsName.ProvinceInfoRecord.English.CategoryName,
-                                                                        WebpartParent.CategoryId,
+                                                                        WebpartParent.NewsType,
                                                                         SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
                     uint newsNumber = 5;
                     if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
@@ -64,12 +64,15 @@ namespace CQ.SharePoint.QN.Webparts
                     var companyList = Utilities.GetNewsRecords(companyListQuery, newsNumber, ListsName.English.ProvinceInfoRecord);
                     if (companyList != null && companyList.Rows.Count > 0)
                     {
+                        Utilities.AddCategoryIdToTable(ListsName.English.ProvinceInfoCategory, FieldsName.CategoryName, ref companyList);
+
                         rptProvinceInfo.DataSource = companyList;
                         rptProvinceInfo.DataBind();
                     }
                 }
                 catch (Exception ex)
                 {
+                    Utilities.LogToUls(ex);
                 }
             }
         }

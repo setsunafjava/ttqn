@@ -32,6 +32,7 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
+                    //phai check trong truong hop category nay khong co du lieu => lay o trang chinh
                     NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
                                             SPContext.Current.Web.Url,
                                             Constants.PageInWeb.DetailNews,
@@ -47,6 +48,7 @@ namespace CQ.SharePoint.QN.Webparts
                     if (!string.IsNullOrEmpty(listNameTemp)) listName = listNameTemp;
                     if (!string.IsNullOrEmpty(listCategoryNameTemp)) listCategoryName = listCategoryNameTemp;
 
+                    //If webpart properties != 0
                     if (!"0".Equals(WebPartParent.WebpartName))
                     {
                         #region Latest News
@@ -239,7 +241,7 @@ namespace CQ.SharePoint.QN.Webparts
                                     FieldsName.NewsRecord.English.ShowInHomePage,
                                     SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
                         }
-                        //tai sao lai get duoc moi 1 item, trong khi do camlquery la 3?
+                        
                         var mainItem = Utilities.GetNewsRecordItems(mainItemQuery, 3, listName);
 
                         if (mainItem != null && mainItem.Count > 0)

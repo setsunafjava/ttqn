@@ -12,6 +12,7 @@
 	  <File Path="Resources\Javascript\jwplayer.js" Url="Javascript/jwplayer.js" />
 	  <File Path="Resources\Javascript\wowslider.js" Url="Javascript/wowslider.js" />
 	  <File Path="Resources\Javascript\slider.js" Url="Javascript/slider.js" />
+	  <File Path="Resources\Javascript\number_slideshow.js" Url="Javascript/number_slideshow.js" />
 	  <File Path="Resources\Javascript\player.swf" Url="Flv/player.swf" />
 	  <File Path="Resources\Images\adv1.jpg" Url="Images/adv1.jpg" />
 	  <File Path="Resources\Images\adv2.jpg" Url="Images/adv2.jpg" />
@@ -62,6 +63,7 @@
 	  <File Path="Resources\Images\info_rate.jpg" Url="Images/info_rate.jpg" />
 	  <File Path="Resources\Images\logo.jpg" Url="Images/logo.jpg" />
 	  <File Path="Resources\Images\News_post.jpg" Url="Images/News_post.jpg" />
+	  <File Path="Resources\Images\loading.gif" Url="Images/loading.gif" />
 	  <File Path="Resources\Images\qc_raovat.jpg" Url="Images/qc_raovat.jpg" />
 	  <File Path="Resources\Images\qtv.jpg" Url="Images/qtv.jpg" />
 	  <File Path="Resources\Images\shade.gif" Url="Images/shade.gif" />

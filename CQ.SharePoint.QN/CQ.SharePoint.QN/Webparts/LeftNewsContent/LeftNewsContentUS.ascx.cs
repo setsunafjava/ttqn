@@ -86,8 +86,8 @@ namespace CQ.SharePoint.QN.Webparts
                                    ListsName.English.NewsCategory,
                                    ListsName.English.NewsRecord,
                                    Constants.NewsId,
-                                   Convert.ToString(newsGroups[0][FieldsName.Id]), 
-                                   Convert.ToString(newsGroups[0][Constants.CategoryId]));
+                                   Convert.ToString(tempTable.Rows[0][FieldsName.Id]),
+                                   Convert.ToString(tempTable.Rows[0][Constants.CategoryId]));
 
                             rptCaiCachThuTucHanhChinh.DataBind();
                         }

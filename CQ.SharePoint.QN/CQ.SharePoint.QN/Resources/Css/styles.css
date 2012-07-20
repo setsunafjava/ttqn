@@ -1156,3 +1156,113 @@ a {
 	width: 674px;
 	height: 6px;
 }
+
+
+.number_slideshow{
+    line-height: 20px;
+    font-size: 11px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0px;
+    margin: 0px;
+    position: relative;
+    
+}
+.number_slideshow .number_slideshow_nav{
+    filter: alpha(opacity=50);
+    opacity: 0.5;
+    padding: 0px;
+    margin: 0px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.number_slideshow .number_slideshow_nav li{
+    box-shadow:2px 2px 3px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow:2px 2px 3px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow:2px 2px 3px rgba(0, 0, 0, 0.5);
+    -o-box-shadow:2px 2px 3px rgba(0, 0, 0, 0.5);
+    -khtml-box-shadow:2px 2px 3px rgba(0, 0, 0, 0.5);
+    margin-left: 6px;
+    position: relative;
+    float: left;
+}
+.number_slideshow .number_slideshow_nav li a{
+    padding-left: 8px;
+    padding-right: 8px;
+}
+.number_slideshow ul{
+    margin: 0px;
+    background-position:center center;
+    background-repeat: no-repeat;
+}
+.number_slideshow ul li{
+     border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+    position: absolute;
+}
+.number_slideshow ul li p{
+    margin: 0px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+    filter: alpha(opacity=50);
+    opacity: 0.5;
+    font-size: 13px;
+    line-height: 23px;
+}
+.number_slideshow ul li a{
+    text-decoration: none;
+}
+.number_slideshow ul li a img{
+    border: none;
+}
+			a{ color:#C8DCE5; }
+			h3{ margin: 10px 10px 0 10px; color:#FFF; font:18pt Arial, sans-serif; letter-spacing:-1px; font-weight: bold;  }
+			
+			.boxgrid{ 
+				width: 400px; 
+				height: 330px; 
+				margin:0px; 
+				float:left; 				
+				border: solid 2px #8399AF; 
+				overflow: hidden; 
+				position: relative; 
+			}
+				.boxgrid img{ 
+					position: absolute; 
+					top: 0; 
+					left: 0; 
+					border: 0; 
+				}
+				.boxgrid p{ 
+					padding: 20px 10px 0 10px; 
+					color:#afafaf; 
+					font-weight:bold; 
+					font:10pt "Lucida Grande", Arial, sans-serif; 
+				}
+				
+			.boxcaption{ 
+				float: left; 
+				position: absolute; 
+				background: #000; 
+				height: 150px; 
+				width: 100%; 
+				opacity: .5; 
+				/* For IE 5-7 */
+				filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+				/* For IE 8 */
+				-MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+ 			}
+ 			.captionfull .boxcaption {
+ 					top: 290px;
+ 					left: 0;
+ 				}
+ 				
