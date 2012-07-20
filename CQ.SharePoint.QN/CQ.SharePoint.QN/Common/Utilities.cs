@@ -114,9 +114,11 @@ namespace CQ.SharePoint.QN.Common
                             dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath;
                         }
                     }
-
-                    advLink = new SPFieldUrlValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.LinkAdv]));
-                    dataTable.Rows[i][FieldsName.NewsRecord.English.LinkAdv] = advLink.Url;
+                    if (items[i].Fields.ContainsField(FieldsName.NewsRecord.English.LinkAdv))
+                    { 
+                        advLink = new SPFieldUrlValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.LinkAdv]));
+                        dataTable.Rows[i][FieldsName.NewsRecord.English.LinkAdv] = advLink.Url;
+                    }
                     dataTable.Rows[i][FieldsName.CategoryId] = GetCategoryIdByCategoryName(Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.CategoryName]), categoryListName);
                 }
             }
