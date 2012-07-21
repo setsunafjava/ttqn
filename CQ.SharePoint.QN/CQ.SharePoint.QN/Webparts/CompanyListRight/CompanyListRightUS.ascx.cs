@@ -33,7 +33,7 @@ namespace CQ.SharePoint.QN.Webparts
                         ListsName.English.CompanyRecord,
                         Constants.NewsId);
 
-                    CategoryUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}Page=1&CategoryId=",
+                    CategoryUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&Page=1&CategoryId=",
                         SPContext.Current.Web.Url,
                         Constants.PageInWeb.SubPage,
                         ListsName.English.CompanyCategory,

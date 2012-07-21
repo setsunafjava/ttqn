@@ -18,7 +18,7 @@
                                     <%#Eval("Title")%></h3>
                                 <p>
                                     <br />
-                                    <%#Eval("ShortContent")%></p>
+                                    <%# Server.HtmlEncode((string)Eval("ShortContent"))%>
                             </div>
                         </div>
                     </a></li>
@@ -64,7 +64,7 @@
             </asp:Panel>
             <asp:Panel ID="pnlSubPage" Visible="false" runat="server">
                 <a rel="country1" class="title_news_hot">
-                    <%=WebPartParent.LatestRecieved %>
+                    <li class="title_news_hot"><%=WebPartParent.LatestRecieved %></li>                    
                 </a>
             </asp:Panel>
         </ul>
