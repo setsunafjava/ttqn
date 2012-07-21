@@ -92,6 +92,7 @@ namespace CQ.SharePoint.QN.Webparts
                         var companyList = Utilities.GetNewsRecords(newsQuery, listName);
                         if (companyList != null && companyList.Rows.Count > 0)
                         {
+                            Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyList);
                             rptListCategory.DataSource = companyList;
                             rptListCategory.DataBind();
                         }
@@ -112,6 +113,7 @@ namespace CQ.SharePoint.QN.Webparts
                                 if (companyList.Rows.Count > 0)
                                 {
                                     var companyListTemp = Utilities.GetTableWithCorrectUrl(companyList);
+                                    Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyListTemp);
                                     PagedDataSource pageds = new PagedDataSource
                                     {
                                         DataSource = companyListTemp.DefaultView,
@@ -224,7 +226,7 @@ namespace CQ.SharePoint.QN.Webparts
                             if (companyList != null && companyList.Rows.Count > 0)
                             {
                                 var companyListTemp = Utilities.GetTableWithCorrectUrl(companyList);
-
+                                Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyListTemp);
                                 PagedDataSource pageds = new PagedDataSource
                                 {
                                     DataSource = companyListTemp.DefaultView,

@@ -37,7 +37,7 @@ namespace CQ.SharePoint.QN.Webparts
 
                     string topNewsQuery = string.Empty;
 
-                    if (!string.IsNullOrEmpty(categoryId))
+                    if (!string.IsNullOrEmpty(categoryId) && !"-1".Equals(categoryId))
                     {
                         topNewsQuery = string.Format(@"<Where>
                                                               <And>
