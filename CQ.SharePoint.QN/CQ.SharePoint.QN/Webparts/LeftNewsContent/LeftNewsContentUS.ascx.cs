@@ -92,7 +92,7 @@ namespace CQ.SharePoint.QN.Webparts
                             rptCaiCachThuTucHanhChinh.DataBind();
                         }
                     }
-                    CategoryUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
+                    CategoryUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&Page=1&{4}=",
                        SPContext.Current.Web.Url,
                        Constants.PageInWeb.SubPage,
                        ListsName.English.NewsCategory,
@@ -105,7 +105,6 @@ namespace CQ.SharePoint.QN.Webparts
                         FieldsName.Id);
 
                     var newsTitleItems = Utilities.GetNewsRecords(newsTitle, 4, ListsName.English.NewsCategory);
-                    //Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.NewsRecord.English.CategoryName, ref newsTitleItems);
                     if (newsTitleItems != null && newsTitleItems.Rows.Count > 0)
                     {
                         rptNewsGroup.DataSource = newsTitleItems;
@@ -129,7 +128,6 @@ namespace CQ.SharePoint.QN.Webparts
 
         protected void lbRSS_OnClick(object sender, EventArgs e)
         {
-            //Utilities.GetRSS(WebpartParent.NewsGroupID);
         }
     }
 }

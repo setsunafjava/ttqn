@@ -61,7 +61,7 @@ namespace CQ.SharePoint.QN.Webparts
                     if (!string.IsNullOrEmpty(WebpartParent.NewsCategoryId1))
                     {
                         hplFirstGroup.Text = WebpartParent.NewsCategoryName1;
-                        hplFirstGroup.NavigateUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}",
+                        hplFirstGroup.NavigateUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&Page=1&{4}={5}",
                                                        SPContext.Current.Web.Url,
                                                        Constants.PageInWeb.SubPage,
                                                        ListsName.English.NewsCategory,
@@ -121,7 +121,7 @@ namespace CQ.SharePoint.QN.Webparts
                     if (!string.IsNullOrEmpty(WebpartParent.NewsCategoryId2))
                     {
                         hplSecondGroup.Text = WebpartParent.NewsCategoryName2;
-                        hplSecondGroup.NavigateUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}",
+                        hplSecondGroup.NavigateUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&Page=1&{4}={5}",
                                                        SPContext.Current.Web.Url,
                                                        Constants.PageInWeb.SubPage,
                                                        ListsName.English.NewsCategory,
@@ -180,7 +180,7 @@ namespace CQ.SharePoint.QN.Webparts
                     if (!string.IsNullOrEmpty(WebpartParent.NewsCategoryId3))
                     {
                         hplThirdGroup.Text = WebpartParent.NewsCategoryName3;
-                        hplThirdGroup.NavigateUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}",
+                        hplThirdGroup.NavigateUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&Page=1&{4}={5}",
                                                        SPContext.Current.Web.Url,
                                                        Constants.PageInWeb.SubPage,
                                                        ListsName.English.NewsCategory,
