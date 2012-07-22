@@ -90,10 +90,12 @@ namespace CQ.SharePoint.QN.Webparts
                                                                       SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
 
                         var companyList = Utilities.GetNewsRecords(newsQuery, listName);
+                        
                         if (companyList != null && companyList.Rows.Count > 0)
                         {
-                            Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyList);
-                            rptListCategory.DataSource = companyList;
+                            var companyListTemp = Utilities.GetTableWithCorrectUrl(companyList);
+                            Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyListTemp);
+                            rptListCategory.DataSource = companyListTemp;
                             rptListCategory.DataBind();
                         }
                         else
