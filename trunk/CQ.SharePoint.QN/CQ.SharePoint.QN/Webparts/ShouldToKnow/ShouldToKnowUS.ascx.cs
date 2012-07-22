@@ -73,7 +73,7 @@ namespace CQ.SharePoint.QN.Webparts
                         rptShouldYouKnow.DataBind();
                     }
 
-                    CategoryUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
+                    CategoryUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&Page=1&{4}=",
                        SPContext.Current.Web.Url,
                        Constants.PageInWeb.SubPage,
                        ListsName.English.ShouldToKnowCategory,

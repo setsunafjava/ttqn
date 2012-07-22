@@ -12,7 +12,7 @@
                     <ul>
                 </HeaderTemplate>
                 <ItemTemplate>
-                    <li><a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
+                    <li><a href='<%= ItemUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
                         <%#Eval("Title")%></a></li>
                 </ItemTemplate>
                 <FooterTemplate>

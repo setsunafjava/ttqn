@@ -71,7 +71,7 @@ namespace CQ.SharePoint.QN.Webparts
                     }
 
                     var focusNewsTable = Utilities.GetNewsRecordItems(focusNewsQuery, Convert.ToUInt16(numberOfNews), ListsName.English.NewsRecord);
-                    CategoryUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=1",
+                    CategoryUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&Page=1&{4}=1",
                        SPContext.Current.Web.Url,
                        Constants.PageInWeb.SubPage,
                        ListsName.English.NewsCategory,

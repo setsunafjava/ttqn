@@ -58,7 +58,7 @@ namespace CQ.SharePoint.QN.Webparts
             var listName = Request.QueryString[Constants.ListName];
             var listCategoryName = Request.QueryString[Constants.ListCategoryName];
 
-            CategoryUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&CategoryId=-1&&Day={4}&&Month={5}&&Year={6}",
+            CategoryUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&Page=1&CategoryId=-1&&Day={4}&&Month={5}&&Year={6}",
                 SPContext.Current.Web.Url,
                 Constants.PageInWeb.SubPage,
                 listCategoryName,

@@ -9,7 +9,7 @@
                     <ul>
                 </HeaderTemplate>
                 <ItemTemplate>
-                    <li><a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
+                    <li><a href='<%= RptImagesUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
                         <div class="boxgrid captionfull">
                             <img src='<%#Eval("Thumbnail") %>' alt='<%#Eval("Title")%>' title='<b><%#Eval("Title")%></b>'
                                 style="width: 400px; height: 330px" />
@@ -42,7 +42,7 @@
                 <ul>
             </HeaderTemplate>
             <ItemTemplate>
-                <li><a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
+                <li><a href='<%= RptThreeItemUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
                     <%#Eval("Title")%></a></li>
             </ItemTemplate>
             <FooterTemplate>
@@ -75,7 +75,7 @@
                         <ul>
                     </HeaderTemplate>
                     <ItemTemplate>
-                        <li><a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
+                        <li><a href='<%= RptLatestNewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
                             <%#Eval("Title")%></a> <span style="color: #003399">(<%=WebPartParent.Day %><%#Eval("Created")%>)</span>
                         </li>
                     </ItemTemplate>
@@ -90,7 +90,7 @@
                         <ul>
                     </HeaderTemplate>
                     <ItemTemplate>
-                        <li><a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
+                        <li><a href='<%= RptTopViewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
                             <%#Eval("Title")%></a><span style="color: #003399">(<%=WebPartParent.Day %><%#Eval("Created")%>)</span></li>
                     </ItemTemplate>
                     <FooterTemplate>

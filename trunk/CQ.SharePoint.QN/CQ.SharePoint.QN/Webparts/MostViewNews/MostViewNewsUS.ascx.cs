@@ -13,6 +13,7 @@ namespace CQ.SharePoint.QN.Webparts
     public partial class MostViewNewsUS : UserControl
     {
         public MostViewNews WebpartParent;
+        public string ItemUrl = string.Empty;
         public string NewsUrl = string.Empty;
         /// <summary>
         /// Page on Load
@@ -28,12 +29,18 @@ namespace CQ.SharePoint.QN.Webparts
                     var categoryId = Request.QueryString[Constants.CategoryId];
                     var listName = Request.QueryString[Constants.ListName];
                     var listCategoryName = Request.QueryString[Constants.ListCategoryName];
-                    NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
+                    ItemUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
                         SPContext.Current.Web.Url,
                         Constants.PageInWeb.DetailNews,
                         listCategoryName,
                         listName,
                         Constants.NewsId);
+                    NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
+                                            SPContext.Current.Web.Url,
+                                            Constants.PageInWeb.DetailNews,
+                                            ListsName.English.NewsCategory,
+                                            ListsName.English.NewsRecord,
+                                            Constants.NewsId);
 
                     string topNewsQuery = string.Empty;
 
@@ -92,7 +99,34 @@ namespace CQ.SharePoint.QN.Webparts
                     }
                     else
                     {
-                        lblItemsNotFound.Text = "Không tìm thấy thêm bài viết nào thuộc mục này!";
+                        topNewsQuery = string.Format(@"<Where>
+                                                          <And>
+                                                             <Neq>
+                                                                <FieldRef Name='Status' />
+                                                                <Value Type='Boolean'>1</Value>
+                                                             </Neq>
+                                                             <Lt>
+                                                                <FieldRef Name='ArticleStartDate' />
+                                                                <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
+                                                             </Lt>
+                                                          </And>
+                                                       </Where>
+                                                       <OrderBy>
+                                                          <FieldRef Name='ViewsCount' Ascending='False' />
+                                                       </OrderBy>", SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+                        topViewsTable = Utilities.GetNewsRecords(topNewsQuery, GetNewsNumber(WebpartParent.NumberOfNews), listName);
+                        ItemUrl = NewsUrl;
+                        Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.NewsRecord.English.CategoryName, ref topViewsTable);
+                        if (topViewsTable != null && topViewsTable.Rows.Count > 0)
+                        {
+                            rptTopViews.DataSource = topViewsTable;
+                            rptTopViews.DataBind();
+                        }
+                        else
+                        {
+                            lblItemsNotFound.Text = "Không tìm thấy thêm bài viết nào thuộc mục này!";
+                        }
+                        
                     }
                 }
                 catch (Exception ex)

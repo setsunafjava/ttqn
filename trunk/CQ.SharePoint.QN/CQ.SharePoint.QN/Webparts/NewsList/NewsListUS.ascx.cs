@@ -110,7 +110,7 @@ namespace CQ.SharePoint.QN.Webparts
                                 DataTable companyList = null;
                                 Utilities.GetNewsByCatID(listName, listCategoryName, Convert.ToString(categoryId), ref companyList);
                                 //Paging data
-                                if (companyList.Rows.Count > 0)
+                                if (companyList != null && companyList.Rows.Count > 0)
                                 {
                                     var companyListTemp = Utilities.GetTableWithCorrectUrl(companyList);
                                     Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyListTemp);
@@ -158,8 +158,24 @@ namespace CQ.SharePoint.QN.Webparts
                                 var year = Convert.ToInt32(Request.QueryString["Year"]);
                                 DateTime dt = new DateTime(year, month, day);
 
-                                string categoryQuery = string.Format("<Where><And><Eq><FieldRef Name='Created' /><Value IncludeTimeValue='FALSE' Type='DateTime'>{0}</Value></Eq><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq></And></Where><OrderBy><FieldRef Name='ID' Ascending='False' /></OrderBy>",
-                                    SPUtility.CreateISO8601DateTimeFromSystemDateTime(dt));
+                                string categoryQuery = string.Format(@"<Where>
+                                                                          <And>
+                                                                             <Neq>
+                                                                                <FieldRef Name='Status' />
+                                                                                <Value Type='Boolean'>1</Value>
+                                                                             </Neq>
+                                                                             <And>
+                                                                                <Eq>
+                                                                                   <FieldRef Name='ArticleStartDate' />
+                                                                                   <Value IncludeTimeValue='FALSE' Type='DateTime'>{0}</Value>
+                                                                                </Eq>
+                                                                             </And>
+                                                                          </And>
+                                                                       </Where>
+                                                                       <OrderBy>
+                                                                          <FieldRef Name='ArticleStartDate' Ascending='False' />
+                                                                       </OrderBy>",
+                                                                SPUtility.CreateISO8601DateTimeFromSystemDateTime(dt));
                                 var companyList = Utilities.GetNewsRecords(categoryQuery, listCategoryName);
                                 if (companyList != null && companyList.Rows.Count > 0)
                                 {
@@ -213,7 +229,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                          </Neq>
                                                                          <Lt>
                                                                             <FieldRef Name='ArticleStartDate' />
-                                                                            <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
+                                                                            <Value IncludeTimeValue='FALSE' Type='DateTime'>{0}</Value>
                                                                          </Lt>
                                                                       </And>
                                                                    </Where>

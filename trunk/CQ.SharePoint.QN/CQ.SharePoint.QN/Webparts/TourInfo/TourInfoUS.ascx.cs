@@ -27,7 +27,7 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
-                    CategoryUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
+                    CategoryUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&Page=1&{4}=",
                        SPContext.Current.Web.Url,
                        Constants.PageInWeb.SubPage,
                        ListsName.English.TourInforCategory,
@@ -35,20 +35,14 @@ namespace CQ.SharePoint.QN.Webparts
                        Constants.CategoryId);
 
                     string companyListQuery = string.Format(@"<Where>
-                                                                  <And>
-                                                                     <Neq>
-                                                                        <FieldRef Name='Status' />
-                                                                        <Value Type='Boolean'>1</Value>
-                                                                     </Neq>
-                                                                     <Eq>
-                                                                        <FieldRef Name='ArticleStartDate' />
-                                                                        <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
-                                                                     </Eq>
-                                                                  </And>
+                                                                  <Neq>
+                                                                     <FieldRef Name='Status' />
+                                                                     <Value Type='Boolean'>1</Value>
+                                                                  </Neq>
                                                                </Where>
                                                                <OrderBy>
                                                                   <FieldRef Name='ID' Ascending='False' />
-                                                               </OrderBy>", SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+                                                               </OrderBy>");
                     uint newsNumber = 5;
 
                     if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
