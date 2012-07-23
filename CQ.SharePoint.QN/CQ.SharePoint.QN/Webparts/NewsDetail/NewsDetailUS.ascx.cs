@@ -58,7 +58,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                  </And>
                                                               </And>
                                                            </Where>", newsId, SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                                                    Constants.Approved);
+                                                                    Constants.Published);
                         var newsItem = Utilities.GetNewsRecords(newsQuery, 1, listName);
                         if (newsItem != null && newsItem.Rows.Count > 0)
                         {

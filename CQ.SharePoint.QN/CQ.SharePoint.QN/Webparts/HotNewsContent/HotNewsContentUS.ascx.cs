@@ -49,7 +49,7 @@ namespace CQ.SharePoint.QN.Webparts
                                           <FieldRef Name='ID' Ascending='False' />
                                        </OrderBy>",
                                 SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                Constants.Approved);
+                                Constants.Published);
         public string QueryAllItemsSortByViewCount = string.Format(@"<Where>
                                                           <And>
                                                              <Neq>
@@ -71,7 +71,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                        <OrderBy>
                                                           <FieldRef Name='ViewsCount' Ascending='False' />
                                                        </OrderBy>",
-                                                        SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now), Constants.Approved);
+                                                        SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now), Constants.Published);
 
         public string QueryAllItemsByShowInHomePage = string.Format(@"<Where>
                                                                           <And>
@@ -102,7 +102,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                        </OrderBy>",
                                                                     FieldsName.NewsRecord.English.ShowInHomePage,
                                                                     SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                                                    Constants.Approved);
+                                                                    Constants.Published);
         /// <summary>
         /// Page on Load
         /// </summary>
@@ -212,7 +212,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                <OrderBy>
                                                                   <FieldRef Name='ID' Ascending='False' />
                                                                </OrderBy>",
-                                                                          SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),Constants.Approved);
+                                                                          SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),Constants.Published);
 
                             var companyList = Utilities.GetNewsRecords(newsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
                             if (companyList != null && companyList.Rows.Count > 0)
@@ -332,7 +332,7 @@ namespace CQ.SharePoint.QN.Webparts
                         FieldsName.NewsRecord.English.ShowInHomePage,
                         FieldsName.NewsRecord.English.CategoryName,
                         SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                        Constants.Approved);
+                        Constants.Published);
             }
             else
             {
@@ -420,7 +420,7 @@ namespace CQ.SharePoint.QN.Webparts
                         FieldsName.NewsRecord.English.ShowInHomePage,
                         FieldsName.NewsRecord.English.CategoryName,
                         SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                        Constants.Approved);
+                        Constants.Published);
             }
             else
             {

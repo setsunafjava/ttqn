@@ -1190,7 +1190,7 @@ namespace CQ.SharePoint.QN.Common
                                                   </And>
                                                </Where>", FieldsName.NewsRecord.English.CategoryName,
                                                 catID, SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                                Constants.Approved);
+                                                Constants.Published);
             var query = new SPQuery();
             query.Query = camlQuery;
             DataTable table = null;
@@ -1309,7 +1309,7 @@ namespace CQ.SharePoint.QN.Common
                                                    <OrderBy>
                                                       <FieldRef Name='ID' Ascending='False' />
                                                    </OrderBy>", SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                                              Constants.Approved);
+                                                              Constants.Published);
                 var query = new SPQuery();
                 query.Query = camlQuery;
                 query.RowLimit = 20;
@@ -1469,7 +1469,7 @@ namespace CQ.SharePoint.QN.Common
                                                                                      </And>
                                                                                   </And>
                                                                                </Where>", newsID,
-                                                                                        SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now), Constants.Approved),
+                                                                                        SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now), Constants.Published),
                                                       RowLimit = 1
                                                   };
                             SPList list = GetListFromUrl(web, ListsName.English.NewsRecord);
@@ -1533,7 +1533,7 @@ namespace CQ.SharePoint.QN.Common
                                                     </Or>
                                                  </And>
                                               </And>
-                                           </Where>", Constants.Approved, DateTime.Now, keyWord);
+                                           </Where>", Constants.Published, DateTime.Now, keyWord);
             }
 
             var query = new SPQuery();

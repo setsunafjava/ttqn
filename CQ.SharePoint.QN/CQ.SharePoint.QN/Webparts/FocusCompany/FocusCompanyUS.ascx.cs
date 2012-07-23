@@ -54,7 +54,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                    FieldsName.CompanyRecord.English.FocusCompany,
                                                                    FieldsName.NewsRecord.English.Status,
                                                                    SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                                                   Constants.Approved);
+                                                                   Constants.Published);
 
                 uint numberOfNews = 5;
                 if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))

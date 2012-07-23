@@ -68,7 +68,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                            </OrderBy>",
                                                                       FieldsName.CompanyRecord.English.CategoryName,
                                                                       WebpartParent.CompanyId, SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now), 
-                                                                      Constants.Approved);
+                                                                      Constants.Published);
 
                     uint newsNumber = 5;
 

@@ -61,7 +61,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                         FieldsName.ProvinceInfoRecord.English.CategoryName,
                                                                         WebpartParent.NewsType,
                                                                         SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                                                        Constants.Approved);
+                                                                        Constants.Published);
                     uint newsNumber = 5;
                     if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
                     {

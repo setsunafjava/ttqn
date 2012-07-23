@@ -76,7 +76,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                       FieldsName.NewsRecord.English.CategoryName,
                                                                       categoryId,
                                                                       SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                                                      Constants.Approved);
+                                                                      Constants.Published);
                     }
                     else
                     {
@@ -102,7 +102,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                           <FieldRef Name='ViewsCount' Ascending='False' />
                                                        </OrderBy>", 
                                                                   SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                                                  Constants.Approved);
+                                                                  Constants.Published);
                     }
                     
                     var topViewsTable = Utilities.GetNewsRecords(topNewsQuery, GetNewsNumber(WebpartParent.NumberOfNews), listName);

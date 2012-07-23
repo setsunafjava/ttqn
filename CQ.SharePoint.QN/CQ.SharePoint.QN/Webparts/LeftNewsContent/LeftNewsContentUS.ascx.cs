@@ -69,7 +69,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                       FieldsName.NewsRecord.English.CategoryName,
                                                                       SPHttpUtility.HtmlEncode(WebpartParent.NewsGroupID),
                                                                       SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                                                      Constants.Approved);
+                                                                      Constants.Published);
 
                     var newsGroups = Utilities.GetNewsRecordItems(newsGroupQuery, Convert.ToUInt16(WebpartParent.NumberOfNews), ListsName.English.NewsRecord);
                     if (newsGroups != null && newsGroups.Count > 0)
