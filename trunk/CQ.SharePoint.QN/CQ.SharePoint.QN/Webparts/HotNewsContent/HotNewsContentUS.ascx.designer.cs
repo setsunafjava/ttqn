@@ -27,5 +27,6 @@ namespace CQ.SharePoint.QN.Webparts
         protected global::System.Web.UI.WebControls.Repeater rptThreeItem;
 
         protected global::System.Web.UI.WebControls.Label lblLate;
+        protected global::System.Web.UI.WebControls.Literal ltrShortContent;
     }
 }

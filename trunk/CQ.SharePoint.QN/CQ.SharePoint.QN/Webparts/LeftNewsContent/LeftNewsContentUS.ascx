@@ -8,7 +8,7 @@
     <div class="bg_title_ModNews">
         <div class="title_cate_News">
             <div class="name_title_typ_News">                
-                <a href="/RSS.aspx?CategoryId=<%=WebpartParent.NewsGroupID%>" target="_blank"><%=WebpartParent.GroupName%></a>
+                <a href="/SubPage.aspx?ListCategoryName=NewsCategory&ListName=NewsRecord&Page=1&CategoryId=<%=WebpartParent.NewsGroupID%>" target="_blank"><%=WebpartParent.GroupName%></a>
             </div>
             <div class="link_cate_more">
                 <asp:Repeater ID="rptNewsGroup" runat="server">
