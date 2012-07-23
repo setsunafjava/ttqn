@@ -57,10 +57,16 @@ namespace CQ.SharePoint.QN.Webparts
                                                                        <FieldRef Name='Status' />
                                                                        <Value Type='Boolean'>1</Value>
                                                                     </Neq>
-                                                                    <Lt>
-                                                                       <FieldRef Name='ArticleStartDate' />
-                                                                       <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
-                                                                    </Lt>
+                                                                    <And>
+                                                                       <Lt>
+                                                                          <FieldRef Name='ArticleStartDate' />
+                                                                          <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                                       </Lt>
+                                                                       <Contains>
+                                                                          <FieldRef Name='Approve' />
+                                                                          <Value Type='Lookup'>{3}</Value>
+                                                                       </Contains>
+                                                                    </And>
                                                                  </And>
                                                               </And>
                                                            </Where>
@@ -69,7 +75,8 @@ namespace CQ.SharePoint.QN.Webparts
                                                            </OrderBy>",
                                                                       FieldsName.NewsRecord.English.CategoryName,
                                                                       categoryId,
-                                                                      SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+                                                                      SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+                                                                      Constants.Approved);
                     }
                     else
                     {
@@ -79,15 +86,23 @@ namespace CQ.SharePoint.QN.Webparts
                                                                 <FieldRef Name='Status' />
                                                                 <Value Type='Boolean'>1</Value>
                                                              </Neq>
-                                                             <Lt>
-                                                                <FieldRef Name='ArticleStartDate' />
-                                                                <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
-                                                             </Lt>
+                                                             <And>
+                                                                <Lt>
+                                                                   <FieldRef Name='ArticleStartDate' />
+                                                                   <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
+                                                                </Lt>
+                                                                <Contains>
+                                                                   <FieldRef Name='Approve' />
+                                                                   <Value Type='Lookup'>{1}</Value>
+                                                                </Contains>
+                                                             </And>
                                                           </And>
                                                        </Where>
                                                        <OrderBy>
                                                           <FieldRef Name='ViewsCount' Ascending='False' />
-                                                       </OrderBy>", SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+                                                       </OrderBy>", 
+                                                                  SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+                                                                  Constants.Approved);
                     }
                     
                     var topViewsTable = Utilities.GetNewsRecords(topNewsQuery, GetNewsNumber(WebpartParent.NumberOfNews), listName);

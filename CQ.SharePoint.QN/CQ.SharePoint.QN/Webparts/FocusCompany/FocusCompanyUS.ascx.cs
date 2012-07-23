@@ -36,10 +36,16 @@ namespace CQ.SharePoint.QN.Webparts
                                                                        <FieldRef Name='{1}' />
                                                                        <Value Type='Boolean'>1</Value>
                                                                     </Neq>
-                                                                    <Lt>
-                                                                       <FieldRef Name='ArticleStartDate' />
-                                                                       <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
-                                                                    </Lt>
+                                                                    <And>
+                                                                       <Lt>
+                                                                          <FieldRef Name='ArticleStartDate' />
+                                                                          <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                                       </Lt>
+                                                                       <Contains>
+                                                                          <FieldRef Name='Approve' />
+                                                                          <Value Type='Lookup'>{3}</Value>
+                                                                       </Contains>
+                                                                    </And>
                                                                  </And>
                                                               </And>
                                                            </Where><OrderBy>
@@ -47,7 +53,8 @@ namespace CQ.SharePoint.QN.Webparts
                                                            </OrderBy>",
                                                                    FieldsName.CompanyRecord.English.FocusCompany,
                                                                    FieldsName.NewsRecord.English.Status,
-                                                                   SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+                                                                   SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+                                                                   Constants.Approved);
 
                 uint numberOfNews = 5;
                 if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
