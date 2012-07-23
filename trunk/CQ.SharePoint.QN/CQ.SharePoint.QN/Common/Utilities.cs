@@ -1176,14 +1176,21 @@ namespace CQ.SharePoint.QN.Common
                                                            <FieldRef Name='Status' />
                                                            <Value Type='Boolean'>1</Value>
                                                         </Neq>
-                                                        <Lt>
-                                                           <FieldRef Name='ArticleStartDate' />
-                                                           <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
-                                                        </Lt>
+                                                        <And>
+                                                           <Lt>
+                                                              <FieldRef Name='ArticleStartDate' />
+                                                              <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                           </Lt>
+                                                           <Contains>
+                                                              <FieldRef Name='Approve' />
+                                                              <Value Type='Lookup'>{3}</Value>
+                                                           </Contains>
+                                                        </And>
                                                      </And>
                                                   </And>
                                                </Where>", FieldsName.NewsRecord.English.CategoryName,
-                                                catID, SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+                                                catID, SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+                                                Constants.Approved);
             var query = new SPQuery();
             query.Query = camlQuery;
             DataTable table = null;
@@ -1287,15 +1294,22 @@ namespace CQ.SharePoint.QN.Common
                                                             <FieldRef Name='Status' />
                                                             <Value Type='Boolean'>1</Value>
                                                          </Neq>
-                                                         <Lt>
-                                                            <FieldRef Name='ArticleStartDate' />
-                                                            <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
-                                                         </Lt>
+                                                         <And>
+                                                            <Lt>
+                                                               <FieldRef Name='ArticleStartDate' />
+                                                               <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
+                                                            </Lt>
+                                                            <Contains>
+                                                               <FieldRef Name='Approve' />
+                                                               <Value Type='Lookup'>{1}</Value>
+                                                            </Contains>
+                                                         </And>
                                                       </And>
                                                    </Where>
                                                    <OrderBy>
                                                       <FieldRef Name='ID' Ascending='False' />
-                                                   </OrderBy>", SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+                                                   </OrderBy>", SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+                                                              Constants.Approved);
                 var query = new SPQuery();
                 query.Query = camlQuery;
                 query.RowLimit = 20;
@@ -1442,14 +1456,20 @@ namespace CQ.SharePoint.QN.Common
                                                                                            <FieldRef Name='ArticleStartDate' />
                                                                                            <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
                                                                                         </Lt>
-                                                                                        <Neq>
-                                                                                           <FieldRef Name='Status' />
-                                                                                           <Value Type='Boolean'>1</Value>
-                                                                                        </Neq>
+                                                                                        <And>
+                                                                                           <Neq>
+                                                                                              <FieldRef Name='Status' />
+                                                                                              <Value Type='Boolean'>1</Value>
+                                                                                           </Neq>
+                                                                                           <Contains>
+                                                                                              <FieldRef Name='Approve' />
+                                                                                              <Value Type='Lookup'>{2}</Value>
+                                                                                           </Contains>
+                                                                                        </And>
                                                                                      </And>
                                                                                   </And>
                                                                                </Where>", newsID,
-                                                                                        SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now)),
+                                                                                        SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now), Constants.Approved),
                                                       RowLimit = 1
                                                   };
                             SPList list = GetListFromUrl(web, ListsName.English.NewsRecord);
@@ -1480,10 +1500,40 @@ namespace CQ.SharePoint.QN.Common
             {
                 keyWord = HttpContext.Current.Server.UrlDecode(keyWord);
                 keyWord = SPEncode.HtmlEncode(keyWord);
-                camlQuery =
-                string.Format(
-                    "<Where><Or><Contains><FieldRef Name='{0}' /><Value Type='Text'>{1}</Value></Contains><Or><Contains><FieldRef Name='{2}' /><Value Type='Note'>{1}</Value></Contains><Contains><FieldRef Name='{3}' /><Value Type='Note'>{1}</Value></Contains></Or></Or></Where>",
-                    "Title", keyWord, FieldsName.NewsRecord.English.ShortContent, FieldsName.NewsRecord.English.PublishingPageContent);
+                //camlQuery =
+                //string.Format(
+                //    "<Where><Or><Contains><FieldRef Name='{0}' /><Value Type='Text'>{1}</Value></Contains><Or><Contains><FieldRef Name='{2}' /><Value Type='Note'>{1}</Value></Contains><Contains><FieldRef Name='{3}' /><Value Type='Note'>{1}</Value></Contains></Or></Or></Where>",
+                //    "Title", keyWord, FieldsName.NewsRecord.English.ShortContent, FieldsName.NewsRecord.English.PublishingPageContent);
+                camlQuery = string.Format(@"<Where>
+                                              <And>
+                                                 <Eq>
+                                                    <FieldRef Name='Approve' />
+                                                    <Value Type='Lookup'>{0}</Value>
+                                                 </Eq>
+                                                 <And>
+                                                    <Lt>
+                                                       <FieldRef Name='ArticleStartDate' />
+                                                       <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
+                                                    </Lt>
+                                                    <Or>
+                                                       <Contains>
+                                                          <FieldRef Name='Title' />
+                                                          <Value Type='Text'>{2}</Value>
+                                                       </Contains>
+                                                       <Or>
+                                                          <Contains>
+                                                             <FieldRef Name='ShortContent' />
+                                                             <Value Type='Note'>{2}</Value>
+                                                          </Contains>
+                                                          <Contains>
+                                                             <FieldRef Name='PublishingPageContent' />
+                                                             <Value Type='HTML'>{2}</Value>
+                                                          </Contains>
+                                                       </Or>
+                                                    </Or>
+                                                 </And>
+                                              </And>
+                                           </Where>", Constants.Approved, DateTime.Now, keyWord);
             }
 
             var query = new SPQuery();

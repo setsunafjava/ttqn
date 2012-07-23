@@ -50,10 +50,16 @@ namespace CQ.SharePoint.QN.Webparts
                                                                        <FieldRef Name='Status' />
                                                                        <Value Type='Boolean'>1</Value>
                                                                     </Neq>
-                                                                    <Lt>
-                                                                       <FieldRef Name='ArticleStartDate' />
-                                                                       <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
-                                                                    </Lt>
+                                                                    <And>
+                                                                       <Lt>
+                                                                          <FieldRef Name='ArticleStartDate' />
+                                                                          <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                                       </Lt>
+                                                                       <Contains>
+                                                                          <FieldRef Name='Approve' />
+                                                                          <Value Type='Lookup'>{3}</Value>
+                                                                       </Contains>
+                                                                    </And>
                                                                  </And>
                                                               </And>
                                                            </Where>
@@ -62,7 +68,8 @@ namespace CQ.SharePoint.QN.Webparts
                                                            </OrderBy>",
                                                                       FieldsName.NewsRecord.English.CategoryName,
                                                                       SPHttpUtility.HtmlEncode(WebpartParent.NewsGroupID),
-                                                                      SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+                                                                      SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+                                                                      Constants.Approved);
 
                     var newsGroups = Utilities.GetNewsRecordItems(newsGroupQuery, Convert.ToUInt16(WebpartParent.NumberOfNews), ListsName.English.NewsRecord);
                     if (newsGroups != null && newsGroups.Count > 0)

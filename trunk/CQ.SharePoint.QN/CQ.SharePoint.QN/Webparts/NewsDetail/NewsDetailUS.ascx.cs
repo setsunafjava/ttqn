@@ -45,13 +45,20 @@ namespace CQ.SharePoint.QN.Webparts
                                                                        <FieldRef Name='Status' />
                                                                        <Value Type='Boolean'>1</Value>
                                                                     </Neq>
-                                                                    <Lt>
-                                                                       <FieldRef Name='ArticleStartDate' />
-                                                                       <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
-                                                                    </Lt>
+                                                                    <And>
+                                                                        <Lt>
+                                                                           <FieldRef Name='ArticleStartDate' />
+                                                                           <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
+                                                                        </Lt>
+                                                                        <Contains>
+                                                                           <FieldRef Name='Approve' />
+                                                                           <Value Type='Lookup'>{2}</Value>
+                                                                        </Contains>
+                                                                     </And>
                                                                  </And>
                                                               </And>
-                                                           </Where>", newsId, SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+                                                           </Where>", newsId, SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+                                                                    Constants.Approved);
                         var newsItem = Utilities.GetNewsRecords(newsQuery, 1, listName);
                         if (newsItem != null && newsItem.Rows.Count > 0)
                         {
@@ -165,10 +172,7 @@ namespace CQ.SharePoint.QN.Webparts
                 }
                 else
                 {
-
                 }
-
-
             }
 
             return result;

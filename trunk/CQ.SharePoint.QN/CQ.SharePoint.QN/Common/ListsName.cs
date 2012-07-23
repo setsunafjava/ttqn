@@ -43,6 +43,7 @@ namespace CQ.SharePoint.QN.Common
             public const string TourInforRecord = "TourInforRecord";
             public const string TourInforCategory = "TourInforCategory";
             public const string ApproverActionList = "ApproverActionList";
+            public const string Approve = "Approve";
         }
 
         // Display Name of list
@@ -84,6 +85,7 @@ namespace CQ.SharePoint.QN.Common
             public const string TourInforRecord = "TourInforRecord";
             public const string TourInforCategory = "TourInforCategory";
             public const string ApproverActionList = "ApproverActionList";
+            public const string Approve = "Approve";
         }
     }
 }

@@ -45,16 +45,23 @@ namespace CQ.SharePoint.QN.Webparts
                                                                            <FieldRef Name='Status' />
                                                                            <Value Type='Boolean'>1</Value>
                                                                         </Neq>
-                                                                        <Lt>
-                                                                           <FieldRef Name='ArticleStartDate' />
-                                                                           <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
-                                                                        </Lt>
+                                                                        <And>
+                                                                            <Lt>
+                                                                               <FieldRef Name='ArticleStartDate' />
+                                                                               <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                                            </Lt>
+                                                                            <Contains>
+                                                                               <FieldRef Name='Approve' />
+                                                                               <Value Type='LookupMulti'>{3}</Value>
+                                                                            </Contains>
+                                                                         </And>
                                                                      </And>
                                                                   </And>
                                                                </Where>",
                                                                         FieldsName.ProvinceInfoRecord.English.CategoryName,
                                                                         WebpartParent.NewsType,
-                                                                        SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+                                                                        SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+                                                                        Constants.Approved);
                     uint newsNumber = 5;
                     if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
                     {

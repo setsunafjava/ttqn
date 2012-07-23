@@ -12,7 +12,9 @@ namespace CQ.SharePoint.QN.Common
         public const string NewsId = "NewsId";
         public const string ListName = "ListName";
         public const string ListCategoryName = "ListCategoryName";
-
+        public const string Draft = "Nháp";
+        public const string Pending = "Đang chờ";
+        public const string Approved = "Đã duyệt";
         public static string GetHomeTitle()
         {
             if (SPContext.Current.Web.Url.Contains("/en"))
@@ -85,48 +87,14 @@ namespace CQ.SharePoint.QN.Common
         #region GroupName
         public class GroupName
         {
-            public const string AccountingDepartmentGroup = "CQQN経理部";
-
-            public const string FullControlGroup = "CQQN所有者";
-
-            public const string ManagementGroup = "CQQN管理者";
-
-            public const string DeleteGroup = "CQQN削除者";
-
-            public const string EditGroup = "CQQN編集者";
-
-            public const string SubmitterGroup = "CQQN投稿者";
-
-            public const string ViewGroup = "CQQN閲覧者";
-
-            public const string SystemAdmin = "CQQNシステム管理者";
-
-            public const string Approver = "CQQN承認者";
+            
         }
         #endregion
 
         #region GroupDescription
         public class GroupDescription
         {
-            public const string AccountingDepartmentGroup = "CQQN経理部";
-
-            public const string FullControlGroup = "CQQN所有者 - 完全な制御が可能です。";
-
-            public const string ManagementGroup = "CQQN管理者 - 閲覧表示, 新規作成、, 削除, SharePointＧroup内メンバ操作, 文書単位のアクセス権閲覧";
-
-            public const string DeleteGroup = "CQQN削除者 - 閲覧表示, 新規作成、編集, 削除";
-
-            public const string EditGroup = "CQQN編集者 - 閲覧表示, 新規作成、編集";
-
-            public const string SubmitterGroup = "CQQN投稿者 - 閲覧表示, 新規作成";
-
-            public const string ViewGroup = "CQQN閲覧者 - 閲覧表示（全文書）";
-
-            public const string SystemAdmin = "CQQNシステム管理者";
-
-            public const string Approver = "CQQN承認者";
-
-            public const string Submitter = "CQQN閲覧者";
+           
 
         }
         #endregion
