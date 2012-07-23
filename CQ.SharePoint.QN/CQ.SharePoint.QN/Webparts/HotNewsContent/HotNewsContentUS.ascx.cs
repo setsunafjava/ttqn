@@ -311,8 +311,10 @@ namespace CQ.SharePoint.QN.Webparts
 
             if (mainItem != null && mainItem.Count > 0)
             {
+                var tempTable = Utilities.GetTableWithCorrectUrl(_listCategoryName, mainItem);
+                Utilities.SetSapoTextLength(ref tempTable);
                 RptImagesUrl = ItemUrl;
-                rptImages.DataSource = Utilities.GetTableWithCorrectUrl(_listCategoryName, mainItem);
+                rptImages.DataSource = tempTable;
                 rptImages.DataBind();
             }
             else
@@ -323,8 +325,10 @@ namespace CQ.SharePoint.QN.Webparts
 
                 if (mainItem != null && mainItem.Count > 0)
                 {
+                    var tempTable = Utilities.GetTableWithCorrectUrl(_listCategoryName, mainItem);
+                    Utilities.SetSapoTextLength(ref tempTable);
                     RptImagesUrl = ItemUrl;
-                    rptImages.DataSource = Utilities.GetTableWithCorrectUrl(_listCategoryName, mainItem);
+                    rptImages.DataSource = tempTable;
                     rptImages.DataBind();
                 }
                 else
@@ -333,8 +337,10 @@ namespace CQ.SharePoint.QN.Webparts
                     mainItem = Utilities.GetNewsRecordItems(mainItemQuery, 3, ListsName.English.NewsRecord);
                     if (mainItem != null && mainItem.Count > 0)
                     {
+                        var tempTable = Utilities.GetTableWithCorrectUrl(ListsName.English.NewsCategory, mainItem);
+                        Utilities.SetSapoTextLength(ref tempTable);
                         RptImagesUrl = NewsUrl;
-                        rptImages.DataSource = Utilities.GetTableWithCorrectUrl(ListsName.English.NewsCategory, mainItem);
+                        rptImages.DataSource = tempTable;
                         rptImages.DataBind();
                     }
                 }

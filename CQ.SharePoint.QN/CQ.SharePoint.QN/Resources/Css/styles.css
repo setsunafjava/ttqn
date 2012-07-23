@@ -1244,7 +1244,7 @@ a {
 				}
 				.boxgrid p{ 
 					padding: 20px 10px 0 10px; 
-					color:#afafaf; 
+					color:#ffffff; 
 					font-weight:bold; 
 					font:10pt "Lucida Grande", Arial, sans-serif; 
 				}
@@ -1252,17 +1252,17 @@ a {
 			.boxcaption{ 
 				float: left; 
 				position: absolute; 
-				background: #000; 
+				background: #000000; 
 				height: 150px; 
 				width: 100%; 
-				opacity: .5; 
+				opacity: .9; 
 				/* For IE 5-7 */
-				filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+				filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
 				/* For IE 8 */
-				-MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+				-MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
  			}
  			.captionfull .boxcaption {
- 					top: 290px;
+ 					top: 272px;
  					left: 0;
  				}
  				

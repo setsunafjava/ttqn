@@ -1,6 +1,7 @@
 ﻿<%@ Assembly Name="CQ.SharePoint.QN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="HotNewsContentUS.ascx.cs"
     Inherits="CQ.SharePoint.QN.Webparts.HotNewsContentUS" %>
+<%@ Import Namespace="Microsoft.SharePoint.Utilities" %>
 <div class="hot_news-content">
     <div class="artical_hottest">
         <div id="number_slideshow1" class="number_slideshow">
@@ -14,11 +15,17 @@
                             <img src='<%#Eval("Thumbnail") %>' alt='<%#Eval("Title")%>' title='<b><%#Eval("Title")%></b>'
                                 style="width: 400px; height: 330px" />
                             <div class="cover boxcaption">
-                                <h3>
-                                    <%#Eval("Title")%></h3>
-                                <p>
-                                    <br />
-                                    <%# Server.HtmlEncode((string)Eval("ShortContent"))%>
+                                <p style="padding-top:0;">
+									<table width="100%">
+										<tr>
+											<td><span style="font-weight: bold; padding-top:0; font-size: 13px;"><%#Eval("Title")%></span></td>
+										</tr>
+										<tr>
+											<td><asp:Literal ID="ltrShortContent" runat="server" Text='<%# Eval("ShortContent")%>'></asp:Literal></td>
+										</tr>
+									</table>
+                                    
+								</p>                               
                             </div>
                         </div>
                     </a></li>
@@ -64,7 +71,8 @@
             </asp:Panel>
             <asp:Panel ID="pnlSubPage" Visible="false" runat="server">
                 <a rel="country1" class="title_news_hot">
-                    <li class="title_news_hot"><%=WebPartParent.LatestRecieved %></li>                    
+                    <li class="title_news_hot">
+                        <%=WebPartParent.LatestRecieved %></li>
                 </a>
             </asp:Panel>
         </ul>
@@ -121,7 +129,7 @@
 				$('.boxgrid.captionfull').hover(function(){
 					$(".cover", this).stop().animate({top:'200px'},{queue:false,duration:160});
 				}, function() {
-					$(".cover", this).stop().animate({top:'290px'},{queue:false,duration:160});
+					$(".cover", this).stop().animate({top:'272px'},{queue:false,duration:160});
 				});				
 				
 				$(function() {
@@ -150,3 +158,4 @@
 <script type="text/javascript" src="/QNResources/javascript.js"></script>
 
 <script type="text/javascript" src="/QNResources/number_slideshow.js"></script>
+

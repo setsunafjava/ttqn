@@ -115,7 +115,7 @@ namespace CQ.SharePoint.QN.Common
                         }
                     }
                     if (items[i].Fields.ContainsField(FieldsName.NewsRecord.English.LinkAdv))
-                    { 
+                    {
                         advLink = new SPFieldUrlValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.LinkAdv]));
                         dataTable.Rows[i][FieldsName.NewsRecord.English.LinkAdv] = advLink.Url;
                     }
@@ -144,7 +144,7 @@ namespace CQ.SharePoint.QN.Common
                 {
                     imagepath = Convert.ToString(items[i][FieldsName.NewsRecord.English.ThumbnailImage]);
                     imageIcon = items[i][FieldsName.NewsRecord.English.PublishingPageImage] as ImageFieldValue;
-                    dataTable.Rows[i][FieldsName.Title] = GetTextForSapo(Convert.ToString(items[i][FieldsName.Title]));
+                    dataTable.Rows[i][FieldsName.Title] = GetTextForSapo(Convert.ToString(items[i][FieldsName.Title]), 55);
 
                     if (imageIcon != null)
                         dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imageIcon.ImageUrl;
@@ -166,31 +166,33 @@ namespace CQ.SharePoint.QN.Common
         /// Cut many text and set text is sapo
         /// </summary>
         /// <param name="strInput"></param>
+        /// <param name="textLength"></param>
         /// <returns></returns>
-        public static string GetTextForSapo(string strInput)
+        public static string GetTextForSapo(string strInput, int textLength)
         {
             StringBuilder strResult = new StringBuilder();
             string[] inputArray = null;
             if (!string.IsNullOrEmpty(strInput))
             {
-                if (strInput.Length > 55)
+                if (strInput.Length > textLength)
                 {
                     inputArray = strInput.Split(' ');
                     int numLength = 0;
                     int i = 0;
-                    while (numLength < 55)
+                    while (numLength < textLength)
                     {
                         strResult.Append(string.Format("{0} ", inputArray[i]));
                         numLength = strResult.Length;
                         i++;
                     }
+                    strResult.Append("...");
                 }
                 else
                 {
                     strResult.Append(strInput);
                 }
             }
-            return string.Format("{0}...", strResult);
+            return Convert.ToString(strResult);
         }
 
         /// <summary>
@@ -1663,6 +1665,23 @@ namespace CQ.SharePoint.QN.Common
                 foreach (DataRow row in dataTable.Rows)
                 {
                     row[FieldsName.CategoryId] = GetCategoryIdByCategoryName(Convert.ToString(row[categoryName]), listCategoryName);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Set max length when display sapo
+        /// </summary>
+        /// <param name="items"></param>
+        /// <returns></returns>
+        public static void SetSapoTextLength(ref DataTable table)
+        {
+            if (table != null && table.Rows.Count > 0)
+            {
+                for (int i = 0; i < table.Rows.Count; i++)
+                {
+                    table.Rows[i][FieldsName.Title] = GetTextForSapo(Convert.ToString(table.Rows[i][FieldsName.Title]), 129);
+                    table.Rows[i][FieldsName.NewsRecord.English.ShortContent] = GetTextForSapo(Convert.ToString(table.Rows[i][FieldsName.NewsRecord.English.ShortContent]), 200);
                 }
             }
         }
