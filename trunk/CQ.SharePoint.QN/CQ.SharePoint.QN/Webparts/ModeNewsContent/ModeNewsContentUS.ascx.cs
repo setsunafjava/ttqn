@@ -99,7 +99,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                       FieldsName.NewsRecord.English.CategoryName,
                                                                       WebpartParent.NewsCategoryId1,
                                                                       SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                                                      Constants.Approved);
+                                                                      Constants.Published);
                         var group1Table = Utilities.GetNewsRecordItems(group1Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.NewsRecord);
 
                         if (group1Table != null && group1Table.Count > 0)
@@ -166,7 +166,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                       FieldsName.NewsRecord.English.CategoryName,
                                                                       WebpartParent.NewsCategoryId2,
                                                                       SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                                                      Constants.Approved);
+                                                                      Constants.Published);
 
                         var group2Table = Utilities.GetNewsRecordItems(group2Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.NewsRecord);
 
@@ -231,7 +231,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                       FieldsName.NewsRecord.English.CategoryName,
                                                                       WebpartParent.NewsCategoryId3,
                                                                       SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                                                      Constants.Approved);
+                                                                      Constants.Published);
 
                         var group3Table = Utilities.GetNewsRecordItems(group3Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.NewsRecord);
 

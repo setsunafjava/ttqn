@@ -15,6 +15,7 @@ namespace CQ.SharePoint.QN.Common
         public const string Draft = "Nháp";
         public const string Pending = "Đang chờ";
         public const string Approved = "Đã duyệt";
+        public const string Published = "Xuất bản";
         public static string GetHomeTitle()
         {
             if (SPContext.Current.Web.Url.Contains("/en"))

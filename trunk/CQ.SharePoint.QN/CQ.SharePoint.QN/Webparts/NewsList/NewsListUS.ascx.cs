@@ -94,7 +94,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                   <FieldRef Name='ID' Ascending='False' />
                                                                </OrderBy>",
                                                                       SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                                                      Constants.Approved);
+                                                                      Constants.Published);
 
                         var companyList = Utilities.GetNewsRecords(newsQuery, listName);
                         
@@ -189,7 +189,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                           <FieldRef Name='ArticleStartDate' Ascending='False' />
                                                                        </OrderBy>",
                                                                 SPUtility.CreateISO8601DateTimeFromSystemDateTime(dt),
-                                                                Constants.Approved);
+                                                                Constants.Published);
 
                                 var companyList = Utilities.GetNewsRecords(categoryQuery, listCategoryName);
                                 if (companyList != null && companyList.Rows.Count > 0)
@@ -257,7 +257,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                    <OrderBy>
                                                                       <FieldRef Name='ID' Ascending='False' />
                                                                    </OrderBy>", SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                                                              Constants.Approved);
+                                                                              Constants.Published);
 
                             var companyList = Utilities.GetNewsRecords(allItemsQuery, listCategoryName);
 
