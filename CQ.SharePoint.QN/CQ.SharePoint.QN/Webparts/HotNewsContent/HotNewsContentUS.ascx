@@ -1,4 +1,4 @@
-﻿<%@ Assembly Name="CQ.SharePoint.QN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5" %>
+ <%@ Assembly Name="CQ.SharePoint.QN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="HotNewsContentUS.ascx.cs"
     Inherits="CQ.SharePoint.QN.Webparts.HotNewsContentUS" %>
 <%@ Import Namespace="Microsoft.SharePoint.Utilities" %>
@@ -9,23 +9,20 @@
                 <HeaderTemplate>
                     <ul>
                 </HeaderTemplate>
-                <ItemTemplate>
+                 <ItemTemplate>
                     <li><a href='<%= RptImagesUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
                         <div class="boxgrid captionfull">
                             <img src='<%#Eval("Thumbnail") %>' alt='<%#Eval("Title")%>' title='<b><%#Eval("Title")%></b>'
                                 style="width: 400px; height: 330px" />
                             <div class="cover boxcaption">
-                                <p style="padding-top:0;">
-									<table width="100%">
-										<tr>
-											<td><span style="font-weight: bold; padding-top:0; font-size: 13px;"><%#Eval("Title")%></span></td>
-										</tr>
-										<tr>
-											<td><asp:Literal ID="ltrShortContent" runat="server" Text='<%# Eval("ShortContent")%>'></asp:Literal></td>
-										</tr>
-									</table>
-                                    
-								</p>                               
+                                <p style="font-weight: bold; ">
+                                    <%#Eval("Title")%>
+								</p>
+								
+                                <p>      
+								<br /><br />							
+                                    <%# Server.HtmlEncode((string)Eval("ShortContent"))%>
+								</p>	
                             </div>
                         </div>
                     </a></li>
