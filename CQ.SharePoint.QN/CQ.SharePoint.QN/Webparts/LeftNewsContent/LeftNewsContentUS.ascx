@@ -1,4 +1,4 @@
-﻿<%@ Assembly Name="CQ.SharePoint.QN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5" %>
+ <%@ Assembly Name="CQ.SharePoint.QN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="LeftNewsContentUS.ascx.cs"
     Inherits="CQ.SharePoint.QN.Webparts.LeftNewsContentUS" %>
 <%@ Import Namespace="CQ.SharePoint.QN.Common" %>
@@ -45,7 +45,7 @@
                     </HeaderTemplate>
                     <ItemTemplate>
                         <li><a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
-                            <%#Eval("ShortContent")%></a></li>
+                            <%#Eval("Title")%></a></li>
                     </ItemTemplate>
                     <FooterTemplate>
                         </ul>
