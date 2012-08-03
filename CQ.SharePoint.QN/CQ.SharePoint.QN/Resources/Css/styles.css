@@ -1213,8 +1213,6 @@ a {
     left: 0px;
     padding-left: 5px;
     padding-right: 5px;
-    filter: alpha(opacity=50);
-    opacity: 0.5;
     font-size: 13px;
     line-height: 23px;
 }
