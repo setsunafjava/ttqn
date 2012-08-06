@@ -390,6 +390,11 @@ namespace CQ.SharePoint.QN
             WebPageHelper.CreateDetailWebPage(web, string.Format(CultureInfo.InvariantCulture, "{0}.aspx", pageName), false);
         }
 
+        public static void CreateNewDetailPage(SPWeb web, string pageName)
+        {
+            WebPageHelper.CreateNewDetailWebPage(web, string.Format(CultureInfo.InvariantCulture, "{0}.aspx", pageName), true);
+        }
+
         public static void CreateSubPage(SPWeb web, string pageName)
         {
             WebPageHelper.CreateSubWebPage(web, string.Format(CultureInfo.InvariantCulture, "{0}.aspx", pageName), false);
