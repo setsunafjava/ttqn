@@ -6,6 +6,7 @@ using Microsoft.SharePoint;
 using Microsoft.SharePoint.WebControls;
 using CQ.SharePoint.QN.Common;
 using System.Web;
+using System.Web.UI.HtmlControls;
 
 namespace CQ.SharePoint.QN.Webparts
 {
@@ -118,23 +119,68 @@ namespace CQ.SharePoint.QN.Webparts
                 Literal ltrStyle = (Literal) e.Item.FindControl("ltrStyle");
                 var itemUrl = Convert.ToString(drv["Url"]);
                 var currentUrl = HttpContext.Current.Request.Url.AbsoluteUri + "&";
-                if (!string.IsNullOrEmpty(itemUrl) && currentUrl.Contains(itemUrl + "&"))
+
+                //if (!string.IsNullOrEmpty(itemUrl) && currentUrl.Contains(itemUrl + "&"))
+                //{
+                //    ltrStyle.Text = " class='current'";
+                //}
+                //else
+                //{
+                //    var newsId = Request.QueryString[Constants.NewsId];
+                //    if (!string.IsNullOrEmpty(newsId))
+                //    {
+                //        var catValue = Utilities.GetCatsByNewsID(newsId);
+                //        foreach (SPFieldLookupValue value in catValue)
+                //        {
+                //            var catUrl = "/" + Constants.PageInWeb.SubPage + ".aspx?CategoryId=" + value.LookupId + "&";
+                //            if (!string.IsNullOrEmpty(itemUrl) && (itemUrl + "&").Contains(catUrl))
+                //            {
+                //                ltrStyle.Text = " class='current'";
+                //                break;
+                //            }
+                //        }
+                //    }
+                //}
+
+                //Bind data to URL
+                HtmlAnchor aLink = (HtmlAnchor)e.Item.FindControl("aLink");
+                aLink.Title = Convert.ToString(drv["Title"]);
+                aLink.InnerText = Convert.ToString(drv["Title"]);
+
+                if (string.IsNullOrEmpty(Convert.ToString(drv["MenuType"])))
                 {
-                    ltrStyle.Text = " class='current'";
+                    aLink.HRef = itemUrl;
+                    if (!string.IsNullOrEmpty(itemUrl) && currentUrl.Contains(itemUrl + "&"))
+                    {
+                        ltrStyle.Text = " class='current'";
+                    }
                 }
                 else
                 {
-                    var newsId = Request.QueryString[Constants.NewsId];
-                    if (!string.IsNullOrEmpty(newsId))
+                    aLink.HRef = itemUrl;
+                    var lkMenuType = Utilities.GetMenuType(ListsName.English.MenuList, Convert.ToInt32(drv["ID"]), "MenuType");
+                    var colNameT = string.Empty;
+                    var catNameT = string.Empty;
+                    var newsNameT = string.Empty;
+                    var checkMT = Utilities.CheckMenuType("MenuType", lkMenuType.LookupId, ref colNameT, ref catNameT, ref newsNameT);
+                    if (checkMT)
                     {
-                        var catValue = Utilities.GetCatsByNewsID(newsId);
-                        foreach (SPFieldLookupValue value in catValue)
+                        if (!string.IsNullOrEmpty(Convert.ToString(drv[colNameT])))
                         {
-                            var catUrl = "/" + Constants.PageInWeb.SubPage + ".aspx?CategoryId=" + value.LookupId + "&";
-                            if (!string.IsNullOrEmpty(itemUrl) && (itemUrl + "&").Contains(catUrl))
+                            var lkMenu = Utilities.GetMenuType(ListsName.English.MenuList, Convert.ToInt32(drv["ID"]), colNameT);
+                            aLink.HRef = SPContext.Current.Web.Url + "/" + Constants.PageInWeb.SubPage +
+                                         ".aspx?CategoryId=" + lkMenu.LookupId + "&ListCategoryName=" + catNameT +
+                                         "&ListName=" + newsNameT;
+
+                            var catID = Request.QueryString[Constants.CategoryId];
+                            var catName = Request.QueryString[Constants.ListCategoryName];
+                            var newsName = Request.QueryString[Constants.ListName];
+                            if (!string.IsNullOrEmpty(catID))
                             {
-                                ltrStyle.Text = " class='current'";
-                                break;
+                                if (lkMenu.LookupId.ToString().Equals(catID) && catNameT.Equals(catName) && newsNameT.Equals(newsName))
+                                {
+                                    ltrStyle.Text = " class='current'";
+                                }
                             }
                         }
                     }
@@ -159,23 +205,68 @@ namespace CQ.SharePoint.QN.Webparts
                 Literal ltrStyle = (Literal)e.Item.Parent.Parent.FindControl("ltrStyle");
                 var itemUrl = Convert.ToString(drv["Url"]);
                 var currentUrl = HttpContext.Current.Request.Url.AbsoluteUri + "&";
-                if (!string.IsNullOrEmpty(itemUrl) && currentUrl.Contains(itemUrl + "&"))
+
+                //if (!string.IsNullOrEmpty(itemUrl) && currentUrl.Contains(itemUrl + "&"))
+                //{
+                //    ltrStyle.Text = " class='current'";
+                //}
+                //else
+                //{
+                //    var newsId = Request.QueryString[Constants.NewsId];
+                //    if (!string.IsNullOrEmpty(newsId))
+                //    {
+                //        var catValue = Utilities.GetCatsByNewsID(newsId);
+                //        foreach (SPFieldLookupValue value in catValue)
+                //        {
+                //            var catUrl = "/" + Constants.PageInWeb.SubPage + ".aspx?CategoryId=" + value.LookupId + "&";
+                //            if (!string.IsNullOrEmpty(itemUrl) && (itemUrl + "&").Contains(catUrl))
+                //            {
+                //                ltrStyle.Text = " class='current'";
+                //                break;
+                //            }
+                //        }
+                //    }
+                //}
+
+                //Bind data to URL
+                HtmlAnchor aLink = (HtmlAnchor)e.Item.FindControl("aLink");
+                aLink.Title = Convert.ToString(drv["Title"]);
+                aLink.InnerText = Convert.ToString(drv["Title"]);
+
+                if (string.IsNullOrEmpty(Convert.ToString(drv["MenuType"])))
                 {
-                    ltrStyle.Text = " class='current'";
+                    aLink.HRef = itemUrl;
+                    if (!string.IsNullOrEmpty(itemUrl) && currentUrl.Contains(itemUrl + "&"))
+                    {
+                        ltrStyle.Text = " class='current'";
+                    }
                 }
                 else
                 {
-                    var newsId = Request.QueryString[Constants.NewsId];
-                    if (!string.IsNullOrEmpty(newsId))
+                    aLink.HRef = itemUrl;
+                    var lkMenuType = Utilities.GetMenuType(ListsName.English.MenuList, Convert.ToInt32(drv["ID"]), "MenuType");
+                    var colNameT = string.Empty;
+                    var catNameT = string.Empty;
+                    var newsNameT = string.Empty;
+                    var checkMT = Utilities.CheckMenuType("MenuType", lkMenuType.LookupId, ref colNameT, ref catNameT, ref newsNameT);
+                    if (checkMT)
                     {
-                        var catValue = Utilities.GetCatsByNewsID(newsId);
-                        foreach (SPFieldLookupValue value in catValue)
+                        if (!string.IsNullOrEmpty(Convert.ToString(drv[colNameT])))
                         {
-                            var catUrl = "/" + Constants.PageInWeb.SubPage + ".aspx?CategoryId=" + value.LookupId + "&";
-                            if (!string.IsNullOrEmpty(itemUrl) && (itemUrl + "&").Contains(catUrl))
+                            var lkMenu = Utilities.GetMenuType(ListsName.English.MenuList, Convert.ToInt32(drv["ID"]), colNameT);
+                            aLink.HRef = SPContext.Current.Web.Url + "/" + Constants.PageInWeb.SubPage +
+                                         ".aspx?CategoryId=" + lkMenu.LookupId + "&ListCategoryName=" + catNameT +
+                                         "&ListName=" + newsNameT;
+
+                            var catID = Request.QueryString[Constants.CategoryId];
+                            var catName = Request.QueryString[Constants.ListCategoryName];
+                            var newsName = Request.QueryString[Constants.ListName];
+                            if (!string.IsNullOrEmpty(catID))
                             {
-                                ltrStyle.Text = " class='current'";
-                                break;
+                                if (lkMenu.LookupId.ToString().Equals(catID) && catNameT.Equals(catName) && newsNameT.Equals(newsName))
+                                {
+                                    ltrStyle.Text = " class='current'";
+                                }
                             }
                         }
                     }

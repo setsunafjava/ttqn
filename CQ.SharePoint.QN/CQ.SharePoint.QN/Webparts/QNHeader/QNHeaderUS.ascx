@@ -49,11 +49,11 @@ function setHomepage()
 				<li <%=CurrentStyle%>><a href="/<%=HomeUrl%>"><%= ParentWP.HomePageTitle %></a></li>
                 <asp:Repeater ID="rptMenu" runat="server" OnItemDataBound="rptMenu_OnItemDataBound">
                     <ItemTemplate>
-                        <li <asp:Literal ID="ltrStyle" runat="server"></asp:Literal>><a href='<%#Eval("Url") %>'><%#Eval("Title") %></a>
+                        <li <asp:Literal ID="ltrStyle" runat="server"></asp:Literal>><a runat="server" id="aLink"></a>
                             <asp:Repeater ID="rptSubMenu" runat="server">
-                                <HeaderTemplate><ul><li style="list-style:none;display:inline;float:left;margin-top:-1px;margin-right:2px;"><%= ParentWP.TodayIsTitle %><%=DateTime.Now %></li></HeaderTemplate>
+                                <HeaderTemplate><ul><%--<li style="list-style:none;display:inline;float:left;margin-top:-1px;margin-right:2px;"><%= ParentWP.TodayIsTitle %><%=DateTime.Now %></li>--%></HeaderTemplate>
                                 <ItemTemplate>
-                                    <li><a href='<%#Eval("Url") %>'><%#Eval("Title") %></a></li>
+                                    <li><a runat="server" id="aLink"></a></li>
                                 </ItemTemplate>
                                 <FooterTemplate></ul></FooterTemplate>
                             </asp:Repeater>

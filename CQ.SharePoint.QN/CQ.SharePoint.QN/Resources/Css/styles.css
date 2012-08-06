@@ -241,10 +241,10 @@ ul#nav .current a, ul#nav li:hover > a  {
 /* THE SUBMENU LIST HIDDEN BY DEFAULT */
 ul#nav  ul {
   display: none;
-  margin-left:49px;
-  margin-left /*\**/:-119px\9;
-  *margin-left:4px;
-  *margin-left:84px;
+  margin-left:50px;
+  margin-left /*\**/:-159px\9;
+  *margin-left:54px;
+  *margin-left:124px;
 }
 
 /* WHEN THE FIRST LEVEL MENU ITEM IS HOVERED, THE CHILD MENU APPEARS */
@@ -258,6 +258,7 @@ ul#nav li:hover > ul {
 	padding-top: 6px;
 	margin-top: 40px;
 	margin-top: 38px\9;
+	margin-left:49px;
 	 background: url(../images/bg_sub_top_menu.jpg) top left repeat-x;
 	/* border: 1px solid #000;*/
 	/*-moz-border-radius-bottomright: 10px;
@@ -278,7 +279,7 @@ ul#nav .current ul {
 	margin-top: 38px\9;
 	margin-left: 0px;
 	margin-left:-608px\9;
-	*margin-left:-623px;
+	*margin-left:-664px;
 	 background: url(../images/bg_sub_top_menu.jpg) top left repeat-x;
 	/* border: 1px solid #000;*/
 	/*-moz-border-radius-bottomright: 10px;
@@ -289,6 +290,7 @@ ul#nav .current ul {
 
 ul#nav li.current:hover > ul {
 	margin-left:-120px;
+	margin-left:-69px;
 }
 
 ul#nav li:hover > ul li a {
@@ -1253,11 +1255,11 @@ a {
 				background: #000000; 
 				height: 150px; 
 				width: 100%; 
-				opacity: .9; 
+				opacity: .7; 
 				/* For IE 5-7 */
-				filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+				filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
 				/* For IE 8 */
-				-MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+				-MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
  			}
  			.captionfull .boxcaption {
  					top: 272px;
