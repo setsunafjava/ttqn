@@ -1638,40 +1638,40 @@ namespace CQ.SharePoint.QN.Common
             {
                 keyWord = HttpContext.Current.Server.UrlDecode(keyWord);
                 keyWord = SPEncode.HtmlEncode(keyWord);
-                //camlQuery =
-                //string.Format(
-                //    "<Where><Or><Contains><FieldRef Name='{0}' /><Value Type='Text'>{1}</Value></Contains><Or><Contains><FieldRef Name='{2}' /><Value Type='Note'>{1}</Value></Contains><Contains><FieldRef Name='{3}' /><Value Type='Note'>{1}</Value></Contains></Or></Or></Where>",
-                //    "Title", keyWord, FieldsName.NewsRecord.English.ShortContent, FieldsName.NewsRecord.English.PublishingPageContent);
-                camlQuery = string.Format(@"<Where>
-                                              <And>
-                                                 <Eq>
-                                                    <FieldRef Name='Approve' />
-                                                    <Value Type='Lookup'>{0}</Value>
-                                                 </Eq>
-                                                 <And>
-                                                    <Lt>
-                                                       <FieldRef Name='ArticleStartDate' />
-                                                       <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
-                                                    </Lt>
-                                                    <Or>
-                                                       <Contains>
-                                                          <FieldRef Name='Title' />
-                                                          <Value Type='Text'>{2}</Value>
-                                                       </Contains>
-                                                       <Or>
-                                                          <Contains>
-                                                             <FieldRef Name='ShortContent' />
-                                                             <Value Type='Note'>{2}</Value>
-                                                          </Contains>
-                                                          <Contains>
-                                                             <FieldRef Name='PublishingPageContent' />
-                                                             <Value Type='HTML'>{2}</Value>
-                                                          </Contains>
-                                                       </Or>
-                                                    </Or>
-                                                 </And>
-                                              </And>
-                                           </Where>", Constants.Published, DateTime.Now, keyWord);
+                camlQuery =
+                string.Format(
+                    "<Where><Or><Contains><FieldRef Name='{0}' /><Value Type='Text'>{1}</Value></Contains><Or><Contains><FieldRef Name='{2}' /><Value Type='Note'>{1}</Value></Contains><Contains><FieldRef Name='{3}' /><Value Type='Note'>{1}</Value></Contains></Or></Or></Where>",
+                    "Title", keyWord, FieldsName.NewsRecord.English.ShortContent, FieldsName.NewsRecord.English.PublishingPageContent);
+//                camlQuery = string.Format(@"<Where>
+//                                              <And>
+//                                                 <Eq>
+//                                                    <FieldRef Name='Approve' />
+//                                                    <Value Type='Lookup'>{0}</Value>
+//                                                 </Eq>
+//                                                 <And>
+//                                                    <Lt>
+//                                                       <FieldRef Name='ArticleStartDate' />
+//                                                       <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
+//                                                    </Lt>
+//                                                    <Or>
+//                                                       <Contains>
+//                                                          <FieldRef Name='Title' />
+//                                                          <Value Type='Text'>{2}</Value>
+//                                                       </Contains>
+//                                                       <Or>
+//                                                          <Contains>
+//                                                             <FieldRef Name='ShortContent' />
+//                                                             <Value Type='Note'>{2}</Value>
+//                                                          </Contains>
+//                                                          <Contains>
+//                                                             <FieldRef Name='PublishingPageContent' />
+//                                                             <Value Type='HTML'>{2}</Value>
+//                                                          </Contains>
+//                                                       </Or>
+//                                                    </Or>
+//                                                 </And>
+//                                              </And>
+//                                           </Where>", Constants.Published, DateTime.Now, keyWord);
             }
 
             var query = new SPQuery();
