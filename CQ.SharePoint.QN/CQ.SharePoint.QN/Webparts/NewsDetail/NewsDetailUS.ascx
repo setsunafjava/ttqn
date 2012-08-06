@@ -44,6 +44,16 @@
             </tr>
         </table>
     </div>
+    <h2>
+        <asp:Label ID="lblTitle" runat="server"></asp:Label>(<asp:Label ID="lblCreatedDate" runat="server"></asp:Label>)
+    </h2>
+    <br />
+    <p>
+        <b>
+            <asp:Literal ID="ltrShortDescription" runat="server"></asp:Literal>
+        </b>
+    </p>
+    <br />
     <p>
         <asp:Literal ID="ltrNewsContent" runat="server"></asp:Literal>
     </p>

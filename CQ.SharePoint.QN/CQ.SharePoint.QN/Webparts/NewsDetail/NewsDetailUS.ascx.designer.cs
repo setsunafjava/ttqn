@@ -19,5 +19,8 @@ namespace CQ.SharePoint.QN.Webparts
 
         protected global::System.Web.UI.WebControls.Repeater rptAttachment;
         protected global::System.Web.UI.WebControls.Label lblAttachFiles;
+        protected global::System.Web.UI.WebControls.Label lblTitle;
+        protected global::System.Web.UI.WebControls.Literal ltrShortDescription;
+        protected global::System.Web.UI.WebControls.Label lblCreatedDate;
     }
 }

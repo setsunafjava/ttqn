@@ -13,6 +13,7 @@
 	  <File Path="Resources\Javascript\wowslider.js" Url="Javascript/wowslider.js" />
 	  <File Path="Resources\Javascript\slider.js" Url="Javascript/slider.js" />
 	  <File Path="Resources\Javascript\number_slideshow.js" Url="Javascript/number_slideshow.js" />
+	  <File Path="Resources\Javascript\jquery.carouFredSel-5.6.2-packed.js" Url="Javascript/jquery.carouFredSel-5.6.2-packed.js" />
 	  <File Path="Resources\Javascript\player.swf" Url="Flv/player.swf" />
 	  <File Path="Resources\Images\adv1.jpg" Url="Images/adv1.jpg" />
 	  <File Path="Resources\Images\adv2.jpg" Url="Images/adv2.jpg" />

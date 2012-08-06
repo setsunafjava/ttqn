@@ -81,13 +81,7 @@ namespace CQ.SharePoint.QN.Webparts
                         lblShortContent.Text = Convert.ToString(tempTable.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
 
                         Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.NewsRecord.English.CategoryName, ref tempTable);
-                        if (tempTable.Rows.Count > 2)
-                        {
-
-                            tempTable.Rows.RemoveAt(0);
-
-                            rptCaiCachThuTucHanhChinh.DataSource = tempTable;
-                            NewsFirstUrl1 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}&CategoryId={6}",
+                        NewsFirstUrl1 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}&CategoryId={6}",
                                    SPContext.Current.Web.Url,
                                    Constants.PageInWeb.DetailNews,
                                    ListsName.English.NewsCategory,
@@ -95,6 +89,13 @@ namespace CQ.SharePoint.QN.Webparts
                                    Constants.NewsId,
                                    Convert.ToString(tempTable.Rows[0][FieldsName.Id]),
                                    Convert.ToString(tempTable.Rows[0][Constants.CategoryId]));
+                        if (tempTable.Rows.Count > 2)
+                        {
+
+                            tempTable.Rows.RemoveAt(0);
+
+                            rptCaiCachThuTucHanhChinh.DataSource = tempTable;
+                            
 
                             rptCaiCachThuTucHanhChinh.DataBind();
                         }

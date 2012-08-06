@@ -34,10 +34,41 @@ namespace CQ.SharePoint.QN.Webparts
                         ListsName.English.CompanyRecord,
                         Constants.NewsId);
 
-                    string companyListQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq><Lt><FieldRef Name='ArticleStartDate' /><Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value></Lt></And></Where><OrderBy><FieldRef Name='ID' Ascending='False' /></OrderBy>",
-                        FieldsName.CompanyRecord.English.CategoryName,
-                        WebpartParent.CompanyType,
-                        SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+                    //string companyListQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq><Lt><FieldRef Name='ArticleStartDate' /><Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value></Lt></And></Where><OrderBy><FieldRef Name='ID' Ascending='False' /></OrderBy>",
+                    //    FieldsName.CompanyRecord.English.CategoryName,
+                    //    WebpartParent.CompanyType,
+                    //    SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+
+                    string companyListQuery = string.Format(@"<Where>
+                                                                  <And>
+                                                                     <Neq>
+                                                                        <FieldRef Name='Status' />
+                                                                        <Value Type='Boolean'>1</Value>
+                                                                     </Neq>
+                                                                     <And>
+                                                                        <Eq>
+                                                                           <FieldRef Name='Approve' />
+                                                                           <Value Type='Lookup'>{0}</Value>
+                                                                        </Eq>
+                                                                        <And>
+                                                                           <Eq>
+                                                                              <FieldRef Name='CategoryName' />
+                                                                              <Value Type='Lookup'>{1}</Value>
+                                                                           </Eq>
+                                                                           <And>
+                                                                              <Geq>
+                                                                                 <FieldRef Name='_EndDate' />
+                                                                                 <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                                              </Geq>
+                                                                              <Leq>
+                                                                                 <FieldRef Name='ArticleStartDate' />
+                                                                                 <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                                              </Leq>
+                                                                           </And>
+                                                                        </And>
+                                                                     </And>
+                                                                  </And>
+                                                               </Where>", Constants.Published, WebpartParent.CompanyType, SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
 
                     uint newsNumber = 5;
 
