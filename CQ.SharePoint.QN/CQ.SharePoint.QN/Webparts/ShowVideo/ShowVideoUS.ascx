@@ -6,5 +6,6 @@
     <asp:Button ID="btnCreate" runat="server" Text="Tạo page" OnClick="btnCreate_OnClick" />
     <asp:Button ID="btnCopyResource" runat="server" Text="Copy Resource" OnClick="btnCopyResource_OnClick" />
     <asp:Button ID="btnCopyCat" runat="server" Text="Copy News" OnClick="btnCopyCat_OnClick" />
+    <asp:Button ID="btnUpdateDetailPage" runat="server" Text="Update detail page" OnClick="btnUpdateDetailPage_OnClick" />
 </div>
 <div class="cleaner"></div>

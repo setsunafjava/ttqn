@@ -15,5 +15,6 @@ namespace CQ.SharePoint.QN.Webparts
         protected global::System.Web.UI.WebControls.TextBox txtName;
         protected global::System.Web.UI.WebControls.Button btnCopyResource;
         protected global::System.Web.UI.WebControls.Button btnCopyCat;
+        protected global::System.Web.UI.WebControls.Button btnUpdateDetailPage;
     }
 }

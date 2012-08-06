@@ -200,5 +200,26 @@ namespace CQ.SharePoint.QN.Webparts
                 enItem.Update();
             }
         }
+
+        protected void btnUpdateDetailPage_OnClick(object sender, EventArgs e)
+        {
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            PagesStructure.CreateNewDetailPage(web, Constants.PageInWeb.DetailNews);
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                }
+            });
+        }
     }
 }
