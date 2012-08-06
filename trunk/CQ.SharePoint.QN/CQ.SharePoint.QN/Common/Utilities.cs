@@ -610,6 +610,72 @@ namespace CQ.SharePoint.QN.Common
             item.SystemUpdate();
         }
 
+        public static bool CheckMenuType(string listName, int docID, ref string colName, ref string catName, ref string newsName)
+        {
+            bool result = false;
+            var colNameT = string.Empty;
+            var catNameT = string.Empty;
+            var newsNameT = string.Empty;
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            string listUrl = web.Url + "/Lists/" + listName;
+                            var mtItem = web.GetList(listUrl).GetItemById(docID);
+                            if (!string.IsNullOrEmpty(Convert.ToString(mtItem["MenuTypeColumn"])) &&
+                                !string.IsNullOrEmpty(Convert.ToString(mtItem["CatName"])) &&
+                                !string.IsNullOrEmpty(Convert.ToString(mtItem["NewsName"])))
+                            {
+                                result = true;
+                                colNameT = Convert.ToString(mtItem["MenuTypeColumn"]);
+                                catNameT = Convert.ToString(mtItem["CatName"]);
+                                newsNameT = Convert.ToString(mtItem["NewsName"]);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Utilities.LogToUls(ex);
+                        }
+                    }
+
+                }
+            });
+            colName = colNameT;
+            catName = catNameT;
+            newsName = newsNameT;
+            return result;
+        }
+
+        public static SPFieldLookupValue GetMenuType(string listName, int docID, string colName)
+        {
+            SPFieldLookupValue result = null;
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            string listUrl = web.Url + "/Lists/" + listName;
+                            var mtItem = web.GetList(listUrl).GetItemById(docID);
+                            result = new SPFieldLookupValue(Convert.ToString(mtItem[colName]));
+                        }
+                        catch (Exception ex)
+                        {
+                            Utilities.LogToUls(ex);
+                        }
+                    }
+
+                }
+            });
+            return result;
+        }
+
         /// <summary>
         /// Get item from list by userID
         /// </summary>
