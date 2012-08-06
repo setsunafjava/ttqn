@@ -342,8 +342,8 @@ namespace CQ.SharePoint.QN.Webparts
             var mainItem = Utilities.GetNewsRecordItems(mainItemQuery, 3, _listName);
 
             if (mainItem != null && mainItem.Count > 0)
-            {
-                var tempTable = Utilities.GetTableWithCorrectUrl(_listCategoryName, mainItem);
+            {//se phai dung thuat toan get thumnail cua image
+                var tempTable = Utilities.GetTableWithCorrectUrlHotNews(_listCategoryName, mainItem);
                 Utilities.SetSapoTextLength(ref tempTable);
                 RptImagesUrl = ItemUrl;
                 rptImages.DataSource = tempTable;

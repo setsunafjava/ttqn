@@ -65,6 +65,9 @@ namespace CQ.SharePoint.QN.Webparts
                             string categoryName = Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.CategoryName]);
                             ltrNewsContent.Text = Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.PublishingPageContent]);
                             lblCurrentDate.Text = Convert.ToString(newsItem.Rows[0][FieldsName.Modified]);
+                            lblTitle.Text = Convert.ToString(newsItem.Rows[0][FieldsName.Title]);
+                            ltrShortDescription.Text = Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
+                            lblCreatedDate.Text = Convert.ToString(newsItem.Rows[0][FieldsName.Created]);
 
                             attachMentFiles = new DataTable();
                             attachMentFiles.Columns.Add("key", typeof(string));

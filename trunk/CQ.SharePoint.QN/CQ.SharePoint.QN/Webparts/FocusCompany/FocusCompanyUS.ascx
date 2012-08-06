@@ -8,7 +8,7 @@
                 <%= WebpartParent.FocusCompanyTitle %>
             </div>
         </div>
-        <div class="content_F_Right">
+        <%--<div class="content_F_Right">
             <div class="img_logo_company_ex">
                 <asp:Repeater ID="rptFocusCompany" runat="server">
                     <ItemTemplate>
@@ -17,6 +17,37 @@
                     </ItemTemplate>
                 </asp:Repeater>
             </div>
+        </div>--%>
+        <div class="list_carousel responsive" >
+            <ul id="foo5">
+                <asp:Repeater ID="rptFocusCompany" runat="server">
+                    <ItemTemplate>
+                    <li>
+                         <a href='<%#Eval("LinkToItem")%>'><asp:Image style="width: 300px; height:160px;" ID="img" runat="server" ImageUrl='<%#Eval("Thumbnail")%>' /></a>
+                    </li>                       
+                    </ItemTemplate>
+                </asp:Repeater>
+            </ul>
         </div>
     </div>
 </div>
+
+<script type="text/javascript" language="javascript">
+			$(function() {
+				$('#foo5').carouFredSel({
+					width: '100%',
+					responsive: true,
+					scroll: 1,
+					items: {
+						width: 300,
+						height: 160,	//	optionally resize item-height
+						visible: {
+							min: 4,
+							max: 6
+						}
+					},
+					direction:	'up'
+				});
+
+			});
+		</script>

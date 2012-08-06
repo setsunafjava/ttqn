@@ -107,7 +107,7 @@ namespace CQ.SharePoint.QN.Webparts
                             var table1 = Utilities.GetTableWithCorrectUrl(group1Table, true);
                             Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.CategoryName, ref table1);
                             lblHeaderTinhUy.Text = Convert.ToString(table1.Rows[0][FieldsName.Title]);
-                            img1.ImageUrl = Convert.ToString(table1.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
+                            img1.ImageUrl = Utilities.GetThumbnailImagePath(Convert.ToString(table1.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]));
 
                             NewsFirstUrl1 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}&CategoryId={6}",
                                                        SPContext.Current.Web.Url,
@@ -175,7 +175,7 @@ namespace CQ.SharePoint.QN.Webparts
                             var table2 = Utilities.GetTableWithCorrectUrl(group2Table, true);
                             Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.CategoryName, ref table2);
                             lblHeaderHoiDongNhanDan.Text = Convert.ToString(table2.Rows[0][FieldsName.Title]);
-                            Img2.ImageUrl = Convert.ToString(table2.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
+                            Img2.ImageUrl = Utilities.GetThumbnailImagePath(Convert.ToString(table2.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]));
                             NewsFirstUrl2 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}&CategoryId={6}",
                                                        SPContext.Current.Web.Url,
                                                        Constants.PageInWeb.DetailNews,
@@ -240,7 +240,7 @@ namespace CQ.SharePoint.QN.Webparts
                             var table3 = Utilities.GetTableWithCorrectUrl(group3Table, true);
                             Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.CategoryName, ref table3);
                             lblHeaderUyBanNhanDan.Text = Convert.ToString(table3.Rows[0][FieldsName.Title]);
-                            Img3.ImageUrl = Convert.ToString(table3.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
+                            Img3.ImageUrl = Utilities.GetThumbnailImagePath(Convert.ToString(table3.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]));
                             NewsFirstUrl3 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}&CategoryId={6}",
                                                        SPContext.Current.Web.Url,
                                                        Constants.PageInWeb.DetailNews,

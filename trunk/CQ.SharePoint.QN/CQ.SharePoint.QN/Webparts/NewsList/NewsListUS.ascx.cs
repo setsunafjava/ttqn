@@ -159,7 +159,7 @@ namespace CQ.SharePoint.QN.Webparts
                                 {
                                     lblItemNotExist.Text = Constants.ErrorMessage.Msg1;
                                 }
-                            }
+                            }//Search by Date time
                             else
                             {
                                 var day = Convert.ToInt32(Request.QueryString["Day"]);
@@ -174,13 +174,13 @@ namespace CQ.SharePoint.QN.Webparts
                                                                                 <Value Type='Boolean'>1</Value>
                                                                              </Neq>
                                                                              <And>
-                                                                                <Lt>
+                                                                                <Leq>
                                                                                    <FieldRef Name='ArticleStartDate' />
-                                                                                   <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
-                                                                                </Lt>
+                                                                                   <Value IncludeTimeValue='FALSE' Type='DateTime'>{0}</Value>
+                                                                                </Leq>
                                                                                 <Contains>
                                                                                    <FieldRef Name='Approve' />
-                                                                                   <Value Type='LookupMulti'>{1}</Value>
+                                                                                   <Value Type='Lookup'>{1}</Value>
                                                                                 </Contains>
                                                                              </And>
                                                                           </And>
@@ -190,11 +190,12 @@ namespace CQ.SharePoint.QN.Webparts
                                                                        </OrderBy>",
                                                                 SPUtility.CreateISO8601DateTimeFromSystemDateTime(dt),
                                                                 Constants.Published);
+                                //var companyList = Utilities.GetNewsRecords(categoryQuery, listName);
+                                var companyList = Utilities.GetNewsRecordItems(categoryQuery, 100, listName);
 
-                                var companyList = Utilities.GetNewsRecords(categoryQuery, listCategoryName);
-                                if (companyList != null && companyList.Rows.Count > 0)
+                                if (companyList != null && companyList.Count > 0)
                                 {
-                                    var companyListTemp = Utilities.GetTableWithCorrectUrl(companyList);
+                                    var companyListTemp = Utilities.GetTableWithCorrectUrl(listCategoryName, companyList);
 
                                     PagedDataSource pageds = new PagedDataSource
                                     {

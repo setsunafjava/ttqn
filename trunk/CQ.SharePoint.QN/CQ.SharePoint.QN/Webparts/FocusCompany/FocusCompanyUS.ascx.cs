@@ -68,7 +68,7 @@ namespace CQ.SharePoint.QN.Webparts
                 }
                 
                 var focusNewsTable = Utilities.GetNewsRecordItems(focusCompanyQuery, Convert.ToUInt16(numberOfNews), ListsName.English.CompanyRecord);
-                var companyList = Utilities.GetTableWithCorrectUrl(ListsName.English.CompanyCategory, focusNewsTable);
+                var companyList = Utilities.GetTableWithCorrectUrlHotNews(ListsName.English.CompanyCategory, focusNewsTable);
 
                 if (companyList.Rows.Count > 0)
                 {

@@ -71,7 +71,9 @@ namespace CQ.SharePoint.QN.Common
                 for (int i = 0; i < dataTable.Rows.Count; i++)
                 {
                     imagepath = Convert.ToString(dataTable.Rows[i][FieldsName.QuangCaoRaoVat.English.LinkFileName]);
-                    dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = string.Format("{0}/{1}/{2}", web.Url, ListsName.English.QuangCaoRaoVat, imagepath);
+                    var extFile = imagepath.Substring(imagepath.Length - 3, 3);
+                    var fileName = imagepath.Substring(0, imagepath.Length - 4);
+                    dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = string.Format("{0}/{1}/_t/{2}_{3}.jpg", web.Url, ListsName.English.QuangCaoRaoVat, fileName, extFile);
                 }
             }
             return dataTable;
@@ -104,7 +106,9 @@ namespace CQ.SharePoint.QN.Common
 
                     imageIcon = items[i][FieldsName.NewsRecord.English.PublishingPageImage] as ImageFieldValue;
                     if (imageIcon != null)
-                        dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imageIcon.ImageUrl;
+                    {
+                        dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = GetThumbnailImagePath(imageIcon.ImageUrl);
+                    }
                     else
                     {
                         if (imagepath.Length > 2)
@@ -123,6 +127,74 @@ namespace CQ.SharePoint.QN.Common
                 }
             }
             return dataTable;
+        }
+
+        /// <summary>
+        /// Get and return table with correct url
+        /// </summary>
+        /// <param name="categoryListName">categoryListName</param>
+        /// <param name="items"></param>
+        /// <returns></returns>
+        public static DataTable GetTableWithCorrectUrlHotNews(string categoryListName, SPListItemCollection items)
+        {
+            var dataTable = items.GetDataTable();
+
+            if (!dataTable.Columns.Contains(FieldsName.CategoryId))
+            {
+                dataTable.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
+            }
+
+            if (items != null && items.Count > 0)
+            {
+                string imagepath = string.Empty;
+                ImageFieldValue imageIcon;
+                SPFieldUrlValue advLink;
+
+                for (int i = 0; i < items.Count; i++)
+                {
+                    imagepath = Convert.ToString(items[i][FieldsName.NewsRecord.English.ThumbnailImage]);
+
+                    imageIcon = items[i][FieldsName.NewsRecord.English.PublishingPageImage] as ImageFieldValue;
+                    if (imageIcon != null)
+                    {
+                        dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imageIcon.ImageUrl;
+                    }
+                    else
+                    {
+                        if (imagepath.Length > 2)
+                            dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath.Trim().Substring(0, imagepath.Length - 2);
+                        else
+                        {
+                            dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath;
+                        }
+                    }
+                    if (items[i].Fields.ContainsField(FieldsName.NewsRecord.English.LinkAdv))
+                    {
+                        advLink = new SPFieldUrlValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.LinkAdv]));
+                        dataTable.Rows[i][FieldsName.NewsRecord.English.LinkAdv] = advLink.Url;
+                    }
+                    dataTable.Rows[i][FieldsName.CategoryId] = GetCategoryIdByCategoryName(Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.CategoryName]), categoryListName);
+                }
+            }
+            return dataTable;
+        }
+
+        /// <summary>
+        /// Get thumbnail path for image, it's have path like: /NewsImagesList/_t/gap%20SNV_jpg.jpg
+        /// </summary>
+        /// <param name="imagePath"></param>
+        /// <returns></returns>
+        public static string GetThumbnailImagePath(string imagePath)
+        {
+            var thumbnailPath = string.Empty;
+            if (imagePath.Length > 0 && !imagePath.Contains("/_t/"))
+            {
+                var imageArray = imagePath.Split('/');
+                var extentFileName = imageArray[2].Substring(imageArray[2].Length - 3, 3);
+                var filename = imageArray[2].Substring(0, imageArray[2].Length - 4);
+                thumbnailPath = string.Format("/{0}/_t/{1}_{2}.jpg", imageArray[1], filename, extentFileName);
+            }
+            return thumbnailPath;
         }
 
         /// <summary>
@@ -773,7 +845,7 @@ namespace CQ.SharePoint.QN.Common
                         {
                             SPQuery spQuery = new SPQuery
                             {
-                                Query = query
+                                Query = query, DatesInUtc = false
                             };
                             SPList list = Utilities.GetListFromUrl(web, listName);
                             if (list != null)

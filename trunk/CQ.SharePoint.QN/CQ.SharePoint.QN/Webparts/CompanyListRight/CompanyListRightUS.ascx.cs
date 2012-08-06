@@ -51,14 +51,20 @@ namespace CQ.SharePoint.QN.Webparts
                                                                        <Value Type='Boolean'>1</Value>
                                                                     </Neq>
                                                                     <And>
-                                                                       <Lt>
+                                                                       <Leq>
                                                                           <FieldRef Name='ArticleStartDate' />
                                                                           <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
-                                                                       </Lt>
-                                                                       <Contains>
-                                                                          <FieldRef Name='Approve' />
-                                                                          <Value Type='Lookup'>{3}</Value>
-                                                                       </Contains>
+                                                                       </Leq>
+                                                                       <And>
+                                                                          <Contains>
+                                                                             <FieldRef Name='Approve' />
+                                                                             <Value Type='Lookup'>{3}</Value>
+                                                                          </Contains>
+                                                                          <Geq>
+                                                                             <FieldRef Name='_EndDate' />
+                                                                             <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                                          </Geq>
+                                                                       </And>
                                                                     </And>
                                                                  </And>
                                                               </And>
@@ -67,7 +73,8 @@ namespace CQ.SharePoint.QN.Webparts
                                                               <FieldRef Name='ID' Ascending='False' />
                                                            </OrderBy>",
                                                                       FieldsName.CompanyRecord.English.CategoryName,
-                                                                      WebpartParent.CompanyId, SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now), 
+                                                                      WebpartParent.CompanyId, 
+                                                                      SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now), 
                                                                       Constants.Published);
 
                     uint newsNumber = 5;
