@@ -23,7 +23,7 @@
                         </tr>
                     </table>
                 </td>
-                <td align="right">
+                <%--<td align="right">
                     <table>
                         <tr>
                             <td>
@@ -40,7 +40,7 @@
                             </td>
                         </tr>
                     </table>
-                </td>
+                </td>--%>
             </tr>
         </table>
     </div>
