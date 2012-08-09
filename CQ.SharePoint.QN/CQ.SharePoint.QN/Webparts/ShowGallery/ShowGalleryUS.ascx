@@ -37,6 +37,22 @@
         </div>
     </div>
 </div>
+
+<br /><br />
+
+<asp:Repeater ID="rptCat" runat="server" OnItemDataBound="rptCat_OnItemDataBound">
+            <ItemTemplate>
+                <div style="float: left; margin-right: 10px; margin-bottom: 10px;">
+                        <img runat="server" id="imgLink" title='<%#Eval("Title") %>' height='92' />
+                        <a runat="server" id="aLink">
+                            <%#Eval("Title") %></a>
+                    </div>
+            </ItemTemplate>
+            <FooterTemplate>
+                <div style="clear:both"></div>
+            </FooterTemplate>
+        </asp:Repeater>
+
 <style type="text/css">
     .ad-gallery
     {
