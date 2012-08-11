@@ -2,6 +2,10 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ProvinceDocsUS.ascx.cs"
     Inherits="CQ.SharePoint.QN.Webparts.ProvinceDocsUS" %>
 <div class="Notice">
-    <a href="#">
-        <img src="images/VB1.jpg" /></a>
+    <asp:Repeater ID="rptImages" runat="server">
+        <ItemTemplate>
+            <a href='<%#Eval("LinkAdv")%>'>
+                <asp:Image style="width: 305px; height:54px;" ID="img" runat="server" ImageUrl='<%#Eval("Thumbnail")%>' /></a>
+        </ItemTemplate>
+    </asp:Repeater>
 </div>

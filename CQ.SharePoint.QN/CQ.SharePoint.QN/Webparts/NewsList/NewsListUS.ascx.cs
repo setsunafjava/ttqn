@@ -97,7 +97,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                       Constants.Published);
 
                         var companyList = Utilities.GetNewsRecords(newsQuery, listName);
-                        
+
                         if (companyList != null && companyList.Rows.Count > 0)
                         {
                             var companyListTemp = Utilities.GetTableWithCorrectUrl(companyList);
@@ -174,13 +174,13 @@ namespace CQ.SharePoint.QN.Webparts
                                                                                 <Value Type='Boolean'>1</Value>
                                                                              </Neq>
                                                                              <And>
-                                                                                <Leq>
+                                                                                <Eq>
                                                                                    <FieldRef Name='ArticleStartDate' />
-                                                                                   <Value IncludeTimeValue='FALSE' Type='DateTime'>{0}</Value>
-                                                                                </Leq>
+                                                                                   <Value Type='DateTime'>[{0}/{1}/{2} 12:27:17 AM+0Day(s)]</Value>
+                                                                                </Eq>
                                                                                 <Contains>
                                                                                    <FieldRef Name='Approve' />
-                                                                                   <Value Type='Lookup'>{1}</Value>
+                                                                                   <Value Type='Lookup'>{3}</Value>
                                                                                 </Contains>
                                                                              </And>
                                                                           </And>
@@ -188,7 +188,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                        <OrderBy>
                                                                           <FieldRef Name='ArticleStartDate' Ascending='False' />
                                                                        </OrderBy>",
-                                                                SPUtility.CreateISO8601DateTimeFromSystemDateTime(dt),
+                                                                                  month, day, year,
                                                                 Constants.Published);
                                 //var companyList = Utilities.GetNewsRecords(categoryQuery, listName);
                                 var companyList = Utilities.GetNewsRecordItems(categoryQuery, 100, listName);

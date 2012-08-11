@@ -11,6 +11,7 @@ namespace CQ.SharePoint.QN.Webparts
 {
     public partial class ProvinceDocsUS
     {
-
+        protected global::System.Web.UI.WebControls.Repeater rptImages;
+        protected global::System.Web.UI.WebControls.Image img;
     }
 }

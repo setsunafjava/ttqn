@@ -180,6 +180,49 @@ namespace CQ.SharePoint.QN.Common
         }
 
         /// <summary>
+        /// Get and return table with correct url
+        /// </summary>
+        /// <param name="categoryListName">categoryListName</param>
+        /// <param name="items"></param>
+        /// <returns></returns>
+        public static DataTable GetTableWithCorrectUrlHotNews(SPListItemCollection items)
+        {
+            var dataTable = items.GetDataTable();
+
+            if (items != null && items.Count > 0)
+            {
+                string imagepath = string.Empty;
+                ImageFieldValue imageIcon;
+                SPFieldUrlValue advLink;
+
+                for (int i = 0; i < items.Count; i++)
+                {
+                    imageIcon = items[i][FieldsName.NewsRecord.English.PublishingPageImage] as ImageFieldValue;
+                    if (imageIcon != null)
+                    {
+                        dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imageIcon.ImageUrl;
+                    }
+                    else
+                    {
+                        if (imagepath.Length > 2)
+                            dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath.Trim().Substring(0, imagepath.Length - 2);
+                        else
+                        {
+                            dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath;
+                        }
+                    }
+                    if (items[i].Fields.ContainsField(FieldsName.NewsRecord.English.LinkAdv))
+                    {
+                        advLink = new SPFieldUrlValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.LinkAdv]));
+                        dataTable.Rows[i][FieldsName.NewsRecord.English.LinkAdv] = advLink.Url;
+                    }
+                }
+            }
+            return dataTable;
+        }
+
+
+        /// <summary>
         /// Get thumbnail path for image, it's have path like: /NewsImagesList/_t/gap%20SNV_jpg.jpg
         /// </summary>
         /// <param name="imagePath"></param>

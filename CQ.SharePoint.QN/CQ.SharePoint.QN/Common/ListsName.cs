@@ -44,6 +44,7 @@ namespace CQ.SharePoint.QN.Common
             public const string TourInforCategory = "TourInforCategory";
             public const string ApproverActionList = "ApproverActionList";
             public const string Approve = "Approve";
+            public const string BannerAdvRight = "BannerAdvRight";
         }
 
         // Display Name of list
