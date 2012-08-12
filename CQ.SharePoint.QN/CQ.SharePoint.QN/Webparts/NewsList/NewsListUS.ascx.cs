@@ -176,11 +176,11 @@ namespace CQ.SharePoint.QN.Webparts
                                                                              <And>
                                                                                 <Eq>
                                                                                    <FieldRef Name='ArticleStartDate' />
-                                                                                   <Value Type='DateTime'>[{0}/{1}/{2} 12:27:17 AM+0Day(s)]</Value>
+                                                                                   <Value Type='DateTime'>{0}</Value>
                                                                                 </Eq>
                                                                                 <Contains>
                                                                                    <FieldRef Name='Approve' />
-                                                                                   <Value Type='Lookup'>{3}</Value>
+                                                                                   <Value Type='Lookup'>{1}</Value>
                                                                                 </Contains>
                                                                              </And>
                                                                           </And>
@@ -188,7 +188,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                        <OrderBy>
                                                                           <FieldRef Name='ArticleStartDate' Ascending='False' />
                                                                        </OrderBy>",
-                                                                                  month, day, year,
+                                                                                  SPUtility.CreateISO8601DateTimeFromSystemDateTime(dt),
                                                                 Constants.Published);
                                 //var companyList = Utilities.GetNewsRecords(categoryQuery, listName);
                                 var companyList = Utilities.GetNewsRecordItems(categoryQuery, 100, listName);
