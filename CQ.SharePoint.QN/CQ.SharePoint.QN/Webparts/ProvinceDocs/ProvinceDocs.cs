@@ -14,7 +14,7 @@ using Microsoft.SharePoint.WebPartPages;
 namespace CQ.SharePoint.QN.Webparts
 {
     [Guid("93962b62-17e4-4c35-a216-b2369a19b26b")]
-    public class ProvinceDocs : System.Web.UI.WebControls.WebParts.WebPart
+    public class ProvinceDocs : Microsoft.SharePoint.WebPartPages.WebPart
     {
         [WebBrowsable(true)]
         [FriendlyName("Nhập số tin muốn hiển thị")]
@@ -27,11 +27,9 @@ namespace CQ.SharePoint.QN.Webparts
         public ProvinceDocs()
         {
         }
-
         protected override void CreateChildControls()
         {
             base.CreateChildControls();
-
             try
             {
                 ProvinceDocsUS control = (ProvinceDocsUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/ProvinceDocsUS.ascx");
