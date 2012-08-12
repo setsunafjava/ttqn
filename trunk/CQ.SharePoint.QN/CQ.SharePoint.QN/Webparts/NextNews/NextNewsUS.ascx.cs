@@ -26,10 +26,20 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
-                    CategoryUrl = string.Format("{0}/{1}.aspx?CategoryId=", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage);
-                    BindDataToDropDownList(1, 31, ddlDays, Convert.ToString(DateTime.Now.Day));
-                    BindDataToDropDownList(1, 12, ddlMonths, Convert.ToString(DateTime.Now.Month));
-                    BindDataToDropDownList(2000, 2013, ddlYears, Convert.ToString(DateTime.Now.Year));
+                    var chuyende = Request.QueryString["chuyende"];
+                    if(string.IsNullOrEmpty(chuyende))
+                    {
+                        pnlNextNews.Visible = true;
+                        CategoryUrl = string.Format("{0}/{1}.aspx?CategoryId=", SPContext.Current.Web.Url, Constants.PageInWeb.SubPage);
+                        BindDataToDropDownList(1, 31, ddlDays, Convert.ToString(DateTime.Now.Day));
+                        BindDataToDropDownList(1, 12, ddlMonths, Convert.ToString(DateTime.Now.Month));
+                        BindDataToDropDownList(2000, 2020, ddlYears, Convert.ToString(DateTime.Now.Year));
+                    }
+                    else
+                    {
+                        pnlNextNews.Visible = false;
+                    }
+                    
                 }
                 catch (Exception ex)
                 {

@@ -25,67 +25,77 @@ namespace CQ.SharePoint.QN.Webparts
         {
             if (!IsPostBack)
             {
+                pnlOtherNews.Visible = true;
                 try
                 {//cai nay chua lay duoc du lieu khi ma user xem 1 ban ghi => khog get duoc categoryID
                     var newsId = Convert.ToInt32(Request.QueryString[Constants.NewsId]);
                     var cateId = Convert.ToInt32(Request.QueryString[Constants.CategoryId]);
                     var listName = Request.QueryString[Constants.ListName];
                     var listCategoryName = Request.QueryString[Constants.ListCategoryName];
-
-                    NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
-                        SPContext.Current.Web.Url,
-                        Constants.PageInWeb.DetailNews,
-                        listCategoryName,
-                        listName,
-                        Constants.NewsId);
-                    //Bind data to top view
-                    DataTable otherNewsTable = null;
-
-                    if (cateId > 0)
+                    var chuyende = Request.QueryString["chuyende"];
+                    if (string.IsNullOrEmpty(chuyende))
                     {
-                        Utilities.GetNewsByCatID(listName, listCategoryName, Convert.ToString(cateId), ref otherNewsTable);
-                    }
-                    else if (newsId > 0)
-                    {
-                        string categoryId = Utilities.GetCategoryIdByItemId(newsId, listName);
-                        Utilities.GetNewsByCatID(listName, listCategoryName, categoryId, ref otherNewsTable);
-                    }
+                        NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
+                                                SPContext.Current.Web.Url,
+                                                Constants.PageInWeb.DetailNews,
+                                                listCategoryName,
+                                                listName,
+                                                Constants.NewsId);
+                        //Bind data to top view
+                        DataTable otherNewsTable = null;
 
-                    if (otherNewsTable != null && otherNewsTable.Rows.Count > 0)
-                    {
-                        DataTable overTenItems = null;
-                        if (otherNewsTable.Rows.Count > 10)
+                        if (cateId > 0)
                         {
-                            overTenItems = otherNewsTable.Clone();
-                            if (otherNewsTable.Rows.Count > 15)
+                            Utilities.GetNewsByCatID(listName, listCategoryName, Convert.ToString(cateId),
+                                                     ref otherNewsTable);
+                        }
+                        else if (newsId > 0)
+                        {
+                            string categoryId = Utilities.GetCategoryIdByItemId(newsId, listName);
+                            Utilities.GetNewsByCatID(listName, listCategoryName, categoryId, ref otherNewsTable);
+                        }
+
+                        if (otherNewsTable != null && otherNewsTable.Rows.Count > 0)
+                        {
+                            DataTable overTenItems = null;
+                            if (otherNewsTable.Rows.Count > 10)
                             {
-                                for (int i = 10; i < 15; i++)
+                                overTenItems = otherNewsTable.Clone();
+                                if (otherNewsTable.Rows.Count > 15)
                                 {
-                                    overTenItems.ImportRow(otherNewsTable.Rows[i]);
+                                    for (int i = 10; i < 15; i++)
+                                    {
+                                        overTenItems.ImportRow(otherNewsTable.Rows[i]);
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 10; i < otherNewsTable.Rows.Count; i++)
+                                    {
+                                        overTenItems.ImportRow(otherNewsTable.Rows[i]);
+                                    }
                                 }
                             }
-                            else
+                            else if (GetCurrentPageName().Contains(Constants.PageInWeb.DetailNews))
                             {
-                                for (int i = 10; i < otherNewsTable.Rows.Count; i++)
-                                {
-                                    overTenItems.ImportRow(otherNewsTable.Rows[i]);
-                                }
+                                overTenItems = otherNewsTable;
+                            }
+                            if (overTenItems != null && overTenItems.Rows.Count > 0)
+                            {
+                                Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName,
+                                                               ref overTenItems);
+                                rptOtherNews.DataSource = overTenItems;
+                                rptOtherNews.DataBind();
                             }
                         }
-                        else if (GetCurrentPageName().Contains(Constants.PageInWeb.DetailNews))
+                        else
                         {
-                            overTenItems = otherNewsTable;
-                        }
-                        if (overTenItems != null && overTenItems.Rows.Count > 0)
-                        {
-                            Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref overTenItems);
-                            rptOtherNews.DataSource = overTenItems;
-                            rptOtherNews.DataBind();
+                            lblItemsNotFound.Text = "Không tìm thấy thêm bài viết nào thuộc mục này!";
                         }
                     }
-                    else
+                    else //if chuyende != null
                     {
-                        lblItemsNotFound.Text = "Không tìm thấy thêm bài viết nào thuộc mục này!";
+                        pnlOtherNews.Visible = false;
                     }
                 }
                 catch (Exception ex)

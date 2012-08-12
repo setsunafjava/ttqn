@@ -22,5 +22,8 @@ namespace CQ.SharePoint.QN.Webparts
         protected global::System.Web.UI.WebControls.Label lblTitle;
         protected global::System.Web.UI.WebControls.Literal ltrShortDescription;
         protected global::System.Web.UI.WebControls.Label lblCreatedDate;
+        protected global::System.Web.UI.WebControls.Panel pnlNewsDetail;
+        protected global::System.Web.UI.WebControls.Panel pnlChuyenDe;
+        protected global::System.Web.UI.WebControls.Repeater rptChuyenDe;
     }
 }
