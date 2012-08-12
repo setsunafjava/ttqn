@@ -14,5 +14,6 @@ namespace CQ.SharePoint.QN.Webparts
         protected global::System.Web.UI.WebControls.Repeater rptOtherNews;
         protected global::System.Web.UI.WebControls.Label lblItemsNotFound;
         protected global::System.Web.UI.WebControls.Label OtherNews;
+        protected global::System.Web.UI.WebControls.Panel pnlOtherNews;
     }
 }

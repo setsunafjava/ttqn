@@ -7,74 +7,68 @@
             <asp:Label ID="lblBreadCrum" runat="server"></asp:Label>
         </div>
     </div>
-    <div>
-        <table width="100%">
-            <tr>
-                <td align="left">
-                    <table>
-                        <tr>
-                            <td>
-                                <a>
-                                    <img src="images/icon_date.jpg" /></a>
-                            </td>
-                            <td>
-                                <asp:Label ID="lblCurrentDate" runat="server" />
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <%--<td align="right">
-                    <table>
-                        <tr>
-                            <td>
-                                <a href="#">
-                                    <img src="images/icon_adobereader.jpg" /></a>
-                            </td>
-                            <td>
-                                <a href="#">
-                                    <img src="images/icon_print.jpg" /></a>
-                            </td>
-                            <td>
-                                <a href="#">
-                                    <img src="images/ico_email.jpg" /></a>
-                            </td>
-                        </tr>
-                    </table>
-                </td>--%>
-            </tr>
-        </table>
-    </div>
-    <h2>
-        <asp:Label ID="lblTitle" runat="server"></asp:Label>(<asp:Label ID="lblCreatedDate" runat="server"></asp:Label>)
-    </h2>
-    <br />
-    <p>
-        <b>
-            <asp:Literal ID="ltrShortDescription" runat="server"></asp:Literal>
-        </b>
-    </p>
-    <br />
-    <p>
-        <asp:Literal ID="ltrNewsContent" runat="server"></asp:Literal>
-    </p>
-    <br />
-    <asp:Panel ID="pnlAttachment" runat="server">
-        <asp:Label ID="lblAttachFiles" Text="Tài liệu kèm theo:" runat="server"></asp:Label>
-        <asp:Repeater ID="rptAttachment" runat="server">
-            <HeaderTemplate>
-                <table>
-            </HeaderTemplate>
-            <ItemTemplate>
+    <asp:Panel ID="pnlNewsDetail" runat="server">
+        <div>
+            <table width="100%">
                 <tr>
-                    <td>
-                        <asp:HyperLink ID="hplAttachment" runat="server" NavigateUrl='<%#Eval("value") %>'
-                            Text='<%#Eval("key") %>'></asp:HyperLink>
+                    <td align="left">
+                        <table>
+                            <tr>
+                                <td>
+                                    <a>
+                                        <img src="images/icon_date.jpg" /></a>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblCurrentDate" runat="server" />
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
-            </ItemTemplate>
-            <FooterTemplate>
-                </table>
-            </FooterTemplate>
-        </asp:Repeater>
+            </table>
+        </div>
+        <h2>
+            <asp:Label ID="lblTitle" runat="server"></asp:Label><asp:Label ID="lblCreatedDate"
+                runat="server"></asp:Label>
+        </h2>
+        <br />
+        <p>
+            <b>
+                <asp:Literal ID="ltrShortDescription" runat="server"></asp:Literal>
+            </b>
+        </p>
+        <br />
+        <p>
+            <asp:Literal ID="ltrNewsContent" runat="server"></asp:Literal>
+        </p>
+        <br />
+        <asp:Panel ID="pnlAttachment" runat="server">
+            <asp:Label ID="lblAttachFiles" Text="Tài liệu kèm theo:" runat="server"></asp:Label>
+            <asp:Repeater ID="rptAttachment" runat="server">
+                <HeaderTemplate>
+                    <table>
+                </HeaderTemplate>
+                <ItemTemplate>
+                    <tr>
+                        <td>
+                            <asp:HyperLink ID="hplAttachment" runat="server" NavigateUrl='<%#Eval("value") %>'
+                                Text='<%#Eval("key") %>'></asp:HyperLink>
+                        </td>
+                    </tr>
+                </ItemTemplate>
+                <FooterTemplate>
+                    </table>
+                </FooterTemplate>
+            </asp:Repeater>
+        </asp:Panel>
+    </asp:Panel>
+    <asp:Panel ID="pnlChuyenDe" runat="server">
+        <div class="inner_list_company_adv">
+                <asp:Repeater ID="rptChuyenDe" runat="server">
+                    <HeaderTemplate><ul></HeaderTemplate>
+                    <ItemTemplate><li><a href='<%= NewsUrl%><%#Eval("ID") %>'><%#Eval("Title") %></a></li></ItemTemplate>
+                    <FooterTemplate></ul></FooterTemplate>
+                </asp:Repeater>
+            </div>
     </asp:Panel>
 </div>

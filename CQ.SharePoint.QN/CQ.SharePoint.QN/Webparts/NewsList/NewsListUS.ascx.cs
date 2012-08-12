@@ -78,10 +78,10 @@ namespace CQ.SharePoint.QN.Webparts
                                                                            <Value Type='Boolean'>1</Value>
                                                                         </Neq>
                                                                         <And>
-                                                                           <Eq>
+                                                                           <Leq>
                                                                               <FieldRef Name='ArticleStartDate' />
                                                                               <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
-                                                                           </Eq>
+                                                                           </Leq>
                                                                            <Contains>
                                                                               <FieldRef Name='Approve' />
                                                                               <Value Type='Lookup'>{1}</Value>

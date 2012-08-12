@@ -19,5 +19,6 @@ namespace CQ.SharePoint.QN.Webparts
         protected global::System.Web.UI.WebControls.Label lblDay;
         protected global::System.Web.UI.WebControls.Label lblMonth;
         protected global::System.Web.UI.WebControls.Label lblYear;
+        protected global::System.Web.UI.WebControls.Panel pnlNextNews;
     }
 }
