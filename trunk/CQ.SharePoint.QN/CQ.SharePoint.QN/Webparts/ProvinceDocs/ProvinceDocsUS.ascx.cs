@@ -54,23 +54,6 @@ namespace CQ.SharePoint.QN.Webparts
                 var provinceTable = Utilities.GetNewsRecordItems(query, numberOfNews, ListsName.English.BannerAdvRight);
                 var correctTable = Utilities.GetTableWithCorrectUrlHotNews(provinceTable);
 
-                //DataTable newTable = null;
-                //newTable = correctTable.Clone();
-                //if (correctTable.Rows.Count > numberOfNews)
-                //{
-                //    for (int i = 0; i < numberOfNews; i++)
-                //    {
-                //        newTable.ImportRow(correctTable.Rows[i]);
-                //    }
-                //}
-                //else
-                //{
-                //    for (int i = 0; i < correctTable.Rows.Count; i++)
-                //    {
-                //        newTable.ImportRow(correctTable.Rows[i]);
-                //    }
-                //}
-
                 if (correctTable.Rows.Count > 0)
                 {
                     rptImages.DataSource = correctTable;

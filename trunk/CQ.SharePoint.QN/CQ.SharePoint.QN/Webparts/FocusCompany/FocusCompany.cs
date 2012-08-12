@@ -36,7 +36,6 @@ namespace CQ.SharePoint.QN.Webparts
         public FocusCompany()
         {
         }
-
         protected override void CreateChildControls()
         {
             base.CreateChildControls();
