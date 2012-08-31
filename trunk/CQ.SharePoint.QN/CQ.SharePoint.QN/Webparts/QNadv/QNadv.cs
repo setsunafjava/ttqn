@@ -29,6 +29,15 @@ namespace CQ.SharePoint.QN.Webparts
             set;
         }
 
+        [WebBrowsable(true)]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        public string QCType
+        {
+            get;
+            set;
+        }
+
         protected override void CreateChildControls()
         {
             try
