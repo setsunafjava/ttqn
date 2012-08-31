@@ -904,6 +904,44 @@ namespace CQ.SharePoint.QN.Common
             return result;
         }
 
+        public static SPListItem GetQuangCao(string listName, string catID, string catType)
+        {
+            SPListItem result = null;
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            string listUrl = web.Url + "/Lists/" + listName;
+                            var camlquery = string.Format(@"<Where>
+                                                          <Eq>
+                                                            <FieldRef Name='{0}' LookupId='TRUE' />
+                                                            <Value Type='LookupMulti'>{1}</Value>
+                                                          </Eq>
+                                                       </Where>", catType, catID);
+                            var query = new SPQuery();
+                            query.Query = camlquery;
+                            query.RowLimit = 1;
+                            var items = web.GetList(listUrl).GetItems(query);
+                            if (items != null && items.Count > 0)
+                            {
+                                result = items[0];
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Utilities.LogToUls(ex);
+                        }
+                    }
+
+                }
+            });
+            return result;
+        }
+
         public static DataTable GetNewsRecords(string query, uint newsNumber, string listName)
         {
             DataTable table = new DataTable();
