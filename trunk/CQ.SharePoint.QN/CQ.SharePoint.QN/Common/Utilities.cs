@@ -135,6 +135,56 @@ namespace CQ.SharePoint.QN.Common
         /// <param name="categoryListName">categoryListName</param>
         /// <param name="items"></param>
         /// <returns></returns>
+        public static DataTable GetTableWithCorrectUrl(string categoryListName, SPListItemCollection items, bool thumbnail)
+        {
+            var dataTable = items.GetDataTable();
+
+            if (!dataTable.Columns.Contains(FieldsName.CategoryId))
+            {
+                dataTable.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
+            }
+
+            if (items != null && items.Count > 0)
+            {
+                string imagepath = string.Empty;
+                ImageFieldValue imageIcon;
+                SPFieldUrlValue advLink;
+
+                for (int i = 0; i < items.Count; i++)
+                {
+                    imagepath = Convert.ToString(items[i][FieldsName.NewsRecord.English.ThumbnailImage]);
+
+                    imageIcon = items[i][FieldsName.NewsRecord.English.PublishingPageImage] as ImageFieldValue;
+                    if (imageIcon != null && thumbnail)
+                    {
+                        dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imageIcon.ImageUrl;
+                    }
+                    else
+                    {
+                        if (imagepath.Length > 2)
+                            dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath.Trim().Substring(0, imagepath.Length - 2);
+                        else
+                        {
+                            dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath;
+                        }
+                    }
+                    if (items[i].Fields.ContainsField(FieldsName.NewsRecord.English.LinkAdv))
+                    {
+                        advLink = new SPFieldUrlValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.LinkAdv]));
+                        dataTable.Rows[i][FieldsName.NewsRecord.English.LinkAdv] = advLink.Url;
+                    }
+                    dataTable.Rows[i][FieldsName.CategoryId] = GetCategoryIdByCategoryName(Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.CategoryName]), categoryListName);
+                }
+            }
+            return dataTable;
+        }
+
+        /// <summary>
+        /// Get and return table with correct url
+        /// </summary>
+        /// <param name="categoryListName">categoryListName</param>
+        /// <param name="items"></param>
+        /// <returns></returns>
         public static DataTable GetTableWithCorrectUrlHotNews(string categoryListName, SPListItemCollection items)
         {
             var dataTable = items.GetDataTable();
@@ -1396,10 +1446,10 @@ namespace CQ.SharePoint.QN.Common
                                                            <Value Type='Boolean'>1</Value>
                                                         </Neq>
                                                         <And>
-                                                           <Lt>
+                                                           <Leq>
                                                               <FieldRef Name='ArticleStartDate' />
                                                               <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
-                                                           </Lt>
+                                                           </Leq>
                                                            <Contains>
                                                               <FieldRef Name='Approve' />
                                                               <Value Type='Lookup'>{3}</Value>
@@ -1410,6 +1460,42 @@ namespace CQ.SharePoint.QN.Common
                                                </Where>", FieldsName.NewsRecord.English.CategoryName,
                                                 catID, SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
                                                 Constants.Published);
+            if(ListsName.English.CompanyRecord.Equals(listName))
+            {
+                camlQuery = string.Format(@"<Where>
+                                                  <And>
+                                                     <Eq>
+                                                        <FieldRef Name='{0}' LookupId='TRUE' />
+                                                        <Value Type='Lookup'>{1}</Value>
+                                                     </Eq>
+                                                     <And>
+                                                        <Neq>
+                                                           <FieldRef Name='Status' />
+                                                           <Value Type='Boolean'>1</Value>
+                                                        </Neq>
+                                                        <And>
+                                                           <Leq>
+                                                              <FieldRef Name='ArticleStartDate' />
+                                                              <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                           </Leq>
+                                                           <And>
+                                                              <Contains>
+                                                                 <FieldRef Name='Approve' />
+                                                                 <Value Type='Lookup'>{3}</Value>
+                                                              </Contains>
+                                                              <Geq>
+                                                                 <FieldRef Name='_EndDate' />
+                                                                 <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                              </Geq>
+                                                           </And>
+                                                        </And>
+                                                     </And>
+                                                  </And>
+                                               </Where>", FieldsName.NewsRecord.English.CategoryName,
+                                                catID, SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+                                                Constants.Published);
+            }
+
             var query = new SPQuery();
             query.Query = camlQuery;
             DataTable table = null;
