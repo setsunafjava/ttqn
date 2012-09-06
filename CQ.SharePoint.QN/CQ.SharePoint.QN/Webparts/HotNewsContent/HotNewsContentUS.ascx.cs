@@ -148,7 +148,7 @@ namespace CQ.SharePoint.QN.Webparts
                         var latestNewsTable = Utilities.GetNewsRecordItems(latestNewsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
                         if (latestNewsTable != null && latestNewsTable.Count > 0)
                         {
-                            var latestNewsTableTemp = Utilities.GetTableWithCorrectUrl(listCategoryName, latestNewsTable);
+                            var latestNewsTableTemp = Utilities.GetTableWithCorrectUrl(listCategoryName, latestNewsTable, true);
                             Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref latestNewsTableTemp);
                             RptLatestNewsUrl = ItemUrl;
                             rptLatestNews.DataSource = latestNewsTableTemp;
@@ -165,7 +165,7 @@ namespace CQ.SharePoint.QN.Webparts
                         if (topViewsTable != null && topViewsTable.Count > 0)
                         {
                             RptTopViewsUrl = ItemUrl;
-                            rptTopViews.DataSource = Utilities.GetTableWithCorrectUrl(listCategoryName, topViewsTable);
+                            rptTopViews.DataSource = Utilities.GetTableWithCorrectUrl(listCategoryName, topViewsTable, true);
                             rptTopViews.DataBind();
                         }
 
@@ -357,7 +357,7 @@ namespace CQ.SharePoint.QN.Webparts
 
                 if (mainItem != null && mainItem.Count > 0)
                 {
-                    var tempTable = Utilities.GetTableWithCorrectUrl(_listCategoryName, mainItem);
+                    var tempTable = Utilities.GetTableWithCorrectUrl(_listCategoryName, mainItem, true);
                     Utilities.SetSapoTextLength(ref tempTable);
                     RptImagesUrl = ItemUrl;
                     rptImages.DataSource = tempTable;
@@ -369,7 +369,7 @@ namespace CQ.SharePoint.QN.Webparts
                     mainItem = Utilities.GetNewsRecordItems(mainItemQuery, 3, ListsName.English.NewsRecord);
                     if (mainItem != null && mainItem.Count > 0)
                     {
-                        var tempTable = Utilities.GetTableWithCorrectUrl(ListsName.English.NewsCategory, mainItem);
+                        var tempTable = Utilities.GetTableWithCorrectUrl(ListsName.English.NewsCategory, mainItem, true);
                         Utilities.SetSapoTextLength(ref tempTable);
                         RptImagesUrl = NewsUrl;
                         rptImages.DataSource = tempTable;
