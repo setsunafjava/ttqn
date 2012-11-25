@@ -81,7 +81,7 @@
                     </HeaderTemplate>
                     <ItemTemplate>
                         <li><a href='<%= RptLatestNewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
-                            <%#Eval("Title")%></a> <span style="color: #003399">(<%=WebPartParent.Day %><%#Eval("Created")%>)</span>
+                            <%#Eval("Title")%></a> <span style="color: #003399">(<%=WebPartParent.Day %><%#Eval("ArticleStartDateTemp")%>)</span>
                         </li>
                     </ItemTemplate>
                     <FooterTemplate>
@@ -96,7 +96,7 @@
                     </HeaderTemplate>
                     <ItemTemplate>
                         <li><a href='<%= RptTopViewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
-                            <%#Eval("Title")%></a><span style="color: #003399">(<%=WebPartParent.Day %><%#Eval("Created")%>)</span></li>
+                            <%#Eval("Title")%></a><span style="color: #003399">(<%=WebPartParent.Day %><%#Eval("ArticleStartDateTemp")%>)</span></li>
                     </ItemTemplate>
                     <FooterTemplate>
                         </ul>
