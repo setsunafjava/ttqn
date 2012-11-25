@@ -12,7 +12,7 @@ namespace CQ.SharePoint.QN.Webparts
     public partial class NewsDetailUS
     {
         protected global::System.Web.UI.WebControls.Literal ltrNewsContent;
-        protected global::System.Web.UI.WebControls.Label lblCurrentDate;
+
         protected global::System.Web.UI.WebControls.Label lblBreadCrum;
 
         protected global::System.Web.UI.WebControls.Panel pnlAttachment;
@@ -25,5 +25,8 @@ namespace CQ.SharePoint.QN.Webparts
         protected global::System.Web.UI.WebControls.Panel pnlNewsDetail;
         protected global::System.Web.UI.WebControls.Panel pnlChuyenDe;
         protected global::System.Web.UI.WebControls.Repeater rptChuyenDe;
+
+        protected global::System.Web.UI.WebControls.Label lblAuthor;
+        protected global::System.Web.UI.WebControls.Label lblSource;
     }
 }

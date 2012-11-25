@@ -19,7 +19,7 @@
                                         <img src="images/icon_date.jpg" /></a>
                                 </td>
                                 <td>
-                                    <asp:Label ID="lblCurrentDate" runat="server" />
+                                    <asp:Label ID="lblCreatedDate" runat="server" />
                                 </td>
                             </tr>
                         </table>
@@ -28,8 +28,8 @@
             </table>
         </div>
         <h2>
-            <asp:Label ID="lblTitle" runat="server"></asp:Label><asp:Label ID="lblCreatedDate"
-                runat="server"></asp:Label>
+            <asp:Label ID="lblTitle" runat="server"></asp:Label>
+            <%--<asp:Label ID="lblCreatedDate" runat="server"></asp:Label>--%>
         </h2>
         <br />
         <p>
@@ -39,7 +39,19 @@
         </p>
         <br />
         <p>
-            <asp:Literal ID="ltrNewsContent" runat="server"></asp:Literal>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <asp:Literal ID="ltrNewsContent" runat="server"></asp:Literal>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" style=" font-weight:bold">
+                        <asp:Label ID="lblAuthor" runat="server"></asp:Label><br />
+                        <asp:Label ID="lblSource" runat="server"></asp:Label>
+                    </td>
+                </tr>
+            </table>
         </p>
         <br />
         <asp:Panel ID="pnlAttachment" runat="server">
@@ -64,11 +76,16 @@
     </asp:Panel>
     <asp:Panel ID="pnlChuyenDe" runat="server">
         <div class="inner_list_company_adv">
-                <asp:Repeater ID="rptChuyenDe" runat="server">
-                    <HeaderTemplate><ul></HeaderTemplate>
-                    <ItemTemplate><li><a href='<%= NewsUrl%><%#Eval("ID") %>'><%#Eval("Title") %></a></li></ItemTemplate>
-                    <FooterTemplate></ul></FooterTemplate>
-                </asp:Repeater>
-            </div>
+            <asp:Repeater ID="rptChuyenDe" runat="server">
+                <HeaderTemplate>
+                    <ul>
+                </HeaderTemplate>
+                <ItemTemplate>
+                    <li><a href='<%= NewsUrl%><%#Eval("ID") %>'>
+                        <%#Eval("Title") %></a></li></ItemTemplate>
+                <FooterTemplate>
+                    </ul></FooterTemplate>
+            </asp:Repeater>
+        </div>
     </asp:Panel>
 </div>

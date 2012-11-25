@@ -73,14 +73,21 @@ namespace CQ.SharePoint.QN.Webparts
                             {
                                 string categoryName =
                                     Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.CategoryName]);
-                                ltrNewsContent.Text =
-                                    Convert.ToString(
-                                        newsItem.Rows[0][FieldsName.NewsRecord.English.PublishingPageContent]);
-                                lblCurrentDate.Text = Convert.ToString(newsItem.Rows[0][FieldsName.Modified]);
+                                ltrNewsContent.Text =Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.PublishingPageContent]);
+
+                                lblAuthor.Text = Convert.ToString(newsItem.Rows[0]["ArticleByLine"]);
+                                string source = Convert.ToString(newsItem.Rows[0]["Source"]);
+                                if(!string.IsNullOrEmpty(source))
+                                {
+                                    lblSource.Text = string.Format("(Nguồn: {0})", source);
+                                }
+                                
+
+                                //lblCurrentDate.Text = Convert.ToString(newsItem.Rows[0][FieldsName.Modified]);
                                 lblTitle.Text = Convert.ToString(newsItem.Rows[0][FieldsName.Title]);
                                 ltrShortDescription.Text =
                                     Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
-                                lblCreatedDate.Text = string.Format("({0})", Convert.ToString(newsItem.Rows[0][FieldsName.Created]));
+                                lblCreatedDate.Text = string.Format("{0}", Convert.ToString(newsItem.Rows[0][FieldsName.Created]));
 
                                 attachMentFiles = new DataTable();
                                 attachMentFiles.Columns.Add("key", typeof(string));
