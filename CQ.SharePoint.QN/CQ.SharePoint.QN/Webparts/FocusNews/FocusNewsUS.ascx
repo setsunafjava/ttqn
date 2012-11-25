@@ -17,7 +17,7 @@
                         <div class="name_news">
                             <a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
                                 <%#Eval("Title")%></a> <span style="color: #003399">(<asp:Label ID="lblDate" runat="server"></asp:Label>
-                                    <%#Eval("ArticleStartDate")%>)</span>
+                                    <%#Eval("ArticleStartDateTemp")%>)</span>
                         </div>
                         <div class="cleaner">
                         </div>
