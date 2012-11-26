@@ -24,7 +24,7 @@
         <div class="inner_content_subpage">
             <div class="cont_artical">
                 <div class="name_artical">
-                    <a href='<%= NewsUrl%><%#Eval("ID") %>'>
+                    <a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
                         <%#Eval("Title")%></a> <span class="time_update">(ngày
                             <%#Eval("ArticleStartDate")%>)</span></div>
                 <div class="interpre">
