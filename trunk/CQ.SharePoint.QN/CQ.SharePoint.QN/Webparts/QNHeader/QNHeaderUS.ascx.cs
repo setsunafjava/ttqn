@@ -17,7 +17,7 @@ namespace CQ.SharePoint.QN.Webparts
     {
         protected string CurrentStyle = string.Empty;
         protected string CategoryId = string.Empty;
-        protected string LangUrl = "en";
+        protected string LangUrl = "english";
         protected string LangTitle = "English";
         protected string LangImg = "en-lang.png";
         protected string HomeUrl = string.Empty;
@@ -29,12 +29,12 @@ namespace CQ.SharePoint.QN.Webparts
         /// <param name="e">EventArgs e</param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (SPContext.Current.Web.Url.Contains("/en"))
+            if (SPContext.Current.Web.Url.Contains("/english"))
             {
                 LangUrl = "";
                 LangImg = "vn-lang.png";
                 LangTitle = "VietNam";
-                HomeUrl = "en";
+                HomeUrl = "english";
             }
             CategoryId = Convert.ToString(Request.QueryString["CategoryId"]);
             var currentUrl = HttpContext.Current.Request.Url.AbsolutePath;
