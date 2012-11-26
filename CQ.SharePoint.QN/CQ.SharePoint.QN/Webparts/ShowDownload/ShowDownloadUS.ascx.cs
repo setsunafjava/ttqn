@@ -106,6 +106,8 @@ namespace CQ.SharePoint.QN.Webparts
                        ListsName.English.NewsRecord,
                        Constants.NewsId);
                     DataTable companyList = Utilities.SearchNews(keyWord);
+                    var companyListTemp = Utilities.GetTableWithCorrectUrl(companyList);
+                    Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.CategoryName, ref companyListTemp);
                     string imagepath;
                     if (companyList.Rows.Count > 0)
                     {
@@ -118,7 +120,7 @@ namespace CQ.SharePoint.QN.Webparts
 
                         PagedDataSource pageds = new PagedDataSource
                         {
-                            DataSource = companyList.DefaultView,
+                            DataSource = companyListTemp.DefaultView,
                             AllowPaging = true,
                             PageSize = 10
                         };
