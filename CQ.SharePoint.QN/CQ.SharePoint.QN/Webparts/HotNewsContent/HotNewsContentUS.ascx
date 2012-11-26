@@ -80,7 +80,7 @@
                         <ul>
                     </HeaderTemplate>
                     <ItemTemplate>
-                        <li><a href='<%= RptLatestNewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
+                        <li style=" text-align:justify"><a href='<%= RptLatestNewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
                             <%#Eval("Title")%></a> <span style="color: #003399">(<%=WebPartParent.Day %><%#Eval("ArticleStartDateTemp")%>)</span>
                         </li>
                     </ItemTemplate>
