@@ -98,7 +98,13 @@ namespace CQ.SharePoint.QN.Webparts
                     //var categoryId = Request.QueryString["CategoryId"];
                     var keyWord = Request.QueryString["KeyWord"];
 
-                    NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId);
+                    //NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId);
+                    NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
+                       SPContext.Current.Web.Url,
+                       Constants.PageInWeb.DetailNews,
+                       ListsName.English.NewsCategory,
+                       ListsName.English.NewsRecord,
+                       Constants.NewsId);
                     DataTable companyList = Utilities.SearchNews(keyWord);
                     string imagepath;
                     if (companyList.Rows.Count > 0)
