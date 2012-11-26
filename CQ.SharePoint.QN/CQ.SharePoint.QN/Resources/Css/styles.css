@@ -751,6 +751,7 @@ ul#nav .current ul li a:hover {
 .inner_list_company_new ul li{
 	background: url(../images/icon_line_arrow_red.jpg) left 3px no-repeat;
 	padding-left: 10px;
+	line-height: 20px;
 }
 .inner_list_company_adv ul li{
 	background: url(../images/icon_line_arrow_inround.jpg) left 11px no-repeat;
