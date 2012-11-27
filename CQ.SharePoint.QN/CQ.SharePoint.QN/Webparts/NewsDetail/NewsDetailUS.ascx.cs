@@ -71,23 +71,23 @@ namespace CQ.SharePoint.QN.Webparts
                             var newsItem = Utilities.GetNewsRecords(newsQuery, 1, listName);
                             if (newsItem != null && newsItem.Rows.Count > 0)
                             {
-                                string categoryName =
-                                    Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.CategoryName]);
-                                ltrNewsContent.Text =Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.PublishingPageContent]);
+                                string categoryName = Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.CategoryName]);
+                                ltrNewsContent.Text = Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.PublishingPageContent]);
 
                                 lblAuthor.Text = Convert.ToString(newsItem.Rows[0]["ArticleByLine"]);
                                 string source = Convert.ToString(newsItem.Rows[0]["Source"]);
-                                if(!string.IsNullOrEmpty(source))
+                                if (!string.IsNullOrEmpty(source))
                                 {
                                     lblSource.Text = string.Format("(Nguồn: {0})", source);
                                 }
-                                
+
 
                                 //lblCurrentDate.Text = Convert.ToString(newsItem.Rows[0][FieldsName.Modified]);
                                 lblTitle.Text = Convert.ToString(newsItem.Rows[0][FieldsName.Title]);
-                                ltrShortDescription.Text =
-                                    Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
-                                lblCreatedDate.Text = string.Format("{0}", Convert.ToString(newsItem.Rows[0][FieldsName.Created]));
+                                ltrShortDescription.Text = Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
+                                DateTime dateTime = Convert.ToDateTime(newsItem.Rows[0][FieldsName.Created]);
+                                //lblCreatedDate.Text = string.Format("{0}", Convert.ToString(newsItem.Rows[0][FieldsName.Created]));
+                                lblCreatedDate.Text = string.Format("{0}/{1}/{2} {3}:{4}", dateTime.Day, dateTime.Month, dateTime.Year, dateTime.Hour, dateTime.Minute);
 
                                 attachMentFiles = new DataTable();
                                 attachMentFiles.Columns.Add("key", typeof(string));
@@ -211,21 +211,19 @@ namespace CQ.SharePoint.QN.Webparts
                                 //end update
 
                                 //Create breadcrumb
-                                newsQuery =
-                                    string.Format(
-                                        "<Where><Eq><FieldRef Name='Title' /><Value Type='Text'>{0}</Value></Eq></Where>",
-                                        categoryName);
-                                var categoryItem = Utilities.GetNewsRecords(newsQuery, 1, listCategoryName);
-
-                                if (categoryItem != null && categoryItem.Rows.Count > 0)
+                                if (categoryName != null && !string.IsNullOrEmpty(categoryName))
                                 {
-                                    string parentCategory =
-                                        Convert.ToString(
-                                            categoryItem.Rows[0][FieldsName.NewsCategory.English.ParentName]);
-                                    parentCategory = parentCategory.Replace(";#", "");
-                                    lblBreadCrum.Text = string.Format("{0} &nbsp; &gt;&gt;&nbsp; &nbsp; {1}",
-                                                                      parentCategory, categoryName);
+                                    newsQuery = string.Format("<Where><Eq><FieldRef Name='Title' /><Value Type='Text'>{0}</Value></Eq></Where>", categoryName.Substring(categoryName.IndexOf("#") + 1));
+                                    var categoryItem = Utilities.GetNewsRecords(newsQuery, 1, listCategoryName);
+
+                                    if (categoryItem != null && categoryItem.Rows.Count > 0)
+                                    {
+                                        string parentCategory = Convert.ToString(categoryItem.Rows[0][FieldsName.NewsCategory.English.ParentName]);
+                                        parentCategory = parentCategory.Replace(";#", "");
+                                        lblBreadCrum.Text = string.Format("{0} &nbsp; &gt;&gt;&nbsp; &nbsp; {1}", parentCategory, categoryName.Substring(categoryName.IndexOf("#") + 1));
+                                    }
                                 }
+
                             }
                         }
                     }
@@ -248,9 +246,18 @@ namespace CQ.SharePoint.QN.Webparts
                                                        ListsName.English.NewsRecord);
 
                         var newsItem = Utilities.GetNewsRecords(newsQuery, ListsName.English.NewsCategory);
-                        if(newsItem!=null && newsItem.Rows.Count>0)
+                        var tableResult = newsItem.Clone();
+                        string catId = string.Empty;
+                        if (newsItem != null && newsItem.Rows.Count > 0)
                         {
-                            rptChuyenDe.DataSource = newsItem;
+                            foreach (DataRow row in newsItem.Rows)
+                            {
+                                catId = Convert.ToString(row["ID"]);
+                                tableResult.ImportRow(row);
+                                Utilities.BuilChuyenDe(ListsName.English.NewsCategory, ListsName.English.NewsCategory, catId, ref tableResult);
+                            }
+
+                            rptChuyenDe.DataSource = tableResult;
                             rptChuyenDe.DataBind();
                         }
                     }
@@ -260,17 +267,19 @@ namespace CQ.SharePoint.QN.Webparts
                 }
             }
         }
+
         /// <summary>
         /// Build beadcrumb for news
         /// </summary>
         /// <param name="categoryName"></param>
+        /// <param name="categoryListName"></param>
         /// <returns></returns>
-        public string BuilBreadcrumb(string categoryName)
+        public string BuilBreadcrumb(string categoryName, string categoryListName)
         {
             string result = string.Empty;
 
             string newsQuery = string.Format("<Where><Eq><FieldRef Name='Title' /><Value Type='Text'>{0}</Value></Eq></Where>", categoryName);
-            var categoryItem = Utilities.GetNewsRecords(newsQuery, 1, ListsName.English.NewsCategory);
+            var categoryItem = Utilities.GetNewsRecords(newsQuery, 1, categoryListName);
 
             if (categoryItem != null && categoryItem.Rows.Count > 0)
             {
