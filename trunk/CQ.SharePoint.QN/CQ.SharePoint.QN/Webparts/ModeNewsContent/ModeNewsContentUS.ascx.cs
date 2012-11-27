@@ -73,7 +73,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                               <And>
                                                                  <Eq>
                                                                     <FieldRef Name='{0}' LookupId='TRUE' />
-                                                                    <Value Type='Lookup'>{1}</Value>
+                                                                    <Value Type='CustomLookup'>{1}</Value>
                                                                  </Eq>
                                                                  <And>
                                                                     <Neq>
@@ -100,9 +100,9 @@ namespace CQ.SharePoint.QN.Webparts
                                                                       WebpartParent.NewsCategoryId1,
                                                                       SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
                                                                       Constants.Published);
-                        var group1Table = Utilities.GetNewsRecordItems(group1Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.NewsRecord);
-
-                        if (group1Table != null && group1Table.Count > 0)
+                        //var group1Table = Utilities.GetNewsRecordItems(group1Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.NewsRecord);
+                        var group1Table = Utilities.GetNewsByCatID(ListsName.English.NewsRecord,WebpartParent.NewsCategoryId1);
+                        if (group1Table != null && group1Table.Rows.Count > 0)
                         {
                             var table1 = Utilities.GetTableWithCorrectUrl(group1Table, true);
                             Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.CategoryName, ref table1);
@@ -140,7 +140,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                               <And>
                                                                  <Eq>
                                                                     <FieldRef Name='{0}' LookupId='TRUE' />
-                                                                    <Value Type='Lookup'>{1}</Value>
+                                                                    <Value Type='CustomLookup'>{1}</Value>
                                                                  </Eq>
                                                                  <And>
                                                                     <Neq>
@@ -168,9 +168,9 @@ namespace CQ.SharePoint.QN.Webparts
                                                                       SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
                                                                       Constants.Published);
 
-                        var group2Table = Utilities.GetNewsRecordItems(group2Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.NewsRecord);
-
-                        if (group2Table != null && group2Table.Count > 0)
+                        //var group2Table = Utilities.GetNewsRecordItems(group2Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.NewsRecord);
+                        var group2Table = Utilities.GetNewsByCatID(ListsName.English.NewsRecord, WebpartParent.NewsCategoryId2);
+                        if (group2Table != null && group2Table.Rows.Count > 0)
                         {
                             var table2 = Utilities.GetTableWithCorrectUrl(group2Table, true);
                             Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.CategoryName, ref table2);
@@ -205,7 +205,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                               <And>
                                                                  <Eq>
                                                                     <FieldRef Name='{0}' LookupId='TRUE' />
-                                                                    <Value Type='Lookup'>{1}</Value>
+                                                                    <Value Type='CustomLookup'>{1}</Value>
                                                                  </Eq>
                                                                  <And>
                                                                     <Neq>
@@ -233,9 +233,9 @@ namespace CQ.SharePoint.QN.Webparts
                                                                       SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
                                                                       Constants.Published);
 
-                        var group3Table = Utilities.GetNewsRecordItems(group3Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.NewsRecord);
-
-                        if (group3Table != null && group3Table.Count > 0)
+                        //var group3Table = Utilities.GetNewsRecordItems(group3Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.NewsRecord);
+                        var group3Table = Utilities.GetNewsByCatID(ListsName.English.NewsRecord, WebpartParent.NewsCategoryId3);
+                        if (group3Table != null && group3Table.Rows.Count > 0)
                         {
                             var table3 = Utilities.GetTableWithCorrectUrl(group3Table, true);
                             Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.CategoryName, ref table3);

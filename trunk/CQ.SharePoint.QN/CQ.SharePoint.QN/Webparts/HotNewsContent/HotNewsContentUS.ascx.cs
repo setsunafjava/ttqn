@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Text;
 using System.Web.UI;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.Publishing.Fields;
@@ -344,6 +345,13 @@ namespace CQ.SharePoint.QN.Webparts
             if (mainItem != null && mainItem.Count > 0)
             {//se phai dung thuat toan get thumnail cua image
                 var tempTable = Utilities.GetTableWithCorrectUrlHotNews(_listCategoryName, mainItem);
+
+                //foreach (DataRow row in tempTable.Rows)
+                //{
+                //    SPFieldMultiLineText description = row[FieldsName.NewsRecord.English.ShortContent] as SPFieldMultiLineText;
+                //    row[FieldsName.NewsRecord.English.ShortContent] = description.GetFieldValueAsText()
+                //}
+
                 Utilities.SetSapoTextLength(ref tempTable);
                 RptImagesUrl = ItemUrl;
                 rptImages.DataSource = tempTable;
@@ -459,6 +467,23 @@ namespace CQ.SharePoint.QN.Webparts
             }
 
             #endregion
+        }
+
+        static string GetRichTextValue(string value)
+        {
+            if (null == value)
+            {
+                return string.Empty;
+            }
+            StringBuilder sb = new StringBuilder(value.Length);
+            foreach (char c in value)
+            {
+                if (char.IsLetterOrDigit(c) || char.IsPunctuation(c))
+                {
+                    sb.Append(c);
+                }
+            }
+            return sb.ToString();
         }
 
         /// <summary>
