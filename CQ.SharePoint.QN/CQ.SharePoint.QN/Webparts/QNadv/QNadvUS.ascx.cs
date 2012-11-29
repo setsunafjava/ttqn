@@ -144,6 +144,7 @@ namespace CQ.SharePoint.QN.Webparts
 
         protected void aLink_OnClick(object sender, EventArgs e)
         {
+            var qcUrl = string.Empty;
             if (!string.IsNullOrEmpty(((LinkButton)sender).CommandArgument))
             {
                 try
@@ -172,6 +173,7 @@ namespace CQ.SharePoint.QN.Webparts
                                         item.Update();
                                         var qcList = Utilities.GetDocListFromUrl(web, "QuangCao");
                                         var qItem = qcList.GetItemById(qcItem.ID);
+                                        qcUrl = Convert.ToString(qcItem["LinkUrl"]);
                                         qItem["CountClick"] = Convert.ToInt32(qItem["CountClick"]) + 1;
                                         web.AllowUnsafeUpdates = true;
                                         qItem.Update();
@@ -184,12 +186,22 @@ namespace CQ.SharePoint.QN.Webparts
 
                             }
                         });
-                        HttpContext.Current.Response.Redirect(Convert.ToString(qcItem["LinkUrl"]));
+                        if (!string.IsNullOrEmpty(qcUrl))
+                        {
+                            HttpContext.Current.Response.Redirect(qcUrl);
+                            //HttpContext.Current.Response.Write("<script>location.href = '" + qcUrl + "';</script>");
+                        }
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    if (!string.IsNullOrEmpty(qcUrl))
+                    {
+                        HttpContext.Current.Response.Redirect(qcUrl);
+                        //HttpContext.Current.Response.Write("<script>location.href = '" + qcUrl + "';</script>");
+                    }
                     HttpContext.Current.Response.Redirect(((LinkButton)sender).CommandArgument); 
+                    //HttpContext.Current.Response.Write("<script>location.href = '" + ((LinkButton)sender).CommandArgument + "';</script>");
                 }
                 
             }
