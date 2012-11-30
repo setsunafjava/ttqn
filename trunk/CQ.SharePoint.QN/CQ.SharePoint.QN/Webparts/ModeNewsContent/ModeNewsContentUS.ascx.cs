@@ -54,8 +54,8 @@ namespace CQ.SharePoint.QN.Webparts
                     NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
                        SPContext.Current.Web.Url,
                        Constants.PageInWeb.DetailNews,
-                       ListsName.English.NewsCategory,
-                       ListsName.English.NewsRecord,
+                       ListsName.English.SubNewsCategory,
+                       ListsName.English.SubNewsRecord,
                        Constants.NewsId);
 
                     if (!string.IsNullOrEmpty(WebpartParent.NewsCategoryId1))
@@ -64,8 +64,8 @@ namespace CQ.SharePoint.QN.Webparts
                         hplFirstGroup.NavigateUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&Page=1&{4}={5}",
                                                        SPContext.Current.Web.Url,
                                                        Constants.PageInWeb.SubPage,
-                                                       ListsName.English.NewsCategory,
-                                                       ListsName.English.NewsRecord,
+                                                       ListsName.English.SubNewsCategory,
+                                                       ListsName.English.SubNewsRecord,
                                                        Constants.CategoryId,
                                                        WebpartParent.NewsCategoryId1);
 
@@ -100,27 +100,29 @@ namespace CQ.SharePoint.QN.Webparts
                                                                       WebpartParent.NewsCategoryId1,
                                                                       SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
                                                                       Constants.Published);
-                        //var group1Table = Utilities.GetNewsRecordItems(group1Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.NewsRecord);
-                        var group1Table = Utilities.GetNewsByCatID(ListsName.English.NewsRecord,WebpartParent.NewsCategoryId1);
+                        //var group1Table = Utilities.GetNewsRecordItems(group1Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.SubNewsRecord);
+                        var group1Table = Utilities.GetNewsByCatID(ListsName.English.SubNewsRecord,WebpartParent.NewsCategoryId1);
                         if (group1Table != null && group1Table.Rows.Count > 0)
                         {
                             var table1 = Utilities.GetTableWithCorrectUrl(group1Table, true);
-                            Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.CategoryName, ref table1);
+                            Utilities.AddCategoryIdToTable(ListsName.English.SubNewsCategory, FieldsName.CategoryName, ref table1);
                             lblHeaderTinhUy.Text = Convert.ToString(table1.Rows[0][FieldsName.Title]);
                             img1.ImageUrl = Utilities.GetThumbnailImagePath(Convert.ToString(table1.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]));
 
                             NewsFirstUrl1 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}&CategoryId={6}",
                                                        SPContext.Current.Web.Url,
                                                        Constants.PageInWeb.DetailNews,
-                                                       ListsName.English.NewsCategory,
-                                                       ListsName.English.NewsRecord,
+                                                       ListsName.English.SubNewsCategory,
+                                                       ListsName.English.SubNewsRecord,
                                                        Constants.NewsId,
                                                        Convert.ToString(table1.Rows[0][FieldsName.Id]),
                                                        Convert.ToString(table1.Rows[0][FieldsName.CategoryId]));
 
                             table1.Rows.RemoveAt(0);
-                            Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.NewsRecord.English.CategoryName, ref table1);
-                            rptTinhUy.DataSource = table1;
+                            Utilities.AddCategoryIdToTable(ListsName.English.SubNewsCategory, FieldsName.NewsRecord.English.CategoryName, ref table1);
+                            var defaulViews1 = table1.DefaultView;
+                            defaulViews1.Sort = "ID DESC";
+                            rptTinhUy.DataSource = defaulViews1;
                             rptTinhUy.DataBind();
                         }
 
@@ -131,8 +133,8 @@ namespace CQ.SharePoint.QN.Webparts
                         hplSecondGroup.NavigateUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&Page=1&{4}={5}",
                                                        SPContext.Current.Web.Url,
                                                        Constants.PageInWeb.SubPage,
-                                                       ListsName.English.NewsCategory,
-                                                       ListsName.English.NewsRecord,
+                                                       ListsName.English.SubNewsCategory,
+                                                       ListsName.English.SubNewsRecord,
                                                        Constants.CategoryId,
                                                        WebpartParent.NewsCategoryId2);
 
@@ -168,26 +170,28 @@ namespace CQ.SharePoint.QN.Webparts
                                                                       SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
                                                                       Constants.Published);
 
-                        //var group2Table = Utilities.GetNewsRecordItems(group2Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.NewsRecord);
-                        var group2Table = Utilities.GetNewsByCatID(ListsName.English.NewsRecord, WebpartParent.NewsCategoryId2);
+                        //var group2Table = Utilities.GetNewsRecordItems(group2Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.SubNewsRecord);
+                        var group2Table = Utilities.GetNewsByCatID(ListsName.English.SubNewsRecord, WebpartParent.NewsCategoryId2);
                         if (group2Table != null && group2Table.Rows.Count > 0)
                         {
                             var table2 = Utilities.GetTableWithCorrectUrl(group2Table, true);
-                            Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.CategoryName, ref table2);
+                            Utilities.AddCategoryIdToTable(ListsName.English.SubNewsCategory, FieldsName.CategoryName, ref table2);
                             lblHeaderHoiDongNhanDan.Text = Convert.ToString(table2.Rows[0][FieldsName.Title]);
                             Img2.ImageUrl = Utilities.GetThumbnailImagePath(Convert.ToString(table2.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]));
                             NewsFirstUrl2 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}&CategoryId={6}",
                                                        SPContext.Current.Web.Url,
                                                        Constants.PageInWeb.DetailNews,
-                                                       ListsName.English.NewsCategory,
-                                                       ListsName.English.NewsRecord,
+                                                       ListsName.English.SubNewsCategory,
+                                                       ListsName.English.SubNewsRecord,
                                                        Constants.NewsId,
                                                        Convert.ToString(table2.Rows[0][FieldsName.Id]),
                                                        Convert.ToString(table2.Rows[0][FieldsName.CategoryId]));
 
                             table2.Rows.RemoveAt(0);
-                            Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.NewsRecord.English.CategoryName, ref table2);
-                            rptHoiDongNhanDan.DataSource = table2;
+                            Utilities.AddCategoryIdToTable(ListsName.English.SubNewsCategory, FieldsName.NewsRecord.English.CategoryName, ref table2);
+                            var defaulViews2 = table2.DefaultView;
+                            defaulViews2.Sort = "ID DESC";
+                            rptHoiDongNhanDan.DataSource = defaulViews2;
                             rptHoiDongNhanDan.DataBind();
                         }
                     }
@@ -197,8 +201,8 @@ namespace CQ.SharePoint.QN.Webparts
                         hplThirdGroup.NavigateUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&Page=1&{4}={5}",
                                                        SPContext.Current.Web.Url,
                                                        Constants.PageInWeb.SubPage,
-                                                       ListsName.English.NewsCategory,
-                                                       ListsName.English.NewsRecord,
+                                                       ListsName.English.SubNewsCategory,
+                                                       ListsName.English.SubNewsRecord,
                                                        Constants.CategoryId,
                                                        WebpartParent.NewsCategoryId3);
                         string group3Query = string.Format(@"<Where>
@@ -233,27 +237,29 @@ namespace CQ.SharePoint.QN.Webparts
                                                                       SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
                                                                       Constants.Published);
 
-                        //var group3Table = Utilities.GetNewsRecordItems(group3Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.NewsRecord);
-                        var group3Table = Utilities.GetNewsByCatID(ListsName.English.NewsRecord, WebpartParent.NewsCategoryId3);
+                        //var group3Table = Utilities.GetNewsRecordItems(group3Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.SubNewsRecord);
+                        var group3Table = Utilities.GetNewsByCatID(ListsName.English.SubNewsRecord, WebpartParent.NewsCategoryId3);
                         if (group3Table != null && group3Table.Rows.Count > 0)
                         {
                             var table3 = Utilities.GetTableWithCorrectUrl(group3Table, true);
-                            Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.CategoryName, ref table3);
+                            Utilities.AddCategoryIdToTable(ListsName.English.SubNewsCategory, FieldsName.CategoryName, ref table3);
                             lblHeaderUyBanNhanDan.Text = Convert.ToString(table3.Rows[0][FieldsName.Title]);
                             Img3.ImageUrl = Utilities.GetThumbnailImagePath(Convert.ToString(table3.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]));
                             NewsFirstUrl3 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}&CategoryId={6}",
                                                        SPContext.Current.Web.Url,
                                                        Constants.PageInWeb.DetailNews,
-                                                       ListsName.English.NewsCategory,
-                                                       ListsName.English.NewsRecord,
+                                                       ListsName.English.SubNewsCategory,
+                                                       ListsName.English.SubNewsRecord,
                                                        Constants.NewsId,
                                                        Convert.ToString(table3.Rows[0][FieldsName.Id]),
                                                        Convert.ToString(table3.Rows[0][FieldsName.CategoryId]));
 
                             table3.Rows.RemoveAt(0);
-                            Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.NewsRecord.English.CategoryName, ref table3);
+                            Utilities.AddCategoryIdToTable(ListsName.English.SubNewsCategory, FieldsName.NewsRecord.English.CategoryName, ref table3);
                             var newTable = GetFiveRows(table3);
-                            rptUyBanNhanDan.DataSource = newTable;
+                            var defaulViews3 = newTable.DefaultView;
+                            defaulViews3.Sort = "ID DESC";
+                            rptUyBanNhanDan.DataSource = defaulViews3;
                             rptUyBanNhanDan.DataBind();
                         }
                     }

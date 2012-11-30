@@ -102,6 +102,39 @@ namespace CQ.SharePoint.QN.Webparts
                         {
                             var companyListTemp = Utilities.GetTableWithCorrectUrl(companyList);
                             Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyListTemp);
+
+
+                            //paging
+                            PagedDataSource pageds = new PagedDataSource
+                            {
+                                DataSource = companyListTemp.DefaultView,
+                                AllowPaging = true,
+                                PageSize = 10
+                            };
+                            int curpage = 0;
+                            var pageNum = Request.QueryString["Page"];
+                            if (!string.IsNullOrEmpty(pageNum))
+                            {
+                                curpage = Convert.ToInt32(pageNum);
+                            }
+                            else
+                            {
+                                curpage = 1;
+                            }
+                            pageds.CurrentPageIndex = curpage - 1;
+                            lblCurrpage.Text = string.Format("{0}: {1}", ParentWP.PageNumber, curpage);
+
+                            if (!pageds.IsFirstPage)
+                            {
+                                lnkPrev.NavigateUrl = Request.CurrentExecutionFilePath + "?" + BuildUrl(Convert.ToString(curpage - 1));
+                            }
+
+                            if (!pageds.IsLastPage)
+                            {
+                                lnkNext.NavigateUrl = Request.CurrentExecutionFilePath + "?" + BuildUrl(Convert.ToString(curpage + 1));
+                            }
+                            //end paging
+
                             rptListCategory.DataSource = companyListTemp;
                             rptListCategory.DataBind();
                         }
@@ -196,13 +229,15 @@ namespace CQ.SharePoint.QN.Webparts
                                 if (companyList != null && companyList.Count > 0)
                                 {
                                     var companyListTemp = Utilities.GetTableWithCorrectUrl(listCategoryName, companyList);
-
+                                    var defaultViewTemp = companyListTemp.DefaultView;
+                                    defaultViewTemp.Sort = "ID DESC";
                                     PagedDataSource pageds = new PagedDataSource
                                     {
-                                        DataSource = companyListTemp.DefaultView,
+                                        DataSource = defaultViewTemp,
                                         AllowPaging = true,
                                         PageSize = 10
                                     };
+
                                     int curpage = 0;
                                     var pageNum = Request.QueryString["Page"];
                                     if (!string.IsNullOrEmpty(pageNum))

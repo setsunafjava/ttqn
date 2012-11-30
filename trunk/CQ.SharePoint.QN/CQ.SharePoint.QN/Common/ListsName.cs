@@ -8,6 +8,8 @@ namespace CQ.SharePoint.QN.Common
         {
             public const string NewsCategory = "NewsCategory";
             public const string NewsRecord = "NewsRecord";
+            public const string SubNewsCategory = "SubNewsCategory";
+            public const string SubNewsRecord = "SubNewsRecord";
             public const string SupportUser = "SupportUser";
             public const string CompanyCategory = "CompanyCategory";
             public const string CompanyRecord = "CompanyRecord";
