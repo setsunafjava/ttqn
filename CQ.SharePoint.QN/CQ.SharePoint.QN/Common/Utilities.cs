@@ -1587,6 +1587,22 @@ namespace CQ.SharePoint.QN.Common
                                            </Where>", FieldsName.NewsCategory.English.ParentName, catID);
             }
 
+            if (ListsName.English.SubNewsCategory.Equals(listName))
+            {
+                camlQuery = string.Format(@"<Where>
+                                              <And>
+                                                 <Eq>
+                                                    <FieldRef Name='{0}' LookupId='TRUE' />
+                                                    <Value Type='Lookup'>{1}</Value>
+                                                 </Eq>
+                                                 <Neq>
+                                                    <FieldRef Name='Status' />
+                                                    <Value Type='Boolean'>1</Value>
+                                                 </Neq>
+                                              </And>
+                                           </Where>", FieldsName.NewsCategory.English.ParentName, catID);
+            }
+
 
             var query = new SPQuery();
             query.Query = camlQuery;
