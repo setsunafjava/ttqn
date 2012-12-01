@@ -338,7 +338,6 @@
   <ItemGroup>
     <None Include="Properties\CQ.SharePoint.QN.snk" />
     <None Include="Resources\MasterPages\CqHome.master">
-      <SubType>ASPXCodeBehind</SubType>
     </None>
     <None Include="Webparts\ClassiFieds\ClassiFieds.webpart" />
     <None Include="Webparts\CompanyAdv\CompanyAdv.webpart" />
@@ -520,7 +519,6 @@
     </Content>
     <Content Include="Webparts\HotNewsContent\HotNewsContent.xml" />
     <Content Include="Webparts\HotNewsContent\HotNewsContentUS.ascx">
-      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\LeftNewsContent\LeftNewsContent.xml" />
     <Content Include="Webparts\LeftNewsContent\LeftNewsContentUS.ascx">

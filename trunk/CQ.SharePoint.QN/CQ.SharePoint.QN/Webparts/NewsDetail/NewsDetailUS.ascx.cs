@@ -246,18 +246,19 @@ namespace CQ.SharePoint.QN.Webparts
                                                        ListsName.English.NewsRecord);
 
                         var newsItem = Utilities.GetNewsRecords(newsQuery, ListsName.English.NewsCategory);
-                        var tableResult = newsItem.Clone();
-                        string catId = string.Empty;
+                        //var tableResult = newsItem.Clone();
+                        //string catId = string.Empty;
                         if (newsItem != null && newsItem.Rows.Count > 0)
                         {
-                            foreach (DataRow row in newsItem.Rows)
-                            {
-                                catId = Convert.ToString(row["ID"]);
-                                tableResult.ImportRow(row);
-                                Utilities.BuilChuyenDe(ListsName.English.NewsCategory, ListsName.English.NewsCategory, catId, ref tableResult);
-                            }
+                            //foreach (DataRow row in newsItem.Rows)
+                            //{
+                            //    catId = Convert.ToString(row["ID"]);
+                            //    tableResult.ImportRow(row);
+                            //    Utilities.BuilChuyenDe(ListsName.English.NewsCategory, ListsName.English.NewsCategory, catId, ref tableResult);
+                            //}
 
-                            rptChuyenDe.DataSource = tableResult;
+                            //rptChuyenDe.DataSource = tableResult;
+                            rptChuyenDe.DataSource = newsItem;
                             rptChuyenDe.DataBind();
                         }
                     }
