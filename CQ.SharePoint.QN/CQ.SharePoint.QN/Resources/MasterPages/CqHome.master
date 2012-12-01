@@ -31,7 +31,6 @@
 	<script type="text/javascript" src='<asp:Literal runat="server" Text="<%$SPUrl:~Site/QNResources/tabcontent.js%>" />'></script>
 	<script type="text/javascript" src='<asp:Literal runat="server" Text="<%$SPUrl:~Site/QNResources/jwplayer.js%>" />'></script>
 	<script type="text/javascript" src='<asp:Literal runat="server" Text="<%$SPUrl:~Site/QNResources/wowslider.js%>" />'></script>
-	<script type="text/javascript" src='<asp:Literal runat="server" Text="<%$SPUrl:~Site/QNResources/javascript.js%>" />'></script>
     <script type="text/javascript" src='<asp:Literal runat="server" Text="<%$SPUrl:~Site/QNResources/slider.js%>" />'></script>
     <script type="text/javascript" src='<asp:Literal runat="server" Text="<%$SPUrl:~Site/QNResources/number_slideshow.js%>" />'></script>
     <script type="text/javascript" src='<asp:Literal runat="server" Text="<%$SPUrl:~Site/QNResources/jquery.carouFredSel-5.6.2-packed.js%>" />'></script>
