@@ -817,6 +817,126 @@ namespace CQ.SharePoint.QN.Common
             return result;
         }
 
+        public static bool CheckMenuType(DataTable dtMenuType, string itemID, ref string colName, ref string catName, ref string newsName)
+        {
+            bool result = false;
+            var colNameT = string.Empty;
+            var catNameT = string.Empty;
+            var newsNameT = string.Empty;
+            try
+            {
+                var mtItems = dtMenuType.Select("ID='" + itemID + "'");
+                if (mtItems != null && mtItems.Length > 0)
+                {
+                    var mtItem = mtItems[0];
+                    if (!string.IsNullOrEmpty(Convert.ToString(mtItem["MenuTypeColumn"])) &&
+                    !string.IsNullOrEmpty(Convert.ToString(mtItem["CatName"])) &&
+                    !string.IsNullOrEmpty(Convert.ToString(mtItem["NewsName"])))
+                    {
+                        result = true;
+                        colNameT = Convert.ToString(mtItem["MenuTypeColumn"]);
+                        catNameT = Convert.ToString(mtItem["CatName"]);
+                        newsNameT = Convert.ToString(mtItem["NewsName"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Utilities.LogToUls(ex);
+            }
+            colName = colNameT;
+            catName = catNameT;
+            newsName = newsNameT;
+            return result;
+        }
+
+        public static void SetMenuLink(DataRow drv, Literal ltrStyle, HtmlAnchor aLink, DataTable dtMenuType, HttpContext ctx)
+        {
+            var itemUrl = Convert.ToString(drv["Url"]);
+            var currentUrl = ctx.Request.Url.AbsoluteUri + "&";
+
+            //Bind data to URL
+
+            aLink.Title = Convert.ToString(drv["Title"]);
+            aLink.InnerText = Convert.ToString(drv["Title"]);
+
+            if (string.IsNullOrEmpty(Convert.ToString(drv["MenuType"])))
+            {
+                aLink.HRef = itemUrl;
+                if (!string.IsNullOrEmpty(itemUrl) && currentUrl.Contains(itemUrl + "&"))
+                {
+                    ltrStyle.Text = " class='current'";
+                }
+            }
+            else
+            {
+                aLink.HRef = itemUrl;
+                var lkMenuType = Convert.ToString(drv["MenuTypeID"]);
+                var colNameT = string.Empty;
+                var catNameT = string.Empty;
+                var newsNameT = string.Empty;
+                var checkMT = Utilities.CheckMenuType(dtMenuType, lkMenuType, ref colNameT, ref catNameT, ref newsNameT);
+                if (checkMT)
+                {
+                    if (!string.IsNullOrEmpty(Convert.ToString(drv[colNameT])))
+                    {
+                        aLink.HRef = SPContext.Current.Web.Url + "/" + Constants.PageInWeb.SubPage +
+                                     ".aspx?CategoryId=" + Convert.ToInt32(drv[colNameT]) + "&ListCategoryName=" + catNameT +
+                                     "&ListName=" + newsNameT;
+
+                        var catID = ctx.Request.QueryString[Constants.CategoryId];
+                        var catName = ctx.Request.QueryString[Constants.ListCategoryName];
+                        var newsName = ctx.Request.QueryString[Constants.ListName];
+                        if (!string.IsNullOrEmpty(catID))
+                        {
+                            if (Convert.ToString(drv[colNameT]).Equals(catID) && catNameT.Equals(catName) && newsNameT.Equals(newsName))
+                            {
+                                ltrStyle.Text = " class='current'";
+                            }
+                            else
+                            {
+                                //Utilities.LogToUls("chan");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public static void SetMenuLink(DataRow drv, HtmlAnchor aLink, DataTable dtMenuType, HttpContext ctx)
+        {
+            var itemUrl = Convert.ToString(drv["Url"]);
+            var currentUrl = ctx.Request.Url.AbsoluteUri + "&";
+
+            //Bind data to URL
+
+            aLink.Title = Convert.ToString(drv["Title"]);
+            aLink.InnerText = Convert.ToString(drv["Title"]);
+
+            if (string.IsNullOrEmpty(Convert.ToString(drv["MenuType"])))
+            {
+                aLink.HRef = itemUrl;
+            }
+            else
+            {
+                aLink.HRef = itemUrl;
+                var lkMenuType = Convert.ToString(drv["MenuTypeID"]);
+                var colNameT = string.Empty;
+                var catNameT = string.Empty;
+                var newsNameT = string.Empty;
+                var checkMT = Utilities.CheckMenuType(dtMenuType, lkMenuType, ref colNameT, ref catNameT, ref newsNameT);
+                if (checkMT)
+                {
+                    if (!string.IsNullOrEmpty(Convert.ToString(drv[colNameT])))
+                    {
+                        aLink.HRef = SPContext.Current.Web.Url + "/" + Constants.PageInWeb.SubPage +
+                                     ".aspx?CategoryId=" + Convert.ToInt32(drv[colNameT]) + "&ListCategoryName=" + catNameT +
+                                     "&ListName=" + newsNameT;
+                    }
+                }
+            }
+        }
+
         public static SPFieldLookupValue GetMenuType(string listName, int docID, string colName)
         {
             SPFieldLookupValue result = null;
@@ -841,6 +961,17 @@ namespace CQ.SharePoint.QN.Common
                 }
             });
             return result;
+        }
+
+        public static string GetMenuType(DataTable dtMenu, int docID, string colName)
+        {
+            var mtItems = dtMenu.Select("ID='" + docID + "'");
+            if (mtItems != null && mtItems.Length > 0)
+            {
+                var mtItem = mtItems[0];
+                return Convert.ToString(mtItem[colName]);
+            }
+            return string.Empty;
         }
 
         /// <summary>

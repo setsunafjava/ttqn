@@ -4,6 +4,9 @@ using System.Web.UI;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.WebControls;
 using CQ.SharePoint.QN.Common;
+using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
+using System.Web;
 
 namespace CQ.SharePoint.QN.Webparts
 {
@@ -15,6 +18,8 @@ namespace CQ.SharePoint.QN.Webparts
         public Footer ParentWP;
         protected string WebsiteInfo = string.Empty;
         protected int HitCount = 1;
+        private DataTable dtMenu;
+        private DataTable dtMenuType;
         /// <summary>
         /// Page on Load
         /// </summary>
@@ -35,14 +40,80 @@ namespace CQ.SharePoint.QN.Webparts
             //    aUser.HRef = "/_layouts/Authenticate.aspx";
             //    aUser.InnerText = "Đăng nhập";
             //}
+            rptMenu.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler(rptMenu_ItemDataBound);
             if (!IsPostBack)
             {
                 try
                 {
+                    SPSecurity.RunWithElevatedPrivileges(() =>
+                    {
+                        using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                        {
+                            using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                            {
+                                try
+                                {
+                                    SPList list = Utilities.GetListFromUrl(web, ListsName.English.MenuList);
+                                    var items = list.Items;
+                                    dtMenu = items.GetDataTable();
+                                    dtMenu.Columns.Add("MenuTypeID");
+                                    dtMenu.Columns.Add("MnParentID");
+                                    for (int i = 0; i < items.Count; i++)
+                                    {
+                                        if (!string.IsNullOrEmpty(Convert.ToString(items[i]["MenuType"])))
+                                        {
+                                            SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i]["MenuType"]));
+                                            dtMenu.Rows[i]["MenuTypeID"] = catLK.LookupId;
+                                        }
+                                        if (!string.IsNullOrEmpty(Convert.ToString(items[i]["ParentId"])))
+                                        {
+                                            SPFieldLookupValue mnLK = new SPFieldLookupValue(Convert.ToString(items[i]["ParentId"]));
+                                            dtMenu.Rows[i]["MnParentID"] = mnLK.LookupId;
+                                        }
+                                        if (!string.IsNullOrEmpty(Convert.ToString(items[i]["tintuc"])))
+                                        {
+                                            SPFieldLookupValue ttLK = new SPFieldLookupValue(Convert.ToString(items[i]["tintuc"]));
+                                            dtMenu.Rows[i]["tintuc"] = ttLK.LookupId;
+                                        }
+                                        if (!string.IsNullOrEmpty(Convert.ToString(items[i]["doanhnghiep"])))
+                                        {
+                                            SPFieldLookupValue dnLK = new SPFieldLookupValue(Convert.ToString(items[i]["doanhnghiep"]));
+                                            dtMenu.Rows[i]["doanhnghiep"] = dnLK.LookupId;
+                                        }
+                                        if (!string.IsNullOrEmpty(Convert.ToString(items[i]["ttcdct"])))
+                                        {
+                                            SPFieldLookupValue ttLK = new SPFieldLookupValue(Convert.ToString(items[i]["ttcdct"]));
+                                            dtMenu.Rows[i]["ttcdct"] = ttLK.LookupId;
+                                        }
+                                        if (!string.IsNullOrEmpty(Convert.ToString(items[i]["dulich"])))
+                                        {
+                                            SPFieldLookupValue dlLK = new SPFieldLookupValue(Convert.ToString(items[i]["dulich"]));
+                                            dtMenu.Rows[i]["dulich"] = dlLK.LookupId;
+                                        }
+                                        if (!string.IsNullOrEmpty(Convert.ToString(items[i]["ttnb"])))
+                                        {
+                                            SPFieldLookupValue nbLK = new SPFieldLookupValue(Convert.ToString(items[i]["ttnb"]));
+                                            dtMenu.Rows[i]["ttnb"] = nbLK.LookupId;
+                                        }
+                                    }
+
+                                    dtMenuType = Utilities.GetListFromUrl(web, "MenuType").Items.GetDataTable();
+                                }
+                                catch (Exception ex)
+                                {
+                                    Utilities.LogToUls(ex);
+                                }
+                            }
+
+                        }
+                    });
+
                     //Bind data to latest news
-                    string latestNewsQuery = string.Format("<Where><IsNull><FieldRef Name='ParentId' /></IsNull></Where><OrderBy><FieldRef Name='Position' Ascending='TRUE' /></OrderBy>");
-                    rptMenu.DataSource = GetNewsRecords(latestNewsQuery);
-                    rptMenu.DataBind();
+                    if (dtMenu != null && dtMenu.Rows.Count > 0)
+                    {
+                        rptMenu.DataSource = dtMenu.Select("ParentId=''", "Position asc");
+                        rptMenu.DataBind();
+                    }
                     WebsiteInfo = Utilities.GetConfigValue(ParentWP.ConfigKey);
                 }
                 catch (Exception ex)
@@ -51,50 +122,15 @@ namespace CQ.SharePoint.QN.Webparts
             }
         }
 
-        /// <summary>
-        /// Get news record form NewsRecord table
-        /// </summary>
-        /// <param name="query">SPquery for query items</param>
-        /// <returns>News record Datatable</returns>
-        public DataTable GetNewsRecords(string query)
+        void rptMenu_ItemDataBound(object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e)
         {
-            DataTable table = new DataTable();
-            SPSecurity.RunWithElevatedPrivileges(() =>
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
-                {
-                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
-                    {
-                        try
-                        {
-                            HitCount = Utilities.GetListFromUrl(web, ListsName.English.StatisticsList).ItemCount;
-                        }
-                        catch (Exception)
-                        {
+                DataRow drv = (DataRow)e.Item.DataItem;
+                HtmlAnchor aLink = (HtmlAnchor)e.Item.FindControl("aLink");
 
-                        }
-                        try
-                        {
-                            SPQuery spQuery = new SPQuery
-                            {
-                                Query = query
-                            };
-                            SPList list = Utilities.GetListFromUrl(web, ListsName.English.MenuList);
-                            if (list != null)
-                            {
-                                SPListItemCollection items = list.GetItems(spQuery);
-                                table = items.GetDataTable();
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            table = null;
-                        }
-                    }
-
-                }
-            });
-            return table;
+                Utilities.SetMenuLink(drv, aLink, dtMenuType, HttpContext.Current);
+            }
         }
     }
 }

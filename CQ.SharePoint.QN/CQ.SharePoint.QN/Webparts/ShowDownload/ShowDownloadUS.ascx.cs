@@ -111,12 +111,12 @@ namespace CQ.SharePoint.QN.Webparts
                     string imagepath;
                     if (companyList.Rows.Count > 0)
                     {
-                        for (int i = 0; i < companyList.Rows.Count; i++)
-                        {
-                            imagepath = Convert.ToString(companyList.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage]);
-                            if (imagepath.Length > 2)
-                                companyList.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath.Trim().Substring(0, imagepath.Length - 2);
-                        }
+                        //for (int i = 0; i < companyList.Rows.Count; i++)
+                        //{
+                        //    imagepath = Convert.ToString(companyList.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage]);
+                        //    if (imagepath.Length > 2)
+                        //        companyList.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath.Trim().Substring(0, imagepath.Length - 2);
+                        //}
 
                         PagedDataSource pageds = new PagedDataSource
                         {
