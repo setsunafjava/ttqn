@@ -46,33 +46,50 @@ namespace CQ.SharePoint.QN.Webparts
         public DataTable GetNewsRecords(string query)
         {
             DataTable table = new DataTable();
-            SPSecurity.RunWithElevatedPrivileges(() =>
-            {
-                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
-                {
-                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
-                    {
-                        try
-                        {
-                            SPQuery spQuery = new SPQuery
-                            {
-                                Query = query
-                            };
-                            SPList list = Utilities.GetDocListFromUrl(web, ListsName.English.ImageCatList);
-                            if (list != null)
-                            {
-                                SPListItemCollection items = list.GetItems(spQuery);
-                                table = items.GetDataTable();
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            table = null;
-                        }
-                    }
+            //SPSecurity.RunWithElevatedPrivileges(() =>
+            //{
+            //    using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+            //    {
+            //        using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+            //        {
+            //            try
+            //            {
+            //                SPQuery spQuery = new SPQuery
+            //                {
+            //                    Query = query
+            //                };
+            //                SPList list = Utilities.GetDocListFromUrl(web, ListsName.English.ImageCatList);
+            //                if (list != null)
+            //                {
+            //                    SPListItemCollection items = list.GetItems(spQuery);
+            //                    table = items.GetDataTable();
+            //                }
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                table = null;
+            //            }
+            //        }
 
+            //    }
+            //});
+            try
+            {
+                SPQuery spQuery = new SPQuery
+                {
+                    Query = query
+                };
+                SPList list = Utilities.GetDocListFromUrl(SPContext.Current.Web, ListsName.English.ImageCatList);
+                if (list != null)
+                {
+                    SPListItemCollection items = list.GetItems(spQuery);
+                    table = items.GetDataTable();
                 }
-            });
+            }
+            catch (Exception ex)
+            {
+                table = null;
+            }
             return table;
         }
 

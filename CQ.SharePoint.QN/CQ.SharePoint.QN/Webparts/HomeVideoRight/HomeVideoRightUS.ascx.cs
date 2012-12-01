@@ -91,39 +91,63 @@ namespace CQ.SharePoint.QN.Webparts
 
             if (!IsPostBack)
             {
-                SPSecurity.RunWithElevatedPrivileges(() =>
-                {
-                    using (var site = new SPSite(SPContext.Current.Web.Site.ID))
-                    {
-                        using (var web = site.OpenWeb(SPContext.Current.Web.ID))
-                        {
-                            try
-                            {
-                                SPQuery spQuery = new SPQuery
-                                {
-                                    Query = "<OrderBy><FieldRef Name='Position' Ascending='TRUE' /></OrderBy>"
-                                };
-                                SPList list = Utilities.GetDocListFromUrl(web, ListsName.English.VideosList);
-                                if (list != null)
-                                {
-                                    SPListItemCollection items = list.GetItems(spQuery);
-                                    if (items != null && items.Count > 0)
-                                    {
-                                        VideoUrl = SPContext.Current.Web.Url + "/" + items[0].Url;
-                                        ImageUrl = SPContext.Current.Web.Url + "/" + items[0]["ImageUrl"];
-                                        var tblTV = items.GetDataTable();
-                                        rptTVLink.DataSource = tblTV;
-                                        rptTVLink.DataBind();
-                                    }
-                                }
-                            }
-                            catch (Exception ex)
-                            {
+                //SPSecurity.RunWithElevatedPrivileges(() =>
+                //{
+                //    using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                //    {
+                //        using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                //        {
+                //            try
+                //            {
+                //                SPQuery spQuery = new SPQuery
+                //                {
+                //                    Query = "<OrderBy><FieldRef Name='Position' Ascending='TRUE' /></OrderBy>"
+                //                };
+                //                SPList list = Utilities.GetDocListFromUrl(web, ListsName.English.VideosList);
+                //                if (list != null)
+                //                {
+                //                    SPListItemCollection items = list.GetItems(spQuery);
+                //                    if (items != null && items.Count > 0)
+                //                    {
+                //                        VideoUrl = SPContext.Current.Web.Url + "/" + items[0].Url;
+                //                        ImageUrl = SPContext.Current.Web.Url + "/" + items[0]["ImageUrl"];
+                //                        var tblTV = items.GetDataTable();
+                //                        rptTVLink.DataSource = tblTV;
+                //                        rptTVLink.DataBind();
+                //                    }
+                //                }
+                //            }
+                //            catch (Exception ex)
+                //            {
 
-                            }
+                //            }
+                //        }
+                //    }
+                //});
+                try
+                {
+                    SPQuery spQuery = new SPQuery
+                    {
+                        Query = "<OrderBy><FieldRef Name='Position' Ascending='TRUE' /></OrderBy>"
+                    };
+                    SPList list = Utilities.GetDocListFromUrl(SPContext.Current.Web, ListsName.English.VideosList);
+                    if (list != null)
+                    {
+                        SPListItemCollection items = list.GetItems(spQuery);
+                        if (items != null && items.Count > 0)
+                        {
+                            VideoUrl = SPContext.Current.Web.Url + "/" + items[0].Url;
+                            ImageUrl = SPContext.Current.Web.Url + "/" + items[0]["ImageUrl"];
+                            var tblTV = items.GetDataTable();
+                            rptTVLink.DataSource = tblTV;
+                            rptTVLink.DataBind();
                         }
                     }
-                });
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
         }
 

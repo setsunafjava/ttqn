@@ -23,41 +23,67 @@ namespace CQ.SharePoint.QN.Webparts
         {
             if (!IsPostBack)
             {
-                SPSecurity.RunWithElevatedPrivileges(() =>
-                {
-                    using (var site = new SPSite(SPContext.Current.Web.Site.ID))
-                    {
-                        using (var web = site.OpenWeb(SPContext.Current.Web.ID))
-                        {
-                            try
-                            {
-                                SPQuery spQuery = new SPQuery
-                                {
-                                    Query = "<OrderBy><FieldRef Name='Position' Ascending='TRUE' /></OrderBy>"
-                                };
-                                SPList list = Utilities.GetListFromUrl(web, ListsName.English.QNTVList);
-                                if (list != null)
-                                {
-                                    SPListItemCollection items = list.GetItems(spQuery);
-                                    if (items != null && items.Count > 0)
-                                    {
-                                        var tblTV = items.GetDataTable();
-                                        rptTVLink.DataSource = tblTV;
-                                        rptTVLink.DataBind();
-                                        var tblShowTV = tblTV.Clone();
-                                        tblShowTV.ImportRow(tblTV.Rows[0]);
-                                        rptTV.DataSource = tblShowTV;
-                                        rptTV.DataBind();
-                                    }
-                                }
-                            }
-                            catch (Exception ex)
-                            {
+                //SPSecurity.RunWithElevatedPrivileges(() =>
+                //{
+                //    using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                //    {
+                //        using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                //        {
+                //            try
+                //            {
+                //                SPQuery spQuery = new SPQuery
+                //                {
+                //                    Query = "<OrderBy><FieldRef Name='Position' Ascending='TRUE' /></OrderBy>"
+                //                };
+                //                SPList list = Utilities.GetListFromUrl(web, ListsName.English.QNTVList);
+                //                if (list != null)
+                //                {
+                //                    SPListItemCollection items = list.GetItems(spQuery);
+                //                    if (items != null && items.Count > 0)
+                //                    {
+                //                        var tblTV = items.GetDataTable();
+                //                        rptTVLink.DataSource = tblTV;
+                //                        rptTVLink.DataBind();
+                //                        var tblShowTV = tblTV.Clone();
+                //                        tblShowTV.ImportRow(tblTV.Rows[0]);
+                //                        rptTV.DataSource = tblShowTV;
+                //                        rptTV.DataBind();
+                //                    }
+                //                }
+                //            }
+                //            catch (Exception ex)
+                //            {
 
-                            }
+                //            }
+                //        }
+                //    }
+                //});
+                try
+                {
+                    SPQuery spQuery = new SPQuery
+                    {
+                        Query = "<OrderBy><FieldRef Name='Position' Ascending='TRUE' /></OrderBy>"
+                    };
+                    SPList list = Utilities.GetListFromUrl(SPContext.Current.Web, ListsName.English.QNTVList);
+                    if (list != null)
+                    {
+                        SPListItemCollection items = list.GetItems(spQuery);
+                        if (items != null && items.Count > 0)
+                        {
+                            var tblTV = items.GetDataTable();
+                            rptTVLink.DataSource = tblTV;
+                            rptTVLink.DataBind();
+                            var tblShowTV = tblTV.Clone();
+                            tblShowTV.ImportRow(tblTV.Rows[0]);
+                            rptTV.DataSource = tblShowTV;
+                            rptTV.DataBind();
                         }
                     }
-                });
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
         }
 

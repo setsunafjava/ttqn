@@ -45,68 +45,121 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
-                    SPSecurity.RunWithElevatedPrivileges(() =>
+                    //SPSecurity.RunWithElevatedPrivileges(() =>
+                    //{
+                    //    using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                    //    {
+                    //        using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    //        {
+                    //            try
+                    //            {
+                    //                SPList list = Utilities.GetListFromUrl(web, ListsName.English.MenuList);
+                    //                var items = list.Items;
+                    //                dtMenu = items.GetDataTable();
+                    //                dtMenu.Columns.Add("MenuTypeID");
+                    //                dtMenu.Columns.Add("MnParentID");
+                    //                for (int i = 0; i < items.Count; i++)
+                    //                {
+                    //                    if (!string.IsNullOrEmpty(Convert.ToString(items[i]["MenuType"])))
+                    //                    {
+                    //                        SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i]["MenuType"]));
+                    //                        dtMenu.Rows[i]["MenuTypeID"] = catLK.LookupId;
+                    //                    }
+                    //                    if (!string.IsNullOrEmpty(Convert.ToString(items[i]["ParentId"])))
+                    //                    {
+                    //                        SPFieldLookupValue mnLK = new SPFieldLookupValue(Convert.ToString(items[i]["ParentId"]));
+                    //                        dtMenu.Rows[i]["MnParentID"] = mnLK.LookupId;
+                    //                    }
+                    //                    if (!string.IsNullOrEmpty(Convert.ToString(items[i]["tintuc"])))
+                    //                    {
+                    //                        SPFieldLookupValue ttLK = new SPFieldLookupValue(Convert.ToString(items[i]["tintuc"]));
+                    //                        dtMenu.Rows[i]["tintuc"] = ttLK.LookupId;
+                    //                    }
+                    //                    if (!string.IsNullOrEmpty(Convert.ToString(items[i]["doanhnghiep"])))
+                    //                    {
+                    //                        SPFieldLookupValue dnLK = new SPFieldLookupValue(Convert.ToString(items[i]["doanhnghiep"]));
+                    //                        dtMenu.Rows[i]["doanhnghiep"] = dnLK.LookupId;
+                    //                    }
+                    //                    if (!string.IsNullOrEmpty(Convert.ToString(items[i]["ttcdct"])))
+                    //                    {
+                    //                        SPFieldLookupValue ttLK = new SPFieldLookupValue(Convert.ToString(items[i]["ttcdct"]));
+                    //                        dtMenu.Rows[i]["ttcdct"] = ttLK.LookupId;
+                    //                    }
+                    //                    if (!string.IsNullOrEmpty(Convert.ToString(items[i]["dulich"])))
+                    //                    {
+                    //                        SPFieldLookupValue dlLK = new SPFieldLookupValue(Convert.ToString(items[i]["dulich"]));
+                    //                        dtMenu.Rows[i]["dulich"] = dlLK.LookupId;
+                    //                    }
+                    //                    if (!string.IsNullOrEmpty(Convert.ToString(items[i]["ttnb"])))
+                    //                    {
+                    //                        SPFieldLookupValue nbLK = new SPFieldLookupValue(Convert.ToString(items[i]["ttnb"]));
+                    //                        dtMenu.Rows[i]["ttnb"] = nbLK.LookupId;
+                    //                    }
+                    //                }
+
+                    //                dtMenuType = Utilities.GetListFromUrl(web, "MenuType").Items.GetDataTable();
+                    //            }
+                    //            catch (Exception ex)
+                    //            {
+                    //                Utilities.LogToUls(ex);
+                    //            }
+                    //        }
+
+                    //    }
+                    //});
+
+                    try
                     {
-                        using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                        SPList list = Utilities.GetListFromUrl(SPContext.Current.Web, ListsName.English.MenuList);
+                        var items = list.Items;
+                        dtMenu = items.GetDataTable();
+                        dtMenu.Columns.Add("MenuTypeID");
+                        dtMenu.Columns.Add("MnParentID");
+                        for (int i = 0; i < items.Count; i++)
                         {
-                            using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                            if (!string.IsNullOrEmpty(Convert.ToString(items[i]["MenuType"])))
                             {
-                                try
-                                {
-                                    SPList list = Utilities.GetListFromUrl(web, ListsName.English.MenuList);
-                                    var items = list.Items;
-                                    dtMenu = items.GetDataTable();
-                                    dtMenu.Columns.Add("MenuTypeID");
-                                    dtMenu.Columns.Add("MnParentID");
-                                    for (int i = 0; i < items.Count; i++)
-                                    {
-                                        if (!string.IsNullOrEmpty(Convert.ToString(items[i]["MenuType"])))
-                                        {
-                                            SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i]["MenuType"]));
-                                            dtMenu.Rows[i]["MenuTypeID"] = catLK.LookupId;
-                                        }
-                                        if (!string.IsNullOrEmpty(Convert.ToString(items[i]["ParentId"])))
-                                        {
-                                            SPFieldLookupValue mnLK = new SPFieldLookupValue(Convert.ToString(items[i]["ParentId"]));
-                                            dtMenu.Rows[i]["MnParentID"] = mnLK.LookupId;
-                                        }
-                                        if (!string.IsNullOrEmpty(Convert.ToString(items[i]["tintuc"])))
-                                        {
-                                            SPFieldLookupValue ttLK = new SPFieldLookupValue(Convert.ToString(items[i]["tintuc"]));
-                                            dtMenu.Rows[i]["tintuc"] = ttLK.LookupId;
-                                        }
-                                        if (!string.IsNullOrEmpty(Convert.ToString(items[i]["doanhnghiep"])))
-                                        {
-                                            SPFieldLookupValue dnLK = new SPFieldLookupValue(Convert.ToString(items[i]["doanhnghiep"]));
-                                            dtMenu.Rows[i]["doanhnghiep"] = dnLK.LookupId;
-                                        }
-                                        if (!string.IsNullOrEmpty(Convert.ToString(items[i]["ttcdct"])))
-                                        {
-                                            SPFieldLookupValue ttLK = new SPFieldLookupValue(Convert.ToString(items[i]["ttcdct"]));
-                                            dtMenu.Rows[i]["ttcdct"] = ttLK.LookupId;
-                                        }
-                                        if (!string.IsNullOrEmpty(Convert.ToString(items[i]["dulich"])))
-                                        {
-                                            SPFieldLookupValue dlLK = new SPFieldLookupValue(Convert.ToString(items[i]["dulich"]));
-                                            dtMenu.Rows[i]["dulich"] = dlLK.LookupId;
-                                        }
-                                        if (!string.IsNullOrEmpty(Convert.ToString(items[i]["ttnb"])))
-                                        {
-                                            SPFieldLookupValue nbLK = new SPFieldLookupValue(Convert.ToString(items[i]["ttnb"]));
-                                            dtMenu.Rows[i]["ttnb"] = nbLK.LookupId;
-                                        }
-                                    }
-
-                                    dtMenuType = Utilities.GetListFromUrl(web, "MenuType").Items.GetDataTable();
-                                }
-                                catch (Exception ex)
-                                {
-                                    Utilities.LogToUls(ex);
-                                }
+                                SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i]["MenuType"]));
+                                dtMenu.Rows[i]["MenuTypeID"] = catLK.LookupId;
                             }
-
+                            if (!string.IsNullOrEmpty(Convert.ToString(items[i]["ParentId"])))
+                            {
+                                SPFieldLookupValue mnLK = new SPFieldLookupValue(Convert.ToString(items[i]["ParentId"]));
+                                dtMenu.Rows[i]["MnParentID"] = mnLK.LookupId;
+                            }
+                            if (!string.IsNullOrEmpty(Convert.ToString(items[i]["tintuc"])))
+                            {
+                                SPFieldLookupValue ttLK = new SPFieldLookupValue(Convert.ToString(items[i]["tintuc"]));
+                                dtMenu.Rows[i]["tintuc"] = ttLK.LookupId;
+                            }
+                            if (!string.IsNullOrEmpty(Convert.ToString(items[i]["doanhnghiep"])))
+                            {
+                                SPFieldLookupValue dnLK = new SPFieldLookupValue(Convert.ToString(items[i]["doanhnghiep"]));
+                                dtMenu.Rows[i]["doanhnghiep"] = dnLK.LookupId;
+                            }
+                            if (!string.IsNullOrEmpty(Convert.ToString(items[i]["ttcdct"])))
+                            {
+                                SPFieldLookupValue ttLK = new SPFieldLookupValue(Convert.ToString(items[i]["ttcdct"]));
+                                dtMenu.Rows[i]["ttcdct"] = ttLK.LookupId;
+                            }
+                            if (!string.IsNullOrEmpty(Convert.ToString(items[i]["dulich"])))
+                            {
+                                SPFieldLookupValue dlLK = new SPFieldLookupValue(Convert.ToString(items[i]["dulich"]));
+                                dtMenu.Rows[i]["dulich"] = dlLK.LookupId;
+                            }
+                            if (!string.IsNullOrEmpty(Convert.ToString(items[i]["ttnb"])))
+                            {
+                                SPFieldLookupValue nbLK = new SPFieldLookupValue(Convert.ToString(items[i]["ttnb"]));
+                                dtMenu.Rows[i]["ttnb"] = nbLK.LookupId;
+                            }
                         }
-                    });
+
+                        dtMenuType = Utilities.GetListFromUrl(SPContext.Current.Web, "MenuType").Items.GetDataTable();
+                    }
+                    catch (Exception ex)
+                    {
+                        Utilities.LogToUls(ex);
+                    }
 
                     //Bind data to latest news
                     if (dtMenu != null && dtMenu.Rows.Count > 0)
@@ -115,6 +168,7 @@ namespace CQ.SharePoint.QN.Webparts
                         rptMenu.DataBind();
                     }
                     WebsiteInfo = Utilities.GetConfigValue(ParentWP.ConfigKey);
+                    HitCount = Utilities.GetListFromUrl(SPContext.Current.Web, ListsName.English.StatisticsList).ItemCount;
                 }
                 catch (Exception ex)
                 {

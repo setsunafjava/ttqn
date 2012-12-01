@@ -106,7 +106,7 @@ namespace CQ.SharePoint.QN.Webparts
                     }
                     
                     var topViewsTable = Utilities.GetNewsRecords(topNewsQuery, GetNewsNumber(WebpartParent.NumberOfNews), listName);
-                    Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.NewsRecord.English.CategoryName, ref topViewsTable);
+                    //Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.NewsRecord.English.CategoryName, ref topViewsTable);
                     if (topViewsTable != null && topViewsTable.Rows.Count > 0)
                     {
                         rptTopViews.DataSource = topViewsTable;
@@ -131,7 +131,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                        </OrderBy>", SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
                         topViewsTable = Utilities.GetNewsRecords(topNewsQuery, GetNewsNumber(WebpartParent.NumberOfNews), listName);
                         ItemUrl = NewsUrl;
-                        Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.NewsRecord.English.CategoryName, ref topViewsTable);
+                        //Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.NewsRecord.English.CategoryName, ref topViewsTable);
                         if (topViewsTable != null && topViewsTable.Rows.Count > 0)
                         {
                             rptTopViews.DataSource = topViewsTable;

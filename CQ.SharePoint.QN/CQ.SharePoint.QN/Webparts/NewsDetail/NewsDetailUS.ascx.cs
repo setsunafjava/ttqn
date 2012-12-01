@@ -95,107 +95,107 @@ namespace CQ.SharePoint.QN.Webparts
 
                                 //Update viewcount
                                 SPSecurity.RunWithElevatedPrivileges(() =>
-                                                                         {
-                                                                             using (
-                                                                                 var site =
-                                                                                     new SPSite(
-                                                                                         SPContext.Current.Web.Site.ID))
-                                                                             {
-                                                                                 using (
-                                                                                     var web =
-                                                                                         site.OpenWeb(
-                                                                                             SPContext.Current.Web.ID))
-                                                                                 {
-                                                                                     try
-                                                                                     {
-                                                                                         string listUrl = web.Url +
-                                                                                                          "/Lists/" +
-                                                                                                          listName;
-                                                                                         var result =
-                                                                                             web.GetList(listUrl);
-                                                                                         int id = Convert.ToInt32(newsId);
-                                                                                         SPListItem items =
-                                                                                             result.GetItemById(id);
-                                                                                         if (items != null)
-                                                                                         {
-                                                                                             string viewcount =
-                                                                                                 Convert.ToString(
-                                                                                                     items[
-                                                                                                         FieldsName.
-                                                                                                             NewsRecord.
-                                                                                                             English.
-                                                                                                             ViewsCount]);
-                                                                                             if (
-                                                                                                 !string.IsNullOrEmpty(
-                                                                                                     viewcount))
-                                                                                             {
-                                                                                                 int count =
-                                                                                                     Convert.ToInt32(
-                                                                                                         viewcount);
-                                                                                                 items[
-                                                                                                     FieldsName.
-                                                                                                         NewsRecord.
-                                                                                                         English.
-                                                                                                         ViewsCount] =
-                                                                                                     ++count;
-                                                                                                 web.AllowUnsafeUpdates
-                                                                                                     = true;
-                                                                                                 items.Update();
-                                                                                             }
-                                                                                             else
-                                                                                             {
-                                                                                                 items[
-                                                                                                     FieldsName.
-                                                                                                         NewsRecord.
-                                                                                                         English.
-                                                                                                         ViewsCount] = 1;
-                                                                                                 web.AllowUnsafeUpdates
-                                                                                                     = true;
-                                                                                                 items.Update();
-                                                                                             }
-                                                                                             //Get attachment file
-                                                                                             if (
-                                                                                                 items.Attachments.Count >
-                                                                                                 0)
-                                                                                             {
-                                                                                                 foreach (
-                                                                                                     var attachment in
-                                                                                                         items.
-                                                                                                             Attachments
-                                                                                                     )
-                                                                                                 {
-                                                                                                     attachMentFiles.
-                                                                                                         Rows.Add(
-                                                                                                             Convert.
-                                                                                                                 ToString
-                                                                                                                 (attachment),
-                                                                                                             string.
-                                                                                                                 Format(
-                                                                                                                     "{0}{1}",
-                                                                                                                     items
-                                                                                                                         .
-                                                                                                                         Attachments
-                                                                                                                         .
-                                                                                                                         UrlPrefix
-                                                                                                                         .
-                                                                                                                         Replace
-                                                                                                                         ("qni-wsus",
-                                                                                                                          "news.qnp.vn"),
-                                                                                                                     Convert
-                                                                                                                         .
-                                                                                                                         ToString
-                                                                                                                         (attachment)));
-                                                                                                 }
-                                                                                             }
-                                                                                         }
-                                                                                     }
-                                                                                     catch (Exception ex)
-                                                                                     {
-                                                                                         Utilities.LogToUls(ex);
-                                                                                     }
-                                                                                 }
-                                                                             }
-                                                                         });
+                             {
+                                 using (
+                                     var site =
+                                         new SPSite(
+                                             SPContext.Current.Web.Site.ID))
+                                 {
+                                     using (
+                                         var web =
+                                             site.OpenWeb(
+                                                 SPContext.Current.Web.ID))
+                                     {
+                                         try
+                                         {
+                                             string listUrl = web.Url +
+                                                              "/Lists/" +
+                                                              listName;
+                                             var result =
+                                                 web.GetList(listUrl);
+                                             int id = Convert.ToInt32(newsId);
+                                             SPListItem items =
+                                                 result.GetItemById(id);
+                                             if (items != null)
+                                             {
+                                                 string viewcount =
+                                                     Convert.ToString(
+                                                         items[
+                                                             FieldsName.
+                                                                 NewsRecord.
+                                                                 English.
+                                                                 ViewsCount]);
+                                                 if (
+                                                     !string.IsNullOrEmpty(
+                                                         viewcount))
+                                                 {
+                                                     int count =
+                                                         Convert.ToInt32(
+                                                             viewcount);
+                                                     items[
+                                                         FieldsName.
+                                                             NewsRecord.
+                                                             English.
+                                                             ViewsCount] =
+                                                         ++count;
+                                                     web.AllowUnsafeUpdates
+                                                         = true;
+                                                     items.Update();
+                                                 }
+                                                 else
+                                                 {
+                                                     items[
+                                                         FieldsName.
+                                                             NewsRecord.
+                                                             English.
+                                                             ViewsCount] = 1;
+                                                     web.AllowUnsafeUpdates
+                                                         = true;
+                                                     items.Update();
+                                                 }
+                                                 //Get attachment file
+                                                 if (
+                                                     items.Attachments.Count >
+                                                     0)
+                                                 {
+                                                     foreach (
+                                                         var attachment in
+                                                             items.
+                                                                 Attachments
+                                                         )
+                                                     {
+                                                         attachMentFiles.
+                                                             Rows.Add(
+                                                                 Convert.
+                                                                     ToString
+                                                                     (attachment),
+                                                                 string.
+                                                                     Format(
+                                                                         "{0}{1}",
+                                                                         items
+                                                                             .
+                                                                             Attachments
+                                                                             .
+                                                                             UrlPrefix
+                                                                             .
+                                                                             Replace
+                                                                             ("qni-wsus",
+                                                                              "news.qnp.vn"),
+                                                                         Convert
+                                                                             .
+                                                                             ToString
+                                                                             (attachment)));
+                                                     }
+                                                 }
+                                             }
+                                         }
+                                         catch (Exception ex)
+                                         {
+                                             Utilities.LogToUls(ex);
+                                         }
+                                     }
+                                 }
+                             });
 
                                 if (attachMentFiles.Rows.Count > 0)
                                 {

@@ -71,7 +71,7 @@ namespace CQ.SharePoint.QN.Webparts
                     var companyList = Utilities.GetNewsRecords(companyListQuery, newsNumber, ListsName.English.ProvinceInfoRecord);
                     if (companyList != null && companyList.Rows.Count > 0)
                     {
-                        Utilities.AddCategoryIdToTable(ListsName.English.ProvinceInfoCategory, FieldsName.CategoryName, ref companyList);
+                        //Utilities.AddCategoryIdToTable(ListsName.English.ProvinceInfoCategory, FieldsName.CategoryName, ref companyList);
 
                         rptProvinceInfo.DataSource = companyList;
                         rptProvinceInfo.DataBind();

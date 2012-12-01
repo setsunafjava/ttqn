@@ -150,7 +150,7 @@ namespace CQ.SharePoint.QN.Webparts
                         if (latestNewsTable != null && latestNewsTable.Count > 0)
                         {
                             var latestNewsTableTemp = Utilities.GetTableWithCorrectUrl(listCategoryName, latestNewsTable, true);
-                            Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref latestNewsTableTemp);
+                            //Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref latestNewsTableTemp);
                             RptLatestNewsUrl = ItemUrl;
                             rptLatestNews.DataSource = latestNewsTableTemp;
                             rptLatestNews.DataBind();
@@ -218,7 +218,7 @@ namespace CQ.SharePoint.QN.Webparts
                             var companyList = Utilities.GetNewsRecords(newsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
                             if (companyList != null && companyList.Rows.Count > 0)
                             {
-                                Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyList);
+                                //Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyList);
                                 RptLatestNewsUrl = ItemUrl;
                                 rptLatestNews.DataSource = companyList;
                                 rptLatestNews.DataBind();
@@ -230,7 +230,7 @@ namespace CQ.SharePoint.QN.Webparts
                                 companyList = Utilities.GetNewsRecords(newsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
                                 if (companyList != null && companyList.Rows.Count > 0)
                                 {
-                                    Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyList);
+                                    //Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyList);
                                     RptLatestNewsUrl = ItemUrl;
                                     rptLatestNews.DataSource = companyList;
                                     rptLatestNews.DataBind();
@@ -241,7 +241,7 @@ namespace CQ.SharePoint.QN.Webparts
                                     companyList = Utilities.GetNewsRecords(newsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), ListsName.English.NewsRecord);
                                     if (companyList != null && companyList.Rows.Count > 0)
                                     {
-                                        Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.CategoryName, ref companyList);
+                                        //Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.CategoryName, ref companyList);
                                         RptLatestNewsUrl = NewsUrl;
                                         rptLatestNews.DataSource = companyList;
                                         rptLatestNews.DataBind();
@@ -257,7 +257,7 @@ namespace CQ.SharePoint.QN.Webparts
                             var companyList = Utilities.GetNewsRecords(latestNewsQuery1, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
                             if (companyList != null && companyList.Rows.Count > 0)
                             {
-                                Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyList);
+                                //Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyList);
                                 RptLatestNewsUrl = ItemUrl;
                                 rptLatestNews.DataSource = companyList;
                                 rptLatestNews.DataBind();
@@ -267,7 +267,7 @@ namespace CQ.SharePoint.QN.Webparts
                                 companyList = Utilities.GetNewsRecords(latestNewsQuery1, GetNewsNumber(WebPartParent.LatestNewsNumber), ListsName.English.NewsRecord);
                                 if (companyList != null && companyList.Rows.Count > 0)
                                 {
-                                    Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.CategoryName, ref companyList);
+                                    //Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.CategoryName, ref companyList);
                                     RptLatestNewsUrl = NewsUrl;
                                     rptLatestNews.DataSource = companyList;
                                     rptLatestNews.DataBind();
@@ -507,7 +507,7 @@ namespace CQ.SharePoint.QN.Webparts
                         DataRow newRow = dataTableTemp.NewRow();
                         newRow[FieldsName.Title] = Convert.ToString(dataTable.Rows[i][FieldsName.Title]);
                         newRow[FieldsName.Id] = dataTable.Rows[i][FieldsName.Id];
-                        newRow[FieldsName.CategoryId] = Utilities.GetCategoryIdByCategoryName(Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.CategoryName]), _listCategoryName);
+                        newRow[FieldsName.CategoryId] = dataTable.Rows[i][FieldsName.CategoryId];
                         dataTableTemp.Rows.Add(newRow);
                     }
                 }
@@ -518,7 +518,7 @@ namespace CQ.SharePoint.QN.Webparts
                         DataRow newRow = dataTableTemp.NewRow();
                         newRow[FieldsName.Title] = Convert.ToString(dataTable.Rows[i][FieldsName.Title]);
                         newRow[FieldsName.Id] = dataTable.Rows[i][FieldsName.Id];
-                        newRow[FieldsName.CategoryId] = Utilities.GetCategoryIdByCategoryName(Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.CategoryName]), _listCategoryName);
+                        newRow[FieldsName.CategoryId] = dataTable.Rows[i][FieldsName.CategoryId];
                         dataTableTemp.Rows.Add(newRow);
                     }
                 }
