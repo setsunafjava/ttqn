@@ -4,8 +4,7 @@
     <ul>
         <asp:Repeater ID="rptMenu" runat="server">
             <ItemTemplate>
-                <li><a style="color: White" href='<%#Eval("Url") %>'>
-                    <%#Eval("Title") %></a></li>
+                <li><a runat="server" id="aLink" style="color: White"></a></li>
             </ItemTemplate>
         </asp:Repeater>
     </ul>
