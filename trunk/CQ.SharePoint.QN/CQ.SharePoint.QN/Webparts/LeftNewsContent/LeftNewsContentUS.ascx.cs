@@ -80,7 +80,7 @@ namespace CQ.SharePoint.QN.Webparts
 
                         lblShortContent.Text = Convert.ToString(tempTable.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
 
-                        Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.NewsRecord.English.CategoryName, ref tempTable);
+                        //Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.NewsRecord.English.CategoryName, ref tempTable);
                         NewsFirstUrl1 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}&CategoryId={6}",
                                    SPContext.Current.Web.Url,
                                    Constants.PageInWeb.DetailNews,

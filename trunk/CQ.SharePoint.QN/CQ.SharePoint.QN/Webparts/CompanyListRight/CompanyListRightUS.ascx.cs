@@ -84,7 +84,7 @@ namespace CQ.SharePoint.QN.Webparts
                         newsNumber = Convert.ToUInt16(WebpartParent.NumberOfNews);
                     }
                     var companyList = Utilities.GetNewsRecords(companyListQuery, newsNumber, ListsName.English.CompanyRecord);
-                    Utilities.AddCategoryIdToTable(ListsName.English.CompanyCategory, FieldsName.CompanyRecord.English.CategoryName, ref companyList);
+                    //Utilities.AddCategoryIdToTable(ListsName.English.CompanyCategory, FieldsName.CompanyRecord.English.CategoryName, ref companyList);
                     if (companyList != null && companyList.Rows.Count > 0)
                     {
                         rptCompanyList.DataSource = companyList;

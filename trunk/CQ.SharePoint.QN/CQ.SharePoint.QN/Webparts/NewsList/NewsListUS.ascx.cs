@@ -101,7 +101,7 @@ namespace CQ.SharePoint.QN.Webparts
                         if (companyList != null && companyList.Rows.Count > 0)
                         {
                             var companyListTemp = Utilities.GetTableWithCorrectUrl(companyList);
-                            Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyListTemp);
+                            //Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyListTemp);
 
 
                             //paging
@@ -155,7 +155,7 @@ namespace CQ.SharePoint.QN.Webparts
                                 if (companyList != null && companyList.Rows.Count > 0)
                                 {
                                     var companyListTemp = Utilities.GetTableWithCorrectUrl(companyList);
-                                    Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyListTemp);
+                                    //Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyListTemp);
                                     PagedDataSource pageds = new PagedDataSource
                                     {
                                         DataSource = companyListTemp.DefaultView,
@@ -300,7 +300,7 @@ namespace CQ.SharePoint.QN.Webparts
                             if (companyList != null && companyList.Rows.Count > 0)
                             {
                                 var companyListTemp = Utilities.GetTableWithCorrectUrl(companyList);
-                                Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyListTemp);
+                                //Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyListTemp);
                                 PagedDataSource pageds = new PagedDataSource
                                 {
                                     DataSource = companyListTemp.DefaultView,

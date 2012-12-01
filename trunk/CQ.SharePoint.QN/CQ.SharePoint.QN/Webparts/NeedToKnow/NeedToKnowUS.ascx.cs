@@ -17,6 +17,7 @@ namespace CQ.SharePoint.QN.Webparts
     /// </summary>
     public partial class NeedToKnowUS : UserControl
     {
+        private delegate void MethodInvoker(SPWeb web);
         public NeedToKnow ParentWP;
         /// <summary>
         /// Page on Load
@@ -50,11 +51,32 @@ namespace CQ.SharePoint.QN.Webparts
                 {
 
                 }
-                
 
                 try
                 {
-                    string Url = "http://www.vietcombank.com.vn/ExchangeRates/ExrateXML.aspx";
+                    MethodInvoker runSaveFileToDocLib = new MethodInvoker(SaveFileToDocLibAll);
+                    runSaveFileToDocLib.BeginInvoke(SPContext.Current.Web, null, null);
+                    //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/Sonla.xml", "Sonla");
+                    //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/Viettri.xml", "Viettri");
+                    //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/Haiphong.xml", "Haiphong");
+                    //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/Hanoi.xml", "Hanoi");
+                    //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/Vinh.xml", "Vinh");
+                    //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/Danang.xml", "Danang");
+                    //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/Nhatrang.xml", "Nhatrang");
+                    //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/Pleicu.xml", "Pleicu");
+                    //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/HCM.xml", "HCM");
+                    //SaveFileToDocLib(SPContext.Current.Web, "http://www.vietcombank.com.vn/ExchangeRates/ExrateXML.aspx", "giavang");
+                }
+                catch (Exception)
+                {
+
+                }
+
+                try
+                {
+                    //string Url = "http://www.vietcombank.com.vn/ExchangeRates/ExrateXML.aspx";
+                    string Url = string.Format(CultureInfo.InvariantCulture, "{0}/{1}/{2}", SPContext.Current.Web.Url,
+                                                                ListsName.English.CQQNResources, "giavang.xml");
                     DataSet ds = new DataSet();
 					string currencyString = "USD SGD JPY EUR RUB";
                     ds.ReadXml(Url);
@@ -93,26 +115,23 @@ namespace CQ.SharePoint.QN.Webparts
                 {
 
                 }
-                try
-                {
-                    SaveFileToDocLib("http://vnexpress.net/ListFile/Weather/Sonla.xml", "Sonla");
-                    SaveFileToDocLib("http://vnexpress.net/ListFile/Weather/Viettri.xml", "Viettri");
-                    SaveFileToDocLib("http://vnexpress.net/ListFile/Weather/Haiphong.xml", "Haiphong");
-                    SaveFileToDocLib("http://vnexpress.net/ListFile/Weather/Hanoi.xml", "Hanoi");
-                    SaveFileToDocLib("http://vnexpress.net/ListFile/Weather/Vinh.xml", "Vinh");
-                    SaveFileToDocLib("http://vnexpress.net/ListFile/Weather/Danang.xml", "Danang");
-                    SaveFileToDocLib("http://vnexpress.net/ListFile/Weather/Nhatrang.xml", "Nhatrang");
-                    SaveFileToDocLib("http://vnexpress.net/ListFile/Weather/Pleicu.xml", "Pleicu");
-                    SaveFileToDocLib("http://vnexpress.net/ListFile/Weather/HCM.xml", "HCM");
-                }
-                catch (Exception)
-                {
-                    
-                }
             }
         }
 
-        private void SaveFileToDocLib(string url, string fileName)
+        private void SaveFileToDocLibAll(SPWeb currentWeb) {
+            SaveFileToDocLib(currentWeb, "http://vnexpress.net/ListFile/Weather/Sonla.xml", "Sonla");
+            SaveFileToDocLib(currentWeb, "http://vnexpress.net/ListFile/Weather/Viettri.xml", "Viettri");
+            SaveFileToDocLib(currentWeb, "http://vnexpress.net/ListFile/Weather/Haiphong.xml", "Haiphong");
+            SaveFileToDocLib(currentWeb, "http://vnexpress.net/ListFile/Weather/Hanoi.xml", "Hanoi");
+            SaveFileToDocLib(currentWeb, "http://vnexpress.net/ListFile/Weather/Vinh.xml", "Vinh");
+            SaveFileToDocLib(currentWeb, "http://vnexpress.net/ListFile/Weather/Danang.xml", "Danang");
+            SaveFileToDocLib(currentWeb, "http://vnexpress.net/ListFile/Weather/Nhatrang.xml", "Nhatrang");
+            SaveFileToDocLib(currentWeb, "http://vnexpress.net/ListFile/Weather/Pleicu.xml", "Pleicu");
+            SaveFileToDocLib(currentWeb, "http://vnexpress.net/ListFile/Weather/HCM.xml", "HCM");
+            SaveFileToDocLib(currentWeb, "http://www.vietcombank.com.vn/ExchangeRates/ExrateXML.aspx", "giavang");
+        }
+
+        private void SaveFileToDocLib(SPWeb currentWeb, string url, string fileName)
         {
             HttpWebRequest request = (HttpWebRequest)
                         WebRequest.Create(url);
@@ -126,9 +145,9 @@ namespace CQ.SharePoint.QN.Webparts
 
             SPSecurity.RunWithElevatedPrivileges(() =>
             {
-                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                using (var site = new SPSite(currentWeb.Site.ID))
                 {
-                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    using (var web = site.OpenWeb(currentWeb.ID))
                     {
                         try
                         {

@@ -44,33 +44,50 @@ namespace CQ.SharePoint.QN.Webparts
         public DataTable GetNewsRecords(string query)
         {
             DataTable table = new DataTable();
-            SPSecurity.RunWithElevatedPrivileges(() =>
-            {
-                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
-                {
-                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
-                    {
-                        try
-                        {
-                            SPQuery spQuery = new SPQuery
-                            {
-                                Query = query
-                            };
-                            SPList list = Utilities.GetListFromUrl(web, ListsName.English.LinkSite);
-                            if (list != null)
-                            {
-                                SPListItemCollection items = list.GetItems(spQuery);
-                                table = items.GetDataTable();
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            table = null;
-                        }
-                    }
+            //SPSecurity.RunWithElevatedPrivileges(() =>
+            //{
+            //    using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+            //    {
+            //        using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+            //        {
+            //            try
+            //            {
+            //                SPQuery spQuery = new SPQuery
+            //                {
+            //                    Query = query
+            //                };
+            //                SPList list = Utilities.GetListFromUrl(web, ListsName.English.LinkSite);
+            //                if (list != null)
+            //                {
+            //                    SPListItemCollection items = list.GetItems(spQuery);
+            //                    table = items.GetDataTable();
+            //                }
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                table = null;
+            //            }
+            //        }
 
+            //    }
+            //});
+            try
+            {
+                SPQuery spQuery = new SPQuery
+                {
+                    Query = query
+                };
+                SPList list = Utilities.GetListFromUrl(SPContext.Current.Web, ListsName.English.LinkSite);
+                if (list != null)
+                {
+                    SPListItemCollection items = list.GetItems(spQuery);
+                    table = items.GetDataTable();
                 }
-            });
+            }
+            catch (Exception ex)
+            {
+                table = null;
+            }
             return table;
         }
 
@@ -85,10 +102,10 @@ namespace CQ.SharePoint.QN.Webparts
             // This event is raised for the header, the footer, separators, and items.
 
             // Execute the following logic for Items and Alternating Items.
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                DataRowView drv = (DataRowView)e.Item.DataItem;
-            }
+            //if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            //{
+            //    DataRowView drv = (DataRowView)e.Item.DataItem;
+            //}
         }   
     }
 }

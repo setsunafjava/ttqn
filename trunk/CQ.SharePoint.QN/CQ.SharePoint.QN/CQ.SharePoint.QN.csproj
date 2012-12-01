@@ -540,7 +540,6 @@
     </Content>
     <Content Include="Webparts\NeedToKnow\NeedToKnow.xml" />
     <Content Include="Webparts\NeedToKnow\NeedToKnowUS.ascx">
-      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\NewsDetail\NewsDetail.xml" />
     <Content Include="Webparts\NewsDetail\NewsDetailUS.ascx">

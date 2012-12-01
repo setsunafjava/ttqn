@@ -107,7 +107,7 @@ namespace CQ.SharePoint.QN.Webparts
                        Constants.NewsId);
                     DataTable companyList = Utilities.SearchNews(keyWord);
                     var companyListTemp = Utilities.GetTableWithCorrectUrl(companyList);
-                    Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.CategoryName, ref companyListTemp);
+                    //Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.CategoryName, ref companyListTemp);
                     string imagepath;
                     if (companyList.Rows.Count > 0)
                     {

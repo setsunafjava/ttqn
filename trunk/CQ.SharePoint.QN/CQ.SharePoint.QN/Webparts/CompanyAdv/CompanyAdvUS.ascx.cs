@@ -78,7 +78,7 @@ namespace CQ.SharePoint.QN.Webparts
                     }
 
                     var companyList = Utilities.GetNewsRecords(companyListQuery, newsNumber, ListsName.English.CompanyRecord);
-                    Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.NewsRecord.English.CategoryName, ref companyList);
+                    //Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.NewsRecord.English.CategoryName, ref companyList);
                     if (companyList != null && companyList.Rows.Count > 0)
                     {
                         rptCompanyAdv.DataSource = companyList;

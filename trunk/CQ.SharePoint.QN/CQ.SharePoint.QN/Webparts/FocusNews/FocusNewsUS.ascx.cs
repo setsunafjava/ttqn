@@ -85,7 +85,7 @@ namespace CQ.SharePoint.QN.Webparts
                        ListsName.English.NewsRecord,
                        "FocusNews");
                     var tableFocus = Utilities.GetTableWithCorrectUrl(ListsName.English.NewsCategory, focusNewsTable);
-                    Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory,FieldsName.NewsRecord.English.CategoryName, ref tableFocus);
+                    //Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory,FieldsName.NewsRecord.English.CategoryName, ref tableFocus);
                     if (focusNewsTable != null && focusNewsTable.Count > 0)
                     {
                         rptFocusNews.DataSource = tableFocus;
@@ -100,10 +100,10 @@ namespace CQ.SharePoint.QN.Webparts
 
         protected void FocusNews_OnItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                DataRowView drv = (DataRowView)e.Item.DataItem;
-            }
+            //if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            //{
+            //    DataRowView drv = (DataRowView)e.Item.DataItem;
+            //}
         }
     }
 }

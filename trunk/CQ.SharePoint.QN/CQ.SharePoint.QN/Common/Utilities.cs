@@ -130,7 +130,12 @@ namespace CQ.SharePoint.QN.Common
                         advLink = new SPFieldUrlValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.LinkAdv]));
                         dataTable.Rows[i][FieldsName.NewsRecord.English.LinkAdv] = advLink.Url;
                     }
-                    dataTable.Rows[i][FieldsName.CategoryId] = GetCategoryIdByCategoryName(Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.CategoryName]), categoryListName);
+                    //dataTable.Rows[i][FieldsName.CategoryId] = GetCategoryIdByCategoryName(Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.CategoryName]), categoryListName);
+                    if (!string.IsNullOrEmpty(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName])))
+                    {
+                        SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName]));
+                        dataTable.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
+                    }
 
                     time = Convert.ToDateTime(dataTable.Rows[i][FieldsName.Created]);
                     dataTable.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format("Ngày {0}/{1}/{2}", time.Day, time.Month, time.Year);
@@ -189,7 +194,12 @@ namespace CQ.SharePoint.QN.Common
                         advLink = new SPFieldUrlValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.LinkAdv]));
                         dataTable.Rows[i][FieldsName.NewsRecord.English.LinkAdv] = advLink.Url;
                     }
-                    dataTable.Rows[i][FieldsName.CategoryId] = GetCategoryIdByCategoryName(Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.CategoryName]), categoryListName);
+                    //dataTable.Rows[i][FieldsName.CategoryId] = GetCategoryIdByCategoryName(Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.CategoryName]), categoryListName);
+                    if (!string.IsNullOrEmpty(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName])))
+                    {
+                        SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName]));
+                        dataTable.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
+                    }
 
                     time = Convert.ToDateTime(dataTable.Rows[i][FieldsName.Created]);
                     dataTable.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
@@ -245,7 +255,12 @@ namespace CQ.SharePoint.QN.Common
 
                     dataTable.Rows[i][FieldsName.NewsRecord.English.ShortContent] = StripHtml(Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.ShortContent]));
 
-                    dataTable.Rows[i][FieldsName.CategoryId] = GetCategoryIdByCategoryName(Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.CategoryName]), categoryListName);
+                    //dataTable.Rows[i][FieldsName.CategoryId] = GetCategoryIdByCategoryName(Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.CategoryName]), categoryListName);
+                    if (!string.IsNullOrEmpty(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName])))
+                    {
+                        SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName]));
+                        dataTable.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
+                    }
                 }
             }
             return dataTable;
@@ -1004,29 +1019,42 @@ namespace CQ.SharePoint.QN.Common
         public static DataTable GetListFromUrl(string listName)
         {
             DataTable table = null;
-            SPSecurity.RunWithElevatedPrivileges(() =>
-            {
-                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
-                {
-                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
-                    {
-                        try
-                        {
-                            string listUrl = web.Url + "/Lists/" + listName;
-                            var result = web.GetList(listUrl);
-                            SPQuery query = new SPQuery();
-                            var items = result.GetItems(query);
-                            if (items != null && items.Count > 0)
-                                table = items.GetDataTable();
-                        }
-                        catch (Exception ex)
-                        {
-                            Utilities.LogToUls(ex);
-                        }
-                    }
+            //SPSecurity.RunWithElevatedPrivileges(() =>
+            //{
+            //    using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+            //    {
+            //        using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+            //        {
+            //            try
+            //            {
+            //                string listUrl = web.Url + "/Lists/" + listName;
+            //                var result = web.GetList(listUrl);
+            //                SPQuery query = new SPQuery();
+            //                var items = result.GetItems(query);
+            //                if (items != null && items.Count > 0)
+            //                    table = items.GetDataTable();
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                Utilities.LogToUls(ex);
+            //            }
+            //        }
 
-                }
-            });
+            //    }
+            //});
+            try
+            {
+                string listUrl = SPContext.Current.Web.Url + "/Lists/" + listName;
+                var result = SPContext.Current.Web.GetList(listUrl);
+                SPQuery query = new SPQuery();
+                var items = result.GetItems(query);
+                if (items != null && items.Count > 0)
+                    table = items.GetDataTable();
+            }
+            catch (Exception ex)
+            {
+                Utilities.LogToUls(ex);
+            }
             return table;
         }
 
@@ -1112,88 +1140,128 @@ namespace CQ.SharePoint.QN.Common
         public static SPList GetDocListFromUrl(string listName)
         {
             SPList result = null;
-            SPSecurity.RunWithElevatedPrivileges(() =>
-            {
-                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
-                {
-                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
-                    {
-                        try
-                        {
-                            string listUrl = web.Url + "/" + listName;
-                            result = web.GetList(listUrl);
-                        }
-                        catch (Exception ex)
-                        {
-                            Utilities.LogToUls(ex);
-                        }
-                    }
+            //SPSecurity.RunWithElevatedPrivileges(() =>
+            //{
+            //    using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+            //    {
+            //        using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+            //        {
+            //            try
+            //            {
+            //                string listUrl = web.Url + "/" + listName;
+            //                result = web.GetList(listUrl);
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                Utilities.LogToUls(ex);
+            //            }
+            //        }
 
-                }
-            });
+            //    }
+            //});
+            try
+            {
+                string listUrl = SPContext.Current.Web.Url + "/" + listName;
+                result = SPContext.Current.Web.GetList(listUrl);
+            }
+            catch (Exception ex)
+            {
+                Utilities.LogToUls(ex);
+            }
             return result;
         }
 
         public static SPListItem GetDocListItemFromUrl(string listName, int docID)
         {
             SPListItem result = null;
-            SPSecurity.RunWithElevatedPrivileges(() =>
-            {
-                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
-                {
-                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
-                    {
-                        try
-                        {
-                            string listUrl = web.Url + "/" + listName;
-                            result = web.GetList(listUrl).GetItemById(docID);
-                        }
-                        catch (Exception ex)
-                        {
-                            Utilities.LogToUls(ex);
-                        }
-                    }
+            //SPSecurity.RunWithElevatedPrivileges(() =>
+            //{
+            //    using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+            //    {
+            //        using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+            //        {
+            //            try
+            //            {
+            //                string listUrl = web.Url + "/" + listName;
+            //                result = web.GetList(listUrl).GetItemById(docID);
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                Utilities.LogToUls(ex);
+            //            }
+            //        }
 
-                }
-            });
+            //    }
+            //});
+            try
+            {
+                string listUrl = SPContext.Current.Web.Url + "/" + listName;
+                result = SPContext.Current.Web.GetList(listUrl).GetItemById(docID);
+            }
+            catch (Exception ex)
+            {
+                Utilities.LogToUls(ex);
+            }
             return result;
         }
 
         public static SPListItem GetQuangCao(string listName, string catID, string catType)
         {
             SPListItem result = null;
-            SPSecurity.RunWithElevatedPrivileges(() =>
+//            SPSecurity.RunWithElevatedPrivileges(() =>
+//            {
+//                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+//                {
+//                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+//                    {
+//                        try
+//                        {
+//                            string listUrl = web.Url + "/Lists/" + listName;
+//                            var camlquery = string.Format(@"<Where>
+//                                                          <Eq>
+//                                                            <FieldRef Name='{0}' LookupId='TRUE' />
+//                                                            <Value Type='LookupMulti'>{1}</Value>
+//                                                          </Eq>
+//                                                       </Where>", catType, catID);
+//                            var query = new SPQuery();
+//                            query.Query = camlquery;
+//                            query.RowLimit = 1;
+//                            var items = web.GetList(listUrl).GetItems(query);
+//                            if (items != null && items.Count > 0)
+//                            {
+//                                result = items[0];
+//                            }
+//                        }
+//                        catch (Exception ex)
+//                        {
+//                            Utilities.LogToUls(ex);
+//                        }
+//                    }
+
+//                }
+//            });
+            try
             {
-                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
-                {
-                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
-                    {
-                        try
-                        {
-                            string listUrl = web.Url + "/Lists/" + listName;
-                            var camlquery = string.Format(@"<Where>
+                string listUrl = SPContext.Current.Web.Url + "/Lists/" + listName;
+                var camlquery = string.Format(@"<Where>
                                                           <Eq>
                                                             <FieldRef Name='{0}' LookupId='TRUE' />
                                                             <Value Type='LookupMulti'>{1}</Value>
                                                           </Eq>
                                                        </Where>", catType, catID);
-                            var query = new SPQuery();
-                            query.Query = camlquery;
-                            query.RowLimit = 1;
-                            var items = web.GetList(listUrl).GetItems(query);
-                            if (items != null && items.Count > 0)
-                            {
-                                result = items[0];
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Utilities.LogToUls(ex);
-                        }
-                    }
-
+                var query = new SPQuery();
+                query.Query = camlquery;
+                query.RowLimit = 1;
+                var items = SPContext.Current.Web.GetList(listUrl).GetItems(query);
+                if (items != null && items.Count > 0)
+                {
+                    result = items[0];
                 }
-            });
+            }
+            catch (Exception ex)
+            {
+                Utilities.LogToUls(ex);
+            }
             return result;
         }
 
@@ -1220,6 +1288,27 @@ namespace CQ.SharePoint.QN.Common
                                 if (items != null && items.Count > 0)
                                 {
                                     table = items.GetDataTable();
+
+                                    if (!table.Columns.Contains(FieldsName.CategoryId))
+                                    {
+                                        table.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
+                                    }
+
+                                    if (!table.Columns.Contains(FieldsName.ArticleStartDateTemp))
+                                    {
+                                        table.Columns.Add(FieldsName.ArticleStartDateTemp, Type.GetType("System.String"));
+                                    }
+
+                                    for (int i = 0; i < items.Count; i++)
+                                    {
+                                        if (!string.IsNullOrEmpty(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName])))
+                                        {
+                                            SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName]));
+                                            table.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
+                                        }
+                                        var time = Convert.ToDateTime(items[i][FieldsName.Created]);
+                                        table.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
+                                    }
                                 }
                             }
                         }
@@ -1231,6 +1320,48 @@ namespace CQ.SharePoint.QN.Common
 
                 }
             });
+            //try
+            //{
+            //    SPQuery spQuery = new SPQuery
+            //    {
+            //        Query = query,
+            //        RowLimit = newsNumber
+            //    };
+            //    SPList list = Utilities.GetListFromUrl(SPContext.Current.Web, listName);
+            //    if (list != null)
+            //    {
+            //        SPListItemCollection items = list.GetItems(spQuery);
+            //        if (items != null && items.Count > 0)
+            //        {
+            //            table = items.GetDataTable();
+
+            //            if (!table.Columns.Contains(FieldsName.CategoryId))
+            //            {
+            //                table.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
+            //            }
+
+            //            if (!table.Columns.Contains(FieldsName.ArticleStartDateTemp))
+            //            {
+            //                table.Columns.Add(FieldsName.ArticleStartDateTemp, Type.GetType("System.String"));
+            //            }
+
+            //            for (int i = 0; i < items.Count; i++)
+            //            {
+            //                if (!string.IsNullOrEmpty(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName])))
+            //                {
+            //                    SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName]));
+            //                    table.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
+            //                }
+            //                var time = Convert.ToDateTime(items[i][FieldsName.Created]);
+            //                table.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    table = null;
+            //}
             return table;
         }
 
@@ -1257,6 +1388,27 @@ namespace CQ.SharePoint.QN.Common
                                 if (items != null && items.Count > 0)
                                 {
                                     table = items.GetDataTable();
+
+                                    if (!table.Columns.Contains(FieldsName.CategoryId))
+                                    {
+                                        table.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
+                                    }
+
+                                    if (!table.Columns.Contains(FieldsName.ArticleStartDateTemp))
+                                    {
+                                        table.Columns.Add(FieldsName.ArticleStartDateTemp, Type.GetType("System.String"));
+                                    }
+
+                                    for (int i = 0; i < items.Count; i++)
+                                    {
+                                        if (!string.IsNullOrEmpty(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName])))
+                                        {
+                                            SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName]));
+                                            table.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
+                                        }
+                                        var time = Convert.ToDateTime(items[i][FieldsName.Created]);
+                                        table.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
+                                    }
                                 }
                             }
                         }
@@ -1268,6 +1420,48 @@ namespace CQ.SharePoint.QN.Common
 
                 }
             });
+            //try
+            //{
+            //    SPQuery spQuery = new SPQuery
+            //    {
+            //        Query = query,
+            //        DatesInUtc = false
+            //    };
+            //    SPList list = Utilities.GetListFromUrl(SPContext.Current.Web, listName);
+            //    if (list != null)
+            //    {
+            //        SPListItemCollection items = list.GetItems(spQuery);
+            //        if (items != null && items.Count > 0)
+            //        {
+            //            table = items.GetDataTable();
+
+            //            if (!table.Columns.Contains(FieldsName.CategoryId))
+            //            {
+            //                table.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
+            //            }
+
+            //            if (!table.Columns.Contains(FieldsName.ArticleStartDateTemp))
+            //            {
+            //                table.Columns.Add(FieldsName.ArticleStartDateTemp, Type.GetType("System.String"));
+            //            }
+
+            //            for (int i = 0; i < items.Count; i++)
+            //            {
+            //                if (!string.IsNullOrEmpty(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName])))
+            //                {
+            //                    SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName]));
+            //                    table.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
+            //                }
+            //                var time = Convert.ToDateTime(items[i][FieldsName.Created]);
+            //                table.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    table = null;
+            //}
             return table;
         }
 
@@ -1306,6 +1500,27 @@ namespace CQ.SharePoint.QN.Common
 
                 }
             });
+            //try
+            //{
+            //    SPQuery spQuery = new SPQuery
+            //    {
+            //        Query = query,
+            //        RowLimit = newsNumber
+            //    };
+            //    SPList list = Utilities.GetListFromUrl(SPContext.Current.Web, listName);
+            //    if (list != null)
+            //    {
+            //        SPListItemCollection items = list.GetItems(spQuery);
+            //        if (items != null && items.Count > 0)
+            //        {
+            //            allItems = items;
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    allItems = null;
+            //}
             return allItems;
         }
 
@@ -1338,80 +1553,139 @@ namespace CQ.SharePoint.QN.Common
                     }
                 }
             });
+            //try
+            //{
+            //    SPList list = GetListFromUrl(SPContext.Current.Web, listName);
+            //    if (list != null)
+            //    {
+            //        SPItem items = list.GetItemById(itemId);
+            //        if (items != null)
+            //        {
+            //            string categoryName = Convert.ToString(items[FieldsName.NewsRecord.English.CategoryName]);
+            //            categoryId = categoryName.Substring(0, categoryName.IndexOf(";#"));
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    //categoryId = 0;
+            //}
             return categoryId;
         }
 
         public static DataTable GetDocLibRecords(string query, string listName)
         {
             DataTable table = new DataTable();
-            SPSecurity.RunWithElevatedPrivileges(() =>
-            {
-                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
-                {
-                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
-                    {
-                        try
-                        {
-                            SPQuery spQuery = new SPQuery
-                            {
-                                Query = query,
-                                ViewFields = "<FieldRef Name='ID' /><FieldRef Name='Title' /><FieldRef Name='ImageCreateDate' /><FieldRef Name='Description' /><FieldRef Name='FileLeafRef' />"
-                            };
-                            SPList list = Utilities.GetDocListFromUrl(web, listName);
-                            if (list != null)
-                            {
-                                SPListItemCollection items = list.GetItems(spQuery);
-                                if (items != null && items.Count > 0)
-                                {
-                                    table = items.GetDataTable();
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            table = null;
-                        }
-                    }
+            //SPSecurity.RunWithElevatedPrivileges(() =>
+            //{
+            //    using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+            //    {
+            //        using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+            //        {
+            //            try
+            //            {
+            //                SPQuery spQuery = new SPQuery
+            //                {
+            //                    Query = query,
+            //                    ViewFields = "<FieldRef Name='ID' /><FieldRef Name='Title' /><FieldRef Name='ImageCreateDate' /><FieldRef Name='Description' /><FieldRef Name='FileLeafRef' />"
+            //                };
+            //                SPList list = Utilities.GetDocListFromUrl(web, listName);
+            //                if (list != null)
+            //                {
+            //                    SPListItemCollection items = list.GetItems(spQuery);
+            //                    if (items != null && items.Count > 0)
+            //                    {
+            //                        table = items.GetDataTable();
+            //                    }
+            //                }
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                table = null;
+            //            }
+            //        }
 
+            //    }
+            //});
+            try
+            {
+                SPQuery spQuery = new SPQuery
+                {
+                    Query = query,
+                    ViewFields = "<FieldRef Name='ID' /><FieldRef Name='Title' /><FieldRef Name='ImageCreateDate' /><FieldRef Name='Description' /><FieldRef Name='FileLeafRef' />"
+                };
+                SPList list = Utilities.GetDocListFromUrl(SPContext.Current.Web, listName);
+                if (list != null)
+                {
+                    SPListItemCollection items = list.GetItems(spQuery);
+                    if (items != null && items.Count > 0)
+                    {
+                        table = items.GetDataTable();
+                    }
                 }
-            });
+            }
+            catch (Exception ex)
+            {
+                table = null;
+            }
             return table;
         }
 
         public static DataTable GetDocLibRecords(string query, uint itemsNumber, string listName)
         {
             DataTable table = new DataTable();
-            SPSecurity.RunWithElevatedPrivileges(() =>
-            {
-                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
-                {
-                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
-                    {
-                        try
-                        {
-                            SPQuery spQuery = new SPQuery
-                            {
-                                Query = query,
-                                RowLimit = itemsNumber
-                            };
-                            SPList list = GetDocListFromUrl(web, listName);
-                            if (list != null)
-                            {
-                                SPListItemCollection items = list.GetItems(spQuery);
-                                if (items != null && items.Count > 0)
-                                {
-                                    table = items.GetDataTable();
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            table = null;
-                        }
-                    }
+            //SPSecurity.RunWithElevatedPrivileges(() =>
+            //{
+            //    using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+            //    {
+            //        using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+            //        {
+            //            try
+            //            {
+            //                SPQuery spQuery = new SPQuery
+            //                {
+            //                    Query = query,
+            //                    RowLimit = itemsNumber
+            //                };
+            //                SPList list = GetDocListFromUrl(web, listName);
+            //                if (list != null)
+            //                {
+            //                    SPListItemCollection items = list.GetItems(spQuery);
+            //                    if (items != null && items.Count > 0)
+            //                    {
+            //                        table = items.GetDataTable();
+            //                    }
+            //                }
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                table = null;
+            //            }
+            //        }
 
+            //    }
+            //});
+            try
+            {
+                SPQuery spQuery = new SPQuery
+                {
+                    Query = query,
+                    RowLimit = itemsNumber
+                };
+                SPList list = GetDocListFromUrl(SPContext.Current.Web, listName);
+                if (list != null)
+                {
+                    SPListItemCollection items = list.GetItems(spQuery);
+                    if (items != null && items.Count > 0)
+                    {
+                        table = items.GetDataTable();
+                    }
                 }
-            });
+            }
+            catch (Exception ex)
+            {
+                table = null;
+            }
             return table;
         }
 
@@ -1754,6 +2028,27 @@ namespace CQ.SharePoint.QN.Common
                                 if (items != null && items.Count > 0)
                                 {
                                     table = items.GetDataTable();
+
+                                    if (!table.Columns.Contains(FieldsName.CategoryId))
+                                    {
+                                        table.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
+                                    }
+
+                                    if (!table.Columns.Contains(FieldsName.ArticleStartDateTemp))
+                                    {
+                                        table.Columns.Add(FieldsName.ArticleStartDateTemp, Type.GetType("System.String"));
+                                    }
+
+                                    for (int i = 0; i < items.Count; i++)
+                                    {
+                                        if (!string.IsNullOrEmpty(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName])))
+                                        {
+                                            SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName]));
+                                            table.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
+                                        }
+                                        var time = Convert.ToDateTime(items[i][FieldsName.Created]);
+                                        table.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
+                                    }
                                 }
                             }
                         }
@@ -1765,6 +2060,44 @@ namespace CQ.SharePoint.QN.Common
 
                 }
             });
+            //try
+            //{
+            //    string listUrl = SPContext.Current.Web.Url + "/Lists/" + listName;
+            //    var list = SPContext.Current.Web.GetList(listUrl);
+            //    if (list != null)
+            //    {
+            //        var items = list.GetItems(query);
+            //        if (items != null && items.Count > 0)
+            //        {
+            //            table = items.GetDataTable();
+
+            //            if (!table.Columns.Contains(FieldsName.CategoryId))
+            //            {
+            //                table.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
+            //            }
+
+            //            if (!table.Columns.Contains(FieldsName.ArticleStartDateTemp))
+            //            {
+            //                table.Columns.Add(FieldsName.ArticleStartDateTemp, Type.GetType("System.String"));
+            //            }
+
+            //            for (int i = 0; i < items.Count; i++)
+            //            {
+            //                if (!string.IsNullOrEmpty(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName])))
+            //                {
+            //                    SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName]));
+            //                    table.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
+            //                }
+            //                var time = Convert.ToDateTime(items[i][FieldsName.Created]);
+            //                table.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Utilities.LogToUls(ex);
+            //}
             return table;
         }
 
@@ -2192,6 +2525,17 @@ namespace CQ.SharePoint.QN.Common
                                 if (items != null && items.Count > 0)
                                 {
                                     table = items.GetDataTable();
+
+                                    for (int i = 0; i < items.Count; i++)
+                                    {
+                                        if (!string.IsNullOrEmpty(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName])))
+                                        {
+                                            SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName]));
+                                            table.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
+                                        }
+                                        var time = Convert.ToDateTime(items[i][FieldsName.Created]);
+                                        table.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
+                                    }
                                 }
                             }
                         }
@@ -2203,6 +2547,34 @@ namespace CQ.SharePoint.QN.Common
 
                 }
             });
+            //try
+            //{
+            //    string listUrl = SPContext.Current.Web.Url + "/Lists/" + ListsName.English.NewsRecord;
+            //    var list = SPContext.Current.Web.GetList(listUrl);
+            //    if (list != null)
+            //    {
+            //        var items = list.GetItems(query);
+            //        if (items != null && items.Count > 0)
+            //        {
+            //            table = items.GetDataTable();
+
+            //            for (int i = 0; i < items.Count; i++)
+            //            {
+            //                if (!string.IsNullOrEmpty(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName])))
+            //                {
+            //                    SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName]));
+            //                    table.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
+            //                }
+            //                var time = Convert.ToDateTime(items[i][FieldsName.Created]);
+            //                table.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Utilities.LogToUls(ex);
+            //}
             return table;
         }
 
@@ -2246,126 +2618,126 @@ namespace CQ.SharePoint.QN.Common
             });
         }
 
-        /// <summary>
-        /// Get 
-        /// </summary>
-        /// <param name="categoryNameValue"></param>
-        /// <param name="listCategoryName"></param>
-        /// <returns></returns>
-        public static int GetCategoryIdByCategoryName(string categoryNameValue, string listCategoryName)
-        {
-            if (categoryNameValue != null && categoryNameValue.Contains(";#"))
-            {
-                categoryNameValue = categoryNameValue.Substring(categoryNameValue.IndexOf("#") + 1);
-            }
-            string camlQuery = string.Format(@"<Where>
-                                                  <Eq>
-                                                     <FieldRef Name='Title' />
-                                                     <Value Type='Text'>{0}</Value>
-                                                  </Eq>
-                                               </Where>", categoryNameValue);
-            var query = new SPQuery { Query = camlQuery, RowLimit = 1 };
-            int categoryId = 0;
-            SPSecurity.RunWithElevatedPrivileges(() =>
-            {
-                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
-                {
-                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
-                    {
-                        try
-                        {
-                            string listUrl = web.Url + "/Lists/" + listCategoryName;
-                            var list = web.GetList(listUrl);
-                            if (list != null)
-                            {
-                                var items = list.GetItems(query);
-                                if (items != null && items.Count > 0)
-                                {
-                                    categoryId = Convert.ToInt16(items[0][FieldsName.Id]);
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            LogToUls(ex);
-                        }
-                    }
-                }
-            });
-            return categoryId;
-        }
+//        /// <summary>
+//        /// Get 
+//        /// </summary>
+//        /// <param name="categoryNameValue"></param>
+//        /// <param name="listCategoryName"></param>
+//        /// <returns></returns>
+//        public static int GetCategoryIdByCategoryName(string categoryNameValue, string listCategoryName)
+//        {
+//            if (categoryNameValue != null && categoryNameValue.Contains(";#"))
+//            {
+//                categoryNameValue = categoryNameValue.Substring(categoryNameValue.IndexOf("#") + 1);
+//            }
+//            string camlQuery = string.Format(@"<Where>
+//                                                  <Eq>
+//                                                     <FieldRef Name='Title' />
+//                                                     <Value Type='Text'>{0}</Value>
+//                                                  </Eq>
+//                                               </Where>", categoryNameValue);
+//            var query = new SPQuery { Query = camlQuery, RowLimit = 1 };
+//            int categoryId = 0;
+//            SPSecurity.RunWithElevatedPrivileges(() =>
+//            {
+//                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+//                {
+//                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+//                    {
+//                        try
+//                        {
+//                            string listUrl = web.Url + "/Lists/" + listCategoryName;
+//                            var list = web.GetList(listUrl);
+//                            if (list != null)
+//                            {
+//                                var items = list.GetItems(query);
+//                                if (items != null && items.Count > 0)
+//                                {
+//                                    categoryId = Convert.ToInt16(items[0][FieldsName.Id]);
+//                                }
+//                            }
+//                        }
+//                        catch (Exception ex)
+//                        {
+//                            LogToUls(ex);
+//                        }
+//                    }
+//                }
+//            });
+//            return categoryId;
+//        }
 
-        /// <summary>
-        /// Get 
-        /// </summary>
-        /// <param name="newsId"></param>
-        /// <param name="listName"></param>
-        /// <param name="listNameCategory"></param>
-        /// <returns></returns>
-        public static int GetCategoryIdByItemId(int newsId, string listName, string listNameCategory)
-        {
-            string categoryName = string.Empty;
-            int categoryId = 0;
+        ///// <summary>
+        ///// Get 
+        ///// </summary>
+        ///// <param name="newsId"></param>
+        ///// <param name="listName"></param>
+        ///// <param name="listNameCategory"></param>
+        ///// <returns></returns>
+        //public static int GetCategoryIdByItemId(int newsId, string listName, string listNameCategory)
+        //{
+        //    string categoryName = string.Empty;
+        //    int categoryId = 0;
 
-            SPSecurity.RunWithElevatedPrivileges(() =>
-            {
-                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
-                {
-                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
-                    {
-                        try
-                        {
-                            //get listName information by newsId => CategoryName
-                            string listUrl = web.Url + "/Lists/" + listNameCategory;
-                            var list = web.GetList(listUrl);
-                            if (list != null)
-                            {
-                                var items = list.GetItemById(newsId);
-                                if (items != null)
-                                {
-                                    categoryName = Convert.ToString(items[FieldsName.CategoryName]);
-                                    categoryId = GetCategoryIdByCategoryName(categoryName, listNameCategory);
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            LogToUls(ex);
-                        }
-                    }
-                }
-            });
-            return categoryId;
-        }
+        //    SPSecurity.RunWithElevatedPrivileges(() =>
+        //    {
+        //        using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+        //        {
+        //            using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+        //            {
+        //                try
+        //                {
+        //                    //get listName information by newsId => CategoryName
+        //                    string listUrl = web.Url + "/Lists/" + listNameCategory;
+        //                    var list = web.GetList(listUrl);
+        //                    if (list != null)
+        //                    {
+        //                        var items = list.GetItemById(newsId);
+        //                        if (items != null)
+        //                        {
+        //                            categoryName = Convert.ToString(items[FieldsName.CategoryName]);
+        //                            categoryId = GetCategoryIdByCategoryName(categoryName, listNameCategory);
+        //                        }
+        //                    }
+        //                }
+        //                catch (Exception ex)
+        //                {
+        //                    LogToUls(ex);
+        //                }
+        //            }
+        //        }
+        //    });
+        //    return categoryId;
+        //}
 
-        /// <summary>
-        /// Update CategoryID field
-        /// </summary>
-        /// <param name="listCategoryName"></param>
-        /// <param name="categoryName"></param>
-        /// <param name="dataTable"></param>
-        public static void AddCategoryIdToTable(string listCategoryName, string categoryName, ref DataTable dataTable)
-        {
-            if (dataTable != null && dataTable.Rows.Count > 0)
-            {
-                if (!dataTable.Columns.Contains(FieldsName.CategoryId))
-                {
-                    dataTable.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
-                }
+        ///// <summary>
+        ///// Update CategoryID field
+        ///// </summary>
+        ///// <param name="listCategoryName"></param>
+        ///// <param name="categoryName"></param>
+        ///// <param name="dataTable"></param>
+        //public static void AddCategoryIdToTable(string listCategoryName, string categoryName, ref DataTable dataTable)
+        //{
+        //    if (dataTable != null && dataTable.Rows.Count > 0)
+        //    {
+        //        if (!dataTable.Columns.Contains(FieldsName.CategoryId))
+        //        {
+        //            dataTable.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
+        //        }
 
-                if (!dataTable.Columns.Contains(FieldsName.ArticleStartDateTemp))
-                {
-                    dataTable.Columns.Add(FieldsName.ArticleStartDateTemp, Type.GetType("System.String"));
-                }
-                var time = new DateTime();
-                foreach (DataRow row in dataTable.Rows)
-                {
-                    row[FieldsName.CategoryId] = GetCategoryIdByCategoryName(Convert.ToString(row[categoryName]), listCategoryName);
-                    time = Convert.ToDateTime(row[FieldsName.Created]);
-                    row[FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
-                }
-            }
-        }
+        //        if (!dataTable.Columns.Contains(FieldsName.ArticleStartDateTemp))
+        //        {
+        //            dataTable.Columns.Add(FieldsName.ArticleStartDateTemp, Type.GetType("System.String"));
+        //        }
+        //        var time = new DateTime();
+        //        foreach (DataRow row in dataTable.Rows)
+        //        {
+        //            row[FieldsName.CategoryId] = GetCategoryIdByCategoryName(Convert.ToString(row[categoryName]), listCategoryName);
+        //            time = Convert.ToDateTime(row[FieldsName.Created]);
+        //            row[FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// Set max length when display sapo
