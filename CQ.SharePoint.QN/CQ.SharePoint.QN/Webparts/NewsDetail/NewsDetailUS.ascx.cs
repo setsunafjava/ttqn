@@ -33,6 +33,7 @@ namespace CQ.SharePoint.QN.Webparts
                     var listName = Request.QueryString[Constants.ListName];
                     var listCategoryName = Request.QueryString[Constants.ListCategoryName];
                     var chuyende = Request.QueryString["chuyende"];
+                    var catId = Request.QueryString["CategoryId"];
 
                     if (string.IsNullOrEmpty(chuyende))
                     {
@@ -210,17 +211,32 @@ namespace CQ.SharePoint.QN.Webparts
 
                                 //end update
 
-                                //Create breadcrumb
-                                if (categoryName != null && !string.IsNullOrEmpty(categoryName))
+                                if (!string.IsNullOrEmpty(catId))
                                 {
-                                    newsQuery = string.Format("<Where><Eq><FieldRef Name='Title' /><Value Type='Text'>{0}</Value></Eq></Where>", categoryName.Substring(categoryName.IndexOf("#") + 1));
-                                    var categoryItem = Utilities.GetNewsRecords(newsQuery, 1, listCategoryName);
-
-                                    if (categoryItem != null && categoryItem.Rows.Count > 0)
+                                    int catIdValue = Convert.ToInt16(catId);
+                                    SPList list = Utilities.GetListFromUrl(SPContext.Current.Web, listCategoryName);
+                                    var item = list.GetItemById(catIdValue);
+                                    if(item!=null)
                                     {
-                                        string parentCategory = Convert.ToString(categoryItem.Rows[0][FieldsName.NewsCategory.English.ParentName]);
-                                        parentCategory = parentCategory.Replace(";#", "");
+                                        string parentCategory = Convert.ToString(item[FieldsName.NewsCategory.English.ParentName]);
+                                        parentCategory = parentCategory.Substring(parentCategory.IndexOf("#")+ 1);
                                         lblBreadCrum.Text = string.Format("{0} &nbsp; &gt;&gt;&nbsp; &nbsp; {1}", parentCategory, categoryName.Substring(categoryName.IndexOf("#") + 1));
+                                    }
+                                }
+                                else
+                                {
+                                    //Create breadcrumb
+                                    if (categoryName != null && !string.IsNullOrEmpty(categoryName))
+                                    {
+                                        newsQuery = string.Format("<Where><Eq><FieldRef Name='Title' /><Value Type='Text'>{0}</Value></Eq></Where>", categoryName.Substring(categoryName.IndexOf("#") + 1));
+                                        var categoryItem = Utilities.GetNewsRecords(newsQuery, 1, listCategoryName);
+
+                                        if (categoryItem != null && categoryItem.Rows.Count > 0)
+                                        {
+                                            string parentCategory = Convert.ToString(categoryItem.Rows[0][FieldsName.NewsCategory.English.ParentName]);
+                                            parentCategory = parentCategory.Replace(";#", string.Empty);
+                                            lblBreadCrum.Text = string.Format("{0} &nbsp; &gt;&gt;&nbsp; &nbsp; {1}", parentCategory, categoryName.Substring(categoryName.IndexOf("#") + 1));
+                                        }
                                     }
                                 }
 

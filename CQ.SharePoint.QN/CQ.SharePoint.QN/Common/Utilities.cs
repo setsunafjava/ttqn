@@ -1939,7 +1939,7 @@ namespace CQ.SharePoint.QN.Common
                                                         </Neq>
                                                         <And>
                                                            <Leq>
-                                                              <FieldRef Name='ArticleStartDate' />
+                                                              <FieldRef Name='ArticleStartDates' />
                                                               <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
                                                            </Leq>
                                                            <Contains>
@@ -1967,7 +1967,7 @@ namespace CQ.SharePoint.QN.Common
                                                         </Neq>
                                                         <And>
                                                            <Leq>
-                                                              <FieldRef Name='ArticleStartDate' />
+                                                              <FieldRef Name='ArticleStartDates' />
                                                               <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
                                                            </Leq>
                                                            <And>

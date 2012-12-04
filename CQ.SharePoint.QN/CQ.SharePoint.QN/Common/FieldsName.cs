@@ -9,7 +9,7 @@ namespace CQ.SharePoint.QN.Common
         public const string Id = "ID";
         public const string CategoryId = "CategoryId";
         public const string CategoryName = "CategoryName";
-        public const string ArticleStartDate = "ArticleStartDate";
+        public const string ArticleStartDate = "ArticleStartDates";
         public const string ArticleStartDateTemp = "ArticleStartDateTemp";
         #region Nested type: NewsCategory
         public static class NewsCategory
