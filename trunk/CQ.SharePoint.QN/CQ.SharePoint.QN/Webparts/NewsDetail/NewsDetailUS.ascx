@@ -7,6 +7,7 @@
             <asp:Label ID="lblBreadCrum" runat="server"></asp:Label>
         </div>
     </div>
+    
     <asp:Panel ID="pnlNewsDetail" runat="server">
         <div>
             <table width="100%">

@@ -469,23 +469,6 @@ namespace CQ.SharePoint.QN.Webparts
             #endregion
         }
 
-        static string GetRichTextValue(string value)
-        {
-            if (null == value)
-            {
-                return string.Empty;
-            }
-            StringBuilder sb = new StringBuilder(value.Length);
-            foreach (char c in value)
-            {
-                if (char.IsLetterOrDigit(c) || char.IsPunctuation(c))
-                {
-                    sb.Append(c);
-                }
-            }
-            return sb.ToString();
-        }
-
         /// <summary>
         /// Ham nay se get tiep ra 3 item de bind vao phia duoi tin chinh
         /// </summary>
@@ -496,6 +479,7 @@ namespace CQ.SharePoint.QN.Webparts
             dataTableTemp.Columns.Add(FieldsName.Title);
             dataTableTemp.Columns.Add(FieldsName.Id);
             dataTableTemp.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
+            dataTableTemp.Columns.Add(FieldsName.NewsRecord.English.ShortContent, Type.GetType("System.String"));
 
 
             if (dataTable != null && dataTable.Rows.Count > 3)
@@ -508,6 +492,7 @@ namespace CQ.SharePoint.QN.Webparts
                         newRow[FieldsName.Title] = Convert.ToString(dataTable.Rows[i][FieldsName.Title]);
                         newRow[FieldsName.Id] = dataTable.Rows[i][FieldsName.Id];
                         newRow[FieldsName.CategoryId] = dataTable.Rows[i][FieldsName.CategoryId];
+                        newRow[FieldsName.NewsRecord.English.ShortContent] = Utilities.StripHtml(Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.ShortContent]));
                         dataTableTemp.Rows.Add(newRow);
                     }
                 }
@@ -519,6 +504,7 @@ namespace CQ.SharePoint.QN.Webparts
                         newRow[FieldsName.Title] = Convert.ToString(dataTable.Rows[i][FieldsName.Title]);
                         newRow[FieldsName.Id] = dataTable.Rows[i][FieldsName.Id];
                         newRow[FieldsName.CategoryId] = dataTable.Rows[i][FieldsName.CategoryId];
+                        newRow[FieldsName.NewsRecord.English.ShortContent] = Utilities.StripHtml(Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.ShortContent]));
                         dataTableTemp.Rows.Add(newRow);
                     }
                 }

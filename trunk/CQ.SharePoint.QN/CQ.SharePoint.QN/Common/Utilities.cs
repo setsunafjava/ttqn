@@ -201,6 +201,12 @@ namespace CQ.SharePoint.QN.Common
                         dataTable.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
                     }
 
+                    if (items[i].Fields.ContainsField(FieldsName.NewsRecord.English.ShortContent))
+                    {
+                        //advLink = new SPFieldUrlValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.LinkAdv]));
+                        dataTable.Rows[i][FieldsName.NewsRecord.English.ShortContent] = StripHtml(Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.ShortContent]));
+                    }
+
                     time = Convert.ToDateTime(dataTable.Rows[i][FieldsName.Created]);
                     dataTable.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
                 }
@@ -1316,6 +1322,8 @@ namespace CQ.SharePoint.QN.Common
                                         }
                                         var time = Convert.ToDateTime(items[i][FieldsName.Created]);
                                         table.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
+
+                                        table.Rows[i][FieldsName.NewsRecord.English.ShortContent] = StripHtml(Convert.ToString(table.Rows[i][FieldsName.NewsRecord.English.ShortContent]));
                                     }
                                 }
                             }
@@ -2278,7 +2286,7 @@ namespace CQ.SharePoint.QN.Common
                                                          </Neq>
                                                          <And>
                                                             <Lt>
-                                                               <FieldRef Name='ArticleStartDate' />
+                                                               <FieldRef Name='ArticleStartDates' />
                                                                <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
                                                             </Lt>
                                                             <Contains>
@@ -2435,7 +2443,7 @@ namespace CQ.SharePoint.QN.Common
                                                                                      </Eq>
                                                                                      <And>
                                                                                         <Lt>
-                                                                                           <FieldRef Name='ArticleStartDate' />
+                                                                                           <FieldRef Name='ArticleStartDates' />
                                                                                            <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
                                                                                         </Lt>
                                                                                         <And>

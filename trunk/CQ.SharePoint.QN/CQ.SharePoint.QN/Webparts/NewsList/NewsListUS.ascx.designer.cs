@@ -17,5 +17,8 @@ namespace CQ.SharePoint.QN.Webparts
         protected global::System.Web.UI.WebControls.HyperLink lnkPrev;
         protected global::System.Web.UI.WebControls.HyperLink lnkNext;
         protected global::System.Web.UI.WebControls.Image imgLogo;
+        protected global::System.Web.UI.WebControls.Panel pnlCategory;
+        protected global::System.Web.UI.WebControls.Repeater rptCaregory;
+        protected global::System.Web.UI.WebControls.Label lblCategoryTitle;
     }
 }

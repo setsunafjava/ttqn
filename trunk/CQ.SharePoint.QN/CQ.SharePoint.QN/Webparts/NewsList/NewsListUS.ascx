@@ -7,15 +7,33 @@
         color: Red;
     }
 </style>
+<h2>
+    <asp:Label ID="lblCategoryTitle" runat="server" />
+</h2>
+<div class="inner_list_company_adv">
+    <asp:Panel ID="pnlCategory" runat="server" Visible="false">
+        <asp:Repeater ID="rptCaregory" runat="server">
+            <HeaderTemplate>
+                <ul>
+            </HeaderTemplate>
+            <ItemTemplate>
+                <li><a href='<%= NewsUrl%><%#Eval("ID") %>'>
+                    <%#Eval("Title") %></a></li></ItemTemplate>
+            <FooterTemplate>
+                </ul></FooterTemplate>
+        </asp:Repeater>
+    </asp:Panel>
+</div>
 <asp:Repeater ID="rptListCategory" runat="server">
     <ItemTemplate>
         <div class="inner_content_subpage">
             <div class="cont_artical">
                 <div class="name_artical">
                     <a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
-                        <%#Eval("Title")%></a> <span class="time_update">(<%= ParentWP.Day %> <%#Eval("ArticleStartDate")%>)</span></div>
+                        <%#Eval("Title")%></a> <span class="time_update">(<%= ParentWP.Day %>
+                            <%#Eval("ArticleStartDate")%>)</span></div>
                 <div class="interpre">
-                    <div class="img_thumb">                        
+                    <div class="img_thumb">
                         <asp:Image ID="imgLogo" runat="server" Width="120px" Height="70px" ImageUrl='<%#Eval("Thumbnail") %>' />
                     </div>
                     <div class="short_content">
