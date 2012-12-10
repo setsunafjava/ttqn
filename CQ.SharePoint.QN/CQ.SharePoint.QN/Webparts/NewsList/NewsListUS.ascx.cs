@@ -56,6 +56,7 @@ namespace CQ.SharePoint.QN.Webparts
                     var listCategoryName = Request.QueryString[Constants.ListCategoryName];
                     lnkPrev.Text = ParentWP.Prev;
                     lnkNext.Text = ParentWP.Next;
+                    var isChuyenDe = Request.QueryString["IsChuyenDe"];
 
                     NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
                        SPContext.Current.Web.Url,
@@ -79,7 +80,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                         </Neq>
                                                                         <And>
                                                                            <Leq>
-                                                                              <FieldRef Name='ArticleStartDate' />
+                                                                              <FieldRef Name='ArticleStartDates' />
                                                                               <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
                                                                            </Leq>
                                                                            <Contains>
@@ -135,7 +136,7 @@ namespace CQ.SharePoint.QN.Webparts
                             }
                             //end paging
 
-                            rptListCategory.DataSource = companyListTemp;
+                            rptListCategory.DataSource = pageds;
                             rptListCategory.DataBind();
                         }
                         else
@@ -149,6 +150,34 @@ namespace CQ.SharePoint.QN.Webparts
                         {
                             if (!"-1".Equals(categoryId))
                             {
+                                if (!string.IsNullOrEmpty(isChuyenDe)) //
+                                {
+                                    pnlCategory.Visible = true;
+                                    string newsQuery = string.Format(@"<Where>
+                                                              <Eq>
+                                                                 <FieldRef Name='ParentName' LookupId='TRUE'/>
+                                                                 <Value Type='Lookup'>{0}</Value>
+                                                              </Eq>
+                                                           </Where>", categoryId);
+                                    NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&Page=1&CategoryId=",
+                                                           SPContext.Current.Web.Url,
+                                                           Constants.PageInWeb.SubPage,
+                                                           ListsName.English.NewsCategory,
+                                                           ListsName.English.NewsRecord);
+                                    SPList list = Utilities.GetListFromUrl(SPContext.Current.Web, listCategoryName);
+                                    SPListItem item = list.GetItemById(Convert.ToInt32(categoryId));
+                                    lblCategoryTitle.Text = Convert.ToString(item[FieldsName.Title]);
+
+                                    var newsItem = Utilities.GetNewsRecords(newsQuery, ListsName.English.NewsCategory);
+                                    if (newsItem != null && newsItem.Rows.Count > 0)
+                                    {
+                                        rptCaregory.Visible = true;
+                                        rptCaregory.DataSource = newsItem;
+                                        rptCaregory.DataBind();
+                                    }
+                                }
+
+
                                 DataTable companyList = null;
                                 Utilities.GetNewsByCatID(listName, listCategoryName, Convert.ToString(categoryId), ref companyList);
                                 //Paging data
@@ -192,8 +221,8 @@ namespace CQ.SharePoint.QN.Webparts
                                 {
                                     lblItemNotExist.Text = Constants.ErrorMessage.Msg1;
                                 }
-                            }//Search by Date time
-                            else
+                            }
+                            else //Search by Date time
                             {
                                 var day = Convert.ToInt32(Request.QueryString["Day"]);
                                 var month = Convert.ToInt32(Request.QueryString["Month"]);
@@ -208,7 +237,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                              </Neq>
                                                                              <And>
                                                                                 <Eq>
-                                                                                   <FieldRef Name='ArticleStartDate' />
+                                                                                   <FieldRef Name='ArticleStartDates' />
                                                                                    <Value Type='DateTime'>{0}</Value>
                                                                                 </Eq>
                                                                                 <Contains>
@@ -219,7 +248,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                           </And>
                                                                        </Where>
                                                                        <OrderBy>
-                                                                          <FieldRef Name='ArticleStartDate' Ascending='False' />
+                                                                          <FieldRef Name='ArticleStartDates' Ascending='False' />
                                                                        </OrderBy>",
                                                                                   SPUtility.CreateISO8601DateTimeFromSystemDateTime(dt),
                                                                 Constants.Published);
@@ -280,7 +309,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                          </Neq>
                                                                          <And>
                                                                                 <Lt>
-                                                                                   <FieldRef Name='ArticleStartDate' />
+                                                                                   <FieldRef Name='ArticleStartDates' />
                                                                                    <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
                                                                                 </Lt>
                                                                                 <Contains>

@@ -23,7 +23,9 @@
                 <asp:Repeater ID="rptFocusCompany" runat="server">
                     <ItemTemplate>
                     <li>
-                         <a href='<%#Eval("LinkToItem")%>'><asp:Image style="width: 300px; height:160px;" ID="img" runat="server" ImageUrl='<%#Eval("Thumbnail")%>' /></a>
+                         <%--<a href='<%#Eval("LinkToItem")%>'><asp:Image style="width: 300px; height:160px;" ID="img" runat="server" ImageUrl='<%#Eval("Thumbnail")%>' /></a>--%>
+                         <a href='<%#Eval("LinkAdv")%>'>
+                <asp:Image style="width: 305px; height:54px;" ID="img" runat="server" ImageUrl='<%#Eval("Thumbnail")%>' /></a>
                     </li>                       
                     </ItemTemplate>
                 </asp:Repeater>

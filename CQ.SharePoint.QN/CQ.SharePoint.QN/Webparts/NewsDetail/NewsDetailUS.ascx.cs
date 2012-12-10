@@ -34,6 +34,7 @@ namespace CQ.SharePoint.QN.Webparts
                     var listCategoryName = Request.QueryString[Constants.ListCategoryName];
                     var chuyende = Request.QueryString["chuyende"];
                     var catId = Request.QueryString["CategoryId"];
+                    
 
                     if (string.IsNullOrEmpty(chuyende))
                     {
@@ -66,9 +67,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                      </And>
                                                                  </And>
                                                               </And>
-                                                           </Where>",
-                                    newsId, SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                    Constants.Published);
+                                                           </Where>",newsId, SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),Constants.Published);
                             var newsItem = Utilities.GetNewsRecords(newsQuery, 1, listName);
                             if (newsItem != null && newsItem.Rows.Count > 0)
                             {
@@ -81,7 +80,6 @@ namespace CQ.SharePoint.QN.Webparts
                                 {
                                     lblSource.Text = string.Format("(Nguồn: {0})", source);
                                 }
-
 
                                 //lblCurrentDate.Text = Convert.ToString(newsItem.Rows[0][FieldsName.Modified]);
                                 lblTitle.Text = Convert.ToString(newsItem.Rows[0][FieldsName.Title]);
@@ -97,95 +95,39 @@ namespace CQ.SharePoint.QN.Webparts
                                 //Update viewcount
                                 SPSecurity.RunWithElevatedPrivileges(() =>
                              {
-                                 using (
-                                     var site =
-                                         new SPSite(
-                                             SPContext.Current.Web.Site.ID))
+                                 using (var site = new SPSite(SPContext.Current.Web.Site.ID))
                                  {
-                                     using (
-                                         var web =
-                                             site.OpenWeb(
-                                                 SPContext.Current.Web.ID))
+                                     using (var web = site.OpenWeb(SPContext.Current.Web.ID))
                                      {
                                          try
                                          {
-                                             string listUrl = web.Url +
-                                                              "/Lists/" +
-                                                              listName;
-                                             var result =
-                                                 web.GetList(listUrl);
+                                             string listUrl = web.Url + "/Lists/" + listName;
+                                             var result = web.GetList(listUrl);
                                              int id = Convert.ToInt32(newsId);
-                                             SPListItem items =
-                                                 result.GetItemById(id);
+                                             SPListItem items = result.GetItemById(id);
                                              if (items != null)
                                              {
-                                                 string viewcount =
-                                                     Convert.ToString(
-                                                         items[
-                                                             FieldsName.
-                                                                 NewsRecord.
-                                                                 English.
-                                                                 ViewsCount]);
-                                                 if (
-                                                     !string.IsNullOrEmpty(
-                                                         viewcount))
+                                                 string viewcount = Convert.ToString(items[FieldsName.NewsRecord.English.ViewsCount]);
+                                                 if (!string.IsNullOrEmpty(viewcount))
                                                  {
-                                                     int count =
-                                                         Convert.ToInt32(
-                                                             viewcount);
-                                                     items[
-                                                         FieldsName.
-                                                             NewsRecord.
-                                                             English.
-                                                             ViewsCount] =
-                                                         ++count;
-                                                     web.AllowUnsafeUpdates
-                                                         = true;
+                                                     int count = Convert.ToInt32(viewcount);
+                                                     items[FieldsName.NewsRecord.English.ViewsCount] = ++count;
+                                                     web.AllowUnsafeUpdates = true;
                                                      items.Update();
                                                  }
                                                  else
                                                  {
-                                                     items[
-                                                         FieldsName.
-                                                             NewsRecord.
-                                                             English.
-                                                             ViewsCount] = 1;
-                                                     web.AllowUnsafeUpdates
-                                                         = true;
+                                                     items[FieldsName.NewsRecord.English.ViewsCount] = 1;
+                                                     web.AllowUnsafeUpdates = true;
                                                      items.Update();
                                                  }
                                                  //Get attachment file
-                                                 if (
-                                                     items.Attachments.Count >
-                                                     0)
+                                                 if (items.Attachments.Count > 0)
                                                  {
-                                                     foreach (
-                                                         var attachment in
-                                                             items.
-                                                                 Attachments
-                                                         )
+                                                     foreach (var attachment in items.Attachments)
                                                      {
-                                                         attachMentFiles.
-                                                             Rows.Add(
-                                                                 Convert.
-                                                                     ToString
-                                                                     (attachment),
-                                                                 string.
-                                                                     Format(
-                                                                         "{0}{1}",
-                                                                         items
-                                                                             .
-                                                                             Attachments
-                                                                             .
-                                                                             UrlPrefix
-                                                                             .
-                                                                             Replace
-                                                                             ("qni-wsus",
-                                                                              "news.qnp.vn"),
-                                                                         Convert
-                                                                             .
-                                                                             ToString
-                                                                             (attachment)));
+                                                         attachMentFiles.Rows.Add(Convert.ToString(attachment), string.Format("{0}{1}",
+                                                                         items.Attachments.UrlPrefix.Replace("qni-wsus", "news.qnp.vn"), Convert.ToString(attachment)));
                                                      }
                                                  }
                                              }
@@ -216,10 +158,10 @@ namespace CQ.SharePoint.QN.Webparts
                                     int catIdValue = Convert.ToInt16(catId);
                                     SPList list = Utilities.GetListFromUrl(SPContext.Current.Web, listCategoryName);
                                     var item = list.GetItemById(catIdValue);
-                                    if(item!=null)
+                                    if (item != null)
                                     {
                                         string parentCategory = Convert.ToString(item[FieldsName.NewsCategory.English.ParentName]);
-                                        parentCategory = parentCategory.Substring(parentCategory.IndexOf("#")+ 1);
+                                        parentCategory = parentCategory.Substring(parentCategory.IndexOf("#") + 1);
                                         lblBreadCrum.Text = string.Format("{0} &nbsp; &gt;&gt;&nbsp; &nbsp; {1}", parentCategory, categoryName.Substring(categoryName.IndexOf("#") + 1));
                                     }
                                 }
@@ -255,26 +197,16 @@ namespace CQ.SharePoint.QN.Webparts
                                                               </Eq>
                                                            </Where>", chuyende);
 
-                        NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&Page=1&CategoryId=",
+                        NewsUrl = string.Format("{0}/{1}.aspx?IsChuyenDe=1&ListCategoryName={2}&ListName={3}&Page=1&CategoryId=",
                                                        SPContext.Current.Web.Url,
                                                        Constants.PageInWeb.SubPage,
                                                        ListsName.English.NewsCategory,
                                                        ListsName.English.NewsRecord);
 
                         var newsItem = Utilities.GetNewsRecords(newsQuery, ListsName.English.NewsCategory);
-                        var tableResult = newsItem.Clone();
-                        string catId1 = string.Empty;
                         if (newsItem != null && newsItem.Rows.Count > 0)
                         {
-                            foreach (DataRow row in newsItem.Rows)
-                            {
-                                catId1 = Convert.ToString(row["ID"]);
-                                tableResult.ImportRow(row);
-                                Utilities.BuilChuyenDe(ListsName.English.NewsCategory, ListsName.English.NewsCategory, catId1, ref tableResult);
-                            }
-
-                            rptChuyenDe.DataSource = tableResult;
-                            //rptChuyenDe.DataSource = newsItem;
+                            rptChuyenDe.DataSource = newsItem;
                             rptChuyenDe.DataBind();
                         }
                     }

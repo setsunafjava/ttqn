@@ -47,6 +47,7 @@ namespace CQ.SharePoint.QN.Common
             public const string ApproverActionList = "ApproverActionList";
             public const string Approve = "Approve";
             public const string BannerAdvRight = "BannerAdvRight";
+            public const string DoanhNghiepTieuBieu = "DoanhNghiepTieuBieu";
         }
 
         // Display Name of list
