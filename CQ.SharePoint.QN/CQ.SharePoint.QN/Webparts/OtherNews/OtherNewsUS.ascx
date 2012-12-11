@@ -16,7 +16,7 @@ PublicKeyToken=9f4da00116c38ec5" %>
                 <ItemTemplate>
                     <li><a href='<%= NewsUrl%><%#Eval("ID")%>&CategoryId=<%#Eval("CategoryId") %>'>
                         <%#Eval("Title")%></a><span style="color: #003399"> (<%=WebpartParent.Day %>
-                            <%#Eval("ArticleStartDate")%>)</span></li>
+                            <%#Eval("ArticleStartDates")%>)</span></li>
                 </ItemTemplate>
                 <FooterTemplate>
                     </ul>

@@ -31,7 +31,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                         <Value Type='Boolean'>1</Value>
                                                      </Neq>
                                                      <Leq>
-                                                        <FieldRef Name='ArticleStartDate' />
+                                                        <FieldRef Name='ArticleStartDates' />
                                                         <Value IncludeTimeValue='FALSE' Type='DateTime'>{0}</Value>
                                                      </Leq>
                                                   </And>
