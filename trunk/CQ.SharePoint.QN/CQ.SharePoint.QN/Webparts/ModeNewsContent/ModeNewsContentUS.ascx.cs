@@ -69,43 +69,11 @@ namespace CQ.SharePoint.QN.Webparts
                                                        Constants.CategoryId,
                                                        WebpartParent.NewsCategoryId1);
 
-                        string group1Query = string.Format(@"<Where>
-                                                              <And>
-                                                                 <Eq>
-                                                                    <FieldRef Name='{0}' LookupId='TRUE' />
-                                                                    <Value Type='CustomLookup'>{1}</Value>
-                                                                 </Eq>
-                                                                 <And>
-                                                                    <Neq>
-                                                                       <FieldRef Name='Status' />
-                                                                       <Value Type='Boolean'>1</Value>
-                                                                    </Neq>
-                                                                    <And>
-                                                                       <Lt>
-                                                                          <FieldRef Name='ArticleStartDates' />
-                                                                          <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
-                                                                       </Lt>
-                                                                       <Contains>
-                                                                          <FieldRef Name='Approve' />
-                                                                          <Value Type='Lookup'>{3}</Value>
-                                                                       </Contains>
-                                                                    </And>
-                                                                 </And>
-                                                              </And>
-                                                           </Where>
-                                                           <OrderBy>
-                                                              <FieldRef Name='ID' Ascending='False' />
-                                                           </OrderBy>",
-                                                                      FieldsName.NewsRecord.English.CategoryName,
-                                                                      WebpartParent.NewsCategoryId1,
-                                                                      SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                                                      Constants.Published);
-                        //var group1Table = Utilities.GetNewsRecordItems(group1Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.SubNewsRecord);
-                        var group1Table = Utilities.GetNewsByCatID(ListsName.English.SubNewsRecord,WebpartParent.NewsCategoryId1);
+
+                        var group1Table = Utilities.GetNewsByCatID(ListsName.English.SubNewsRecord, WebpartParent.NewsCategoryId1);
                         if (group1Table != null && group1Table.Rows.Count > 0)
                         {
                             var table1 = Utilities.GetTableWithCorrectUrl(group1Table, true);
-                            //Utilities.AddCategoryIdToTable(ListsName.English.SubNewsCategory, FieldsName.CategoryName, ref table1);
                             lblHeaderTinhUy.Text = Convert.ToString(table1.Rows[0][FieldsName.Title]);
                             img1.ImageUrl = Utilities.GetThumbnailImagePath(Convert.ToString(table1.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]));
 
@@ -119,7 +87,6 @@ namespace CQ.SharePoint.QN.Webparts
                                                        Convert.ToString(table1.Rows[0][FieldsName.CategoryId]));
 
                             table1.Rows.RemoveAt(0);
-                            //Utilities.AddCategoryIdToTable(ListsName.English.SubNewsCategory, FieldsName.NewsRecord.English.CategoryName, ref table1);
                             var defaulViews1 = table1.DefaultView;
                             defaulViews1.Sort = "ID DESC";
                             rptTinhUy.DataSource = defaulViews1;
@@ -138,44 +105,10 @@ namespace CQ.SharePoint.QN.Webparts
                                                        Constants.CategoryId,
                                                        WebpartParent.NewsCategoryId2);
 
-                        string group2Query = string.Format(@"<Where>
-                                                              <And>
-                                                                 <Eq>
-                                                                    <FieldRef Name='{0}' LookupId='TRUE' />
-                                                                    <Value Type='CustomLookup'>{1}</Value>
-                                                                 </Eq>
-                                                                 <And>
-                                                                    <Neq>
-                                                                       <FieldRef Name='Status' />
-                                                                       <Value Type='Boolean'>1</Value>
-                                                                    </Neq>
-                                                                    <And>
-                                                                       <Lt>
-                                                                          <FieldRef Name='ArticleStartDates' />
-                                                                          <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
-                                                                       </Lt>
-                                                                       <Contains>
-                                                                          <FieldRef Name='Approve' />
-                                                                          <Value Type='Lookup'>{3}</Value>
-                                                                       </Contains>
-                                                                    </And>
-                                                                 </And>
-                                                              </And>
-                                                           </Where>
-                                                           <OrderBy>
-                                                              <FieldRef Name='ID' Ascending='False' />
-                                                           </OrderBy>",
-                                                                      FieldsName.NewsRecord.English.CategoryName,
-                                                                      WebpartParent.NewsCategoryId2,
-                                                                      SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                                                      Constants.Published);
-
-                        //var group2Table = Utilities.GetNewsRecordItems(group2Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.SubNewsRecord);
                         var group2Table = Utilities.GetNewsByCatID(ListsName.English.SubNewsRecord, WebpartParent.NewsCategoryId2);
                         if (group2Table != null && group2Table.Rows.Count > 0)
                         {
                             var table2 = Utilities.GetTableWithCorrectUrl(group2Table, true);
-                            //Utilities.AddCategoryIdToTable(ListsName.English.SubNewsCategory, FieldsName.CategoryName, ref table2);
                             lblHeaderHoiDongNhanDan.Text = Convert.ToString(table2.Rows[0][FieldsName.Title]);
                             Img2.ImageUrl = Utilities.GetThumbnailImagePath(Convert.ToString(table2.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]));
                             NewsFirstUrl2 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}&CategoryId={6}",
@@ -188,7 +121,6 @@ namespace CQ.SharePoint.QN.Webparts
                                                        Convert.ToString(table2.Rows[0][FieldsName.CategoryId]));
 
                             table2.Rows.RemoveAt(0);
-                            //Utilities.AddCategoryIdToTable(ListsName.English.SubNewsCategory, FieldsName.NewsRecord.English.CategoryName, ref table2);
                             var defaulViews2 = table2.DefaultView;
                             defaulViews2.Sort = "ID DESC";
                             rptHoiDongNhanDan.DataSource = defaulViews2;
@@ -205,44 +137,10 @@ namespace CQ.SharePoint.QN.Webparts
                                                        ListsName.English.SubNewsRecord,
                                                        Constants.CategoryId,
                                                        WebpartParent.NewsCategoryId3);
-                        string group3Query = string.Format(@"<Where>
-                                                              <And>
-                                                                 <Eq>
-                                                                    <FieldRef Name='{0}' LookupId='TRUE' />
-                                                                    <Value Type='CustomLookup'>{1}</Value>
-                                                                 </Eq>
-                                                                 <And>
-                                                                    <Neq>
-                                                                       <FieldRef Name='Status' />
-                                                                       <Value Type='Boolean'>1</Value>
-                                                                    </Neq>
-                                                                    <And>
-                                                                       <Lt>
-                                                                          <FieldRef Name='ArticleStartDates' />
-                                                                          <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
-                                                                       </Lt>
-                                                                       <Contains>
-                                                                          <FieldRef Name='Approve' />
-                                                                          <Value Type='Lookup'>{3}</Value>
-                                                                       </Contains>
-                                                                    </And>
-                                                                 </And>
-                                                              </And>
-                                                           </Where>
-                                                           <OrderBy>
-                                                              <FieldRef Name='ID' Ascending='False' />
-                                                           </OrderBy>",
-                                                                      FieldsName.NewsRecord.English.CategoryName,
-                                                                      WebpartParent.NewsCategoryId3,
-                                                                      SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                                                      Constants.Published);
-
-                        //var group3Table = Utilities.GetNewsRecordItems(group3Query, GetNewsNumber(WebpartParent.NewsNumber), ListsName.English.SubNewsRecord);
                         var group3Table = Utilities.GetNewsByCatID(ListsName.English.SubNewsRecord, WebpartParent.NewsCategoryId3);
                         if (group3Table != null && group3Table.Rows.Count > 0)
                         {
                             var table3 = Utilities.GetTableWithCorrectUrl(group3Table, true);
-                            //Utilities.AddCategoryIdToTable(ListsName.English.SubNewsCategory, FieldsName.CategoryName, ref table3);
                             lblHeaderUyBanNhanDan.Text = Convert.ToString(table3.Rows[0][FieldsName.Title]);
                             Img3.ImageUrl = Utilities.GetThumbnailImagePath(Convert.ToString(table3.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]));
                             NewsFirstUrl3 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}&CategoryId={6}",
@@ -255,7 +153,6 @@ namespace CQ.SharePoint.QN.Webparts
                                                        Convert.ToString(table3.Rows[0][FieldsName.CategoryId]));
 
                             table3.Rows.RemoveAt(0);
-                            //Utilities.AddCategoryIdToTable(ListsName.English.SubNewsCategory, FieldsName.NewsRecord.English.CategoryName, ref table3);
                             var newTable = GetFiveRows(table3);
                             var defaulViews3 = newTable.DefaultView;
                             defaulViews3.Sort = "ID DESC";

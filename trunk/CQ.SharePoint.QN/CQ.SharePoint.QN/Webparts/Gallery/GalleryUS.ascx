@@ -6,7 +6,7 @@
             <div class="cont_artical">
                 <div class="name_artical">
                     <a runat="server" id="aLink"><%#Eval("Title") %></a> <span class="time_update">
-                        (ngày <%#Eval("ArticleStartDate")%>)</span></div>
+                        (ngày <%#Eval("ArticleStartDates")%>)</span></div>
                 <div class="interpre">
                     <div class="img_thumb">
                         <img runat="server" id="imgLink" title='<%#Eval("Title") %>' /></div>
@@ -25,7 +25,7 @@
             <div class="cont_artical">
                 <div class="name_artical">
                     <a runat="server" id="aLink"><%#Eval("Title") %></a> <span class="time_update">
-                        (ngày <%#Eval("ArticleStartDate")%>)</span></div>
+                        (ngày <%#Eval("ArticleStartDates")%>)</span></div>
                 <div class="interpre">
                     <div class="img_thumb">
                         <img runat="server" id="imgLink" title='<%#Eval("Title") %>' /></div>
