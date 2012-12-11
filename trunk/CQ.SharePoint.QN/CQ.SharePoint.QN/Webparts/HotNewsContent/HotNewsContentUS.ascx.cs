@@ -36,7 +36,7 @@ namespace CQ.SharePoint.QN.Webparts
                                              </Neq>
                                              <And>
                                                <Lt>
-                                                  <FieldRef Name='ArticleStartDate' />
+                                                  <FieldRef Name='ArticleStartDates' />
                                                   <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
                                                </Lt>
                                                <Contains>
@@ -59,7 +59,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                              </Neq>
                                                              <And>
                                                                <Lt>
-                                                                  <FieldRef Name='ArticleStartDate' />
+                                                                  <FieldRef Name='ArticleStartDates' />
                                                                   <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
                                                                </Lt>
                                                                <Contains>
@@ -82,7 +82,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                              </Eq>
                                                                              <And>
                                                                                 <Lt>
-                                                                                   <FieldRef Name='ArticleStartDate' />
+                                                                                   <FieldRef Name='ArticleStartDates' />
                                                                                    <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
                                                                                 </Lt>
                                                                                 <And>
@@ -199,7 +199,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                         </Neq>
                                                                         <And>
                                                                            <Lt>
-                                                                              <FieldRef Name='ArticleStartDate' />
+                                                                              <FieldRef Name='ArticleStartDates' />
                                                                               <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
                                                                            </Lt>
                                                                            <Contains>
@@ -310,7 +310,7 @@ namespace CQ.SharePoint.QN.Webparts
                                             </Eq>
                                             <And>
                                                <Lt>
-                                                  <FieldRef Name='ArticleStartDate' />
+                                                  <FieldRef Name='ArticleStartDates' />
                                                   <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
                                                </Lt>
                                                <And>
@@ -405,7 +405,7 @@ namespace CQ.SharePoint.QN.Webparts
                                             </Eq>
                                             <And>
                                                <Lt>
-                                                  <FieldRef Name='ArticleStartDate' />
+                                                  <FieldRef Name='ArticleStartDates' />
                                                   <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
                                                </Lt>
                                                <And>
