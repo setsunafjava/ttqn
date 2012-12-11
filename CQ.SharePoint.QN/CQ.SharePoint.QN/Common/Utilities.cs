@@ -2080,44 +2080,7 @@ namespace CQ.SharePoint.QN.Common
 
                 }
             });
-            //try
-            //{
-            //    string listUrl = SPContext.Current.Web.Url + "/Lists/" + listName;
-            //    var list = SPContext.Current.Web.GetList(listUrl);
-            //    if (list != null)
-            //    {
-            //        var items = list.GetItems(query);
-            //        if (items != null && items.Count > 0)
-            //        {
-            //            table = items.GetDataTable();
-
-            //            if (!table.Columns.Contains(FieldsName.CategoryId))
-            //            {
-            //                table.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
-            //            }
-
-            //            if (!table.Columns.Contains(FieldsName.ArticleStartDateTemp))
-            //            {
-            //                table.Columns.Add(FieldsName.ArticleStartDateTemp, Type.GetType("System.String"));
-            //            }
-
-            //            for (int i = 0; i < items.Count; i++)
-            //            {
-            //                if (!string.IsNullOrEmpty(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName])))
-            //                {
-            //                    SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName]));
-            //                    table.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
-            //                }
-            //                var time = Convert.ToDateTime(items[i][FieldsName.Created]);
-            //                table.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
-            //            }
-            //        }
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    Utilities.LogToUls(ex);
-            //}
+            
             return table;
         }
 

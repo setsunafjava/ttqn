@@ -48,7 +48,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                     </Neq>
                                                                     <And>
                                                                        <Lt>
-                                                                          <FieldRef Name='ArticleStartDate' />
+                                                                          <FieldRef Name='ArticleStartDates' />
                                                                           <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
                                                                        </Lt>
                                                                        <Contains>

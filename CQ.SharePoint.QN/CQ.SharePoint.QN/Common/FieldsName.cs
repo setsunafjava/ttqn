@@ -210,8 +210,8 @@ namespace CQ.SharePoint.QN.Common
             public static class English
             {
                 public const string Heading = "Heading";
-                public const string NgayBatDau = "StartDate";
-                public const string NgayKetThuc = "_EndDate";
+                public const string NgayBatDau = "NgayBatDau";
+                public const string NgayKetThuc = "NgayKetThuc";
                 public const string CountClick = "CountClick";
                 public const string LinkFileName = "LinkFileName";
                 public const string Status = "Status";
