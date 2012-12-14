@@ -14,6 +14,7 @@ namespace CQ.SharePoint.QN.Webparts
     [Guid("00dc0549-75c7-4699-97cc-666639b9336b")]
     public class QNHeader : System.Web.UI.WebControls.WebParts.WebPart
     {
+        private delegate void MethodInvoker(SPWeb web, HttpContext ctx);
         public QNHeader()
         {
         }
@@ -86,24 +87,21 @@ namespace CQ.SharePoint.QN.Webparts
             }
         }
 
-        protected override void Render(System.Web.UI.HtmlTextWriter writer)
-        {
-            base.Render(writer);
-
+        private void UpdateStatisticsList(SPWeb currentWeb, HttpContext ctx) {
             var cLoginName = string.Empty;
             var cDate = SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now);
-            var cURL = System.Web.HttpContext.Current.Request.Url.AbsoluteUri.ToString();
+            var cURL = ctx.Request.Url.AbsoluteUri.ToString();
 
-            if (SPContext.Current.Web.CurrentUser == null || string.IsNullOrEmpty(SPContext.Current.Web.CurrentUser.LoginName))
+            if (currentWeb.CurrentUser == null || string.IsNullOrEmpty(currentWeb.CurrentUser.LoginName))
             {
                 cLoginName = "Annonymous";
             }
             else
             {
-                cLoginName = SPContext.Current.Web.CurrentUser.LoginName;
+                cLoginName = currentWeb.CurrentUser.LoginName;
             }
-            var cIP = HttpContext.Current.Request.UserHostAddress;
-            var cBrowser = HttpContext.Current.Request.Browser.Browser;
+            var cIP = ctx.Request.UserHostAddress;
+            var cBrowser = ctx.Request.Browser.Browser;
             var camlQuery = "<Where><And><Eq>" +
                             "<FieldRef Name='Url' />" +
                             "<Value Type='Text'>" + cURL + "</Value></Eq>" +
@@ -116,46 +114,121 @@ namespace CQ.SharePoint.QN.Webparts
                             "</Value></Eq>" +
                             "</And></And></And></And></Where>";
 
-            if (!this.Page.IsPostBack)
+            SPSecurity.RunWithElevatedPrivileges(() =>
             {
-                SPSecurity.RunWithElevatedPrivileges(() =>
+                using (var site = new SPSite(currentWeb.Site.ID))
                 {
-                    using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                    using (var web = site.OpenWeb(currentWeb.ID))
                     {
-                        using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                        try
                         {
-                            try
+                            SPQuery spQuery = new SPQuery
                             {
-                                SPQuery spQuery = new SPQuery
+                                Query = camlQuery,
+                                RowLimit = 1
+                            };
+                            SPList list = Utilities.GetListFromUrl(web, ListsName.English.StatisticsList);
+                            if (list != null)
+                            {
+                                SPListItemCollection items = list.GetItems(spQuery);
+                                if (items == null || items.Count <= 0)
                                 {
-                                    Query = camlQuery,
-                                    RowLimit = 1
-                                };
-                                SPList list = Utilities.GetListFromUrl(web, ListsName.English.StatisticsList);
-                                if (list != null)
-                                {
-                                    SPListItemCollection items = list.GetItems(spQuery);
-                                    if (items == null || items.Count <= 0)
-                                    {
-                                        var item = list.Items.Add();
-                                        item["Title"] = cLoginName;
-                                        item["Url"] = cURL;
-                                        item["IP"] = cIP;
-                                        item["DateHit"] = DateTime.Now;
-                                        item["Browser"] = cBrowser;
-                                        web.AllowUnsafeUpdates = true;
-                                        item.Update();
-                                    }
+                                    var item = list.Items.Add();
+                                    item["Title"] = cLoginName;
+                                    item["Url"] = cURL;
+                                    item["IP"] = cIP;
+                                    item["DateHit"] = DateTime.Now;
+                                    item["Browser"] = cBrowser;
+                                    web.AllowUnsafeUpdates = true;
+                                    item.Update();
                                 }
                             }
-                            catch (Exception ex)
-                            {
+                        }
+                        catch (Exception ex)
+                        {
 
-                            }
                         }
                     }
-                });
+                }
+            });
+        }
+
+        protected override void Render(System.Web.UI.HtmlTextWriter writer)
+        {
+            base.Render(writer);
+
+            if (!this.Page.IsPostBack)
+            {
+                MethodInvoker runUpdateStatisticsList = new MethodInvoker(UpdateStatisticsList);
+                runUpdateStatisticsList.BeginInvoke(SPContext.Current.Web, HttpContext.Current, null, null);
             }
+
+            //var cLoginName = string.Empty;
+            //var cDate = SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now);
+            //var cURL = System.Web.HttpContext.Current.Request.Url.AbsoluteUri.ToString();
+
+            //if (SPContext.Current.Web.CurrentUser == null || string.IsNullOrEmpty(SPContext.Current.Web.CurrentUser.LoginName))
+            //{
+            //    cLoginName = "Annonymous";
+            //}
+            //else
+            //{
+            //    cLoginName = SPContext.Current.Web.CurrentUser.LoginName;
+            //}
+            //var cIP = HttpContext.Current.Request.UserHostAddress;
+            //var cBrowser = HttpContext.Current.Request.Browser.Browser;
+            //var camlQuery = "<Where><And><Eq>" +
+            //                "<FieldRef Name='Url' />" +
+            //                "<Value Type='Text'>" + cURL + "</Value></Eq>" +
+            //                "<And><Eq><FieldRef Name='Title' />" +
+            //                "<Value Type='Text'>" + cLoginName + "</Value></Eq>" +
+            //                "<And><Eq><FieldRef Name='DateHit' /><Value Type='DateTime' IncludeTime='FALSE'>" + cDate +
+            //                "</Value></Eq>" +
+            //                "<And><Eq><FieldRef Name='Browser' /><Value Type='Text'>" + cBrowser +
+            //                "</Value></Eq><Eq><FieldRef Name='IP' /><Value Type='Text'>" + cIP +
+            //                "</Value></Eq>" +
+            //                "</And></And></And></And></Where>";
+
+            //if (!this.Page.IsPostBack)
+            //{
+            //    SPSecurity.RunWithElevatedPrivileges(() =>
+            //    {
+            //        using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+            //        {
+            //            using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+            //            {
+            //                try
+            //                {
+            //                    SPQuery spQuery = new SPQuery
+            //                    {
+            //                        Query = camlQuery,
+            //                        RowLimit = 1
+            //                    };
+            //                    SPList list = Utilities.GetListFromUrl(web, ListsName.English.StatisticsList);
+            //                    if (list != null)
+            //                    {
+            //                        SPListItemCollection items = list.GetItems(spQuery);
+            //                        if (items == null || items.Count <= 0)
+            //                        {
+            //                            var item = list.Items.Add();
+            //                            item["Title"] = cLoginName;
+            //                            item["Url"] = cURL;
+            //                            item["IP"] = cIP;
+            //                            item["DateHit"] = DateTime.Now;
+            //                            item["Browser"] = cBrowser;
+            //                            web.AllowUnsafeUpdates = true;
+            //                            item.Update();
+            //                        }
+            //                    }
+            //                }
+            //                catch (Exception ex)
+            //                {
+
+            //                }
+            //            }
+            //        }
+            //    });
+            //}
         }
     }
 }
