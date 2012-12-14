@@ -31,7 +31,7 @@ namespace CQ.SharePoint.QN.Webparts
         /// <param name="e">EventArgs e</param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (SPContext.Current.Web.Url.Contains("/english"))
+            if (SPContext.Current.Web.Url.ToLower().Contains("/english"))
             {
                 LangUrl = "";
                 LangImg = "vn-lang.png";

@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.WebControls;
 using CQ.SharePoint.QN.Common;
+using Microsoft.SharePoint.Utilities;
 
 namespace CQ.SharePoint.QN.Webparts
 {
@@ -54,18 +55,49 @@ namespace CQ.SharePoint.QN.Webparts
 
                 try
                 {
-                    MethodInvoker runSaveFileToDocLib = new MethodInvoker(SaveFileToDocLibAll);
-                    runSaveFileToDocLib.BeginInvoke(SPContext.Current.Web, null, null);
-                    //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/Sonla.xml", "Sonla");
-                    //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/Viettri.xml", "Viettri");
-                    //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/Haiphong.xml", "Haiphong");
-                    //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/Hanoi.xml", "Hanoi");
-                    //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/Vinh.xml", "Vinh");
-                    //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/Danang.xml", "Danang");
-                    //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/Nhatrang.xml", "Nhatrang");
-                    //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/Pleicu.xml", "Pleicu");
-                    //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/HCM.xml", "HCM");
-                    //SaveFileToDocLib(SPContext.Current.Web, "http://www.vietcombank.com.vn/ExchangeRates/ExrateXML.aspx", "giavang");
+                    var docLib = Utilities.GetDocListFromUrl(SPContext.Current.Web, ListsName.English.CQQNResources);
+                    string CAML = @"<Where>
+                                        <And>
+                                            <Eq>
+                                                <FieldRef Name='{0}' />
+                                                <Value Type='Choice'>{1}</Value>
+                                            </Eq>
+                                            <And>
+                                                <Eq>
+                                                    <FieldRef Name='{2}' />
+                                                    <Value Type='Text'>{3}</Value>
+                                                </Eq>
+                                                <Leq>
+                                                    <FieldRef Name='{4}' />
+                                                    <Value Type='DateTime' IncludeTimeValue ='True'>{5}</Value>
+                                                </Leq>
+                                            </And>
+                                        </And>
+                                    </Where>";
+
+                    SPQuery query = new SPQuery()
+                    {
+                        Query = string.Format(CultureInfo.InvariantCulture, CAML, FieldsName.CQQNResources.English.ResourceType, "XML", 
+                            FieldsName.CQQNResources.English.FileLeafRef, "Sonla.xml",Constants.Modified,
+                            SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now.AddHours(-2))),
+                        RowLimit = 1
+                    };
+                    SPListItemCollection items = docLib.GetItems(query);
+                    if (items != null && items.Count > 0)
+                    {
+                        MethodInvoker runSaveFileToDocLib = new MethodInvoker(SaveFileToDocLibAll);
+                        runSaveFileToDocLib.BeginInvoke(SPContext.Current.Web, null, null);
+                        //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/Sonla.xml", "Sonla");
+                        //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/Viettri.xml", "Viettri");
+                        //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/Haiphong.xml", "Haiphong");
+                        //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/Hanoi.xml", "Hanoi");
+                        //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/Vinh.xml", "Vinh");
+                        //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/Danang.xml", "Danang");
+                        //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/Nhatrang.xml", "Nhatrang");
+                        //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/Pleicu.xml", "Pleicu");
+                        //SaveFileToDocLib(SPContext.Current.Web, "http://vnexpress.net/ListFile/Weather/HCM.xml", "HCM");
+                        //SaveFileToDocLib(SPContext.Current.Web, "http://www.vietcombank.com.vn/ExchangeRates/ExrateXML.aspx", "giavang");
+                    }
                 }
                 catch (Exception)
                 {

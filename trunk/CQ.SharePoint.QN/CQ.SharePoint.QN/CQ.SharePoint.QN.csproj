@@ -574,6 +574,7 @@
     </Content>
     <Content Include="Webparts\ShouldToKnow\ShouldToKnow.xml" />
     <Content Include="Webparts\ShowDownload\ShowDownloadUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\ShowDownload\ShowDownload.xml" />
     <Content Include="Webparts\ShowGallery\ShowGalleryUS.ascx">

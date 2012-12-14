@@ -2509,6 +2509,16 @@ namespace CQ.SharePoint.QN.Common
                                 {
                                     table = items.GetDataTable();
 
+                                    if (!table.Columns.Contains(FieldsName.CategoryId))
+                                    {
+                                        table.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
+                                    }
+
+                                    if (!table.Columns.Contains(FieldsName.ArticleStartDateTemp))
+                                    {
+                                        table.Columns.Add(FieldsName.ArticleStartDateTemp, Type.GetType("System.String"));
+                                    }
+
                                     for (int i = 0; i < items.Count; i++)
                                     {
                                         if (!string.IsNullOrEmpty(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName])))
