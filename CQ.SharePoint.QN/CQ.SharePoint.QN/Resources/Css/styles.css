@@ -1256,11 +1256,11 @@ a {
 				background: #000000; 
 				height: 150px; 
 				width: 100%; 
-				opacity: .7; 
+				opacity: .6; 
 				/* For IE 5-7 */
-				filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+				filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
 				/* For IE 8 */
-				-MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+				-MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
  			}
  			.captionfull .boxcaption {
  					top: 272px;
