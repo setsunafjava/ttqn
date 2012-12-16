@@ -56,7 +56,7 @@ namespace CQ.SharePoint.QN.Webparts
         /// <param name="selectedvalue"></param>
         protected void BindDataToDropDownList(int minvalue, int maxvalue, DropDownList dropDownList, string selectedvalue)
         {
-            for (int i = minvalue; i < maxvalue; i++)
+            for (int i = minvalue; i <= maxvalue; i++)
             {
                 dropDownList.Items.Add(new ListItem(Convert.ToString(i), Convert.ToString(i)));
             }
