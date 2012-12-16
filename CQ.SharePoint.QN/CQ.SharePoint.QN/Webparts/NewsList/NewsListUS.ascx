@@ -17,7 +17,7 @@
                 <ul>
             </HeaderTemplate>
             <ItemTemplate>
-                <li><a href='<%= NewsUrl%><%#Eval("ID") %>'>
+                <li><a href='<%= NewsUrl1%><%#Eval("ID") %>'>
                     <%#Eval("Title") %></a></li></ItemTemplate>
             <FooterTemplate>
                 </ul></FooterTemplate>

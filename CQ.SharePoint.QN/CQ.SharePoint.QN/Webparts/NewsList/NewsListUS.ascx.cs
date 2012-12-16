@@ -18,7 +18,7 @@ namespace CQ.SharePoint.QN.Webparts
     {
         public NewsList ParentWP;
         public string NewsUrl = string.Empty;
-
+        public string NewsUrl1 = string.Empty;
         protected string BuildUrl(string pageorder)
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -159,7 +159,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                  <Value Type='Lookup'>{0}</Value>
                                                               </Eq>
                                                            </Where>", categoryId);
-                                    NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&Page=1&CategoryId=",
+                                    NewsUrl1 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&Page=1&CategoryId=",
                                                            SPContext.Current.Web.Url,
                                                            Constants.PageInWeb.SubPage,
                                                            ListsName.English.NewsCategory,
