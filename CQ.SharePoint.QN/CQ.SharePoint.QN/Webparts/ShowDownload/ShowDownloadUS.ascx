@@ -13,7 +13,7 @@
                 <div class="name_artical">
                     <a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
                         <%#Eval("Title")%></a> <span class="time_update">(ngày
-                            <%#Eval("ArticleStartDate")%>)</span></div>
+                            <%#Eval("ArticleStartDates")%>)</span></div>
                 <div class="interpre">
                     <div class="img_thumb">
                         <%--<img src="images/logo.jpg" />--%>
