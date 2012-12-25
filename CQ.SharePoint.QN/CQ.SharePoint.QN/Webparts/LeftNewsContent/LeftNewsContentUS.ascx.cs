@@ -38,6 +38,7 @@ namespace CQ.SharePoint.QN.Webparts
                        ListsName.English.NewsCategory,
                        ListsName.English.NewsRecord,
                        Constants.NewsId);
+                    var newsLimit = Utilities.GetNewsNumber(WebpartParent.NumberOfNews);
                     DataTable newsGroups = null;
                     Utilities.GetNewsByCatID(ListsName.English.NewsRecord, ListsName.English.NewsCategory, WebpartParent.NewsGroupID, ref newsGroups);
                     if (newsGroups != null && newsGroups.Rows.Count > 0)
@@ -56,14 +57,11 @@ namespace CQ.SharePoint.QN.Webparts
                                    Constants.NewsId,
                                    Convert.ToString(tempTable.Rows[0][FieldsName.Id]),
                                    Convert.ToString(tempTable.Rows[0][Constants.CategoryId]));
-                        if (tempTable.Rows.Count > 2)
+                        var temp1Table = Utilities.SelectTopDataRow(tempTable, Convert.ToInt32(newsLimit));
+                        if (temp1Table.Rows.Count >= 2)
                         {
-
-                            tempTable.Rows.RemoveAt(0);
-
-                            rptCaiCachThuTucHanhChinh.DataSource = tempTable;
-
-
+                            temp1Table.Rows.RemoveAt(0);
+                            rptCaiCachThuTucHanhChinh.DataSource = temp1Table;
                             rptCaiCachThuTucHanhChinh.DataBind();
                         }
                     }
@@ -74,12 +72,15 @@ namespace CQ.SharePoint.QN.Webparts
                        ListsName.English.NewsRecord,
                        Constants.CategoryId);
 
-                    string newsTitle = string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='{2}' Ascending='True' /></OrderBy>",
-                        FieldsName.NewsCategory.English.ParentName,
+                    string newsTitle = string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='{2}' Ascending='False' /></OrderBy>",
+                        //FieldsName.NewsCategory.English.ParentName,
+                        FieldsName.Title,
                         WebpartParent.GroupName,
                         FieldsName.Id);
 
-                    var newsTitleItems = Utilities.GetNewsRecords(newsTitle, 4, ListsName.English.NewsCategory);
+                    
+
+                    var newsTitleItems = Utilities.GetNewsRecords(newsTitle, newsLimit, ListsName.English.NewsCategory);
                     if (newsTitleItems != null && newsTitleItems.Rows.Count > 0)
                     {
                         rptNewsGroup.DataSource = newsTitleItems;
@@ -91,6 +92,7 @@ namespace CQ.SharePoint.QN.Webparts
                 }
             }
         }
+
         /// <summary>
         /// OnpreRender
         /// </summary>

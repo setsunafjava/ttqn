@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Data;
 using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.UI;
@@ -94,7 +95,13 @@ namespace CQ.SharePoint.QN.Webparts
         protected override void CreateChildControls()
         {
             string companyCaml = string.Format("<Where><IsNotNull><FieldRef Name='Title' /></IsNotNull></Where>");
-            var table = Utilities.GetNewsRecords(companyCaml, 100, ListsName.English.SubNewsCategory);
+
+            SPList list = Utilities.GetListFromUrl(SPContext.Current.Web, ListsName.English.SubNewsCategory);
+            DataTable table = null;
+            SPQuery query = new SPQuery();
+            if (list != null && list.ItemCount > 0)
+                table = list.GetItems(query).GetDataTable();
+            //var table = Utilities.GetNewsRecords(companyCaml, 100, ListsName.English.SubNewsCategory);
 
             if (table != null && table.Rows.Count > 0)
             {

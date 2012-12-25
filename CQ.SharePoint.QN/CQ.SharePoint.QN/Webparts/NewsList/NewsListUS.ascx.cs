@@ -237,7 +237,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                              </Neq>
                                                                              <And>
                                                                                 <Eq>
-                                                                                   <FieldRef Name='Created' />
+                                                                                   <FieldRef Name='ArticleStartDates' />
                                                                                    <Value Type='DateTime'>{0}</Value>
                                                                                 </Eq>
                                                                                 <Contains>
@@ -248,7 +248,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                           </And>
                                                                        </Where>
                                                                        <OrderBy>
-                                                                          <FieldRef Name='Created' Ascending='False' />
+                                                                          <FieldRef Name='ArticleStartDates' Ascending='False' />
                                                                        </OrderBy>",
                                                                                   SPUtility.CreateISO8601DateTimeFromSystemDateTime(dt),
                                                                 Constants.Published);

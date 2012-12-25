@@ -58,6 +58,8 @@ namespace CQ.SharePoint.QN.Webparts
                        ListsName.English.SubNewsRecord,
                        Constants.NewsId);
 
+                    var newsNumber = GetNewsNumber(WebpartParent.NewsNumber);
+
                     if (!string.IsNullOrEmpty(WebpartParent.NewsCategoryId1))
                     {
                         hplFirstGroup.Text = WebpartParent.NewsCategoryName1;
@@ -70,7 +72,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                        WebpartParent.NewsCategoryId1);
 
 
-                        var group1Table = Utilities.GetNewsByCatID(ListsName.English.SubNewsRecord, WebpartParent.NewsCategoryId1);
+                        var group1Table = Utilities.GetNewsByCatID(ListsName.English.SubNewsRecord, WebpartParent.NewsCategoryId1, newsNumber);
                         if (group1Table != null && group1Table.Rows.Count > 0)
                         {
                             var table1 = Utilities.GetTableWithCorrectUrl(group1Table, true);
@@ -88,7 +90,6 @@ namespace CQ.SharePoint.QN.Webparts
 
                             table1.Rows.RemoveAt(0);
                             var defaulViews1 = table1.DefaultView;
-                            defaulViews1.Sort = "ID DESC";
                             rptTinhUy.DataSource = defaulViews1;
                             rptTinhUy.DataBind();
                         }
@@ -105,7 +106,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                        Constants.CategoryId,
                                                        WebpartParent.NewsCategoryId2);
 
-                        var group2Table = Utilities.GetNewsByCatID(ListsName.English.SubNewsRecord, WebpartParent.NewsCategoryId2);
+                        var group2Table = Utilities.GetNewsByCatID(ListsName.English.SubNewsRecord, WebpartParent.NewsCategoryId2, newsNumber);
                         if (group2Table != null && group2Table.Rows.Count > 0)
                         {
                             var table2 = Utilities.GetTableWithCorrectUrl(group2Table, true);
@@ -122,7 +123,6 @@ namespace CQ.SharePoint.QN.Webparts
 
                             table2.Rows.RemoveAt(0);
                             var defaulViews2 = table2.DefaultView;
-                            defaulViews2.Sort = "ID DESC";
                             rptHoiDongNhanDan.DataSource = defaulViews2;
                             rptHoiDongNhanDan.DataBind();
                         }
@@ -137,7 +137,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                        ListsName.English.SubNewsRecord,
                                                        Constants.CategoryId,
                                                        WebpartParent.NewsCategoryId3);
-                        var group3Table = Utilities.GetNewsByCatID(ListsName.English.SubNewsRecord, WebpartParent.NewsCategoryId3);
+                        var group3Table = Utilities.GetNewsByCatID(ListsName.English.SubNewsRecord, WebpartParent.NewsCategoryId3, newsNumber);
                         if (group3Table != null && group3Table.Rows.Count > 0)
                         {
                             var table3 = Utilities.GetTableWithCorrectUrl(group3Table, true);
@@ -155,7 +155,6 @@ namespace CQ.SharePoint.QN.Webparts
                             table3.Rows.RemoveAt(0);
                             var newTable = GetFiveRows(table3);
                             var defaulViews3 = newTable.DefaultView;
-                            defaulViews3.Sort = "ID DESC";
                             rptUyBanNhanDan.DataSource = defaulViews3;
                             rptUyBanNhanDan.DataBind();
                         }
