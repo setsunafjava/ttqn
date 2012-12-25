@@ -84,7 +84,7 @@ namespace CQ.SharePoint.QN.Webparts
                                 //lblCurrentDate.Text = Convert.ToString(newsItem.Rows[0][FieldsName.Modified]);
                                 lblTitle.Text = Convert.ToString(newsItem.Rows[0][FieldsName.Title]);
                                 ltrShortDescription.Text = Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
-                                DateTime dateTime = Convert.ToDateTime(newsItem.Rows[0][FieldsName.Created]);
+                                DateTime dateTime = Convert.ToDateTime(newsItem.Rows[0][FieldsName.ArticleStartDate]);
                                 //lblCreatedDate.Text = string.Format("{0}", Convert.ToString(newsItem.Rows[0][FieldsName.Created]));
                                 lblCreatedDate.Text = string.Format("{0}/{1}/{2} {3}:{4}", dateTime.Day, dateTime.Month, dateTime.Year, dateTime.Hour, dateTime.Minute);
 

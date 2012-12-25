@@ -74,7 +74,7 @@ namespace CQ.SharePoint.QN.Common
                     imagepath = Convert.ToString(dataTable.Rows[i][FieldsName.QuangCaoRaoVat.English.LinkFileName]);
                     var extFile = imagepath.Substring(imagepath.Length - 3, 3);
                     var fileName = imagepath.Substring(0, imagepath.Length - 4);
-                    dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = string.Format("{0}/{1}/_t/{2}_{3}.jpg", web.Url, ListsName.English.QuangCaoRaoVat, fileName, extFile);
+                    dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = string.Format("{0}/{1}/{2}.{3}", web.Url, ListsName.English.QuangCaoRaoVat, fileName, extFile);
                 }
             }
             return dataTable;
@@ -137,7 +137,7 @@ namespace CQ.SharePoint.QN.Common
                         dataTable.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
                     }
 
-                    time = Convert.ToDateTime(dataTable.Rows[i][FieldsName.Created]);
+                    time = Convert.ToDateTime(dataTable.Rows[i][FieldsName.ArticleStartDate]);
                     dataTable.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format("Ngày {0}/{1}/{2}", time.Day, time.Month, time.Year);
                 }
             }
@@ -207,7 +207,7 @@ namespace CQ.SharePoint.QN.Common
                         dataTable.Rows[i][FieldsName.NewsRecord.English.ShortContent] = StripHtml(Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.ShortContent]));
                     }
 
-                    time = Convert.ToDateTime(dataTable.Rows[i][FieldsName.Created]);
+                    time = Convert.ToDateTime(dataTable.Rows[i][FieldsName.ArticleStartDate]);
                     dataTable.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
                 }
             }
@@ -1320,7 +1320,7 @@ namespace CQ.SharePoint.QN.Common
                                             SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName]));
                                             table.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
                                         }
-                                        var time = Convert.ToDateTime(items[i][FieldsName.Created]);
+                                        var time = Convert.ToDateTime(items[i][FieldsName.ArticleStartDate]);
                                         table.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
 
                                         table.Rows[i][FieldsName.NewsRecord.English.ShortContent] = StripHtml(Convert.ToString(table.Rows[i][FieldsName.NewsRecord.English.ShortContent]));
@@ -1426,7 +1426,7 @@ namespace CQ.SharePoint.QN.Common
                                             }
                                         }
                                         
-                                        var time = Convert.ToDateTime(items[i][FieldsName.Created]);
+                                        var time = Convert.ToDateTime(items[i][FieldsName.ArticleStartDate]);
                                         table.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
                                     }
                                 }
@@ -1957,7 +1957,9 @@ namespace CQ.SharePoint.QN.Common
                                                         </And>
                                                      </And>
                                                   </And>
-                                               </Where>", FieldsName.NewsRecord.English.CategoryName,
+                                               </Where><OrderBy>
+                                                  <FieldRef Name='ID' Ascending='False' />
+                                               </OrderBy>", FieldsName.NewsRecord.English.CategoryName,
                                                 catID, SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
                                                 Constants.Published);
             if (ListsName.English.CompanyRecord.Equals(listName))
@@ -1991,7 +1993,10 @@ namespace CQ.SharePoint.QN.Common
                                                         </And>
                                                      </And>
                                                   </And>
-                                               </Where>", FieldsName.NewsRecord.English.CategoryName,
+                                               </Where>
+                                                <OrderBy>
+                                                      <FieldRef Name='ID' Ascending='False' />
+                                                   </OrderBy>", FieldsName.NewsRecord.English.CategoryName,
                                                 catID, SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
                                                 Constants.Published);
             }
@@ -2009,7 +2014,10 @@ namespace CQ.SharePoint.QN.Common
                                                     <Value Type='Boolean'>1</Value>
                                                  </Neq>
                                               </And>
-                                           </Where>", FieldsName.NewsCategory.English.ParentName, catID);
+                                           </Where>
+                                            <OrderBy>
+                                                  <FieldRef Name='ID' Ascending='False' />
+                                               </OrderBy>", FieldsName.NewsCategory.English.ParentName, catID);
             }
 
             if (ListsName.English.SubNewsCategory.Equals(listName))
@@ -2025,7 +2033,9 @@ namespace CQ.SharePoint.QN.Common
                                                     <Value Type='Boolean'>1</Value>
                                                  </Neq>
                                               </And>
-                                           </Where>", FieldsName.NewsCategory.English.ParentName, catID);
+                                           </Where><OrderBy>
+                                          <FieldRef Name='ID' Ascending='False' />
+                                       </OrderBy>", FieldsName.NewsCategory.English.ParentName, catID);
             }
 
 
@@ -2066,7 +2076,7 @@ namespace CQ.SharePoint.QN.Common
                                             SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName]));
                                             table.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
                                         }
-                                        var time = Convert.ToDateTime(items[i][FieldsName.Created]);
+                                        var time = Convert.ToDateTime(items[i][FieldsName.ArticleStartDate]);
                                         table.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
                                     }
                                 }
@@ -2081,6 +2091,189 @@ namespace CQ.SharePoint.QN.Common
                 }
             });
             
+            return table;
+        }
+
+        /// <summary>
+        /// Get news of number
+        /// </summary>
+        /// <param name="newsNumber"></param>
+        /// <returns></returns>
+        public static uint GetNewsNumber(string newsNumber)
+        {
+            uint result = 6;
+            try
+            {
+                var numbertemp = Convert.ToUInt32(newsNumber);
+                if (numbertemp > 0) result = numbertemp;
+            }
+            catch (Exception ex)
+            {
+            }
+            return result;
+        }
+
+
+        public static DataTable GetNewsByCatID(string listName, string catID, uint limitItems)
+        {
+            string camlQuery = string.Format(@"<Where>
+                                                  <And>
+                                                     <Eq>
+                                                        <FieldRef Name='{0}' LookupId='TRUE' />
+                                                        <Value Type='CustomLookup'>{1}</Value>
+                                                     </Eq>
+                                                     <And>
+                                                        <Neq>
+                                                           <FieldRef Name='Status' />
+                                                           <Value Type='Boolean'>1</Value>
+                                                        </Neq>
+                                                        <And>
+                                                           <Leq>
+                                                              <FieldRef Name='ArticleStartDates' />
+                                                              <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                           </Leq>
+                                                           <Contains>
+                                                              <FieldRef Name='Approve' />
+                                                              <Value Type='Lookup'>{3}</Value>
+                                                           </Contains>
+                                                        </And>
+                                                     </And>
+                                                  </And>
+                                               </Where><OrderBy>
+                                                  <FieldRef Name='ID' Ascending='False' />
+                                               </OrderBy>", FieldsName.NewsRecord.English.CategoryName,
+                                                catID, SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+                                                Constants.Published);
+            if (ListsName.English.CompanyRecord.Equals(listName))
+            {
+                camlQuery = string.Format(@"<Where>
+                                                  <And>
+                                                     <Eq>
+                                                        <FieldRef Name='{0}' LookupId='TRUE' />
+                                                        <Value Type='Lookup'>{1}</Value>
+                                                     </Eq>
+                                                     <And>
+                                                        <Neq>
+                                                           <FieldRef Name='Status' />
+                                                           <Value Type='Boolean'>1</Value>
+                                                        </Neq>
+                                                        <And>
+                                                           <Leq>
+                                                              <FieldRef Name='ArticleStartDates' />
+                                                              <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                           </Leq>
+                                                           <And>
+                                                              <Contains>
+                                                                 <FieldRef Name='Approve' />
+                                                                 <Value Type='Lookup'>{3}</Value>
+                                                              </Contains>
+                                                              <Geq>
+                                                                 <FieldRef Name='_EndDate' />
+                                                                 <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                              </Geq>
+                                                           </And>
+                                                        </And>
+                                                     </And>
+                                                  </And>
+                                               </Where>
+                                                <OrderBy>
+                                                      <FieldRef Name='ID' Ascending='False' />
+                                                   </OrderBy>", FieldsName.NewsRecord.English.CategoryName,
+                                                catID, SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+                                                Constants.Published);
+            }
+
+            if (ListsName.English.NewsCategory.Equals(listName))
+            {
+                camlQuery = string.Format(@"<Where>
+                                              <And>
+                                                 <Eq>
+                                                    <FieldRef Name='{0}' LookupId='TRUE' />
+                                                    <Value Type='Lookup'>{1}</Value>
+                                                 </Eq>
+                                                 <Neq>
+                                                    <FieldRef Name='Status' />
+                                                    <Value Type='Boolean'>1</Value>
+                                                 </Neq>
+                                              </And>
+                                           </Where>
+                                            <OrderBy>
+                                                  <FieldRef Name='ID' Ascending='False' />
+                                               </OrderBy>", FieldsName.NewsCategory.English.ParentName, catID);
+            }
+
+            if (ListsName.English.SubNewsCategory.Equals(listName))
+            {
+                camlQuery = string.Format(@"<Where>
+                                              <And>
+                                                 <Eq>
+                                                    <FieldRef Name='{0}' LookupId='TRUE' />
+                                                    <Value Type='Lookup'>{1}</Value>
+                                                 </Eq>
+                                                 <Neq>
+                                                    <FieldRef Name='Status' />
+                                                    <Value Type='Boolean'>1</Value>
+                                                 </Neq>
+                                              </And>
+                                           </Where><OrderBy>
+                                          <FieldRef Name='ID' Ascending='False' />
+                                       </OrderBy>", FieldsName.NewsCategory.English.ParentName, catID);
+            }
+
+
+            var query = new SPQuery();
+            query.Query = camlQuery;
+            query.RowLimit = limitItems;
+            DataTable table = null;
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            string listUrl = web.Url + "/Lists/" + listName;
+                            var list = web.GetList(listUrl);
+                            if (list != null)
+                            {
+                                var items = list.GetItems(query);
+                                if (items != null && items.Count > 0)
+                                {
+                                    table = items.GetDataTable();
+
+                                    if (!table.Columns.Contains(FieldsName.CategoryId))
+                                    {
+                                        table.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
+                                    }
+
+                                    if (!table.Columns.Contains(FieldsName.ArticleStartDateTemp))
+                                    {
+                                        table.Columns.Add(FieldsName.ArticleStartDateTemp, Type.GetType("System.String"));
+                                    }
+
+                                    for (int i = 0; i < items.Count; i++)
+                                    {
+                                        if (!string.IsNullOrEmpty(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName])))
+                                        {
+                                            SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName]));
+                                            table.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
+                                        }
+                                        var time = Convert.ToDateTime(items[i][FieldsName.ArticleStartDate]);
+                                        table.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Utilities.LogToUls(ex);
+                        }
+                    }
+
+                }
+            });
+
             return table;
         }
 
@@ -2143,6 +2336,18 @@ namespace CQ.SharePoint.QN.Common
                 }
             }
         }
+
+        public static DataTable SelectTopDataRow(DataTable dt, int count)
+        {
+            DataTable dtn = dt.Clone();
+            for (int i = 0; i < count; i++)
+            {
+                dtn.ImportRow(dt.Rows[i]);
+            }
+
+            return dtn;
+        }
+
 
         public static void BuilChuyenDe(string listName, string listCategoryName, string catID, ref DataTable dtNews)
         {
@@ -2526,7 +2731,7 @@ namespace CQ.SharePoint.QN.Common
                                             SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName]));
                                             table.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
                                         }
-                                        var time = Convert.ToDateTime(items[i][FieldsName.Created]);
+                                        var time = Convert.ToDateTime(items[i][FieldsName.ArticleStartDate]);
                                         table.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
                                     }
                                 }
