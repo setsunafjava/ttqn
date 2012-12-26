@@ -39,7 +39,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                           <And>
                                                              <Eq>
                                                                 <FieldRef Name='{0}' LookupId='TRUE' />
-                                                                <Value Type='Lookup'>{1}</Value>
+                                                                <Value Type='CustomLookup'>{1}</Value>
                                                              </Eq>
                                                              <And>
                                                                 <Neq>
@@ -48,7 +48,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                 </Neq>
                                                                 <And>
                                                                    <Lt>
-                                                                      <FieldRef Name='ArticleStartDate' />
+                                                                      <FieldRef Name='ArticleStartDates' />
                                                                       <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
                                                                    </Lt>
                                                                    <Contains>
