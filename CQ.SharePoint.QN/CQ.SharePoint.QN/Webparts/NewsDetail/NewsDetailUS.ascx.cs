@@ -203,7 +203,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                        ListsName.English.NewsCategory,
                                                        ListsName.English.NewsRecord);
 
-                        var newsItem = Utilities.GetNewsRecords(newsQuery, ListsName.English.NewsCategory);
+                        var newsItem = Utilities.GetNewsRecordsCategory(newsQuery, ListsName.English.NewsCategory);
                         if (newsItem != null && newsItem.Rows.Count > 0)
                         {
                             rptChuyenDe.DataSource = newsItem;

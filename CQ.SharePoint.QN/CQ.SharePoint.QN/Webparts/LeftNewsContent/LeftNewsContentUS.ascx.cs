@@ -32,6 +32,14 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
+                    //var abc = Utilities.GetListFromUrl(SPContext.Current.Web, ListsName.English.NewsRecord);
+                    //SPQuery qur = new SPQuery();
+                    //qur.Query = string.Format("<Where><Eq><FieldRef Name='_ModerationStatus' /><Value Type='ModStat'>2</Value></Eq></Where>");
+                    //var aaa = abc.GetItems(qur);
+
+
+
+
                     NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
                        SPContext.Current.Web.Url,
                        Constants.PageInWeb.DetailNews,
@@ -57,7 +65,7 @@ namespace CQ.SharePoint.QN.Webparts
                                    Constants.NewsId,
                                    Convert.ToString(tempTable.Rows[0][FieldsName.Id]),
                                    Convert.ToString(tempTable.Rows[0][Constants.CategoryId]));
-                        var temp1Table = Utilities.SelectTopDataRow(tempTable, Convert.ToInt32(newsLimit));
+                        var temp1Table = Utilities.SelectTopDataRow(tempTable, Convert.ToInt32(tempTable.Rows.Count-1));
                         if (temp1Table.Rows.Count >= 2)
                         {
                             temp1Table.Rows.RemoveAt(0);
