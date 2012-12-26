@@ -50,7 +50,7 @@ namespace CQ.SharePoint.QN.Webparts
                         newsNumber = Convert.ToUInt16(WebpartParent.NumberOfNews);
                     }
 
-                    var companyList = Utilities.GetNewsRecords(companyListQuery, newsNumber, ListsName.English.TourInforCategory);
+                    var companyList = Utilities.GetNewsRecordsCategory(companyListQuery, newsNumber, ListsName.English.TourInforCategory);
                     if (companyList != null && companyList.Rows.Count > 0)
                     {
                         rptTourInfo.DataSource = companyList;

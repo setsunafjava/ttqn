@@ -1381,6 +1381,133 @@ namespace CQ.SharePoint.QN.Common
             return table;
         }
 
+        public static DataTable GetNewsRecordsCategory(string query, string listName)
+        {
+            DataTable table = new DataTable();
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            SPQuery spQuery = new SPQuery
+                            {
+                                Query = query,
+                                DatesInUtc = false
+                            };
+                            SPList list = Utilities.GetListFromUrl(web, listName);
+                            if (list != null)
+                            {
+                                SPListItemCollection items = list.GetItems(spQuery);
+                                if (items != null && items.Count > 0)
+                                {
+                                    table = items.GetDataTable();
+
+                                    if (!table.Columns.Contains(FieldsName.CategoryId))
+                                    {
+                                        table.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
+                                    }
+
+                                    if (!table.Columns.Contains(FieldsName.ArticleStartDateTemp))
+                                    {
+                                        table.Columns.Add(FieldsName.ArticleStartDateTemp, Type.GetType("System.String"));
+                                    }
+
+                                    for (int i = 0; i < items.Count; i++)
+                                    {
+                                        if (table.Columns.Contains(FieldsName.NewsRecord.English.CategoryName))
+                                        {
+                                            if (!string.IsNullOrEmpty(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName])))
+                                            {
+                                                SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName]));
+                                                table.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
+                                            }
+                                        }
+
+                                        var time = Convert.ToDateTime(items[i][FieldsName.Created]);
+                                        table.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            table = null;
+                        }
+                    }
+
+                }
+            });
+            
+            return table;
+        }
+
+        public static DataTable GetNewsRecordsCategory(string query, uint newsNumber, string listName)
+        {
+            DataTable table = new DataTable();
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            SPQuery spQuery = new SPQuery
+                            {
+                                Query = query,
+                                DatesInUtc = false,
+                                RowLimit = newsNumber
+                            };
+                            SPList list = Utilities.GetListFromUrl(web, listName);
+                            if (list != null)
+                            {
+                                SPListItemCollection items = list.GetItems(spQuery);
+                                if (items != null && items.Count > 0)
+                                {
+                                    table = items.GetDataTable();
+
+                                    if (!table.Columns.Contains(FieldsName.CategoryId))
+                                    {
+                                        table.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
+                                    }
+
+                                    if (!table.Columns.Contains(FieldsName.ArticleStartDateTemp))
+                                    {
+                                        table.Columns.Add(FieldsName.ArticleStartDateTemp, Type.GetType("System.String"));
+                                    }
+
+                                    for (int i = 0; i < items.Count; i++)
+                                    {
+                                        if (table.Columns.Contains(FieldsName.NewsRecord.English.CategoryName))
+                                        {
+                                            if (!string.IsNullOrEmpty(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName])))
+                                            {
+                                                SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName]));
+                                                table.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
+                                            }
+                                        }
+
+                                        var time = Convert.ToDateTime(items[i][FieldsName.Created]);
+                                        table.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            table = null;
+                        }
+                    }
+
+                }
+            });
+
+            return table;
+        }
+
         public static DataTable GetNewsRecords(string query, string listName)
         {
             DataTable table = new DataTable();
@@ -2340,7 +2467,7 @@ namespace CQ.SharePoint.QN.Common
         public static DataTable SelectTopDataRow(DataTable dt, int count)
         {
             DataTable dtn = dt.Clone();
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i <= count; i++)
             {
                 dtn.ImportRow(dt.Rows[i]);
             }
