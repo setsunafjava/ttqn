@@ -94,7 +94,7 @@ namespace CQ.SharePoint.QN.Webparts
 
         protected override void CreateChildControls()
         {
-            string companyCaml = string.Format("<OrderBy><FieldRef Name='Created' Ascending='False' /></OrderBy>");
+            string companyCaml = string.Format("<OrderBy><FieldRef Name='ArticleStartDates' Ascending='False' /></OrderBy>");
             var table = Utilities.GetNewsRecords(companyCaml, ListsName.English.ShouldToKnowCategory);
 
             if (table != null && table.Rows.Count > 0)
