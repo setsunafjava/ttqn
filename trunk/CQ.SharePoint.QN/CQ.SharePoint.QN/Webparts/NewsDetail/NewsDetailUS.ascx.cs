@@ -110,21 +110,20 @@ namespace CQ.SharePoint.QN.Webparts
                                              SPListItem items = result.GetItemById(id);
                                              if (items != null)
                                              {
+                                                 web.AllowUnsafeUpdates = true;
                                                  string viewcount = Convert.ToString(items[FieldsName.NewsRecord.English.ViewsCount]);
                                                  if (!string.IsNullOrEmpty(viewcount))
                                                  {
                                                      int count = Convert.ToInt32(viewcount);
                                                      items[FieldsName.NewsRecord.English.ViewsCount] = ++count;
-                                                     web.AllowUnsafeUpdates = true;
-                                                     items.Update();
                                                  }
                                                  else
                                                  {
                                                      items[FieldsName.NewsRecord.English.ViewsCount] = 1;
-                                                     web.AllowUnsafeUpdates = true;
-                                                     items.Update();
                                                  }
-                                                 //Get attachment file
+
+                                                 items.SystemUpdate(false);
+                                                 //Get attachment file);
                                                  if (items.Attachments.Count > 0)
                                                  {
                                                      foreach (var attachment in items.Attachments)

@@ -1567,7 +1567,7 @@ namespace CQ.SharePoint.QN.Common
                                                 SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
                                                 FieldsName.ModerationStatus,
                                                 ModerationStatusValue,
-                                                FieldsName.ModerationStatus);
+                                                FieldsName.ArticleStartDates);
             if (ListsName.English.CompanyRecord.Equals(listName))
             {
                 camlQuery = string.Format(@"<Where>
@@ -2355,46 +2355,6 @@ namespace CQ.SharePoint.QN.Common
                 }
             });
             return table;
-        }
-
-        public static void ViewCountCalculated(SPWeb spWeb, string listName, string viewCountField, int newsId)
-        {
-            SPSecurity.RunWithElevatedPrivileges(() =>
-            {
-                using (var site = new SPSite(spWeb.Site.ID))
-                {
-                    using (var web = site.OpenWeb(spWeb.ID))
-                    {
-                        try
-                        {
-                            SPList list = GetDocListFromUrl(web, listName);
-                            int id = Convert.ToInt32(newsId);
-                            SPListItem items = list.GetItemById(id);
-                            if (items != null)
-                            {
-                                string viewcount = Convert.ToString(items[viewCountField]);
-                                if (!string.IsNullOrEmpty(viewcount))
-                                {
-                                    int count = Convert.ToInt32(viewcount);
-                                    items[viewCountField] = ++count;
-                                    web.AllowUnsafeUpdates = true;
-                                    items.Update();
-                                }
-                                else
-                                {
-                                    items[viewCountField] = 1;
-                                    web.AllowUnsafeUpdates = true;
-                                    items.Update();
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Utilities.LogToUls(ex);
-                        }
-                    }
-                }
-            });
         }
 
         public static string GetModerationStatus(int resourceCode)

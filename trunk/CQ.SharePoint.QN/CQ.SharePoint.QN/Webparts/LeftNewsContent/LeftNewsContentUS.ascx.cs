@@ -33,7 +33,6 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
-                    
                     NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
                        SPContext.Current.Web.Url,
                        Constants.PageInWeb.DetailNews,
@@ -45,11 +44,15 @@ namespace CQ.SharePoint.QN.Webparts
                     Utilities.GetNewsByCatID(ListsName.English.NewsRecord, ListsName.English.NewsCategory, WebpartParent.NewsGroupID, ref newsGroups);
                     if (newsGroups != null && newsGroups.Rows.Count > 0)
                     {
-                        var tempTable = Utilities.GetTableWithCorrectUrl(newsGroups, false);
-                        lblHeader.Text = Convert.ToString(tempTable.Rows[0][FieldsName.Title]);
-                        imgThumb.ImageUrl = Convert.ToString(tempTable.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
+                        var t1 = Utilities.GetTableWithCorrectUrl(newsGroups, false);
+                        var tempTable = Utilities.SelectTopDataRow(t1, (int)newsLimit);
+                        var table = tempTable.DefaultView;
+                        table.Sort = "ArticleStartDates DESC";
 
-                        lblShortContent.Text = Convert.ToString(tempTable.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
+                        lblHeader.Text = Convert.ToString(table[0][FieldsName.Title]);
+                        imgThumb.ImageUrl = Convert.ToString(table[0][FieldsName.NewsRecord.English.ThumbnailImage]);
+
+                        lblShortContent.Text = Convert.ToString(table[0][FieldsName.NewsRecord.English.ShortContent]);
 
                         NewsFirstUrl1 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}&CategoryId={6}",
                                    SPContext.Current.Web.Url,
@@ -57,13 +60,14 @@ namespace CQ.SharePoint.QN.Webparts
                                    ListsName.English.NewsCategory,
                                    ListsName.English.NewsRecord,
                                    Constants.NewsId,
-                                   Convert.ToString(tempTable.Rows[0][FieldsName.Id]),
-                                   Convert.ToString(tempTable.Rows[0][Constants.CategoryId]));
-                        var temp1Table = Utilities.SelectTopDataRow(tempTable, Convert.ToInt32(tempTable.Rows.Count-1));
-                        if (temp1Table.Rows.Count >= 2)
+                                   Convert.ToString(table[0][FieldsName.Id]),
+                                   Convert.ToString(table[0][Constants.CategoryId]));
+                        table[0].Delete();
+
+                        //var temp1Table = Utilities.SelectTopDataRow(tempTable, Convert.ToInt32(tempTable.Rows.Count-1)););
+                        if (table.Count > 0)
                         {
-                            temp1Table.Rows.RemoveAt(0);
-                            rptCaiCachThuTucHanhChinh.DataSource = temp1Table;
+                            rptCaiCachThuTucHanhChinh.DataSource = table;
                             rptCaiCachThuTucHanhChinh.DataBind();
                         }
                     }
@@ -75,7 +79,6 @@ namespace CQ.SharePoint.QN.Webparts
                        Constants.CategoryId);
 
                     string newsTitle = string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='{2}' Ascending='False' /></OrderBy>",
-                        //FieldsName.NewsCategory.English.ParentName,
                         FieldsName.Title,
                         WebpartParent.GroupName,
                         FieldsName.Id);
