@@ -29,50 +29,55 @@ namespace CQ.SharePoint.QN.Webparts
         public string listName = ListsName.English.NewsRecord;
         public string listCategoryName = ListsName.English.NewsCategory;
         public string QueryAllItemsSortById = string.Format(@"<Where>
-                                          <And>
-                                             <Neq>
-                                                <FieldRef Name='Status' />
-                                                <Value Type='Boolean'>1</Value>
-                                             </Neq>
-                                             <And>
-                                               <Lt>
-                                                  <FieldRef Name='ArticleStartDates' />
-                                                  <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
-                                               </Lt>
-                                               <Contains>
-                                                  <FieldRef Name='Approve' />
-                                                  <Value Type='Lookup'>{1}</Value>
-                                               </Contains>
-                                            </And>
-                                          </And>
-                                       </Where>
-                                       <OrderBy>
-                                          <FieldRef Name='ID' Ascending='False' />
-                                       </OrderBy>",
+                                                                  <And>
+                                                                     <Neq>
+                                                                        <FieldRef Name='Status' />
+                                                                        <Value Type='Boolean'>1</Value>
+                                                                     </Neq>
+                                                                     <And>
+                                                                        <Lt>
+                                                                           <FieldRef Name='{0}' />
+                                                                           <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
+                                                                        </Lt>
+                                                                        <Eq>
+                                                                           <FieldRef Name='{2}' />
+                                                                           <Value Type='ModStat'>{3}</Value>
+                                                                        </Eq>
+                                                                     </And>
+                                                                  </And>
+                                                               </Where>
+                                                               <OrderBy>
+                                                                  <FieldRef Name='{4}' Ascending='False' />
+                                                               </OrderBy>",
+                                FieldsName.ArticleStartDates,
                                 SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                Constants.Published);
+                                FieldsName.ModerationStatus,
+                                Utilities.GetModerationStatus(402), FieldsName.ArticleStartDates);
+
         public string QueryAllItemsSortByViewCount = string.Format(@"<Where>
-                                                          <And>
-                                                             <Neq>
-                                                                <FieldRef Name='Status' />
-                                                                <Value Type='Boolean'>1</Value>
-                                                             </Neq>
-                                                             <And>
-                                                               <Lt>
-                                                                  <FieldRef Name='ArticleStartDates' />
-                                                                  <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
-                                                               </Lt>
-                                                               <Contains>
-                                                                  <FieldRef Name='Approve' />
-                                                                  <Value Type='Lookup'>{1}</Value>
-                                                               </Contains>
-                                                            </And>
-                                                          </And>
-                                                       </Where>
-                                                       <OrderBy>
-                                                          <FieldRef Name='ViewsCount' Ascending='False' />
-                                                       </OrderBy>",
-                                                        SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now), Constants.Published);
+                                                                  <And>
+                                                                     <Neq>
+                                                                        <FieldRef Name='Status' />
+                                                                        <Value Type='Boolean'>1</Value>
+                                                                     </Neq>
+                                                                     <And>
+                                                                        <Lt>
+                                                                           <FieldRef Name='{0}' />
+                                                                           <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
+                                                                        </Lt>
+                                                                        <Eq>
+                                                                           <FieldRef Name='{2}' />
+                                                                           <Value Type='ModStat'>{3}</Value>
+                                                                        </Eq>
+                                                                     </And>
+                                                                  </And>
+                                                               </Where>
+                                                               <OrderBy>
+                                                                  <FieldRef Name='{4}' Ascending='False' />
+                                                               </OrderBy>", FieldsName.ArticleStartDates,
+                                SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+                                FieldsName.ModerationStatus,
+                                Utilities.GetModerationStatus(402), FieldsName.NewsRecord.English.ViewsCount);
 
         public string QueryAllItemsByShowInHomePage = string.Format(@"<Where>
                                                                           <And>
@@ -82,28 +87,29 @@ namespace CQ.SharePoint.QN.Webparts
                                                                              </Eq>
                                                                              <And>
                                                                                 <Lt>
-                                                                                   <FieldRef Name='ArticleStartDates' />
-                                                                                   <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
+                                                                                   <FieldRef Name='{1}' />
+                                                                                   <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
                                                                                 </Lt>
                                                                                 <And>
                                                                                    <Neq>
                                                                                       <FieldRef Name='Status' />
                                                                                       <Value Type='Boolean'>1</Value>
                                                                                    </Neq>
-                                                                                   <Contains>
-                                                                                      <FieldRef Name='Approve' />
-                                                                                      <Value Type='Lookup'>{2}</Value>
-                                                                                   </Contains>
-                                                                                </And>
+                                                                                   <Eq>
+                                                                                      <FieldRef Name='{3}' />
+                                                                                      <Value Type='ModStat'>{4}</Value>
+                                                                                   </Eq>
+                                                                                </Eq>
                                                                              </And>
                                                                           </And>
                                                                        </Where>
                                                                        <OrderBy>
-                                                                          <FieldRef Name='ID' Ascending='False' />
+                                                                          <FieldRef Name='{5}' Ascending='False' />
                                                                        </OrderBy>",
-                                                                    FieldsName.NewsRecord.English.ShowInHomePage,
+                                                                    FieldsName.NewsRecord.English.ShowInHomePage, FieldsName.ArticleStartDates,
                                                                     SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                                                    Constants.Published);
+                                                                    FieldsName.ModerationStatus, Utilities.GetModerationStatus(402),
+                                                                    FieldsName.ArticleStartDates);
         /// <summary>
         /// Page on Load
         /// </summary>
@@ -145,7 +151,6 @@ namespace CQ.SharePoint.QN.Webparts
 
                         //CAML query will get all item 
                         latestNewsQuery = QueryAllItemsSortById;
-
                         var latestNewsTable = Utilities.GetNewsRecordItems(latestNewsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
                         if (latestNewsTable != null && latestNewsTable.Count > 0)
                         {
@@ -189,7 +194,7 @@ namespace CQ.SharePoint.QN.Webparts
                             string newsQuery = string.Format(@"<Where>
                                                                   <And>
                                                                      <Eq>
-                                                                        <FieldRef Name='FocusNews' />
+                                                                        <FieldRef Name='{0}' />
                                                                         <Value Type='Boolean'>1</Value>
                                                                      </Eq>
                                                                      <And>
@@ -200,25 +205,26 @@ namespace CQ.SharePoint.QN.Webparts
                                                                         <And>
                                                                            <Lt>
                                                                               <FieldRef Name='ArticleStartDates' />
-                                                                              <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
+                                                                              <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
                                                                            </Lt>
-                                                                           <Contains>
-                                                                              <FieldRef Name='Approve' />
-                                                                              <Value Type='Lookup'>{1}</Value>
-                                                                           </Contains>
+                                                                           <Eq>
+                                                                              <FieldRef Name='{2}' />
+                                                                              <Value Type='ModStat'>{3}</Value>
+                                                                           </Eq>
                                                                         </And>
                                                                      </And>
                                                                   </And>
                                                                </Where>
                                                                <OrderBy>
-                                                                  <FieldRef Name='ID' Ascending='False' />
+                                                                  <FieldRef Name='{4}' Ascending='False' />
                                                                </OrderBy>",
-                                                                          SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),Constants.Published);
+                                                                          FieldsName.NewsRecord.English.FocusNews,
+                                                                          SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+                                                                          FieldsName.ModerationStatus, Utilities.GetModerationStatus(402), FieldsName.ArticleStartDates);
 
                             var companyList = Utilities.GetNewsRecords(newsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
                             if (companyList != null && companyList.Rows.Count > 0)
                             {
-                                //Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyList);
                                 RptLatestNewsUrl = ItemUrl;
                                 rptLatestNews.DataSource = companyList;
                                 rptLatestNews.DataBind();
@@ -230,7 +236,6 @@ namespace CQ.SharePoint.QN.Webparts
                                 companyList = Utilities.GetNewsRecords(newsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
                                 if (companyList != null && companyList.Rows.Count > 0)
                                 {
-                                    //Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyList);
                                     RptLatestNewsUrl = ItemUrl;
                                     rptLatestNews.DataSource = companyList;
                                     rptLatestNews.DataBind();
@@ -241,7 +246,6 @@ namespace CQ.SharePoint.QN.Webparts
                                     companyList = Utilities.GetNewsRecords(newsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), ListsName.English.NewsRecord);
                                     if (companyList != null && companyList.Rows.Count > 0)
                                     {
-                                        //Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.CategoryName, ref companyList);
                                         RptLatestNewsUrl = NewsUrl;
                                         rptLatestNews.DataSource = companyList;
                                         rptLatestNews.DataBind();
@@ -257,7 +261,6 @@ namespace CQ.SharePoint.QN.Webparts
                             var companyList = Utilities.GetNewsRecords(latestNewsQuery1, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
                             if (companyList != null && companyList.Rows.Count > 0)
                             {
-                                //Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyList);
                                 RptLatestNewsUrl = ItemUrl;
                                 rptLatestNews.DataSource = companyList;
                                 rptLatestNews.DataBind();
@@ -267,7 +270,6 @@ namespace CQ.SharePoint.QN.Webparts
                                 companyList = Utilities.GetNewsRecords(latestNewsQuery1, GetNewsNumber(WebPartParent.LatestNewsNumber), ListsName.English.NewsRecord);
                                 if (companyList != null && companyList.Rows.Count > 0)
                                 {
-                                    //Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.CategoryName, ref companyList);
                                     RptLatestNewsUrl = NewsUrl;
                                     rptLatestNews.DataSource = companyList;
                                     rptLatestNews.DataBind();
@@ -310,30 +312,33 @@ namespace CQ.SharePoint.QN.Webparts
                                             </Eq>
                                             <And>
                                                <Lt>
-                                                  <FieldRef Name='ArticleStartDates' />
-                                                  <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                  <FieldRef Name='{2}' />
+                                                  <Value IncludeTimeValue='TRUE' Type='DateTime'>{3}</Value>
                                                </Lt>
                                                <And>
                                                   <Neq>
                                                      <FieldRef Name='Status' />
                                                      <Value Type='Boolean'>1</Value>
                                                   </Neq>
-                                                  <Contains>
-                                                     <FieldRef Name='Approve' />
-                                                     <Value Type='Lookup'>{3}</Value>
-                                                  </Contains>
+                                                  <Eq>
+                                                     <FieldRef Name='{4}' />
+                                                     <Value Type='ModStat'>{5}</Value>
+                                                  </Eq>
                                                </And>
                                             </And>
                                          </And>
                                       </And>
                                    </Where>
                                    <OrderBy>
-                                      <FieldRef Name='ID' Ascending='False' />
+                                      <FieldRef Name='{6}' Ascending='False' />
                                    </OrderBy>",
                         FieldsName.NewsRecord.English.ShowInHomePage,
                         FieldsName.NewsRecord.English.CategoryName,
+                        FieldsName.ArticleStartDates,
                         SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                        Constants.Published);
+                        FieldsName.ModerationStatus,
+                        Utilities.GetModerationStatus(402),
+                        FieldsName.ArticleStartDates);
             }
             else
             {
@@ -345,13 +350,6 @@ namespace CQ.SharePoint.QN.Webparts
             if (mainItem != null && mainItem.Count > 0)
             {//se phai dung thuat toan get thumnail cua image
                 var tempTable = Utilities.GetTableWithCorrectUrlHotNews(_listCategoryName, mainItem);
-
-                //foreach (DataRow row in tempTable.Rows)
-                //{
-                //    SPFieldMultiLineText description = row[FieldsName.NewsRecord.English.ShortContent] as SPFieldMultiLineText;
-                //    row[FieldsName.NewsRecord.English.ShortContent] = description.GetFieldValueAsText()
-                //}
-
                 Utilities.SetSapoTextLength(ref tempTable);
                 RptImagesUrl = ItemUrl;
                 rptImages.DataSource = tempTable;
@@ -405,30 +403,33 @@ namespace CQ.SharePoint.QN.Webparts
                                             </Eq>
                                             <And>
                                                <Lt>
-                                                  <FieldRef Name='ArticleStartDates' />
-                                                  <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                  <FieldRef Name='{2}' />
+                                                  <Value IncludeTimeValue='TRUE' Type='DateTime'>{3}</Value>
                                                </Lt>
                                                <And>
                                                   <Neq>
                                                      <FieldRef Name='Status' />
                                                      <Value Type='Boolean'>1</Value>
                                                   </Neq>
-                                                  <Contains>
-                                                     <FieldRef Name='Approve' />
-                                                     <Value Type='Lookup'>{3}</Value>
-                                                  </Contains>
+                                                  <Eq>
+                                                     <FieldRef Name='{4}' />
+                                                     <Value Type='Lookup'>{5}</Value>
+                                                  </Eq>
                                                </And>
                                             </And>
                                          </And>
                                       </And>
                                    </Where>
                                    <OrderBy>
-                                      <FieldRef Name='ID' Ascending='False' />
+                                      <FieldRef Name='{6}' Ascending='False' />
                                    </OrderBy>",
                         FieldsName.NewsRecord.English.ShowInHomePage,
                         FieldsName.NewsRecord.English.CategoryName,
+                        FieldsName.ArticleStartDates,
                         SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                        Constants.Published);
+                        FieldsName.ModerationStatus,
+                        Utilities.GetModerationStatus(402),
+                        FieldsName.ArticleStartDates);
             }
             else
             {

@@ -1,13 +1,13 @@
 ﻿<%@ Assembly Name="CQ.SharePoint.QN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NewsDetailUS.ascx.cs"
     Inherits="CQ.SharePoint.QN.Webparts.NewsDetailUS" %>
+
 <div class="detail_artical">
     <div class="path">
         <div class="arr_B">
             <asp:Label ID="lblBreadCrum" runat="server"></asp:Label>
         </div>
     </div>
-    
     <asp:Panel ID="pnlNewsDetail" runat="server">
         <div>
             <table width="100%">
@@ -30,7 +30,6 @@
         </div>
         <h2>
             <asp:Label ID="lblTitle" runat="server"></asp:Label>
-            <%--<asp:Label ID="lblCreatedDate" runat="server"></asp:Label>--%>
         </h2>
         <br />
         <p>
@@ -44,10 +43,14 @@
                 <tr>
                     <td>
                         <asp:Literal ID="ltrNewsContent" runat="server"></asp:Literal>
+                        <div class="ItemDoesNotExist">
+                            <asp:Label ID="lblItemDoesNotExist" runat="server" Visible="false"/>
+                        </div>
+                        
                     </td>
                 </tr>
                 <tr>
-                    <td align="right" style=" font-weight:bold">
+                    <td align="right" style="font-weight: bold">
                         <asp:Label ID="lblAuthor" runat="server"></asp:Label><br />
                         <asp:Label ID="lblSource" runat="server"></asp:Label>
                     </td>

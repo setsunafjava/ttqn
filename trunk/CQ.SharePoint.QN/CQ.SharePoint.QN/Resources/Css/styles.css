@@ -1288,4 +1288,9 @@ a {
 			.clearfix {
 				float: none;
 				clear: both;
-			}		
+			}	
+.ItemDoesNotExist
+{
+	color:Red;
+	font-size:medium;
+	}	

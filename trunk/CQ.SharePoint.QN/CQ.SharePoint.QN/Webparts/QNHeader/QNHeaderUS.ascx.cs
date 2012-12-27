@@ -237,7 +237,7 @@ namespace CQ.SharePoint.QN.Webparts
             else if (currentUrl.Contains(Constants.PageInWeb.SubPage + ".aspx"))
             {
                 var catID = Convert.ToString(Request.QueryString["CategoryId"]);
-                var catItem = Utilities.GetListItemFromUrlByID(ListsName.English.NewsCategory ,catID);
+                var catItem = Utilities.GetListItemFromUrlById(ListsName.English.NewsCategory ,catID);
                 if (catItem != null)
                 {
                     control.Text += " - " + Convert.ToString(catItem["Title"]);
@@ -246,10 +246,10 @@ namespace CQ.SharePoint.QN.Webparts
             else if (currentUrl.Contains(Constants.PageInWeb.DetailNews + ".aspx"))
             {
                 var newsId = Request.QueryString[Constants.NewsId];
-                var newsItem = Utilities.GetListItemFromUrlByID(ListsName.English.NewsRecord, newsId);
+                var newsItem = Utilities.GetListItemFromUrlById(ListsName.English.NewsRecord, newsId);
                 if (newsItem != null)
                 {
-                    var catItem = Utilities.GetListItemFromUrlByID(ListsName.English.NewsCategory, Utilities.GetCategoryIdByItemId(Convert.ToInt32(newsId),
+                    var catItem = Utilities.GetListItemFromUrlById(ListsName.English.NewsCategory, Utilities.GetCategoryIdByItemId(Convert.ToInt32(newsId),
                                                                     ListsName.English.NewsRecord));
                     if (catItem != null)
                     {
