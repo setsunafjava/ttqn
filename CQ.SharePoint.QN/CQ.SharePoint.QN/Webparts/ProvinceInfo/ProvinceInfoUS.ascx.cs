@@ -47,21 +47,23 @@ namespace CQ.SharePoint.QN.Webparts
                                                                         </Neq>
                                                                         <And>
                                                                             <Lt>
-                                                                               <FieldRef Name='ArticleStartDates' />
-                                                                               <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                                               <FieldRef Name='{2}' />
+                                                                               <Value IncludeTimeValue='TRUE' Type='DateTime'>{3}</Value>
                                                                             </Lt>
-                                                                            <Contains>
-                                                                               <FieldRef Name='Approve' />
-                                                                               <Value Type='Lookup'>{3}</Value>
-                                                                            </Contains>
+                                                                            <Eq>
+                                                                               <FieldRef Name='{4}' />
+                                                                               <Value Type='ModStat'>{5}</Value>
+                                                                            </Eq>
                                                                          </And>
                                                                      </And>
                                                                   </And>
                                                                </Where>",
                                                                         FieldsName.ProvinceInfoRecord.English.CategoryName,
                                                                         WebpartParent.NewsType,
+                                                                        FieldsName.ArticleStartDates,
                                                                         SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                                                        Constants.Published);
+                                                                        FieldsName.ModerationStatus,
+                                                                        Utilities.GetModerationStatus(402));
                     uint newsNumber = 5;
                     if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
                     {

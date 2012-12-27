@@ -47,28 +47,32 @@ namespace CQ.SharePoint.QN.Webparts
                                                                      </Neq>
                                                                      <And>
                                                                         <Eq>
-                                                                           <FieldRef Name='Approve' />
-                                                                           <Value Type='Lookup'>{0}</Value>
+                                                                           <FieldRef Name='{0}' />
+                                                                           <Value Type='ModStat'>{1}</Value>
                                                                         </Eq>
                                                                         <And>
                                                                            <Eq>
                                                                               <FieldRef Name='CategoryName' />
-                                                                              <Value Type='CustomLookup'>{1}</Value>
+                                                                              <Value Type='CustomLookup'>{2}</Value>
                                                                            </Eq>
                                                                            <And>
                                                                               <Geq>
                                                                                  <FieldRef Name='_EndDate' />
-                                                                                 <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                                                 <Value IncludeTimeValue='TRUE' Type='DateTime'>{3}</Value>
                                                                               </Geq>
                                                                               <Leq>
                                                                                  <FieldRef Name='ArticleStartDates' />
-                                                                                 <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                                                 <Value IncludeTimeValue='TRUE' Type='DateTime'>{3}</Value>
                                                                               </Leq>
                                                                            </And>
                                                                         </And>
                                                                      </And>
                                                                   </And>
-                                                               </Where>", Constants.Published, WebpartParent.CompanyType, SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
+                                                               </Where>", 
+                                                                        FieldsName.ModerationStatus, 
+                                                                        Utilities.GetModerationStatus(402),
+                                                                        WebpartParent.CompanyType, 
+                                                                        SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
 
                     uint newsNumber = 5;
 

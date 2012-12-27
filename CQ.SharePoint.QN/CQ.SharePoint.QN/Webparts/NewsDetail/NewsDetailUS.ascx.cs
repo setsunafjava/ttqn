@@ -34,7 +34,7 @@ namespace CQ.SharePoint.QN.Webparts
                     var listCategoryName = Request.QueryString[Constants.ListCategoryName];
                     var chuyende = Request.QueryString["chuyende"];
                     var catId = Request.QueryString["CategoryId"];
-                    
+
 
                     if (string.IsNullOrEmpty(chuyende))
                     {
@@ -57,17 +57,22 @@ namespace CQ.SharePoint.QN.Webparts
                                                                     </Neq>
                                                                     <And>
                                                                         <Lt>
-                                                                           <FieldRef Name='ArticleStartDates' />
-                                                                           <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
+                                                                           <FieldRef Name='{1}' />
+                                                                           <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
                                                                         </Lt>
                                                                         <Contains>
-                                                                           <FieldRef Name='Approve' />
-                                                                           <Value Type='Lookup'>{2}</Value>
+                                                                           <FieldRef Name='{3}' />
+                                                                           <Value Type='ModStat'>{4}</Value>
                                                                         </Contains>
                                                                      </And>
                                                                  </And>
                                                               </And>
-                                                           </Where>",newsId, SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),Constants.Published);
+                                                           </Where>",
+                                                                    newsId,
+                                                                    FieldsName.ArticleStartDates,
+                                                                    SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+                                                                    FieldsName.ModerationStatus,
+                                                                    Utilities.GetModerationStatus(402));
                             var newsItem = Utilities.GetNewsRecords(newsQuery, 1, listName);
                             if (newsItem != null && newsItem.Rows.Count > 0)
                             {
@@ -81,11 +86,9 @@ namespace CQ.SharePoint.QN.Webparts
                                     lblSource.Text = string.Format("(Nguồn: {0})", source);
                                 }
 
-                                //lblCurrentDate.Text = Convert.ToString(newsItem.Rows[0][FieldsName.Modified]);
                                 lblTitle.Text = Convert.ToString(newsItem.Rows[0][FieldsName.Title]);
                                 ltrShortDescription.Text = Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.ShortContent]);
-                                DateTime dateTime = Convert.ToDateTime(newsItem.Rows[0][FieldsName.ArticleStartDate]);
-                                //lblCreatedDate.Text = string.Format("{0}", Convert.ToString(newsItem.Rows[0][FieldsName.Created]));
+                                DateTime dateTime = Convert.ToDateTime(newsItem.Rows[0][FieldsName.ArticleStartDates]);
                                 lblCreatedDate.Text = string.Format("{0}/{1}/{2} {3}:{4}", dateTime.Day, dateTime.Month, dateTime.Year, dateTime.Hour, dateTime.Minute);
 
                                 attachMentFiles = new DataTable();
@@ -182,6 +185,13 @@ namespace CQ.SharePoint.QN.Webparts
                                     }
                                 }
 
+                            }
+                            else
+                            {
+                                lblCreatedDate.Visible = false;
+                                lblAttachFiles.Visible = false;
+                                lblItemDoesNotExist.Visible = true;
+                                lblItemDoesNotExist.Text = "Bản ghi không tồn tại hoặc đã bị xóa!";
                             }
                         }
                     }

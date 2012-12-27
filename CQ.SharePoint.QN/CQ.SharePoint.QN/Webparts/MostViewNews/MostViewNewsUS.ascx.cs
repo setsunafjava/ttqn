@@ -59,13 +59,13 @@ namespace CQ.SharePoint.QN.Webparts
                                                                     </Neq>
                                                                     <And>
                                                                        <Lt>
-                                                                          <FieldRef Name='ArticleStartDates' />
-                                                                          <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
+                                                                          <FieldRef Name='{2}' />
+                                                                          <Value IncludeTimeValue='TRUE' Type='DateTime'>{3}</Value>
                                                                        </Lt>
-                                                                       <Contains>
-                                                                          <FieldRef Name='Approve' />
-                                                                          <Value Type='Lookup'>{3}</Value>
-                                                                       </Contains>
+                                                                       <Eq>
+                                                                          <FieldRef Name='{4}' />
+                                                                          <Value Type='ModStat'>{5}</Value>
+                                                                       </Eq>
                                                                     </And>
                                                                  </And>
                                                               </And>
@@ -75,8 +75,10 @@ namespace CQ.SharePoint.QN.Webparts
                                                            </OrderBy>",
                                                                       FieldsName.NewsRecord.English.CategoryName,
                                                                       categoryId,
+                                                                      FieldsName.ArticleStartDates,
                                                                       SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                                                      Constants.Published);
+                                                                      FieldsName.ModerationStatus,
+                                                                      Utilities.GetModerationStatus(402));
                     }
                     else
                     {
@@ -88,25 +90,26 @@ namespace CQ.SharePoint.QN.Webparts
                                                              </Neq>
                                                              <And>
                                                                 <Lt>
-                                                                   <FieldRef Name='ArticleStartDates' />
-                                                                   <Value IncludeTimeValue='TRUE' Type='DateTime'>{0}</Value>
+                                                                   <FieldRef Name='{0}' />
+                                                                   <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
                                                                 </Lt>
-                                                                <Contains>
-                                                                   <FieldRef Name='Approve' />
-                                                                   <Value Type='Lookup'>{1}</Value>
-                                                                </Contains>
+                                                                <Eq>
+                                                                   <FieldRef Name='{2}' />
+                                                                   <Value Type='ModStat'>{3}</Value>
+                                                                </Eq>
                                                              </And>
                                                           </And>
                                                        </Where>
                                                        <OrderBy>
                                                           <FieldRef Name='ViewsCount' Ascending='False' />
                                                        </OrderBy>", 
+                                                                  FieldsName.ArticleStartDates,
                                                                   SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                                                  Constants.Published);
+                                                                  FieldsName.ModerationStatus,
+                                                                  Utilities.GetModerationStatus(402));
                     }
                     
                     var topViewsTable = Utilities.GetNewsRecords(topNewsQuery, GetNewsNumber(WebpartParent.NumberOfNews), listName);
-                    //Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.NewsRecord.English.CategoryName, ref topViewsTable);
                     if (topViewsTable != null && topViewsTable.Rows.Count > 0)
                     {
                         rptTopViews.DataSource = topViewsTable;
@@ -131,7 +134,6 @@ namespace CQ.SharePoint.QN.Webparts
                                                        </OrderBy>", SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
                         topViewsTable = Utilities.GetNewsRecords(topNewsQuery, GetNewsNumber(WebpartParent.NumberOfNews), listName);
                         ItemUrl = NewsUrl;
-                        //Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.NewsRecord.English.CategoryName, ref topViewsTable);
                         if (topViewsTable != null && topViewsTable.Rows.Count > 0)
                         {
                             rptTopViews.DataSource = topViewsTable;

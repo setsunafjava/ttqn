@@ -51,20 +51,22 @@ namespace CQ.SharePoint.QN.Webparts
                                                                           <FieldRef Name='ArticleStartDates' />
                                                                           <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
                                                                        </Lt>
-                                                                       <Contains>
-                                                                          <FieldRef Name='Approve' />
-                                                                          <Value Type='Lookup'>{3}</Value>
-                                                                       </Contains>
+                                                                       <Eq>
+                                                                          <FieldRef Name='{3}' />
+                                                                          <Value Type='ModStat'>{4}</Value>
+                                                                       </Eq>
                                                                     </And>
                                                                  </And>
                                                               </And>
                                                            </Where><OrderBy>
-                                                              <FieldRef Name='ID' Ascending='False' />
+                                                              <FieldRef Name='{5}' Ascending='False' />
                                                            </OrderBy>",
                                                                     FieldsName.NewsRecord.English.FocusNews,
                                                                     FieldsName.NewsRecord.English.Status,
                                                                     SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
-                                                                    Constants.Published);
+                                                                    FieldsName.ModerationStatus,
+                                                                    Utilities.GetModerationStatus(402),
+                                                                    FieldsName.ArticleStartDates);
 
                     uint numberOfNews = 5;
                     if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))

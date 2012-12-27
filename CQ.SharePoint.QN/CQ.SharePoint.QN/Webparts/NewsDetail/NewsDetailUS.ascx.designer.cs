@@ -28,6 +28,6 @@ namespace CQ.SharePoint.QN.Webparts
 
         protected global::System.Web.UI.WebControls.Label lblAuthor;
         protected global::System.Web.UI.WebControls.Label lblSource;
-        
+        protected global::System.Web.UI.WebControls.Label lblItemDoesNotExist;
     }
 }

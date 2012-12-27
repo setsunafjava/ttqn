@@ -8,6 +8,7 @@ using Microsoft.SharePoint.Utilities;
 using Microsoft.SharePoint.WebControls;
 using CQ.SharePoint.QN.Common;
 using Microsoft.SharePoint.WebPartPages;
+using System.Globalization;
 
 namespace CQ.SharePoint.QN.Webparts
 {
@@ -32,14 +33,7 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
-                    //var abc = Utilities.GetListFromUrl(SPContext.Current.Web, ListsName.English.NewsRecord);
-                    //SPQuery qur = new SPQuery();
-                    //qur.Query = string.Format("<Where><Eq><FieldRef Name='_ModerationStatus' /><Value Type='ModStat'>2</Value></Eq></Where>");
-                    //var aaa = abc.GetItems(qur);
-
-
-
-
+                    
                     NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
                        SPContext.Current.Web.Url,
                        Constants.PageInWeb.DetailNews,
