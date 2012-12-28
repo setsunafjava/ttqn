@@ -1718,7 +1718,7 @@ namespace CQ.SharePoint.QN.Common
         /// <returns></returns>
         public static uint GetNewsNumber(string newsNumber)
         {
-            uint result = 6;
+            uint result = 4;
             try
             {
                 var numbertemp = Convert.ToUInt32(newsNumber);
@@ -1966,8 +1966,9 @@ namespace CQ.SharePoint.QN.Common
 
         public static DataTable SelectTopDataRow(DataTable dt, int count)
         {
+            if (dt.Rows.Count < count) count = dt.Rows.Count;
             DataTable dtn = dt.Clone();
-            for (int i = 0; i <= count; i++)
+            for (int i = 0; i < count; i++)
             {
                 dtn.ImportRow(dt.Rows[i]);
             }
