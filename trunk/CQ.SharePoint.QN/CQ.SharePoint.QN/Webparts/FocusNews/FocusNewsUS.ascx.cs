@@ -28,6 +28,7 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
+
                     NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
                        SPContext.Current.Web.Url,
                        Constants.PageInWeb.DetailNews,

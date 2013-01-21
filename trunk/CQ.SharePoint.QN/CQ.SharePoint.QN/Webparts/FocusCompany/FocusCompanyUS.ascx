@@ -18,15 +18,15 @@
                 </asp:Repeater>
             </div>
         </div>--%>
-        <div class="list_carousel responsive" >
+        <div class="list_carousel responsive">
             <ul id="foo5">
                 <asp:Repeater ID="rptFocusCompany" runat="server">
                     <ItemTemplate>
-                    <li>
-                         <%--<a href='<%#Eval("LinkToItem")%>'><asp:Image style="width: 300px; height:160px;" ID="img" runat="server" ImageUrl='<%#Eval("Thumbnail")%>' /></a>--%>
-                         <a href='<%#Eval("LinkAdv")%>'>
-                <asp:Image style="width: 305px; height:54px;" ID="img" runat="server" ImageUrl='<%#Eval("Thumbnail")%>' /></a>
-                    </li>                       
+                        <li>
+                            <%--<a href='<%#Eval("LinkToItem")%>'><asp:Image style="width: 300px; height:160px;" ID="img" runat="server" ImageUrl='<%#Eval("Thumbnail")%>' /></a>--%>
+                            <a href='<%#Eval("LinkAdv")%>'>
+                                <asp:Image Style="width: 305px; height: 54px;" ID="img" runat="server" ImageUrl='<%#Eval("Thumbnail")%>' /></a>
+                        </li>
                     </ItemTemplate>
                 </asp:Repeater>
             </ul>
@@ -53,3 +53,4 @@
 
 			});
 		</script>
+

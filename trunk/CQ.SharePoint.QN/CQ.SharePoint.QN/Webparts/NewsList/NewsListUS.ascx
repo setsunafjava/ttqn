@@ -24,6 +24,7 @@
         </asp:Repeater>
     </asp:Panel>
 </div>
+<hr />
 <asp:Repeater ID="rptListCategory" runat="server">
     <ItemTemplate>
         <div class="inner_content_subpage">
