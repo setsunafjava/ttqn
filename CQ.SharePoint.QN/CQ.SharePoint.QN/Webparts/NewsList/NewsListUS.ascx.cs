@@ -171,11 +171,13 @@ namespace CQ.SharePoint.QN.Webparts
                                     SPListItem item = list.GetItemById(Convert.ToInt32(categoryId));
                                     lblCategoryTitle.Text = Convert.ToString(item[FieldsName.Title]);
 
-                                    var newsItem = Utilities.GetNewsRecords(newsQuery, ListsName.English.NewsCategory);
-                                    if (newsItem != null && newsItem.Rows.Count > 0)
+                                    //var newsItem = Utilities.GetNewsRecords(newsQuery, ListsName.English.NewsCategory);
+                                    SPQuery query = new SPQuery(){Query = newsQuery};
+                                    var newsItem = list.GetItems(query);
+                                    if (newsItem != null && newsItem.Count > 0)
                                     {
                                         rptCaregory.Visible = true;
-                                        rptCaregory.DataSource = newsItem;
+                                        rptCaregory.DataSource = newsItem.GetDataTable();
                                         rptCaregory.DataBind();
                                     }
                                 }
@@ -324,7 +326,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                       </And>
                                                                    </Where>
                                                                    <OrderBy>
-                                                                      <FieldRef Name='ID' Ascending='False' />
+                                                                      <FieldRef Name='ArticleStartDates' Ascending='False' />
                                                                    </OrderBy>", SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
                                                                               FieldsName.ModerationStatus,
                                                                               Utilities.GetModerationStatus(402));

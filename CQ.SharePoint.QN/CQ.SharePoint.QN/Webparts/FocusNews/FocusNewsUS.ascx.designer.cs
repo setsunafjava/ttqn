@@ -13,7 +13,7 @@ namespace CQ.SharePoint.QN.Webparts
     {
         protected global::System.Web.UI.WebControls.Repeater rptFocusNews;
 
-        protected global::System.Web.UI.WebControls.Label lblDate;
+        //protected global::System.Web.UI.WebControls.Label lblDate;
         protected global::System.Web.UI.WebControls.Label lblSeeMore;
     }
 }

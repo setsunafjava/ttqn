@@ -256,9 +256,11 @@ namespace CQ.SharePoint.QN.Webparts
                         else //Khong phai la tin tieu bieu
                         {
                             //Bind data to Latest news
-                            string latestNewsQuery1 = QueryAllItemsSortByViewCount;
+                            //string latestNewsQuery1 = QueryAllItemsSortByViewCount;
 
-                            var companyList = Utilities.GetNewsRecords(latestNewsQuery1, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
+                            //var companyList = Utilities.GetNewsRecords(latestNewsQuery1, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
+
+                            var companyList = Utilities.GetNewsByCatID(listName, categoryId, GetNewsNumber(WebPartParent.LatestNewsNumber));
                             if (companyList != null && companyList.Rows.Count > 0)
                             {
                                 RptLatestNewsUrl = ItemUrl;
@@ -267,7 +269,7 @@ namespace CQ.SharePoint.QN.Webparts
                             }
                             else //Get all news from NewsRecord
                             {
-                                companyList = Utilities.GetNewsRecords(latestNewsQuery1, GetNewsNumber(WebPartParent.LatestNewsNumber), ListsName.English.NewsRecord);
+                                companyList = Utilities.GetNewsRecords(QueryAllItemsSortByViewCount, GetNewsNumber(WebPartParent.LatestNewsNumber), ListsName.English.NewsRecord);
                                 if (companyList != null && companyList.Rows.Count > 0)
                                 {
                                     RptLatestNewsUrl = NewsUrl;
@@ -307,7 +309,7 @@ namespace CQ.SharePoint.QN.Webparts
                                          </Eq>
                                          <And>
                                             <Eq>
-                                               <FieldRef Name='CategoryName' />
+                                               <FieldRef Name='CategoryName' LookupId='TRUE'/>
                                                <Value Type='CustomLookup'>{1}</Value>
                                             </Eq>
                                             <And>
@@ -333,7 +335,8 @@ namespace CQ.SharePoint.QN.Webparts
                                       <FieldRef Name='{6}' Ascending='False' />
                                    </OrderBy>",
                         FieldsName.NewsRecord.English.ShowInHomePage,
-                        FieldsName.NewsRecord.English.CategoryName,
+                        //FieldsName.NewsRecord.English.CategoryName,
+                        categoryId,
                         FieldsName.ArticleStartDates,
                         SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
                         FieldsName.ModerationStatus,
