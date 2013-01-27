@@ -25,7 +25,7 @@
     </asp:Panel>
 </div>
 <hr />
-<asp:Repeater ID="rptListCategory" runat="server">
+<asp:Repeater ID="rptListCategory" runat="server" OnItemDataBound="OnItemDataBound_ListCategory">
     <ItemTemplate>
         <div class="inner_content_subpage">
             <div class="cont_artical">

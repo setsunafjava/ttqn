@@ -401,8 +401,8 @@ namespace CQ.SharePoint.QN.Webparts
                                          </Eq>
                                          <And>
                                             <Eq>
-                                               <FieldRef Name='CategoryName' />
-                                               <Value Type='Lookup'>{1}</Value>
+                                               <FieldRef Name='CategoryName' LookupId='TRUE'/>
+                                               <Value Type='CustomLookup'>{1}</Value>
                                             </Eq>
                                             <And>
                                                <Lt>
@@ -427,7 +427,8 @@ namespace CQ.SharePoint.QN.Webparts
                                       <FieldRef Name='{6}' Ascending='False' />
                                    </OrderBy>",
                         FieldsName.NewsRecord.English.ShowInHomePage,
-                        FieldsName.NewsRecord.English.CategoryName,
+                        //FieldsName.NewsRecord.English.CategoryName,
+                        categoryId,
                         FieldsName.ArticleStartDates,
                         SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
                         FieldsName.ModerationStatus,
