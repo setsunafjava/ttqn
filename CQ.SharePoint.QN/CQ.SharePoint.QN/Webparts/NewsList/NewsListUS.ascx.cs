@@ -107,6 +107,9 @@ namespace CQ.SharePoint.QN.Webparts
                             var companyListTemp = Utilities.GetTableWithCorrectUrl(companyList);
                             //Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyListTemp);
 
+                            var temp = companyListTemp.DefaultView;
+                            temp.Sort = "ArticleStartDates desc";
+                            companyListTemp = temp.ToTable();
 
                             //paging
                             PagedDataSource pageds = new PagedDataSource
@@ -172,7 +175,7 @@ namespace CQ.SharePoint.QN.Webparts
                                     lblCategoryTitle.Text = Convert.ToString(item[FieldsName.Title]);
 
                                     //var newsItem = Utilities.GetNewsRecords(newsQuery, ListsName.English.NewsCategory);
-                                    SPQuery query = new SPQuery(){Query = newsQuery};
+                                    SPQuery query = new SPQuery() { Query = newsQuery };
                                     var newsItem = list.GetItems(query);
                                     if (newsItem != null && newsItem.Count > 0)
                                     {
@@ -190,6 +193,12 @@ namespace CQ.SharePoint.QN.Webparts
                                 {
                                     var companyListTemp = Utilities.GetTableWithCorrectUrl(companyList);
                                     //Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyListTemp);
+
+
+                                    var temp = companyListTemp.DefaultView;
+                                    temp.Sort = "ArticleStartDates desc";
+                                    companyListTemp = temp.ToTable();
+
                                     PagedDataSource pageds = new PagedDataSource
                                     {
                                         DataSource = companyListTemp.DefaultView,
@@ -264,11 +273,15 @@ namespace CQ.SharePoint.QN.Webparts
                                 if (companyList != null && companyList.Count > 0)
                                 {
                                     var companyListTemp = Utilities.GetTableWithCorrectUrl(listCategoryName, companyList);
-                                    var defaultViewTemp = companyListTemp.DefaultView;
-                                    defaultViewTemp.Sort = "ID DESC";
+                                    
+                                    var temp = companyListTemp.DefaultView;
+                                    temp.Sort = "ArticleStartDates desc";
+                                    companyListTemp = temp.ToTable();
+
+
                                     PagedDataSource pageds = new PagedDataSource
                                     {
-                                        DataSource = defaultViewTemp,
+                                        DataSource = companyListTemp.DefaultView,
                                         AllowPaging = true,
                                         PageSize = 10
                                     };
@@ -337,6 +350,10 @@ namespace CQ.SharePoint.QN.Webparts
                             {
                                 var companyListTemp = Utilities.GetTableWithCorrectUrl(companyList);
                                 //Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref companyListTemp);
+                                var temp = companyListTemp.DefaultView;
+                                temp.Sort = "ArticleStartDates desc";
+                                companyListTemp = temp.ToTable();
+
                                 PagedDataSource pageds = new PagedDataSource
                                 {
                                     DataSource = companyListTemp.DefaultView,
@@ -381,6 +398,24 @@ namespace CQ.SharePoint.QN.Webparts
                     Utilities.LogToUls(ex);
                 }
             }
+        }
+
+        protected void OnItemDataBound_ListCategory(object sender, RepeaterItemEventArgs e)
+        {
+
+            //var t = e.Item.DataItem as DataRowView;
+            //if (t != null)
+            //{
+            //    string link = Convert.ToString(t.Row[2]);
+            //    if (!String.IsNullOrEmpty(link) && link.Length>3)
+            //    {
+            //        var extent = link.Substring(link.Length - 3);
+            //        switch (extent)
+            //        {
+            //                case ""
+            //        }
+            //    }
+            //}
         }
     }
 }

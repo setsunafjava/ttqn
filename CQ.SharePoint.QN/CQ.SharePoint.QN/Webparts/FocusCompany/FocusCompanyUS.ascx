@@ -8,25 +8,15 @@
                 <%= WebpartParent.FocusCompanyTitle %>
             </div>
         </div>
-        <%--<div class="content_F_Right">
-            <div class="img_logo_company_ex">
-                <asp:Repeater ID="rptFocusCompany" runat="server">
-                    <ItemTemplate>
-                        <a href='<%#Eval("LinkToItem")%>'>
-                            <asp:Image ID="img" runat="server" ImageUrl='<%#Eval("Thumbnail")%>' /></a>
-                    </ItemTemplate>
-                </asp:Repeater>
-            </div>
-        </div>--%>
         <div class="list_carousel responsive">
             <ul id="foo5">
-                <asp:Repeater ID="rptFocusCompany" runat="server">
+                <asp:Repeater ID="rptFocusCompany" runat="server" OnItemDataBound="OnItemDataBound_FocusCompany">
                     <ItemTemplate>
-                        <li>
-                            <%--<a href='<%#Eval("LinkToItem")%>'><asp:Image style="width: 300px; height:160px;" ID="img" runat="server" ImageUrl='<%#Eval("Thumbnail")%>' /></a>--%>
-                            <a href='<%#Eval("LinkAdv")%>'>
-                                <asp:Image Style="width: 305px; height: 54px;" ID="img" runat="server" ImageUrl='<%#Eval("Thumbnail")%>' /></a>
-                        </li>
+                        <li><a href='<%#Eval("LinkUrl")%>'>
+                            <asp:Image Style="width: 305px; height: 150px;" ID="img" runat="server" ImageUrl='<%#Eval("Thumbnail")%>' />
+                            <asp:Literal ID="ltrFlash1" runat="server"></asp:Literal>    
+                         </li>
+                        </a>
                     </ItemTemplate>
                 </asp:Repeater>
             </ul>
