@@ -50,7 +50,12 @@ namespace CQ.SharePoint.QN.Webparts
                         table.Sort = "ArticleStartDates DESC";
 
                         lblHeader.Text = Convert.ToString(table[0][FieldsName.Title]);
-                        imgThumb.ImageUrl = Convert.ToString(table[0][FieldsName.NewsRecord.English.ThumbnailImage]);
+                        //imgThumb.ImageUrl = Convert.ToString(table[0][FieldsName.NewsRecord.English.ThumbnailImage]);
+                        var imgParth = Convert.ToString(table[0][FieldsName.NewsRecord.English.ThumbnailImage]);
+                        if (!String.IsNullOrEmpty(imgParth))
+                        {
+                            ltrImage.Text = string.Format("<img src=\"{0}\" />", imgParth);
+                        }
 
                         lblShortContent.Text = Convert.ToString(table[0][FieldsName.NewsRecord.English.ShortContent]);
 
@@ -83,7 +88,7 @@ namespace CQ.SharePoint.QN.Webparts
                         WebpartParent.GroupName,
                         FieldsName.Id);
 
-                    
+
 
                     var newsTitleItems = Utilities.GetNewsRecords(newsTitle, newsLimit, ListsName.English.NewsCategory);
                     if (newsTitleItems != null && newsTitleItems.Rows.Count > 0)

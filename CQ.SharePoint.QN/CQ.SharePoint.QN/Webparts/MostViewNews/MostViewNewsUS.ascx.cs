@@ -46,11 +46,12 @@ namespace CQ.SharePoint.QN.Webparts
 
                     if (!string.IsNullOrEmpty(categoryId) && !"-1".Equals(categoryId))
                     {
+                        //Gia tri luc truoc : <Value Type='CustomLookup'>{1}</Value>
                         topNewsQuery = string.Format(@"<Where>
                                                               <And>
                                                                  <Eq>
                                                                     <FieldRef Name='{0}' LookupId='TRUE' />
-                                                                    <Value Type='CustomLookup'>{1}</Value>
+                                                                    <Value Type='LookupMulti'>{1}</Value>
                                                                  </Eq>
                                                                  <And>
                                                                     <Neq>

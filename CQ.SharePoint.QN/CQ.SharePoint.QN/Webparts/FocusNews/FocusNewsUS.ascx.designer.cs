@@ -15,5 +15,6 @@ namespace CQ.SharePoint.QN.Webparts
 
         //protected global::System.Web.UI.WebControls.Label lblDate;
         protected global::System.Web.UI.WebControls.Label lblSeeMore;
+        protected global::System.Web.UI.WebControls.Literal ltrImage;
     }
 }

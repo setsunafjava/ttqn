@@ -2,6 +2,7 @@
 using System.Data;
 using System.Text;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.Utilities;
 using Microsoft.SharePoint.WebControls;
@@ -77,8 +78,13 @@ namespace CQ.SharePoint.QN.Webparts
                         {
                             var table1 = Utilities.GetTableWithCorrectUrl(group1Table, true);
                             lblHeaderTinhUy.Text = Convert.ToString(table1.Rows[0][FieldsName.Title]);
-                            img1.ImageUrl = Utilities.GetThumbnailImagePath(Convert.ToString(table1.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]));
-
+                            //img1.ImageUrl = Utilities.GetThumbnailImagePath(Convert.ToString(table1.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]));
+                            var imgPath = Convert.ToString(table1.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
+                            if (!String.IsNullOrEmpty(imgPath))
+                            {
+                                ltrImage1.Text = String.Format("<div class=\"img_thumb_News\"><img src=\"{0}\" /></div>", imgPath);
+                            }
+                            
                             NewsFirstUrl1 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}&CategoryId={6}",
                                                        SPContext.Current.Web.Url,
                                                        Constants.PageInWeb.DetailNews,
@@ -111,7 +117,13 @@ namespace CQ.SharePoint.QN.Webparts
                         {
                             var table2 = Utilities.GetTableWithCorrectUrl(group2Table, true);
                             lblHeaderHoiDongNhanDan.Text = Convert.ToString(table2.Rows[0][FieldsName.Title]);
-                            Img2.ImageUrl = Utilities.GetThumbnailImagePath(Convert.ToString(table2.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]));
+                            //Img2.ImageUrl = Utilities.GetThumbnailImagePath(Convert.ToString(table2.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]));
+                            var imgPath = Convert.ToString(table2.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
+                            if (!String.IsNullOrEmpty(imgPath))
+                            {
+                                ltrImage2.Text = String.Format("<div class=\"img_thumb_News\"><img src=\"{0}\" /></div>", imgPath); 
+                            }
+                            
                             NewsFirstUrl2 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}&CategoryId={6}",
                                                        SPContext.Current.Web.Url,
                                                        Constants.PageInWeb.DetailNews,
@@ -142,7 +154,13 @@ namespace CQ.SharePoint.QN.Webparts
                         {
                             var table3 = Utilities.GetTableWithCorrectUrl(group3Table, true);
                             lblHeaderUyBanNhanDan.Text = Convert.ToString(table3.Rows[0][FieldsName.Title]);
-                            Img3.ImageUrl = Utilities.GetThumbnailImagePath(Convert.ToString(table3.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]));
+                            //Img3.ImageUrl = Utilities.GetThumbnailImagePath(Convert.ToString(table3.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]));
+                            var imgPath = Convert.ToString(table3.Rows[0][FieldsName.NewsRecord.English.ThumbnailImage]);
+                            if(!String.IsNullOrEmpty(imgPath))
+                            {
+                                ltrImage3.Text = String.Format("<div class=\"img_thumb_News\"><img src=\"{0}\" /></div>", imgPath); 
+                            }
+                            
                             NewsFirstUrl3 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}&CategoryId={6}",
                                                        SPContext.Current.Web.Url,
                                                        Constants.PageInWeb.DetailNews,

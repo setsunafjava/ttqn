@@ -1294,3 +1294,22 @@ a {
 	color:Red;
 	font-size:medium;
 	}	
+.ImageThumnail
+{
+	width: 305px; 
+	height: 150px;
+	}
+	
+.comment
+{
+    font-size: 12px;
+    font-style: italic;
+    color: #666;
+    padding: 5px 0 10px 0;
+    font-family:"Times New Roman", Times, serif;
+}
+
+.datetimeText
+{
+	color: #666;
+}

@@ -16,8 +16,8 @@
                 </HeaderTemplate>
                 <ItemTemplate>
                     <li>
-					    <a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'><%#Eval("Title") %></a>
-					    <span style="color:#003399"><asp:Label ID="lblDay" runat="server"></asp:Label> (<%#Eval("ArticleStartDates")%>)</span>
+					    <a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'><%#Eval("Title") %></a><br />
+					    <span class="datetimeText"><asp:Label ID="lblDay" runat="server"></asp:Label> <%#Eval("ArticleStartDates")%></span>
 					    
 					</li>
                 </ItemTemplate>

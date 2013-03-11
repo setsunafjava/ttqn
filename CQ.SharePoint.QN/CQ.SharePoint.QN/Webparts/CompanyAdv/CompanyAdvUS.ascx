@@ -11,9 +11,15 @@
         <div class="content_F_Right">
             <div class="inner_list_company_adv">
                 <asp:Repeater ID="rptCompanyAdv" runat="server" OnItemDataBound="rptCompanyAdv_OnItemDataBound">
-                    <HeaderTemplate><ul></HeaderTemplate>
-                    <ItemTemplate><li><a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'><%#Eval("Title") %></a></li></ItemTemplate>
-                    <FooterTemplate></ul></FooterTemplate>
+                    <HeaderTemplate>
+                        <ul>
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <a href='<%#Eval("LinkUrl") %>'>
+                            <img src="<%#Eval("Thumbnail") %>" /></a>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        </ul></FooterTemplate>
                 </asp:Repeater>
             </div>
         </div>

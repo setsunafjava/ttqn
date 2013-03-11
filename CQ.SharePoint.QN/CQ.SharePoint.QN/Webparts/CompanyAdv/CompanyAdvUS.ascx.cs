@@ -27,65 +27,42 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
-                    NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
-                        SPContext.Current.Web.Url,
-                        Constants.PageInWeb.DetailNews,
-                        ListsName.English.CompanyCategory,
-                        ListsName.English.CompanyRecord,
-                        Constants.NewsId);
-
-                    //string companyListQuery = string.Format("<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq><Lt><FieldRef Name='ArticleStartDate' /><Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value></Lt></And></Where><OrderBy><FieldRef Name='ID' Ascending='False' /></OrderBy>",
-                    //    FieldsName.CompanyRecord.English.CategoryName,
-                    //    WebpartParent.CompanyType,
-                    //    SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
-
+                    var dtNow = DateTime.Now;
                     string companyListQuery = string.Format(@"<Where>
-                                                                  <And>
-                                                                     <Neq>
-                                                                        <FieldRef Name='Status' />
-                                                                        <Value Type='Boolean'>1</Value>
-                                                                     </Neq>
-                                                                     <And>
-                                                                        <Eq>
-                                                                           <FieldRef Name='{0}' />
-                                                                           <Value Type='ModStat'>{1}</Value>
-                                                                        </Eq>
-                                                                        <And>
-                                                                           <Eq>
-                                                                              <FieldRef Name='CategoryName' />
-                                                                              <Value Type='CustomLookup'>{2}</Value>
-                                                                           </Eq>
-                                                                           <And>
-                                                                              <Geq>
-                                                                                 <FieldRef Name='_EndDate' />
-                                                                                 <Value IncludeTimeValue='TRUE' Type='DateTime'>{3}</Value>
-                                                                              </Geq>
-                                                                              <Leq>
-                                                                                 <FieldRef Name='ArticleStartDates' />
-                                                                                 <Value IncludeTimeValue='TRUE' Type='DateTime'>{3}</Value>
-                                                                              </Leq>
-                                                                           </And>
-                                                                        </And>
-                                                                     </And>
-                                                                  </And>
-                                                               </Where>", 
-                                                                        FieldsName.ModerationStatus, 
-                                                                        Utilities.GetModerationStatus(402),
-                                                                        WebpartParent.CompanyType, 
-                                                                        SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now));
-
+                                                          <And>
+                                                             <Leq>
+                                                                <FieldRef Name='{0}' />
+                                                                <Value IncludeTimeValue='FALSE' Type='DateTime'>{1}</Value>
+                                                             </Leq>
+                                                             <And>
+                                                                <Geq>
+                                                                   <FieldRef Name='{2}' />
+                                                                   <Value IncludeTimeValue='FALSE' Type='DateTime'>{3}</Value>
+                                                                </Geq>
+                                                                <Neq>
+                                                                   <FieldRef Name='{4}' />
+                                                                   <Value Type='Boolean'>1</Value>
+                                                                </Neq>
+                                                             </And>
+                                                          </And>
+                                                       </Where><OrderBy><FieldRef Name='ID' Ascending='False' /></OrderBy>",
+                                                                    FieldsName.QuangCaoRaoVat.English.NgayBatDau,
+                                                                    SPUtility.CreateISO8601DateTimeFromSystemDateTime(dtNow),
+                                                                    FieldsName.QuangCaoRaoVat.English.NgayKetThuc,
+                                                                    SPUtility.CreateISO8601DateTimeFromSystemDateTime(dtNow),
+                                                                    FieldsName.QuangCaoRaoVat.English.Status);
                     uint newsNumber = 5;
 
                     if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
                     {
                         newsNumber = Convert.ToUInt16(WebpartParent.NumberOfNews);
                     }
-
-                    var companyList = Utilities.GetNewsRecords(companyListQuery, newsNumber, ListsName.English.CompanyRecord);
+                    var companyList = Utilities.GetDocLibRecords(companyListQuery, newsNumber, ListsName.English.QuangCaoDoanhNghiep);
+                    var quangcaodoanhnghiep = GetTableWithCorrectUrlDoclib(SPContext.Current.Web, companyList);
                     //Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.NewsRecord.English.CategoryName, ref companyList);
-                    if (companyList != null && companyList.Rows.Count > 0)
+                    if (quangcaodoanhnghiep != null && quangcaodoanhnghiep.Rows.Count > 0)
                     {
-                        rptCompanyAdv.DataSource = companyList;
+                        rptCompanyAdv.DataSource = quangcaodoanhnghiep;
                         rptCompanyAdv.DataBind();
                     }
                 }
@@ -94,6 +71,24 @@ namespace CQ.SharePoint.QN.Webparts
                 }
             }
         }
+
+        public static DataTable GetTableWithCorrectUrlDoclib(SPWeb web, DataTable dataTable)
+        {
+            if (dataTable != null && dataTable.Rows.Count > 0)
+            {
+                string imagepath = string.Empty;
+
+                for (int i = 0; i < dataTable.Rows.Count; i++)
+                {
+                    imagepath = Convert.ToString(dataTable.Rows[i][FieldsName.QuangCaoRaoVat.English.LinkFileName]);
+                    var extFile = imagepath.Substring(imagepath.Length - 3, 3);
+                    var fileName = imagepath.Substring(0, imagepath.Length - 4);
+                    dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = string.Format("{0}/{1}/{2}.{3}", web.Url, ListsName.English.QuangCaoDoanhNghiep, fileName, extFile);
+                }
+            }
+            return dataTable;
+        }
+
         /// <summary>
         /// rptMenu_OnItemDataBound
         /// </summary>

@@ -78,6 +78,14 @@
     <Compile Include="Site Structure\PagesStructure.cs" />
     <Compile Include="Site Structure\QuickLaunchStructure.cs" />
     <Compile Include="Site Structure\SiteStructure.cs" />
+    <Compile Include="Webparts\AllDocuments\AllDocuments.cs" />
+    <Compile Include="Webparts\AllDocuments\AllDocumentsUS.ascx.cs">
+      <DependentUpon>AllDocumentsUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\AllDocuments\AllDocumentsUS.ascx.designer.cs">
+      <DependentUpon>AllDocumentsUS.ascx.cs</DependentUpon>
+    </Compile>
     <Compile Include="Webparts\ClassiFieds\ClassiFieds.cs" />
     <Compile Include="Webparts\ClassiFieds\ClassiFiedsUS.ascx.cs">
       <DependentUpon>ClassiFiedsUS.ascx</DependentUpon>
@@ -109,6 +117,14 @@
     </Compile>
     <Compile Include="Webparts\Contact\ContactUS.ascx.designer.cs">
       <DependentUpon>ContactUS.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Webparts\DocumentsManager\DocumentsManager.cs" />
+    <Compile Include="Webparts\DocumentsManager\DocumentsManagerUS.ascx.cs">
+      <DependentUpon>DocumentsManagerUS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webparts\DocumentsManager\DocumentsManagerUS.ascx.designer.cs">
+      <DependentUpon>DocumentsManagerUS.ascx.cs</DependentUpon>
     </Compile>
     <Compile Include="Webparts\FactTV\FactTV.cs" />
     <Compile Include="Webparts\FactTV\FactTVUS.ascx.cs">
@@ -198,12 +214,12 @@
     <Compile Include="Webparts\MostViewNews\MostViewNewsUS.ascx.designer.cs">
       <DependentUpon>MostViewNewsUS.ascx.cs</DependentUpon>
     </Compile>
-    <Compile Include="Webparts\NeedToKnow\NeedToKnow.cs" />
-    <Compile Include="Webparts\NeedToKnow\NeedToKnowUS.ascx.cs">
+    <Compile Include="Webparts\FocusNews\NeedToKnow\NeedToKnow.cs" />
+    <Compile Include="Webparts\FocusNews\NeedToKnow\NeedToKnowUS.ascx.cs">
       <DependentUpon>NeedToKnowUS.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Webparts\NeedToKnow\NeedToKnowUS.ascx.designer.cs">
+    <Compile Include="Webparts\FocusNews\NeedToKnow\NeedToKnowUS.ascx.designer.cs">
       <DependentUpon>NeedToKnowUS.ascx.cs</DependentUpon>
     </Compile>
     <Compile Include="Webparts\NewsDetail\NewsDetail.cs" />
@@ -338,11 +354,14 @@
   <ItemGroup>
     <None Include="Properties\CQ.SharePoint.QN.snk" />
     <None Include="Resources\MasterPages\CqHome.master">
+      <SubType>ASPXCodeBehind</SubType>
     </None>
+    <None Include="Webparts\AllDocuments\AllDocuments.webpart" />
     <None Include="Webparts\ClassiFieds\ClassiFieds.webpart" />
     <None Include="Webparts\CompanyAdv\CompanyAdv.webpart" />
     <None Include="Webparts\CompanyListRight\CompanyListRight.webpart" />
     <None Include="Webparts\Contact\Contact.webpart" />
+    <None Include="Webparts\DocumentsManager\DocumentsManager.webpart" />
     <None Include="Webparts\FactTV\FactTV.webpart" />
     <None Include="Webparts\FocusCompany\FocusCompany.webpart" />
     <None Include="Webparts\FocusNews\FocusNews.webpart" />
@@ -354,7 +373,7 @@
     <None Include="Webparts\MailBox\MailBox.webpart" />
     <None Include="Webparts\ModeNewsContent\ModeNewsContent.webpart" />
     <None Include="Webparts\MostViewNews\MostViewNews.webpart" />
-    <None Include="Webparts\NeedToKnow\NeedToKnow.webpart" />
+    <None Include="Webparts\FocusNews\NeedToKnow\NeedToKnow.webpart" />
     <None Include="Webparts\NewsDetail\NewsDetail.webpart" />
     <None Include="Webparts\NewsList\NewsList.webpart" />
     <None Include="Webparts\NextNews\NextNews.webpart" />
@@ -477,6 +496,11 @@
     <Content Include="Resources\Javascript\wowslider.js" />
     <Content Include="Resources\Module.xml" />
     <Content Include="Resources\UserControls\MainForm.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Webparts\AllDocuments\AllDocuments.xml" />
+    <Content Include="Webparts\AllDocuments\AllDocumentsUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\ClassiFieds\ClassiFieds.xml" />
     <Content Include="Webparts\ClassiFieds\ClassiFiedsUS.ascx">
@@ -494,6 +518,10 @@
     <Content Include="Webparts\Contact\ContactUS.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
+    <Content Include="Webparts\DocumentsManager\DocumentsManager.xml" />
+    <Content Include="Webparts\DocumentsManager\DocumentsManagerUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Webparts\FactTV\FactTV.xml" />
     <Content Include="Webparts\FactTV\FactTVUS.ascx">
       <SubType>ASPXCodeBehind</SubType>
@@ -508,6 +536,7 @@
     </Content>
     <Content Include="Webparts\Footer\Footer.xml" />
     <Content Include="Webparts\Footer\FooterUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\Gallery\Gallery.xml" />
     <Content Include="Webparts\Gallery\GalleryUS.ascx">
@@ -519,6 +548,7 @@
     </Content>
     <Content Include="Webparts\HotNewsContent\HotNewsContent.xml" />
     <Content Include="Webparts\HotNewsContent\HotNewsContentUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\LeftNewsContent\LeftNewsContent.xml" />
     <Content Include="Webparts\LeftNewsContent\LeftNewsContentUS.ascx">
@@ -536,8 +566,8 @@
     <Content Include="Webparts\MostViewNews\MostViewNewsUS.ascx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
-    <Content Include="Webparts\NeedToKnow\NeedToKnow.xml" />
-    <Content Include="Webparts\NeedToKnow\NeedToKnowUS.ascx">
+    <Content Include="Webparts\FocusNews\NeedToKnow\NeedToKnow.xml" />
+    <Content Include="Webparts\FocusNews\NeedToKnow\NeedToKnowUS.ascx">
     </Content>
     <Content Include="Webparts\NewsDetail\NewsDetail.xml" />
     <Content Include="Webparts\NewsDetail\NewsDetailUS.ascx">
@@ -545,6 +575,7 @@
     </Content>
     <Content Include="Webparts\NewsList\NewsList.xml" />
     <Content Include="Webparts\NewsList\NewsListUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\NextNews\NextNewsUS.ascx">
       <SubType>ASPXCodeBehind</SubType>
@@ -567,6 +598,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\QNHeader\QNHeaderUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\QNHeader\QNHeader.xml" />
     <Content Include="Webparts\ShouldToKnow\ShouldToKnowUS.ascx">

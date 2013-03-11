@@ -18,9 +18,10 @@
         </div>
         <div class="inner_content_ModNews1">
             <div class="cont_News">
-                <div class="img_thumb_News">
+                <%--<div class="img_thumb_News">
                     <asp:Image ID="img1" runat="server" />
-                </div>
+                </div>--%>
+                <asp:Literal ID="ltrImage1" runat="server"></asp:Literal>
                 <div class="intro_short_content_News">
                     <a href='<%= NewsFirstUrl1%>'>
                         <asp:Label ID="lblHeaderTinhUy" runat="server"></asp:Label></a>
@@ -41,9 +42,10 @@
                 </div>
             </div>
             <div class="cont_News">
-                <div class="img_thumb_News">
+                <%--<div class="img_thumb_News">
                     <asp:Image ID="Img2" runat="server" />
-                </div>
+                </div>--%>
+                <asp:Literal ID="ltrImage2" runat="server"></asp:Literal>
                 <div class="intro_short_content_News">
                     <a href='<%= NewsFirstUrl2%>'>
                         <asp:Label ID="lblHeaderHoiDongNhanDan" runat="server"></asp:Label></a>
@@ -64,9 +66,10 @@
                 </div>
             </div>
             <div class="cont_News">
-                <div class="img_thumb_News">
+                <%--<div class="img_thumb_News">
                     <asp:Image ID="Img3" runat="server" />
-                </div>
+                </div>--%>
+                <asp:Literal ID="ltrImage3" runat="server"></asp:Literal>
                 <div class="intro_short_content_News">
                     <a href='<%= NewsFirstUrl3%>'>
                         <asp:Label ID="lblHeaderUyBanNhanDan" runat="server"></asp:Label></a>

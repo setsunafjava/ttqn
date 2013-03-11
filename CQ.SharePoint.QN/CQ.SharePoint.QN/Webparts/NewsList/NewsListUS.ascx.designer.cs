@@ -20,5 +20,6 @@ namespace CQ.SharePoint.QN.Webparts
         protected global::System.Web.UI.WebControls.Panel pnlCategory;
         protected global::System.Web.UI.WebControls.Repeater rptCaregory;
         protected global::System.Web.UI.WebControls.Label lblCategoryTitle;
+        protected global::System.Web.UI.WebControls.Literal ltrImage;
     }
 }
