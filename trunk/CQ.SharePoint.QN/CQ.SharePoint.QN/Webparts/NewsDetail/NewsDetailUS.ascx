@@ -1,7 +1,6 @@
 ﻿<%@ Assembly Name="CQ.SharePoint.QN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NewsDetailUS.ascx.cs"
     Inherits="CQ.SharePoint.QN.Webparts.NewsDetailUS" %>
-
 <div class="detail_artical">
     <div class="path">
         <div class="arr_B">
@@ -41,12 +40,44 @@
         <p>
             <table width="100%">
                 <tr>
+                    <td align="center">
+                        <div>
+                            <asp:Literal ID="ltrPublishingPageImage" runat="server"></asp:Literal>
+                            <div class="comment">
+                                <asp:Literal ID="ltrCommentForImage" runat="server" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
                     <td>
                         <asp:Literal ID="ltrNewsContent" runat="server"></asp:Literal>
                         <div class="ItemDoesNotExist">
-                            <asp:Label ID="lblItemDoesNotExist" runat="server" Visible="false"/>
+                            <asp:Label ID="lblItemDoesNotExist" runat="server" Visible="false" />
                         </div>
-                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Panel ID="pnlAttachment" runat="server">
+                            <asp:Label ID="lblAttachFiles" Text="Tài liệu kèm theo:" runat="server"></asp:Label>
+                            <asp:Repeater ID="rptAttachment" runat="server">
+                                <HeaderTemplate>
+                                    <table>
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <tr>
+                                        <td>
+                                            <asp:HyperLink ID="hplAttachment" runat="server" NavigateUrl='<%#Eval("value") %>'
+                                                Text='<%#Eval("key") %>'></asp:HyperLink>
+                                        </td>
+                                    </tr>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    </table>
+                                </FooterTemplate>
+                            </asp:Repeater>
+                        </asp:Panel>
                     </td>
                 </tr>
                 <tr>
@@ -58,25 +89,6 @@
             </table>
         </p>
         <br />
-        <asp:Panel ID="pnlAttachment" runat="server">
-            <asp:Label ID="lblAttachFiles" Text="Tài liệu kèm theo:" runat="server"></asp:Label>
-            <asp:Repeater ID="rptAttachment" runat="server">
-                <HeaderTemplate>
-                    <table>
-                </HeaderTemplate>
-                <ItemTemplate>
-                    <tr>
-                        <td>
-                            <asp:HyperLink ID="hplAttachment" runat="server" NavigateUrl='<%#Eval("value") %>'
-                                Text='<%#Eval("key") %>'></asp:HyperLink>
-                        </td>
-                    </tr>
-                </ItemTemplate>
-                <FooterTemplate>
-                    </table>
-                </FooterTemplate>
-            </asp:Repeater>
-        </asp:Panel>
     </asp:Panel>
     <asp:Panel ID="pnlChuyenDe" runat="server">
         <div class="inner_list_company_adv">
@@ -90,6 +102,19 @@
                 <FooterTemplate>
                     </ul></FooterTemplate>
             </asp:Repeater>
+            <table>
+                <tr>
+                    <td>
+                        <asp:HyperLink ID="lnkPrev" runat="server" Text="Trước"></asp:HyperLink>
+                    </td>
+                    <td>
+                        <asp:Label ID="lblCurrpage" runat="server"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:HyperLink ID="lnkNext" runat="server" Text="Sau"></asp:HyperLink>
+                    </td>
+                </tr>
+            </table>
         </div>
     </asp:Panel>
 </div>

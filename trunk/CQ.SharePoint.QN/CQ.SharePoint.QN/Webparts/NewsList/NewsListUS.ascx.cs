@@ -402,6 +402,16 @@ namespace CQ.SharePoint.QN.Webparts
 
         protected void OnItemDataBound_ListCategory(object sender, RepeaterItemEventArgs e)
         {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                DataRowView drv = (DataRowView)e.Item.DataItem;
+                var imgPath = Convert.ToString(drv.Row["Thumbnail"]);
+
+                if (!String.IsNullOrEmpty(imgPath))
+                {
+                    ((Literal)e.Item.FindControl("ltrImage")).Text = string.Format("<div class=\"img_thumb\"><img src=\"{0}\" /></div>", imgPath);
+                }
+            }
 
             //var t = e.Item.DataItem as DataRowView;
             //if (t != null)

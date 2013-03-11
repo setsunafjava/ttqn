@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<webParts>
+  <webPart xmlns="http://schemas.microsoft.com/WebPart/v3">
+    <metaData>
+      <!--
+      The following Guid is used as a reference to the web part class, 
+      and it will be automatically replaced with actual type name at deployment time.
+      -->
+      <type name="A5DD7F58-482D-4058-931E-181B8B447716" />
+      <importErrorMessage>Cannot import FocusCompany Web Part.</importErrorMessage>
+    </metaData>
+    <data>
+      <properties>
+        <property name="Title" type="string">FocusCompany Web Part</property>
+        <property name="Description" type="string">FocusCompany Description</property>
+      </properties>
+    </data>
+  </webPart>
+</webParts>

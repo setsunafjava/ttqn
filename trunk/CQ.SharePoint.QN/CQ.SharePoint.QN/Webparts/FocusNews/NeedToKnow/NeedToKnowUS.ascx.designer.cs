@@ -9,11 +9,10 @@
 
 namespace CQ.SharePoint.QN.Webparts
 {
-    public partial class FocusCompanyUS
+    public partial class NeedToKnowUS
     {
-        protected global::System.Web.UI.WebControls.Label lblFocusCompany;
-        protected global::System.Web.UI.WebControls.Repeater rptFocusCompany;
-        //protected global::System.Web.UI.WebControls.Image img;
-        protected global::System.Web.UI.WebControls.Literal ltrFlash1;
+        protected global::System.Web.UI.WebControls.Repeater rptTiGia;
+        protected global::System.Web.UI.WebControls.LinkButton lbBD;
+        protected global::System.Web.UI.WebControls.LinkButton lbKQXS;
     }
 }

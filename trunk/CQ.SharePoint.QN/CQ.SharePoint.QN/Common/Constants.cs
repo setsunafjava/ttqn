@@ -40,6 +40,8 @@ namespace CQ.SharePoint.QN.Common
             public const string ShowVideoPage = "ShowVideo";
             public const string Contact = "Contact";
             public const string TimKiem = "TimKiem";
+            public const string DocumentsManager = "DocumentsManager";
+            public const string AllDocuments = "AllDocuments";
             public const string AllRSS = "AllRSS";
             public const string RSS = "RSS";
         }

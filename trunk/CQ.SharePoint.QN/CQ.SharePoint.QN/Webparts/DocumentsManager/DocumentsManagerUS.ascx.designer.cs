@@ -9,7 +9,7 @@
 
 namespace CQ.SharePoint.QN.Webparts
 {
-    public partial class FocusCompanyUS
+    public partial class DocumentsManagerUS
     {
         protected global::System.Web.UI.WebControls.Label lblFocusCompany;
         protected global::System.Web.UI.WebControls.Repeater rptFocusCompany;

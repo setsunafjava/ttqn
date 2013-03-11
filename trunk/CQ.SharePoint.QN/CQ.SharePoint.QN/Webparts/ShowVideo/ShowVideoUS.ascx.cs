@@ -33,15 +33,14 @@ namespace CQ.SharePoint.QN.Webparts
                         {
                             try
                             {
-                                PagesStructure.CreateSubPage(web, Constants.PageInWeb.TimKiem);
+                                PagesStructure.CreateSubPage(web, Constants.PageInWeb.DocumentsManager);
                                 PagesStructure.CreateBlankPage(web, Constants.PageInWeb.RSS);
 
-                                AddWebpart(web, Constants.PageInWeb.TimKiem, "ShowDownload.webpart", "LeftCorner");
+                                AddWebpart(web, Constants.PageInWeb.DocumentsManager, "ShowDownload.webpart", "LeftCorner");
                                 PagesStructure.AddCustomWebpart("Video.webpart", Constants.PageInWeb.RSS, "RSS", web, "MainContent", 0);
                             }
                             catch (Exception ex)
                             {
-
                             }
                         }
                     }

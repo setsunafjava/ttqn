@@ -152,12 +152,12 @@ function setHomepage()
 
         if(tk==""){
 
-            link = "TimKiem.aspx?KeyWord=" + urlencode(tk);
+            link = "TimKiem.aspx?Page=1&KeyWord=" + urlencode(tk);
         }
 
         else{
 
-            link = "TimKiem.aspx?KeyWord=" + urlencode(tk);
+            link = "TimKiem.aspx?Page=1&KeyWord=" + urlencode(tk);
         }
 
         //alert(link);

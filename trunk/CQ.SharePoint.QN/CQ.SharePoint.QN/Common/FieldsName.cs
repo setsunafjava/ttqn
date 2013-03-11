@@ -12,6 +12,7 @@ namespace CQ.SharePoint.QN.Common
         public const string ArticleStartDates = "ArticleStartDates";
         public const string ArticleStartDateTemp = "ArticleStartDateTemp";
         public const string ModerationStatus = "_ModerationStatus";
+        public const string CommentForImage = "CommentForImage";
         #region Nested type: NewsCategory
         public static class NewsCategory
         {
@@ -73,6 +74,11 @@ namespace CQ.SharePoint.QN.Common
                 public const string Status = "Status";
                 public const string PublishingPageImage = "PublishingPageImage";
                 public const string PublishingPageContent = "PublishingPageContent";
+
+                public const string ShowOnCategory = "ShowOnCategory";
+                public const string LatestNewsOnCategory = "LatestNewsOnCategory";
+                public const string LatestNewsOnHomePage = "LatestNewsOnHomePage";
+                public const string NewsOfCategory = "NewsOfCategory";
             }
 
             public static class VietNamese

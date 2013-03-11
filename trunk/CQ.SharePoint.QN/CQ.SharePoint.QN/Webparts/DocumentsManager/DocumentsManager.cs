@@ -13,8 +13,8 @@ using Microsoft.SharePoint.WebPartPages;
 
 namespace CQ.SharePoint.QN.Webparts
 {
-    [Guid("ca8428e6-4c64-4a00-9c89-b860ac4c46d9")]
-    public class FocusCompany : Microsoft.SharePoint.WebPartPages.WebPart
+    [Guid("A5DD7F58-482D-4058-931E-181B8B447716")]
+    public class DocumentsManager : Microsoft.SharePoint.WebPartPages.WebPart
     {
         [WebBrowsable(true)]
         [FriendlyName("Nhập số tin muốn hiển thị")]
@@ -52,7 +52,7 @@ namespace CQ.SharePoint.QN.Webparts
         [DefaultValue("Doanh nghiệp tiêu biểu")]
         public string FocusCompanyTitle { get; set; }
 
-        public FocusCompany()
+        public DocumentsManager()
         {
         }
         protected override void CreateChildControls()
@@ -60,7 +60,7 @@ namespace CQ.SharePoint.QN.Webparts
             base.CreateChildControls();
             try
             {
-                FocusCompanyUS control = (FocusCompanyUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/FocusCompanyUS.ascx");
+                DocumentsManagerUS control = (DocumentsManagerUS)this.Page.LoadControl(SPContext.Current.Web.Site.ServerRelativeUrl.TrimEnd('/') + "/WebPartsUS/DocumentsManagerUS.ascx");
                 control.WebpartParent = this;
                 Controls.Add(control);
             }

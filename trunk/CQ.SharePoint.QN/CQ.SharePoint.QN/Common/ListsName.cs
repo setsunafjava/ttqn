@@ -48,6 +48,8 @@ namespace CQ.SharePoint.QN.Common
             public const string Approve = "Approve";
             public const string BannerAdvRight = "BannerAdvRight";
             public const string DoanhNghiepTieuBieu = "DoanhNghiepTieuBieu1";
+            public const string QuangCaoDoanhNghiep = "QuangCaoDoanhNghiep";
+            public const string AllDocuments = "AllDocuments";
         }
 
         // Display Name of list

@@ -43,7 +43,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                               <And>
                                                                  <Eq>
                                                                     <FieldRef Name='{0}' LookupId='TRUE' />
-                                                                    <Value Type='CustomLookup'>{1}</Value>
+                                                                    <Value Type='LookupMulti'>{1}</Value>
                                                                  </Eq>
                                                                  <And>
                                                                     <Neq>

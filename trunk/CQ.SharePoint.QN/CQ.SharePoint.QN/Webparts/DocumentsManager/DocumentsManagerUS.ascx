@@ -1,6 +1,6 @@
 ﻿<%@ Assembly Name="CQ.SharePoint.QN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5" %>
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="FocusCompanyUS.ascx.cs"
-    Inherits="CQ.SharePoint.QN.Webparts.FocusCompanyUS" %>
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="DocumentsManagerUS.ascx.cs"
+    Inherits="CQ.SharePoint.QN.Webparts.DocumentsManagerUS" %>
 <div class="mod_Corner_Right">
     <div class="bg_title_ModNews">
         <div class="title_cate_News">
@@ -10,12 +10,11 @@
         </div>
         <div class="list_carousel responsive">
             <ul id="foo5">
-                <asp:Repeater ID="rptFocusCompany" runat="server" OnItemDataBound="OnItemDataBound_FocusCompany">
+                <asp:Repeater ID="rptFocusCompany" runat="server" OnItemDataBound="OnItemDataBound_DocumentsManager">
                     <ItemTemplate>
                         <li><a href='<%#Eval("LinkUrl")%>'>
                             <%--<asp:Image CssClass="ImageThumnail" ID="img" runat="server" ImageUrl='<%#Eval("Thumbnail")%>' />--%>
-                            <asp:Literal ID="ltrFlash1" runat="server"></asp:Literal>    
-                         </li>
+                            <asp:Literal ID="ltrFlash1" runat="server"></asp:Literal> </li>
                         </a>
                     </ItemTemplate>
                 </asp:Repeater>
@@ -23,24 +22,3 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript" language="javascript">
-			$(function() {
-				$('#foo5').carouFredSel({
-					width: '100%',
-					responsive: true,
-					scroll: 1,
-					items: {
-						width: '<%= WebpartParent.ImageWidth %>',
-						height: '<%= WebpartParent.ImageHeight %>',	//	optionally resize item-height
-						visible: {
-							min: 2,
-							max: 6
-						}
-					},
-					direction:	'up'
-				});
-
-			});
-		</script>
-

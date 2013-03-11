@@ -1540,7 +1540,7 @@ namespace CQ.SharePoint.QN.Common
                                                   <And>
                                                      <Eq>
                                                         <FieldRef Name='{0}' LookupId='TRUE' />
-                                                        <Value Type='CustomLookup'>{1}</Value>
+                                                        <Value Type='LookupMulti'>{1}</Value>
                                                      </Eq>
                                                      <And>
                                                         <Neq>
@@ -1737,7 +1737,7 @@ namespace CQ.SharePoint.QN.Common
                                                   <And>
                                                      <Eq>
                                                         <FieldRef Name='{0}' LookupId='TRUE' />
-                                                        <Value Type='CustomLookup'>{1}</Value>
+                                                        <Value Type='LookupMulti'>{1}</Value>
                                                      </Eq>
                                                      <And>
                                                         <Neq>
@@ -1906,7 +1906,7 @@ namespace CQ.SharePoint.QN.Common
 
         public static DataTable GetNewsCatByParent(string listCategoryName, string catID)
         {
-            string camlQuery = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='CustomLookup'>{1}</Value></Eq></Where>", FieldsName.NewsCategory.English.ParentName, catID);
+            string camlQuery = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='LookupMulti'>{1}</Value></Eq></Where>", FieldsName.NewsCategory.English.ParentName, catID);
             var query = new SPQuery();
             query.Query = camlQuery;
             DataTable table = null;
@@ -2298,10 +2298,49 @@ namespace CQ.SharePoint.QN.Common
             {
                 keyWord = HttpContext.Current.Server.UrlDecode(keyWord);
                 keyWord = SPEncode.HtmlEncode(keyWord);
-                camlQuery =
-                string.Format(
-                    "<Where><Or><Contains><FieldRef Name='{0}' /><Value Type='Text'>{1}</Value></Contains><Or><Contains><FieldRef Name='{2}' /><Value Type='Note'>{1}</Value></Contains><Contains><FieldRef Name='{3}' /><Value Type='Note'>{1}</Value></Contains></Or></Or></Where>",
-                    "Title", keyWord, FieldsName.NewsRecord.English.ShortContent, FieldsName.NewsRecord.English.PublishingPageContent);
+                //camlQuery =
+                //string.Format(
+                //    "<Where><Or><Contains><FieldRef Name='{0}' /><Value Type='Text'>{1}</Value></Contains><Or><Contains><FieldRef Name='{2}' /><Value Type='Note'>{1}</Value></Contains><Contains><FieldRef Name='{3}' /><Value Type='Note'>{1}</Value></Contains></Or></Or></Where>",
+                //    "Title", keyWord, FieldsName.NewsRecord.English.ShortContent, FieldsName.NewsRecord.English.PublishingPageContent);
+
+                camlQuery = string.Format(@"<Where>
+                                              <And>
+                                                 <Neq>
+                                                    <FieldRef Name='Status' />
+                                                    <Value Type='Boolean'>1</Value>
+                                                 </Neq>
+                                                 <And>
+                                                    <Lt>
+                                                       <FieldRef Name='{0}' />
+                                                       <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
+                                                    </Lt>
+                                                    <And>
+                                                       <Eq>
+                                                          <FieldRef Name='{2}' />
+                                                          <Value Type='ModStat'>{3}</Value>
+                                                       </Eq>
+                                                       <Or>
+                                                          <Contains>
+                                                             <FieldRef Name='Title' />
+                                                             <Value Type='Text'>{4}</Value>
+                                                          </Contains>
+                                                          <Or>
+                                                             <Contains>
+                                                                <FieldRef Name='ShortContent' />
+                                                                <Value Type='Note'>{4}</Value>
+                                                             </Contains>
+                                                             <Contains>
+                                                                <FieldRef Name='PublishingPageContent' />
+                                                                <Value Type='HTML'>{4}</Value>
+                                                             </Contains>
+                                                          </Or>
+                                                       </Or>
+                                                    </And>
+                                                 </And>
+                                              </And>
+                                           </Where>", FieldsName.ArticleStartDates, 
+                                                    SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+                                                    FieldsName.ModerationStatus, ModerationStatusValue, keyWord);
             }
 
             var query = new SPQuery();

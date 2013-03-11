@@ -12,9 +12,9 @@ namespace CQ.SharePoint.QN.Webparts
     /// <summary>
     /// QNHeaderUS
     /// </summary>
-    public partial class FocusCompanyUS : UserControl
+    public partial class DocumentsManagerUS : UserControl
     {
-        public FocusCompany WebpartParent;
+        public DocumentsManager WebpartParent;
         public string NewsUrl = string.Empty;
         /// <summary>
         /// Page on Load
@@ -59,8 +59,8 @@ namespace CQ.SharePoint.QN.Webparts
 
                 if (doanhNghiepTieuBieu != null && doanhNghiepTieuBieu.Rows.Count > 0)
                 {
-                    rptFocusCompany.DataSource = GetTableWithCorrectUrlDoclib(SPContext.Current.Web, doanhNghiepTieuBieu);
-                    rptFocusCompany.DataBind();
+                    //rptFocusCompany.DataSource = GetTableWithCorrectUrlDoclib(SPContext.Current.Web, doanhNghiepTieuBieu);
+                    //rptFocusCompany.DataBind();
                 }
             }
             catch (Exception ex)
@@ -83,72 +83,9 @@ namespace CQ.SharePoint.QN.Webparts
             return result;
         }
 
-        public static DataTable GetTableWithCorrectUrlDoclib(SPWeb web, DataTable dataTable)
-        {
-            if (dataTable != null && dataTable.Rows.Count > 0)
-            {
-                string imagepath = string.Empty;
-
-                for (int i = 0; i < dataTable.Rows.Count; i++)
-                {
-                    imagepath = Convert.ToString(dataTable.Rows[i][FieldsName.QuangCaoRaoVat.English.LinkFileName]);
-                    var extFile = imagepath.Substring(imagepath.Length - 3, 3);
-                    var fileName = imagepath.Substring(0, imagepath.Length - 4);
-                    dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = string.Format("{0}/{1}/{2}.{3}", web.Url, ListsName.English.DoanhNghiepTieuBieu, fileName, extFile);
-                }
-            }
-            return dataTable;
-        }
-
-        protected void OnItemDataBound_FocusCompany(object sender, RepeaterItemEventArgs e)
+        protected void OnItemDataBound_DocumentsManager(object sender, RepeaterItemEventArgs e)
         {
             var t = e.Item.DataItem as DataRowView;
-            if (t != null)
-            {
-                string link = Convert.ToString(t.Row[9]);
-                if (!String.IsNullOrEmpty(link) && link.Length > 3)
-                {
-                    var extent = link.Substring(link.Length - 3);
-                    //var imageTemp = (Image)e.Item.FindControl("img");
-                    var literalTemp = (Literal)e.Item.FindControl("ltrFlash1");
-                    int width = GetWebpartPropertiesValue(WebpartParent.ImageWidth);
-                    int height = GetWebpartPropertiesValue(WebpartParent.ImageHeight);
-
-
-                    switch (extent)
-                    {
-                        case "swf":
-                            {
-
-                                //if (imageTemp != null)
-                                //    imageTemp.Visible = false;
-
-                                if (literalTemp != null)
-                                {
-                                    literalTemp.Visible = true;
-                                    literalTemp.Text = string.Format("<embed bgcolor=\"#FFFFFF\" height=\"{0}\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" type=\"application/x-shockwave-flash\" width=\"{1}\" src=\"{2}\" ></embed>", height, width, link);
-                                }
-                                break;
-                            }
-
-                        //default:
-                        //    //if (imageTemp != null)
-                        //    //    imageTemp.Visible = true;
-                        //    if (literalTemp != null)
-                        //        literalTemp.Visible = false;
-                        //    break;
-                        default:
-                            {
-                                if (literalTemp != null)
-                                {
-                                    literalTemp.Visible = true;
-                                    literalTemp.Text = string.Format("<img style=\"width:{0} height:{1}\" src=\"{2}\" />", width, height, link);
-                                }
-                                break;
-                            }
-                    }
-                }
-            }
         }
     }
 }

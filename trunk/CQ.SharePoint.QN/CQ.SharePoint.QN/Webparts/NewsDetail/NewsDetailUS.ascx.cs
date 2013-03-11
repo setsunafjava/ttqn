@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.Utilities;
 using Microsoft.SharePoint.WebControls;
@@ -77,6 +78,16 @@ namespace CQ.SharePoint.QN.Webparts
                             if (newsItem != null && newsItem.Rows.Count > 0)
                             {
                                 string categoryName = Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.CategoryName]);
+                                var imagePath = Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.PublishingPageImage]);
+                                var commentForImage = Convert.ToString(newsItem.Rows[0][FieldsName.CommentForImage]);
+                                if (!string.IsNullOrEmpty(imagePath))
+                                {
+                                    ltrPublishingPageImage.Text = imagePath;
+                                    if (!String.IsNullOrEmpty(commentForImage))
+                                        ltrCommentForImage.Text = commentForImage;
+                                }
+
+
                                 ltrNewsContent.Text = Convert.ToString(newsItem.Rows[0][FieldsName.NewsRecord.English.PublishingPageContent]);
 
                                 lblAuthor.Text = Convert.ToString(newsItem.Rows[0]["ArticleByLine"]);
@@ -215,7 +226,46 @@ namespace CQ.SharePoint.QN.Webparts
                         var newsItem = Utilities.GetNewsRecordsCategory(newsQuery, ListsName.English.NewsCategory);
                         if (newsItem != null && newsItem.Rows.Count > 0)
                         {
-                            rptChuyenDe.DataSource = newsItem;
+                            var temp = newsItem.DefaultView;
+                            temp.Sort = "Title asc";
+                            newsItem = temp.ToTable();
+                            var numberOfCategory = GetNewsNumber(ParentWP.NumberOfCategory);
+
+                            PagedDataSource pageds = new PagedDataSource
+                            {
+                                DataSource = newsItem.DefaultView,
+                                AllowPaging = true,
+                                PageSize = numberOfCategory
+                            };
+                            int curpage = 0;
+                            var pageNum = Request.QueryString["Page"];
+                            if (!string.IsNullOrEmpty(pageNum))
+                            {
+                                curpage = Convert.ToInt32(pageNum);
+                            }
+                            else
+                            {
+                                curpage = 1;
+                            }
+                            pageds.CurrentPageIndex = curpage - 1;
+
+
+
+                            lblCurrpage.Text = string.Format("{0}: {1}", numberOfCategory, curpage);
+
+                            if (!pageds.IsFirstPage)
+                            {
+                                lnkPrev.NavigateUrl = Request.CurrentExecutionFilePath + "?" + BuildUrl(Convert.ToString(curpage - 1));
+                            }
+
+                            if (!pageds.IsLastPage)
+                            {
+                                lnkNext.NavigateUrl = Request.CurrentExecutionFilePath + "?" + BuildUrl(Convert.ToString(curpage + 1));
+                            }
+
+
+                            //Bindata
+                            rptChuyenDe.DataSource = pageds;
                             rptChuyenDe.DataBind();
                         }
                     }
@@ -224,6 +274,41 @@ namespace CQ.SharePoint.QN.Webparts
                 {
                 }
             }
+        }
+
+        public static int GetNewsNumber(string newsNumber)
+        {
+            int result = 20;
+            try
+            {
+                var numbertemp = Convert.ToInt32(newsNumber);
+                if (numbertemp > 0) result = numbertemp;
+            }
+            catch (Exception ex)
+            {
+            }
+            return result;
+        }
+
+
+        protected string BuildUrl(string pageorder)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            var allkeys = Request.QueryString.AllKeys;
+            for (int i = 0; i < allkeys.Length; i++)
+            {
+                if ("Page".Equals(allkeys[i]))
+                {
+                    stringBuilder.Append(string.Format("{0}={1}&", "Page", pageorder));
+                }
+                else
+                {
+                    stringBuilder.Append(string.Format("{0}={1}&", allkeys[i], Request.QueryString[allkeys[i]]));
+                }
+            }
+
+            return stringBuilder.ToString().Substring(0, stringBuilder.ToString().Length - 1);
         }
 
         /// <summary>

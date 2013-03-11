@@ -47,5 +47,8 @@ namespace CQ.SharePoint.QN.Webparts
         protected global::System.Web.UI.WebControls.HyperLink hplFirstGroup;
         protected global::System.Web.UI.WebControls.HyperLink hplSecondGroup;
         protected global::System.Web.UI.WebControls.HyperLink hplThirdGroup;
+        protected global::System.Web.UI.WebControls.Literal ltrImage1;
+        protected global::System.Web.UI.WebControls.Literal ltrImage2;
+        protected global::System.Web.UI.WebControls.Literal ltrImage3;
     }
 }

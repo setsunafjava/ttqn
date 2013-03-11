@@ -29,5 +29,10 @@ namespace CQ.SharePoint.QN.Webparts
         protected global::System.Web.UI.WebControls.Label lblAuthor;
         protected global::System.Web.UI.WebControls.Label lblSource;
         protected global::System.Web.UI.WebControls.Label lblItemDoesNotExist;
+        protected global::System.Web.UI.WebControls.Literal ltrPublishingPageImage;
+        protected global::System.Web.UI.WebControls.Literal ltrCommentForImage;
+        protected global::System.Web.UI.WebControls.Label lblCurrpage;
+        protected global::System.Web.UI.WebControls.HyperLink lnkPrev;
+        protected global::System.Web.UI.WebControls.HyperLink lnkNext;
     }
 }

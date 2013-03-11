@@ -54,6 +54,33 @@ namespace CQ.SharePoint.QN.Webparts
                                 FieldsName.ModerationStatus,
                                 Utilities.GetModerationStatus(402), FieldsName.ArticleStartDates);
 
+        public string QueryAllItemsSortByIdOnCategory = string.Format(@"<Where>
+                                                                  <And>
+                                                                     <Neq>
+                                                                        <FieldRef Name='{5}' />
+                                                                        <Value Type='Boolean'>1</Value>
+                                                                     </Neq>
+                                                                     <And>
+                                                                        <Lt>
+                                                                           <FieldRef Name='{0}' />
+                                                                           <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
+                                                                        </Lt>
+                                                                        <Eq>
+                                                                           <FieldRef Name='{2}' />
+                                                                           <Value Type='ModStat'>{3}</Value>
+                                                                        </Eq>
+                                                                     </And>
+                                                                  </And>
+                                                               </Where>
+                                                               <OrderBy>
+                                                                  <FieldRef Name='{4}' Ascending='False' />
+                                                               </OrderBy>",
+                                FieldsName.ArticleStartDates,
+                                SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+                                FieldsName.ModerationStatus,
+                                Utilities.GetModerationStatus(402), FieldsName.ArticleStartDates,
+                                FieldsName.NewsRecord.English.ShowOnCategory);
+
         public string QueryAllItemsSortByViewCount = string.Format(@"<Where>
                                                                   <And>
                                                                      <Neq>
@@ -145,21 +172,28 @@ namespace CQ.SharePoint.QN.Webparts
                                             Constants.NewsId);
 
                     #region If webpart properties != 0
-                    if (!"0".Equals(WebPartParent.WebpartName))
+                    if (!"0".Equals(WebPartParent.WebpartName)) //Đây là trường hợp load ra đầu tiên
                     {
                         #region Latest News
+                        if (!string.IsNullOrEmpty(categoryId) && !"-1".Equals(categoryId))
+                        {
+                            latestNewsQuery = QueryAllItemsSortByIdOnCategory;
+                        }
+                        else
+                        {
+                            //CAML query will get all item 
+                            latestNewsQuery = QueryAllItemsSortById;
+                        }
 
-                        //CAML query will get all item 
-                        latestNewsQuery = QueryAllItemsSortById;
                         var latestNewsTable = Utilities.GetNewsRecordItems(latestNewsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
                         if (latestNewsTable != null && latestNewsTable.Count > 0)
                         {
                             var latestNewsTableTemp = Utilities.GetTableWithCorrectUrl(listCategoryName, latestNewsTable, true);
-                            //Utilities.AddCategoryIdToTable(listCategoryName, FieldsName.CategoryName, ref latestNewsTableTemp);
                             RptLatestNewsUrl = ItemUrl;
                             rptLatestNews.DataSource = latestNewsTableTemp;
                             rptLatestNews.DataBind();
                         }
+
 
                         #endregion
 
@@ -229,29 +263,29 @@ namespace CQ.SharePoint.QN.Webparts
                                 rptLatestNews.DataSource = companyList;
                                 rptLatestNews.DataBind();
                             }
-                            else //If not newsfocus => get all
-                            {
-                                newsQuery = QueryAllItemsSortByViewCount;
+                            //else //If not newsfocus => get all Update: Not Show All items
+                            //{
+                            //    newsQuery = QueryAllItemsSortByViewCount;
 
-                                companyList = Utilities.GetNewsRecords(newsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
-                                if (companyList != null && companyList.Rows.Count > 0)
-                                {
-                                    RptLatestNewsUrl = ItemUrl;
-                                    rptLatestNews.DataSource = companyList;
-                                    rptLatestNews.DataBind();
-                                }
-                                else //Get item from News list
-                                {
-                                    newsQuery = QueryAllItemsSortByViewCount;
-                                    companyList = Utilities.GetNewsRecords(newsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), ListsName.English.NewsRecord);
-                                    if (companyList != null && companyList.Rows.Count > 0)
-                                    {
-                                        RptLatestNewsUrl = NewsUrl;
-                                        rptLatestNews.DataSource = companyList;
-                                        rptLatestNews.DataBind();
-                                    }
-                                }
-                            }
+                            //    companyList = Utilities.GetNewsRecords(newsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
+                            //    if (companyList != null && companyList.Rows.Count > 0)
+                            //    {
+                            //        RptLatestNewsUrl = ItemUrl;
+                            //        rptLatestNews.DataSource = companyList;
+                            //        rptLatestNews.DataBind();
+                            //    }
+                            //    else //Get item from News list
+                            //    {
+                            //        newsQuery = QueryAllItemsSortByViewCount;
+                            //        companyList = Utilities.GetNewsRecords(newsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), ListsName.English.NewsRecord);
+                            //        if (companyList != null && companyList.Rows.Count > 0)
+                            //        {
+                            //            RptLatestNewsUrl = NewsUrl;
+                            //            rptLatestNews.DataSource = companyList;
+                            //            rptLatestNews.DataBind();
+                            //        }
+                            //    }
+                            //}
                         }
                         else //Khong phai la tin tieu bieu
                         {
@@ -267,16 +301,16 @@ namespace CQ.SharePoint.QN.Webparts
                                 rptLatestNews.DataSource = companyList;
                                 rptLatestNews.DataBind();
                             }
-                            else //Get all news from NewsRecord
-                            {
-                                companyList = Utilities.GetNewsRecords(QueryAllItemsSortByViewCount, GetNewsNumber(WebPartParent.LatestNewsNumber), ListsName.English.NewsRecord);
-                                if (companyList != null && companyList.Rows.Count > 0)
-                                {
-                                    RptLatestNewsUrl = NewsUrl;
-                                    rptLatestNews.DataSource = companyList;
-                                    rptLatestNews.DataBind();
-                                }
-                            }
+                            //else //Get all news from NewsRecord Update: Not show all items
+                            //{
+                            //    companyList = Utilities.GetNewsRecords(QueryAllItemsSortByViewCount, GetNewsNumber(WebPartParent.LatestNewsNumber), ListsName.English.NewsRecord);
+                            //    if (companyList != null && companyList.Rows.Count > 0)
+                            //    {
+                            //        RptLatestNewsUrl = NewsUrl;
+                            //        rptLatestNews.DataSource = companyList;
+                            //        rptLatestNews.DataBind();
+                            //    }
+                            //}
                             //End
                         }
                     }
@@ -310,7 +344,7 @@ namespace CQ.SharePoint.QN.Webparts
                                          <And>
                                             <Eq>
                                                <FieldRef Name='CategoryName' LookupId='TRUE'/>
-                                               <Value Type='CustomLookup'>{1}</Value>
+                                               <Value Type='LookupMulti'>{1}</Value>
                                             </Eq>
                                             <And>
                                                <Lt>
@@ -334,8 +368,9 @@ namespace CQ.SharePoint.QN.Webparts
                                    <OrderBy>
                                       <FieldRef Name='{6}' Ascending='False' />
                                    </OrderBy>",
-                        FieldsName.NewsRecord.English.ShowInHomePage,
-                        //FieldsName.NewsRecord.English.CategoryName,
+                    //FieldsName.NewsRecord.English.ShowInHomePage,
+                        FieldsName.NewsRecord.English.ShowOnCategory,
+                    //FieldsName.NewsRecord.English.CategoryName,
                         categoryId,
                         FieldsName.ArticleStartDates,
                         SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
@@ -358,34 +393,34 @@ namespace CQ.SharePoint.QN.Webparts
                 rptImages.DataSource = tempTable;
                 rptImages.DataBind();
             }
-            else
-            {
-                mainItemQuery = QueryAllItemsByShowInHomePage;
+            //else Update: Not show
+            //{
+            //    mainItemQuery = QueryAllItemsByShowInHomePage;
 
-                mainItem = Utilities.GetNewsRecordItems(mainItemQuery, 3, _listName);
+            //    mainItem = Utilities.GetNewsRecordItems(mainItemQuery, 3, _listName);
 
-                if (mainItem != null && mainItem.Count > 0)
-                {
-                    var tempTable = Utilities.GetTableWithCorrectUrl(_listCategoryName, mainItem, true);
-                    Utilities.SetSapoTextLength(ref tempTable);
-                    RptImagesUrl = ItemUrl;
-                    rptImages.DataSource = tempTable;
-                    rptImages.DataBind();
-                }
-                else
-                {
-                    mainItemQuery = QueryAllItemsByShowInHomePage;
-                    mainItem = Utilities.GetNewsRecordItems(mainItemQuery, 3, ListsName.English.NewsRecord);
-                    if (mainItem != null && mainItem.Count > 0)
-                    {
-                        var tempTable = Utilities.GetTableWithCorrectUrl(ListsName.English.NewsCategory, mainItem, true);
-                        Utilities.SetSapoTextLength(ref tempTable);
-                        RptImagesUrl = NewsUrl;
-                        rptImages.DataSource = tempTable;
-                        rptImages.DataBind();
-                    }
-                }
-            }
+            //    if (mainItem != null && mainItem.Count > 0)
+            //    {
+            //        var tempTable = Utilities.GetTableWithCorrectUrl(_listCategoryName, mainItem, true);
+            //        Utilities.SetSapoTextLength(ref tempTable);
+            //        RptImagesUrl = ItemUrl;
+            //        rptImages.DataSource = tempTable;
+            //        rptImages.DataBind();
+            //    }
+            //    else
+            //    {
+            //        mainItemQuery = QueryAllItemsByShowInHomePage;
+            //        mainItem = Utilities.GetNewsRecordItems(mainItemQuery, 3, ListsName.English.NewsRecord);
+            //        if (mainItem != null && mainItem.Count > 0)
+            //        {
+            //            var tempTable = Utilities.GetTableWithCorrectUrl(ListsName.English.NewsCategory, mainItem, true);
+            //            Utilities.SetSapoTextLength(ref tempTable);
+            //            RptImagesUrl = NewsUrl;
+            //            rptImages.DataSource = tempTable;
+            //            rptImages.DataBind();
+            //        }
+            //    }
+            //}
             #endregion
             #region  tin tuc phia duoi
 
@@ -402,7 +437,7 @@ namespace CQ.SharePoint.QN.Webparts
                                          <And>
                                             <Eq>
                                                <FieldRef Name='CategoryName' LookupId='TRUE'/>
-                                               <Value Type='CustomLookup'>{1}</Value>
+                                               <Value Type='LookupMulti'>{1}</Value>
                                             </Eq>
                                             <And>
                                                <Lt>
@@ -426,8 +461,9 @@ namespace CQ.SharePoint.QN.Webparts
                                    <OrderBy>
                                       <FieldRef Name='{6}' Ascending='False' />
                                    </OrderBy>",
-                        FieldsName.NewsRecord.English.ShowInHomePage,
-                        //FieldsName.NewsRecord.English.CategoryName,
+                    //FieldsName.NewsRecord.English.ShowInHomePage,
+                        FieldsName.NewsRecord.English.ShowOnCategory,
+                    //FieldsName.NewsRecord.English.CategoryName,
                         categoryId,
                         FieldsName.ArticleStartDates,
                         SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
@@ -447,29 +483,29 @@ namespace CQ.SharePoint.QN.Webparts
                 rptThreeItem.DataSource = GetItemFromThreePosition(threeItemsTable, _listCategoryName);
                 rptThreeItem.DataBind();
             }
-            else
-            {
-                threeeItemsBellow = QueryAllItemsByShowInHomePage;
+            //else Update: Not show all items
+            //{
+            //    threeeItemsBellow = QueryAllItemsByShowInHomePage;
 
-                threeItemsTable = Utilities.GetNewsRecords(threeeItemsBellow, 6, _listName);
-                if (threeItemsTable != null && threeItemsTable.Rows.Count > 0)
-                {
-                    RptThreeItemUrl = ItemUrl;
-                    rptThreeItem.DataSource = GetItemFromThreePosition(threeItemsTable, _listCategoryName);
-                    rptThreeItem.DataBind();
-                }
-                else //Se bind du lieu la news
-                {
-                    threeeItemsBellow = QueryAllItemsByShowInHomePage;
-                    threeItemsTable = Utilities.GetNewsRecords(threeeItemsBellow, 6, ListsName.English.NewsRecord);
-                    if (threeItemsTable != null && threeItemsTable.Rows.Count > 0)
-                    {
-                        RptThreeItemUrl = NewsUrl;
-                        rptThreeItem.DataSource = GetItemFromThreePosition(threeItemsTable, ListsName.English.NewsCategory);
-                        rptThreeItem.DataBind();
-                    }
-                }
-            }
+            //    threeItemsTable = Utilities.GetNewsRecords(threeeItemsBellow, 6, _listName);
+            //    if (threeItemsTable != null && threeItemsTable.Rows.Count > 0)
+            //    {
+            //        RptThreeItemUrl = ItemUrl;
+            //        rptThreeItem.DataSource = GetItemFromThreePosition(threeItemsTable, _listCategoryName);
+            //        rptThreeItem.DataBind();
+            //    }
+            //    else //Se bind du lieu la news
+            //    {
+            //        threeeItemsBellow = QueryAllItemsByShowInHomePage;
+            //        threeItemsTable = Utilities.GetNewsRecords(threeeItemsBellow, 6, ListsName.English.NewsRecord);
+            //        if (threeItemsTable != null && threeItemsTable.Rows.Count > 0)
+            //        {
+            //            RptThreeItemUrl = NewsUrl;
+            //            rptThreeItem.DataSource = GetItemFromThreePosition(threeItemsTable, ListsName.English.NewsCategory);
+            //            rptThreeItem.DataBind();
+            //        }
+            //    }
+            //}
 
             #endregion
         }
