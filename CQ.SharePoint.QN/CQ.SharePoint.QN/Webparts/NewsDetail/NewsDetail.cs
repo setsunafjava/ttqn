@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.UI;
@@ -15,6 +16,14 @@ namespace CQ.SharePoint.QN.Webparts
     [Guid("fc902e1f-2ae5-494e-9f3f-96257f072c04")]
     public class NewsDetail : System.Web.UI.WebControls.WebParts.WebPart
     {
+        [WebBrowsable(true)]
+        [FriendlyName("Số tin tức muốn hiển thị trong mục chuyên đề")]
+        [Description("Số tin tức muốn hiển thị trong mục chuyên đề")]
+        [Category("Cấu hình")]
+        [WebPartStorage(Storage.Shared)]
+        [Personalizable(PersonalizationScope.Shared)]
+        public string NumberOfCategory { get; set; }
+
         public NewsDetail()
         {
         }

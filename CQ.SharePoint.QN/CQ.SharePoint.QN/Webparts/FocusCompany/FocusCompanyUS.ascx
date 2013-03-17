@@ -8,15 +8,14 @@
                 <%= WebpartParent.FocusCompanyTitle %>
             </div>
         </div>
-        <div class="list_carousel responsive">
+        <div style=" margin:0; width: 300px; height: 400px;">
             <ul id="foo5">
                 <asp:Repeater ID="rptFocusCompany" runat="server" OnItemDataBound="OnItemDataBound_FocusCompany">
                     <ItemTemplate>
                         <li><a href='<%#Eval("LinkUrl")%>'>
-                            <%--<asp:Image CssClass="ImageThumnail" ID="img" runat="server" ImageUrl='<%#Eval("Thumbnail")%>' />--%>
-                            <asp:Literal ID="ltrFlash1" runat="server"></asp:Literal>    
-                         </li>
+                            <asp:Literal ID="ltrFlash1" runat="server"></asp:Literal>
                         </a>
+                        </li>
                     </ItemTemplate>
                 </asp:Repeater>
             </ul>
@@ -31,8 +30,8 @@
 					responsive: true,
 					scroll: 1,
 					items: {
-						width: '<%= WebpartParent.ImageWidth %>',
-						height: '<%= WebpartParent.ImageHeight %>',	//	optionally resize item-height
+						width: 300,
+						height: 100,
 						visible: {
 							min: 2,
 							max: 6

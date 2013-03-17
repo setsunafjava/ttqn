@@ -107,10 +107,21 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 DataRowView drv = (DataRowView)e.Item.DataItem;
                 var imgPath = Convert.ToString(drv.Row["Thumbnail"]);
+                var id = Convert.ToString(drv.Row["ID"]);
+                var categoryId = Convert.ToString(drv.Row["CategoryId"]);
+                var title = Convert.ToString(drv.Row["Title"]);
+                var articleStartDates = Convert.ToString(drv.Row["ArticleStartDates"]);
+                var link = string.Format("{0}{1}&CategoryId={2}", NewsUrl, id, categoryId);
 
                 if (!String.IsNullOrEmpty(imgPath))
                 {
-                    ((Literal)e.Item.FindControl("ltrImage")).Text = string.Format("<div class=\"thumb_img\"><img src=\"{0}\" /></div>", imgPath);
+                    ((Literal)e.Item.FindControl("ltrImage")).Text = string.Format("<div class=\"line_news\"><div class=\"thumb_img\"><img src=\"{0}\" /></div><div class=\"name_news\"><a href=\"{1}\">{2}</a><span class=\"datetimeText\">(Ngày {3})</span></div><div class=\"cleaner\"></div></div>",
+                        imgPath, link, title, articleStartDates);
+                }
+                else
+                {
+                    ((Literal)e.Item.FindControl("ltrImage")).Text = string.Format("<div style=\"float: left; padding-left: 0; text-align: justify; width: 287px;\"><div class=\"name_news\"><a href=\"{0}\">{1}</a><span class=\"datetimeText\">(Ngày {2})</span></div><div class=\"cleaner\"></div></div>",
+                        link, title, articleStartDates);
                 }
             }
         }
