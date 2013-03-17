@@ -525,7 +525,7 @@ ul#nav .current ul li a:hover {
 }
 .left_corner_COL{
 	float: left;
-	width: 665px;
+	width: 441px;
 }
 .right_corner_COL{
 	float: right;
@@ -1289,6 +1289,30 @@ a {
 				float: none;
 				clear: both;
 			}	
+			
+/*For Focus Company Style*/
+.list_carousel1 {				
+				margin: 0;
+				width: 300px;
+				height:71px;
+			}
+			.list_carousel1 ul {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				display: block;
+			}
+			.list_carousel1 li {				
+				border: 1px solid #999;								
+				display: block;				
+			}
+			.list_carousel1.responsive {
+				width: 300px;				
+				height: 142px;
+			}
+/*End*/
+
+
 .ItemDoesNotExist
 {
 	color:Red;

@@ -11,19 +11,7 @@
         <div class="content_F_Right">
             <asp:Repeater ID="rptFocusNews" runat="server" OnItemDataBound="FocusNews_OnItemDataBound">
                 <ItemTemplate>
-                    <div class="line_news">
-                        <div class="thumb_img">
-                            <asp:Literal ID="ltrImage" runat="server" Text=""></asp:Literal></div>
-                        <div class="name_news">
-                            <a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
-                                <%#Eval("Title")%></a><br />
-                            <span class="datetimeText">
-                                <asp:Label ID="lblDate" runat="server"></asp:Label>
-                                <%#Eval("ArticleStartDates")%></span>
-                        </div>
-                        <div class="cleaner">
-                        </div>
-                    </div>
+                    <asp:Literal ID="ltrImage" runat="server" Text=""></asp:Literal>
                 </ItemTemplate>
             </asp:Repeater>
             <div class="read_more">

@@ -25,25 +25,6 @@ namespace CQ.SharePoint.QN.Webparts
         public string NumberOfNews { get; set; }
 
         [WebBrowsable(true)]
-        [FriendlyName("Nhập kích thước chiều cao của ảnh")]
-        [Description("Chiều cao của các ảnh")]
-        [Category("Cấu hình")]
-        [DefaultValue(150)]
-        [WebPartStorage(Storage.Shared)]
-        [Personalizable(PersonalizationScope.Shared)]
-        public string ImageHeight { get; set; }
-
-        [WebBrowsable(true)]
-        [FriendlyName("Nhập kích thước chiều rộng của ảnh")]
-        [Description("Chiều rộng của các ảnh")]
-        [Category("Cấu hình")]
-        [DefaultValue(305)]
-        [WebPartStorage(Storage.Shared)]
-        [Personalizable(PersonalizationScope.Shared)]
-        public string ImageWidth { get; set; }
-
-
-        [WebBrowsable(true)]
         [FriendlyName("Thiết lập ngôn ngữ = 'Doanh nghiệp tiêu biểu'")]
         [Description("Thiết lập ngôn ngữ = 'Doanh nghiệp tiêu biểu'")]
         [Category("Ngôn ngữ")]

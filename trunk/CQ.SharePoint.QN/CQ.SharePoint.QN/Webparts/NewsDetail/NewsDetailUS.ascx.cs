@@ -175,7 +175,7 @@ namespace CQ.SharePoint.QN.Webparts
                                     {
                                         string parentCategory = Convert.ToString(item[FieldsName.NewsCategory.English.ParentName]);
                                         parentCategory = parentCategory.Substring(parentCategory.IndexOf("#") + 1);
-                                        lblBreadCrum.Text = string.Format("{0} &nbsp; &gt;&gt;&nbsp; &nbsp; {1}", parentCategory, categoryName.Substring(categoryName.IndexOf("#") + 1));
+                                        lblBreadCrum.Text = string.Format("{0} &nbsp; &gt;&gt;&nbsp; &nbsp; {1}", parentCategory, categoryName.Substring(0,categoryName.IndexOf("#") - 1));
                                     }
                                 }
                                 else
@@ -190,7 +190,7 @@ namespace CQ.SharePoint.QN.Webparts
                                         {
                                             string parentCategory = Convert.ToString(categoryItem.Rows[0][FieldsName.NewsCategory.English.ParentName]);
                                             parentCategory = parentCategory.Replace(";#", string.Empty);
-                                            lblBreadCrum.Text = string.Format("{0} &nbsp; &gt;&gt;&nbsp; &nbsp; {1}", parentCategory, categoryName.Substring(categoryName.IndexOf("#") + 1));
+                                            lblBreadCrum.Text = string.Format("{0} &nbsp; &gt;&gt;&nbsp; &nbsp; {1}", parentCategory, categoryName.Substring(0, categoryName.IndexOf("#") - 1));
                                         }
                                     }
                                 }

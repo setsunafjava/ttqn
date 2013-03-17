@@ -69,20 +69,6 @@ namespace CQ.SharePoint.QN.Webparts
             }
         }
 
-        public static int GetWebpartPropertiesValue(string value)
-        {
-            int result = 100;
-            try
-            {
-                var numbertemp = Convert.ToInt32(value);
-                if (numbertemp > 0) result = numbertemp;
-            }
-            catch (Exception ex)
-            {
-            }
-            return result;
-        }
-
         public static DataTable GetTableWithCorrectUrlDoclib(SPWeb web, DataTable dataTable)
         {
             if (dataTable != null && dataTable.Rows.Count > 0)
@@ -105,44 +91,30 @@ namespace CQ.SharePoint.QN.Webparts
             var t = e.Item.DataItem as DataRowView;
             if (t != null)
             {
-                string link = Convert.ToString(t.Row[9]);
-                if (!String.IsNullOrEmpty(link) && link.Length > 3)
+                string imagePath = Convert.ToString(t.Row[18]);
+                int height = 100;
+                if (!String.IsNullOrEmpty(imagePath) && imagePath.Length > 3)
                 {
-                    var extent = link.Substring(link.Length - 3);
-                    //var imageTemp = (Image)e.Item.FindControl("img");
+                    var extent = imagePath.Substring(imagePath.Length - 3);
                     var literalTemp = (Literal)e.Item.FindControl("ltrFlash1");
-                    int width = GetWebpartPropertiesValue(WebpartParent.ImageWidth);
-                    int height = GetWebpartPropertiesValue(WebpartParent.ImageHeight);
-
-
+                    
                     switch (extent)
                     {
                         case "swf":
                             {
-
-                                //if (imageTemp != null)
-                                //    imageTemp.Visible = false;
-
                                 if (literalTemp != null)
                                 {
                                     literalTemp.Visible = true;
-                                    literalTemp.Text = string.Format("<embed bgcolor=\"#FFFFFF\" height=\"{0}\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" type=\"application/x-shockwave-flash\" width=\"{1}\" src=\"{2}\" ></embed>", height, width, link);
+                                    literalTemp.Text = string.Format("<embed bgcolor=\"#FFFFFF\" height=\"{0}\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" type=\"application/x-shockwave-flash\" width=\"{1}\" src=\"{2}\" ></embed>", height, 300, imagePath);
                                 }
                                 break;
                             }
-
-                        //default:
-                        //    //if (imageTemp != null)
-                        //    //    imageTemp.Visible = true;
-                        //    if (literalTemp != null)
-                        //        literalTemp.Visible = false;
-                        //    break;
                         default:
                             {
                                 if (literalTemp != null)
                                 {
                                     literalTemp.Visible = true;
-                                    literalTemp.Text = string.Format("<img style=\"width:{0} height:{1}\" src=\"{2}\" />", width, height, link);
+                                    literalTemp.Text = string.Format("<img style=\"width:{0}px; height:{1}px\" src=\"{2}\" />", 300, height, imagePath);
                                 }
                                 break;
                             }

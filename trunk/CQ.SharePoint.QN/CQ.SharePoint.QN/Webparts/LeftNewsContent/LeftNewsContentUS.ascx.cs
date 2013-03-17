@@ -83,14 +83,17 @@ namespace CQ.SharePoint.QN.Webparts
                        ListsName.English.NewsRecord,
                        Constants.CategoryId);
 
-                    string newsTitle = string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='{2}' Ascending='False' /></OrderBy>",
-                        FieldsName.Title,
-                        WebpartParent.GroupName,
+                    //string newsTitle = string.Format("<Where><Eq><FieldRef Name='{0}' /><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='{2}' Ascending='False' /></OrderBy>",
+                    //    FieldsName.Title,
+                    //    WebpartParent.GroupName,
+                    //    FieldsName.Id);
+
+                    string newsTitle = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='Lookup'>{1}</Value></Eq></Where><OrderBy><FieldRef Name='{2}' Ascending='False' /></OrderBy>",
+                        FieldsName.NewsCategory.English.ParentName,
+                        WebpartParent.NewsGroupID,
                         FieldsName.Id);
 
-
-
-                    var newsTitleItems = Utilities.GetNewsRecords(newsTitle, newsLimit, ListsName.English.NewsCategory);
+                    var newsTitleItems = GetNewsRecords(newsTitle, newsLimit, ListsName.English.NewsCategory);
                     if (newsTitleItems != null && newsTitleItems.Rows.Count > 0)
                     {
                         rptNewsGroup.DataSource = newsTitleItems;
@@ -101,6 +104,44 @@ namespace CQ.SharePoint.QN.Webparts
                 {
                 }
             }
+        }
+
+        public static DataTable GetNewsRecords(string query, uint newsNumber, string listName)
+        {
+            DataTable table = new DataTable();
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            SPQuery spQuery = new SPQuery
+                            {
+                                Query = query,
+                                RowLimit = newsNumber
+                            };
+                            SPList list = Utilities.GetListFromUrl(web, listName);
+                            if (list != null)
+                            {
+                                SPListItemCollection items = list.GetItems(spQuery);
+                                if (items != null && items.Count > 0)
+                                {
+                                    table = items.GetDataTable();
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            table = null;
+                        }
+                    }
+
+                }
+            });
+
+            return table;
         }
 
         /// <summary>
