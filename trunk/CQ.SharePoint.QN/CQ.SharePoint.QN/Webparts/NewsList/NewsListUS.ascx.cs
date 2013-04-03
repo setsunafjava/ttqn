@@ -406,26 +406,18 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 DataRowView drv = (DataRowView)e.Item.DataItem;
                 var imgPath = Convert.ToString(drv.Row["Thumbnail"]);
+                var shortContent = Convert.ToString(drv.Row[FieldsName.NewsRecord.English.ShortContent]);
 
                 if (!String.IsNullOrEmpty(imgPath))
                 {
-                    ((Literal)e.Item.FindControl("ltrImage")).Text = string.Format("<div class=\"img_thumb\"><img src=\"{0}\" /></div>", imgPath);
+                    //((Literal)e.Item.FindControl("ltrImage")).Text = string.Format("<div class=\"img_thumb\"><img src=\"{0}\" /></div>", imgPath);
+                    ((Literal)e.Item.FindControl("ltrImage")).Text = string.Format("<div class=\"interpre\"><div class=\"img_thumb\"><img src=\"{0}\" /></div><div class=\"short_content\"> {1}</div><div class=\"cleaner\"></div></div>", imgPath, shortContent);
+                }
+                else
+                {
+                    ((Literal)e.Item.FindControl("ltrImage")).Text = string.Format("<div class=\"interpre_Noimage\">{0}</div>", shortContent);
                 }
             }
-
-            //var t = e.Item.DataItem as DataRowView;
-            //if (t != null)
-            //{
-            //    string link = Convert.ToString(t.Row[2]);
-            //    if (!String.IsNullOrEmpty(link) && link.Length>3)
-            //    {
-            //        var extent = link.Substring(link.Length - 3);
-            //        switch (extent)
-            //        {
-            //                case ""
-            //        }
-            //    }
-            //}
         }
     }
 }

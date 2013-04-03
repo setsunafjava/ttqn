@@ -93,12 +93,12 @@ namespace CQ.SharePoint.QN.Webparts
                         WebpartParent.NewsGroupID,
                         FieldsName.Id);
 
-                    var newsTitleItems = GetNewsRecords(newsTitle, newsLimit, ListsName.English.NewsCategory);
-                    if (newsTitleItems != null && newsTitleItems.Rows.Count > 0)
-                    {
-                        rptNewsGroup.DataSource = newsTitleItems;
-                        rptNewsGroup.DataBind();
-                    }
+                    //var newsTitleItems = GetNewsRecords(newsTitle, newsLimit, ListsName.English.NewsCategory);
+                    //if (newsTitleItems != null && newsTitleItems.Rows.Count > 0)
+                    //{
+                    //    rptNewsGroup.DataSource = newsTitleItems;
+                    //    rptNewsGroup.DataBind();
+                    //}
                 }
                 catch (Exception ex)
                 {

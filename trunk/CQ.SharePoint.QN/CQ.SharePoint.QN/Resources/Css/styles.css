@@ -857,6 +857,12 @@ ul#nav .current ul li a:hover {
 	width: 300px;
 	padding-left: 10px;
 }
+.interpre_Noimage
+{
+	width:420;
+	float:left;
+	padding-left:10px;
+	}
 .other_News{
 	margin-top: 22px;
 	background: url(../images/bg_bottom_F_otherNew.jpg) bottom left no-repeat;
@@ -1335,5 +1341,5 @@ a {
 
 .datetimeText
 {
-	color: #666;
+	color: #666666 !important;
 }

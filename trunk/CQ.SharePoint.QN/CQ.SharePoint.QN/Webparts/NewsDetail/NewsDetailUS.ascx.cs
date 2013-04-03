@@ -165,10 +165,10 @@ namespace CQ.SharePoint.QN.Webparts
                                 }
 
                                 //end update
-
-                                if (!string.IsNullOrEmpty(catId))
+                                var cateId = Request.QueryString[FieldsName.CategoryId];
+                                if (!string.IsNullOrEmpty(cateId))
                                 {
-                                    int catIdValue = Convert.ToInt16(catId);
+                                    int catIdValue = Convert.ToInt16(cateId);
                                     SPList list = Utilities.GetListFromUrl(SPContext.Current.Web, listCategoryName);
                                     var item = list.GetItemById(catIdValue);
                                     if (item != null)
