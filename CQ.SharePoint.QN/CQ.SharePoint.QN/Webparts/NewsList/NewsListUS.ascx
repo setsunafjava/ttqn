@@ -31,18 +31,18 @@
             <div class="cont_artical">
                 <div class="name_artical">
                     <a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
-                        <%#Eval("Title")%></a> <span class="time_update">(<%= ParentWP.Day %>
-                            <%#Eval("ArticleStartDates")%>)</span></div>
-                <div class="interpre">
-                    <%--<div class="img_thumb">
-                        <asp:Image ID="imgLogo" runat="server" Width="120px" Height="70px" ImageUrl='<%#Eval("Thumbnail") %>' />
-                    </div>--%>
+                        <%#Eval("Title")%></a><br />
+                    <span class="datetimeText">
+                        <%= ParentWP.Day %>
+                        <%#Eval("ArticleStartDates")%></span></div>
+                        <asp:Literal ID="ltrImage" runat="server" Text=""></asp:Literal>
+                <%--<div class="interpre">
                     <asp:Literal ID="ltrImage" runat="server" Text=""></asp:Literal>
                     <div class="short_content">
                         <%#Eval("ShortContent")%></div>
                     <div class="cleaner">
                     </div>
-                </div>
+                </div>--%>
             </div>
         </div>
     </ItemTemplate>
