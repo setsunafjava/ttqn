@@ -20,7 +20,7 @@
                         <%--<img src="images/logo.jpg" />--%>
                         <asp:Image ID="imgLogo" runat="server" Width="120px" Height="70px" ImageUrl='<%#Eval("Thumbnail") %>' onError='SetNoImage(this)' />
                     </div>
-                    <div class="short_content">
+                    <div runat="server" id="divDesc" class="short_content">
                         <%#Eval("ShortContent")%></div>
                     <div class="cleaner">
                     </div>

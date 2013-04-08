@@ -54,7 +54,12 @@ namespace CQ.SharePoint.QN.Webparts
                 var imgLogo = (Image) e.Item.FindControl("imgLogo");
                 if (imgLogo != null && string.IsNullOrEmpty(Convert.ToString(drv["Thumbnail"])))
                 {
-                    //imgLogo.Visible = false;
+                    imgLogo.Visible = false;
+                    HtmlGenericControl divDesc = (HtmlGenericControl)e.Item.FindControl("divDesc");
+                    if (divDesc != null)
+                    {
+                        divDesc.Attributes.Add("style","width:420px;");
+                    }
                 }
             }
         }
