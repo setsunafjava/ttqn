@@ -42,27 +42,22 @@ namespace CQ.SharePoint.QN.Webparts
         //    }
         //}
 
-        //protected void rptDownload_OnItemDataBound(object Sender, RepeaterItemEventArgs e)
-        //{
+        protected void rptSearch_OnItemDataBound(object Sender, RepeaterItemEventArgs e)
+        {
 
-        //    // This event is raised for the header, the footer, separators, and items.
+            // This event is raised for the header, the footer, separators, and items.
 
-        //    // Execute the following logic for Items and Alternating Items.
-        //    if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-        //    {
-        //        var webUrl = "";
-        //        if (!SPContext.Current.Web.ServerRelativeUrl.Equals("/"))
-        //        {
-        //            webUrl = SPContext.Current.Web.ServerRelativeUrl;
-        //        }
-        //        DataRowView drv = (DataRowView)e.Item.DataItem;
-        //        var aLink = (HtmlAnchor)e.Item.FindControl("aLink");
-        //        aLink.HRef = webUrl + "/" + ListsName.English.DownloadList + "/" +
-        //                     Convert.ToString(drv["FileLeafRef"], CultureInfo.InvariantCulture);
-        //                     Convert.ToString(drv["ID"], CultureInfo.InvariantCulture);
-        //        aLink.Title = Convert.ToString(drv["Title"], CultureInfo.InvariantCulture);
-        //    }
-        //}
+            // Execute the following logic for Items and Alternating Items.
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                DataRowView drv = (DataRowView)e.Item.DataItem;
+                var imgLogo = (Image) e.Item.FindControl("imgLogo");
+                if (imgLogo != null && string.IsNullOrEmpty(Convert.ToString(drv["Thumbnail"])))
+                {
+                    imgLogo.Visible = false;
+                }
+            }
+        }
 
         protected string BuildUrl(string pageorder)
         {
@@ -99,12 +94,13 @@ namespace CQ.SharePoint.QN.Webparts
                     var keyWord = Request.QueryString["KeyWord"];
 
                     //NewsUrl = string.Format("{0}/{1}.aspx?{2}=", SPContext.Current.Web.Url, Constants.PageInWeb.DetailNews, Constants.NewsId);
-                    NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}=",
-                       SPContext.Current.Web.Url,
-                       Constants.PageInWeb.DetailNews,
-                       ListsName.English.NewsCategory,
-                       ListsName.English.NewsRecord,
-                       Constants.NewsId);
+                    NewsUrl = string.Format("{0}/{1}.aspx?ListCategoryName=",
+                                            SPContext.Current.Web.Url,
+                                            Constants.PageInWeb.DetailNews);
+                       //,
+                       //ListsName.English.NewsCategory,
+                       //ListsName.English.NewsRecord,
+                       //Constants.NewsId);
                     DataTable companyList = Utilities.SearchNews(keyWord);
                     var companyListTemp = Utilities.GetTableWithCorrectUrl(companyList);
                     //Utilities.AddCategoryIdToTable(ListsName.English.NewsCategory, FieldsName.CategoryName, ref companyListTemp);

@@ -6,18 +6,19 @@
         color: Red;
     }
 </style>
-<asp:Repeater ID="rptListCategory" runat="server">
+<asp:Repeater ID="rptListCategory" runat="server" OnItemDataBound="rptSearch_OnItemDataBound">
     <ItemTemplate>
         <div class="inner_content_subpage">
             <div class="cont_artical">
                 <div class="name_artical">
-                    <a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
-                        <%#Eval("Title")%></a> <span class="time_update">(ngày
+                    <a href='<%=NewsUrl%><%#Eval("ListCategoryName")%>&ListName=<%#Eval("ListNewsName")%>&NewsId=<%#Eval("ID")%>&CategoryId=<%#Eval("CategoryId") %>'>
+                        <%#Eval("Title")%></a><br />
+                    <span class="datetimeText">Ngày
                             <%#Eval("ArticleStartDates")%>)</span></div>
                 <div class="interpre">
                     <div class="img_thumb">
                         <%--<img src="images/logo.jpg" />--%>
-                        <asp:Image ID="imgLogo" runat="server" Width="120px" Height="70px" ImageUrl='<%#Eval("Thumbnail") %>' />
+                        <asp:Image ID="imgLogo" runat="server" Width="120px" Height="70px" ImageUrl='<%#Eval("Thumbnail") %>' onError='this.parentNode.style.display="none";this.parentNode.parentNode.getElementsByClassName("short_content")[0].style.width="420px";' />
                     </div>
                     <div class="short_content">
                         <%#Eval("ShortContent")%></div>

@@ -57,7 +57,7 @@ namespace CQ.SharePoint.QN.Webparts
             var toolparts = new ToolPart[3];
             var wptp = new WebPartToolPart();
             var cptp = new CustomPropertyToolPart();
-            var ctp = new AdvDdl();
+            var ctp = new AdvDdl(QCID.ToString());
             toolparts[0] = wptp;
             toolparts[1] = cptp;
             toolparts[2] = ctp;
@@ -68,9 +68,16 @@ namespace CQ.SharePoint.QN.Webparts
     public class AdvDdl : ToolPart
     {
         DropDownList ddlAdv = new DropDownList();
+        private string currentID = "";
         public AdvDdl()
         {
             Title = "Chọn quảng cáo";
+        }
+
+        public AdvDdl(string id)
+        {
+            Title = "Chọn quảng cáo";
+            currentID = id;
         }
 
         protected override void CreateChildControls()
@@ -84,6 +91,7 @@ namespace CQ.SharePoint.QN.Webparts
                 ddlAdv.DataTextField = FieldsName.Title;
                 ddlAdv.DataValueField = FieldsName.Id;
                 ddlAdv.DataBind();
+                ddlAdv.SelectedValue = currentID;
             }
             Controls.Add(ddlAdv);
         }

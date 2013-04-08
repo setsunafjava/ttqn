@@ -906,17 +906,67 @@ namespace CQ.SharePoint.QN.Common
             return result;
         }
 
+        public static SPListItem GetQuangCao(string listName, int docID)
+        {
+            SPListItem result = null;
+            try
+            {
+                string listUrl = SPContext.Current.Web.Url + "/" + listName;
+                var camlquery = string.Format(@"<Where><And>
+                                                            <And>
+                                                                <Leq>
+                                                                    <FieldRef Name='NgayBatDau' />
+                                                                    <Value Type='DateTime' IncludeTimeValue='TRUE'><Today /></Value>
+                                                                  </Leq>
+                                                                <Geq>
+                                                                    <FieldRef Name='NgayKetThuc' />
+                                                                    <Value Type='DateTime' IncludeTimeValue='TRUE'><Today /></Value>
+                                                                  </Geq>
+                                                            </And>
+                                                          <Eq>
+                                                            <FieldRef Name='ID' />
+                                                            <Value Type='Counter'>{0}</Value>
+                                                          </Eq>
+                                                        </And>
+                                                       </Where>", docID);
+                var query = new SPQuery();
+                query.Query = camlquery;
+                query.RowLimit = 1;
+                var items = SPContext.Current.Web.GetList(listUrl).GetItems(query);
+                if (items != null && items.Count > 0)
+                {
+                    result = items[0];
+                }
+            }
+            catch (Exception ex)
+            {
+                Utilities.LogToUls(ex);
+            }
+            return result;
+        }
+
         public static SPListItem GetQuangCao(string listName, string catID, string catType)
         {
             SPListItem result = null;
             try
             {
                 string listUrl = SPContext.Current.Web.Url + "/Lists/" + listName;
-                var camlquery = string.Format(@"<Where>
+                var camlquery = string.Format(@"<Where><And>
+                                                            <And>
+                                                                <Leq>
+                                                                    <FieldRef Name='NgayBatDau' />
+                                                                    <Value Type='DateTime' IncludeTimeValue='TRUE'><Today /></Value>
+                                                                  </Leq>
+                                                                <Geq>
+                                                                    <FieldRef Name='NgayKetThuc' />
+                                                                    <Value Type='DateTime' IncludeTimeValue='TRUE'><Today /></Value>
+                                                                  </Geq>
+                                                            </And>
                                                           <Eq>
                                                             <FieldRef Name='{0}' LookupId='TRUE' />
                                                             <Value Type='LookupMulti'>{1}</Value>
                                                           </Eq>
+                                                        </And>
                                                        </Where>", catType, catID);
                 var query = new SPQuery();
                 query.Query = camlquery;
@@ -2345,6 +2395,7 @@ namespace CQ.SharePoint.QN.Common
 
             var query = new SPQuery();
             query.Query = camlQuery;
+            query.RowLimit = 100;
             DataTable table = null;
             SPSecurity.RunWithElevatedPrivileges(() =>
             {
@@ -2373,8 +2424,20 @@ namespace CQ.SharePoint.QN.Common
                                         table.Columns.Add(FieldsName.ArticleStartDateTemp, Type.GetType("System.String"));
                                     }
 
+                                    if (!table.Columns.Contains("ListCategoryName"))
+                                    {
+                                        table.Columns.Add("ListCategoryName", Type.GetType("System.String"));
+                                    }
+
+                                    if (!table.Columns.Contains("ListNewsName"))
+                                    {
+                                        table.Columns.Add("ListNewsName", Type.GetType("System.String"));
+                                    }
+
                                     for (int i = 0; i < items.Count; i++)
                                     {
+                                        table.Rows[i]["ListCategoryName"] = ListsName.English.NewsCategory;
+                                        table.Rows[i]["ListNewsName"] = ListsName.English.NewsRecord;
                                         if (!string.IsNullOrEmpty(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName])))
                                         {
                                             SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName]));
@@ -2382,6 +2445,88 @@ namespace CQ.SharePoint.QN.Common
                                         }
                                         var time = Convert.ToDateTime(items[i][FieldsName.ArticleStartDates]);
                                         table.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
+                                    }
+                                }
+                            }
+
+                            listUrl = web.Url + "/Lists/" + ListsName.English.CompanyRecord;
+                            var listCom = web.GetList(listUrl);
+                            if (listCom != null)
+                            {
+                                var items = listCom.GetItems(query);
+                                if (items != null && items.Count > 0)
+                                {
+                                    if (table == null)
+                                    {
+                                        table = items.GetDataTable();
+                                        if (!table.Columns.Contains(FieldsName.CategoryId))
+                                        {
+                                            table.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
+                                        }
+
+                                        if (!table.Columns.Contains(FieldsName.ArticleStartDateTemp))
+                                        {
+                                            table.Columns.Add(FieldsName.ArticleStartDateTemp, Type.GetType("System.String"));
+                                        }
+
+                                        if (!table.Columns.Contains("ListCategoryName"))
+                                        {
+                                            table.Columns.Add("ListCategoryName", Type.GetType("System.String"));
+                                        }
+
+                                        if (!table.Columns.Contains("ListNewsName"))
+                                        {
+                                            table.Columns.Add("ListNewsName", Type.GetType("System.String"));
+                                        }
+
+                                        for (int i = 0; i < items.Count; i++)
+                                        {
+                                            table.Rows[i]["ListCategoryName"] = ListsName.English.CompanyCategory;
+                                            table.Rows[i]["ListNewsName"] = ListsName.English.CompanyRecord;
+                                            if (!string.IsNullOrEmpty(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName])))
+                                            {
+                                                SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName]));
+                                                table.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
+                                            }
+                                            var time = Convert.ToDateTime(items[i][FieldsName.ArticleStartDates]);
+                                            table.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        var comItems = items.GetDataTable();
+                                        if (!comItems.Columns.Contains(FieldsName.CategoryId))
+                                        {
+                                            comItems.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
+                                        }
+
+                                        if (!comItems.Columns.Contains(FieldsName.ArticleStartDateTemp))
+                                        {
+                                            comItems.Columns.Add(FieldsName.ArticleStartDateTemp, Type.GetType("System.String"));
+                                        }
+
+                                        if (!comItems.Columns.Contains("ListCategoryName"))
+                                        {
+                                            comItems.Columns.Add("ListCategoryName", Type.GetType("System.String"));
+                                        }
+
+                                        if (!comItems.Columns.Contains("ListNewsName"))
+                                        {
+                                            comItems.Columns.Add("ListNewsName", Type.GetType("System.String"));
+                                        }
+                                        for (int i = 0; i < items.Count; i++)
+                                        {
+                                            comItems.Rows[i]["ListCategoryName"] = ListsName.English.CompanyCategory;
+                                            comItems.Rows[i]["ListNewsName"] = ListsName.English.CompanyRecord;
+                                            if (!string.IsNullOrEmpty(Convert.ToString(items[i][FieldsName.CompanyRecord.English.CategoryName])))
+                                            {
+                                                SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.CompanyRecord.English.CategoryName]));
+                                                comItems.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
+                                            }
+                                            var time = Convert.ToDateTime(items[i][FieldsName.ArticleStartDates]);
+                                            comItems.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
+                                            table.ImportRow(comItems.Rows[i]);
+                                        }
                                     }
                                 }
                             }
