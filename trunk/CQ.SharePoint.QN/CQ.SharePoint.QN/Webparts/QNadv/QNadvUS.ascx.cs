@@ -61,23 +61,27 @@ namespace CQ.SharePoint.QN.Webparts
                         var qcItem = Utilities.GetQuangCao("quangcaochuyende", categoryId, menuType);
                         if (qcItem != null)
                         {
-                            aLink.CommandArgument = Convert.ToString(qcItem["LinkUrl"]);
-                            var qcFile = Convert.ToString(qcItem[FieldsName.NewsRecord.English.PublishingPageImage]).Split(' ')[3];
-                            qcFile = qcFile.Trim().Substring(5, qcFile.Length - 6);
-                            if ("Image".Equals(Convert.ToString(qcItem["QCType"])))
-                            {
-                                ltrQC.Text = "<img src='" + qcFile + "' width='" + Convert.ToString(qcItem["Width"]) + "' height='" + Convert.ToString(qcItem["Height"]) + "' alt='" + qcItem.Title + "' title='" + qcItem.Title + "' />";
-                            }
-                            else if ("Flash".Equals(Convert.ToString(qcItem["QCType"])))
-                            {
-                                ltrQC.Text = @"<embed width='" + Convert.ToString(qcItem["Width"]) + "' height='" + Convert.ToString(qcItem["Height"]) + @"' align='middle' quality='high' wmode='transparent' allowscriptaccess='always' 
+                            //var startDate = Convert.ToDateTime(qcItem["NgayBatDau"]);
+                            //var endDate = Convert.ToDateTime(qcItem["NgayKetThuc"]);
+                            //if (startDate <= DateTime.Now && DateTime.Now <= endDate)
+                            //{
+                                aLink.CommandArgument = Convert.ToString(qcItem["LinkUrl"]);
+                                var qcFile = Convert.ToString(qcItem[FieldsName.NewsRecord.English.PublishingPageImage]).Split(' ')[3];
+                                qcFile = qcFile.Trim().Substring(5, qcFile.Length - 6);
+                                if ("Image".Equals(Convert.ToString(qcItem["QCType"])))
+                                {
+                                    ltrQC.Text = "<img src='" + qcFile + "' width='" + Convert.ToString(qcItem["Width"]) + "' height='" + Convert.ToString(qcItem["Height"]) + "' alt='" + qcItem.Title + "' title='" + qcItem.Title + "' />";
+                                }
+                                else if ("Flash".Equals(Convert.ToString(qcItem["QCType"])))
+                                {
+                                    ltrQC.Text = @"<embed width='" + Convert.ToString(qcItem["Width"]) + "' height='" + Convert.ToString(qcItem["Height"]) + @"' align='middle' quality='high' wmode='transparent' allowscriptaccess='always' 
                                         type='application/x-shockwave-flash' pluginspage='http://www.macromedia.com/go/getflashplayer' alt='' 
                                         src='" + qcFile + "' />";
-                            }
-                            else if ("Video".Equals(Convert.ToString(qcItem["QCType"])))
-                            {
-                                ltrQC.Text =
-                                    @"<embed
+                                }
+                                else if ("Video".Equals(Convert.ToString(qcItem["QCType"])))
+                                {
+                                    ltrQC.Text =
+                                        @"<embed
                                   flashvars='file=" + SPContext.Current.Web.Url + "/" + ListsName.English.CQQNResources + @"/stylish_slim.swf&autostart=true'
                                   allowfullscreen='true'
                                   allowscripaccess='always'
@@ -87,34 +91,44 @@ namespace CQ.SharePoint.QN.Webparts
                                   width='" + Convert.ToString(qcItem["Width"]) + @"'
                                   height='" + Convert.ToString(qcItem["Height"]) + @"'
                                 />";
-                            }
-                            else
-                            {
-                                aLink.Visible = false;
-                            }
+                                }
+                                else
+                                {
+                                    aLink.Visible = false;
+                                }
+                            //}
+                            //else
+                            //{
+                            //    aLink.Visible = false;
+                            //}
                         }
                     }
                 }
                 else if (!string.IsNullOrEmpty(Convert.ToString(ParentWP.QCID)))
                 {
-                    var qcItem = Utilities.GetDocListItemFromUrl("QuangCao", ParentWP.QCID);
+                    //var qcItem = Utilities.GetDocListItemFromUrl("QuangCao", ParentWP.QCID);
+                    var qcItem = Utilities.GetQuangCao("QuangCao", ParentWP.QCID);
                     if (qcItem != null)
                     {
-                        aLink.CommandArgument = ParentWP.QCID.ToString();
-                        if ("Image".Equals(Convert.ToString(qcItem["Type"])))
-                        {
-                            ltrQC.Text = "<img src='" + SPContext.Current.Web.Url + "/" + qcItem.Url + "' width='" + Convert.ToString(qcItem["Width"]) + "' height='" + Convert.ToString(qcItem["Height"]) + "' alt='" + qcItem.Title + "' title='" + qcItem.Title + "' />";
-                        }
-                        else if ("Flash".Equals(Convert.ToString(qcItem["Type"])))
-                        {
-                            ltrQC.Text=@"<embed width='" + Convert.ToString(qcItem["Width"]) + "' height='" + Convert.ToString(qcItem["Height"]) + @"' align='middle' quality='high' wmode='transparent' allowscriptaccess='always' 
+                        //var startDate = Convert.ToDateTime(qcItem["NgayBatDau"]);
+                        //var endDate = Convert.ToDateTime(qcItem["NgayKetThuc"]);
+                        //if (startDate <= DateTime.Now && DateTime.Now <= endDate)
+                        //{
+                            aLink.CommandArgument = ParentWP.QCID.ToString();
+                            if ("Image".Equals(Convert.ToString(qcItem["Type"])))
+                            {
+                                ltrQC.Text = "<img src='" + SPContext.Current.Web.Url + "/" + qcItem.Url + "' width='" + Convert.ToString(qcItem["Width"]) + "' height='" + Convert.ToString(qcItem["Height"]) + "' alt='" + qcItem.Title + "' title='" + qcItem.Title + "' />";
+                            }
+                            else if ("Flash".Equals(Convert.ToString(qcItem["Type"])))
+                            {
+                                ltrQC.Text = @"<embed width='" + Convert.ToString(qcItem["Width"]) + "' height='" + Convert.ToString(qcItem["Height"]) + @"' align='middle' quality='high' wmode='transparent' allowscriptaccess='always' 
                                         type='application/x-shockwave-flash' pluginspage='http://www.macromedia.com/go/getflashplayer' alt='' 
                                         src='" + SPContext.Current.Web.Url + "/" + qcItem.Url + "' />";
-                        }
-                        else if ("Video".Equals(Convert.ToString(qcItem["Type"])))
-                        {
-                            ltrQC.Text =
-                                @"<embed
+                            }
+                            else if ("Video".Equals(Convert.ToString(qcItem["Type"])))
+                            {
+                                ltrQC.Text =
+                                    @"<embed
                                   flashvars='file=" + SPContext.Current.Web.Url + "/" + ListsName.English.CQQNResources + @"/stylish_slim.swf&autostart=true'
                                   allowfullscreen='true'
                                   allowscripaccess='always'
@@ -124,11 +138,16 @@ namespace CQ.SharePoint.QN.Webparts
                                   width='" + Convert.ToString(qcItem["Width"]) + @"'
                                   height='" + Convert.ToString(qcItem["Height"]) + @"'
                                 />";
-                        }
-                        else
-                        {
-                            aLink.Visible = false;
-                        }
+                            }
+                            else
+                            {
+                                aLink.Visible = false;
+                            }
+                        //}
+                        //else
+                        //{
+                        //    aLink.Visible = false;
+                        //}
                     }
                     else
                     {
