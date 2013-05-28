@@ -263,37 +263,9 @@ namespace CQ.SharePoint.QN.Webparts
                                 rptLatestNews.DataSource = companyList;
                                 rptLatestNews.DataBind();
                             }
-                            //else //If not newsfocus => get all Update: Not Show All items
-                            //{
-                            //    newsQuery = QueryAllItemsSortByViewCount;
-
-                            //    companyList = Utilities.GetNewsRecords(newsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
-                            //    if (companyList != null && companyList.Rows.Count > 0)
-                            //    {
-                            //        RptLatestNewsUrl = ItemUrl;
-                            //        rptLatestNews.DataSource = companyList;
-                            //        rptLatestNews.DataBind();
-                            //    }
-                            //    else //Get item from News list
-                            //    {
-                            //        newsQuery = QueryAllItemsSortByViewCount;
-                            //        companyList = Utilities.GetNewsRecords(newsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), ListsName.English.NewsRecord);
-                            //        if (companyList != null && companyList.Rows.Count > 0)
-                            //        {
-                            //            RptLatestNewsUrl = NewsUrl;
-                            //            rptLatestNews.DataSource = companyList;
-                            //            rptLatestNews.DataBind();
-                            //        }
-                            //    }
-                            //}
                         }
                         else //Khong phai la tin tieu bieu
                         {
-                            //Bind data to Latest news
-                            //string latestNewsQuery1 = QueryAllItemsSortByViewCount;
-
-                            //var companyList = Utilities.GetNewsRecords(latestNewsQuery1, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
-
                             var companyList = Utilities.GetNewsByCatID(listName, categoryId, GetNewsNumber(WebPartParent.LatestNewsNumber));
                             if (companyList != null && companyList.Rows.Count > 0)
                             {
@@ -301,17 +273,6 @@ namespace CQ.SharePoint.QN.Webparts
                                 rptLatestNews.DataSource = companyList;
                                 rptLatestNews.DataBind();
                             }
-                            //else //Get all news from NewsRecord Update: Not show all items
-                            //{
-                            //    companyList = Utilities.GetNewsRecords(QueryAllItemsSortByViewCount, GetNewsNumber(WebPartParent.LatestNewsNumber), ListsName.English.NewsRecord);
-                            //    if (companyList != null && companyList.Rows.Count > 0)
-                            //    {
-                            //        RptLatestNewsUrl = NewsUrl;
-                            //        rptLatestNews.DataSource = companyList;
-                            //        rptLatestNews.DataBind();
-                            //    }
-                            //}
-                            //End
                         }
                     }
                     #endregion
@@ -377,6 +338,7 @@ namespace CQ.SharePoint.QN.Webparts
                         FieldsName.ModerationStatus,
                         Utilities.GetModerationStatus(402),
                         FieldsName.ArticleStartDates);
+
             }
             else
             {
@@ -393,34 +355,6 @@ namespace CQ.SharePoint.QN.Webparts
                 rptImages.DataSource = tempTable;
                 rptImages.DataBind();
             }
-            //else Update: Not show
-            //{
-            //    mainItemQuery = QueryAllItemsByShowInHomePage;
-
-            //    mainItem = Utilities.GetNewsRecordItems(mainItemQuery, 3, _listName);
-
-            //    if (mainItem != null && mainItem.Count > 0)
-            //    {
-            //        var tempTable = Utilities.GetTableWithCorrectUrl(_listCategoryName, mainItem, true);
-            //        Utilities.SetSapoTextLength(ref tempTable);
-            //        RptImagesUrl = ItemUrl;
-            //        rptImages.DataSource = tempTable;
-            //        rptImages.DataBind();
-            //    }
-            //    else
-            //    {
-            //        mainItemQuery = QueryAllItemsByShowInHomePage;
-            //        mainItem = Utilities.GetNewsRecordItems(mainItemQuery, 3, ListsName.English.NewsRecord);
-            //        if (mainItem != null && mainItem.Count > 0)
-            //        {
-            //            var tempTable = Utilities.GetTableWithCorrectUrl(ListsName.English.NewsCategory, mainItem, true);
-            //            Utilities.SetSapoTextLength(ref tempTable);
-            //            RptImagesUrl = NewsUrl;
-            //            rptImages.DataSource = tempTable;
-            //            rptImages.DataBind();
-            //        }
-            //    }
-            //}
             #endregion
             #region  tin tuc phia duoi
 
@@ -483,30 +417,6 @@ namespace CQ.SharePoint.QN.Webparts
                 rptThreeItem.DataSource = GetItemFromThreePosition(threeItemsTable, _listCategoryName);
                 rptThreeItem.DataBind();
             }
-            //else Update: Not show all items
-            //{
-            //    threeeItemsBellow = QueryAllItemsByShowInHomePage;
-
-            //    threeItemsTable = Utilities.GetNewsRecords(threeeItemsBellow, 6, _listName);
-            //    if (threeItemsTable != null && threeItemsTable.Rows.Count > 0)
-            //    {
-            //        RptThreeItemUrl = ItemUrl;
-            //        rptThreeItem.DataSource = GetItemFromThreePosition(threeItemsTable, _listCategoryName);
-            //        rptThreeItem.DataBind();
-            //    }
-            //    else //Se bind du lieu la news
-            //    {
-            //        threeeItemsBellow = QueryAllItemsByShowInHomePage;
-            //        threeItemsTable = Utilities.GetNewsRecords(threeeItemsBellow, 6, ListsName.English.NewsRecord);
-            //        if (threeItemsTable != null && threeItemsTable.Rows.Count > 0)
-            //        {
-            //            RptThreeItemUrl = NewsUrl;
-            //            rptThreeItem.DataSource = GetItemFromThreePosition(threeItemsTable, ListsName.English.NewsCategory);
-            //            rptThreeItem.DataBind();
-            //        }
-            //    }
-            //}
-
             #endregion
         }
 

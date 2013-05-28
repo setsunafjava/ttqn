@@ -34,5 +34,12 @@ namespace CQ.SharePoint.QN.Webparts
         protected global::System.Web.UI.WebControls.Label lblCurrpage;
         protected global::System.Web.UI.WebControls.HyperLink lnkPrev;
         protected global::System.Web.UI.WebControls.HyperLink lnkNext;
+
+        protected global::System.Web.UI.WebControls.Panel pnlCauHinhChuyenDe;
+        protected global::System.Web.UI.WebControls.Repeater rptCauHinhChuyenDe;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSelectOrder;
+        protected global::System.Web.UI.WebControls.Button btnSaveData;
+        protected global::System.Web.UI.WebControls.Label lblId;
+        protected global::System.Web.UI.WebControls.Label lblTitle1;
     }
 }

@@ -93,6 +93,12 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 string imagePath = Convert.ToString(t.Row[18]);
                 int height = 100;
+                var heightSet = Convert.ToInt32(t.Row[21]);
+                if (heightSet>0)
+                {
+                    height = heightSet;
+                }
+
                 if (!String.IsNullOrEmpty(imagePath) && imagePath.Length > 3)
                 {
                     var extent = imagePath.Substring(imagePath.Length - 3);
