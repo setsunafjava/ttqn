@@ -117,4 +117,41 @@
             </table>
         </div>
     </asp:Panel>
+    <asp:Panel ID="pnlCauHinhChuyenDe" runat="server">
+        <div>
+            <asp:Repeater ID="rptCauHinhChuyenDe" runat="server" OnItemDataBound="OnItemDataBound_CauHinh">
+                <HeaderTemplate>
+                    <table>
+                        <tr>
+                            <th>
+                                ID
+                            </th>
+                            <th>
+                                Tên chuyên mục
+                            </th>
+                            <th>
+                                Thứ tự hiển thị
+                            </th>
+                        </tr>
+                </HeaderTemplate>
+                <ItemTemplate>
+                    <tr>
+                        <td>
+                            <asp:Label ID="lblId" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ID") %>'></asp:Label>
+                        </td>
+                        <td>
+                            <asp:Label ID="lblTitle1" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "Title") %>'></asp:Label>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtOrder" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "Order0") %>'></asp:TextBox>
+                        </td>
+                    </tr>
+                </ItemTemplate>
+                <FooterTemplate>
+                    </table>
+                </FooterTemplate>
+            </asp:Repeater>
+            <asp:Button ID="btnSaveData" runat="server" Text="Lưu lại thay đổi" OnClick="Click_btnSaveData"/>
+        </div>
+    </asp:Panel>
 </div>

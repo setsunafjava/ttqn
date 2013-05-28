@@ -16,7 +16,7 @@
                     </HeaderTemplate>
                     <ItemTemplate>
                         <a href='<%#Eval("LinkUrl") %>'>
-                            <img src="<%#Eval("Thumbnail") %>" /></a>
+                            <img src="<%#Eval("Thumbnail") %>" height="<%#Eval("Height") %>" width="<%#Eval("Width") %>" /></a>
                     </ItemTemplate>
                     <FooterTemplate>
                         </ul></FooterTemplate>
