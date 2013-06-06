@@ -18,5 +18,36 @@ namespace CQ.SharePoint.QN.UserControls {
         protected global::Microsoft.SharePoint.WebControls.GoBackButton goBackButton;
         protected global::Microsoft.SharePoint.WebControls.SaveButton saveButton1;
         protected global::Microsoft.SharePoint.WebControls.GoBackButton goBackButton1;
+
+        protected global::Microsoft.SharePoint.WebControls.FieldLabel lblCategoryName;
+        protected global::Microsoft.SharePoint.WebControls.FieldLabel lblShortContent;
+        protected global::Microsoft.SharePoint.WebControls.FieldLabel lblPublishingPageImage;
+        protected global::Microsoft.SharePoint.WebControls.FieldLabel lblPublishingPageContent;
+        protected global::Microsoft.SharePoint.WebControls.FieldLabel lblFocusNews;
+        protected global::Microsoft.SharePoint.WebControls.FieldLabel lblShowInHomePage;
+        protected global::Microsoft.SharePoint.WebControls.FieldLabel lblStatus;
+        protected global::Microsoft.SharePoint.WebControls.FieldLabel lblSource;
+        protected global::Microsoft.SharePoint.WebControls.FieldLabel lblArticleByLine;
+        protected global::Microsoft.SharePoint.WebControls.FieldLabel lblArticleStartDates;
+        protected global::Microsoft.SharePoint.WebControls.FieldLabel lblCommentForImage;
+        protected global::Microsoft.SharePoint.WebControls.FieldLabel lblShowOnCategory;
+        protected global::Microsoft.SharePoint.WebControls.FieldLabel lblLatestNewsOnHomePage;
+        protected global::Microsoft.SharePoint.WebControls.FieldLabel lblLatestNewsOnCategory;
+        protected global::Microsoft.SharePoint.WebControls.FieldLabel lblNewsOfCategory;
+
+        protected global::Microsoft.SharePoint.WebControls.RichTextField txtShortContent;
+        protected global::Microsoft.SharePoint.Publishing.WebControls.RichImageField txtRichImageField;
+        protected global::Microsoft.SharePoint.Publishing.WebControls.RichHtmlField txtRichHtmlField;
+        protected global::Microsoft.SharePoint.WebControls.BooleanField txtFocusNews;
+        protected global::Microsoft.SharePoint.WebControls.BooleanField txtShowInHomePage;
+        protected global::Microsoft.SharePoint.WebControls.BooleanField txtStatus;
+        protected global::Microsoft.SharePoint.WebControls.TextField txtSource;
+        protected global::Microsoft.SharePoint.WebControls.TextField txtArticleByLine;
+        protected global::Microsoft.SharePoint.WebControls.DateTimeField txtArticleStartDates;
+        protected global::Microsoft.SharePoint.WebControls.TextField txtCommentForImage;
+        protected global::Microsoft.SharePoint.WebControls.BooleanField txtShowOnCategory;
+        protected global::Microsoft.SharePoint.WebControls.BooleanField txtLatestNewsOnHomePage;
+        protected global::Microsoft.SharePoint.WebControls.BooleanField txtLatestNewsOnCategory;
+        protected global::Microsoft.SharePoint.WebControls.BooleanField txtNewsOfCategory;
     }
 }
