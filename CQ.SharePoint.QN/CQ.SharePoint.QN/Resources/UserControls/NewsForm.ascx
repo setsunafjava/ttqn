@@ -2,7 +2,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NewsForm.ascx.cs" Inherits="CQ.SharePoint.QN.UserControls.NewsForm" %>
 <%@ Register Assembly="Microsoft.SharePoint, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c"
     Namespace="Microsoft.SharePoint.WebControls" TagPrefix="SharePoint" %>
-<%@ Register TagPrefix="PublishingWebControls" Namespace="Microsoft.SharePoint.Publishing.WebControls" %>
+<%@ Register Tagprefix="PublishingWebControls" Namespace="Microsoft.SharePoint.Publishing.WebControls" Assembly="Microsoft.SharePoint.Publishing, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
 <div id="part1">
     <table width="100%" cellspacing="0" cellpadding="2" border="0" class="ms-formtoolbar">
         <tr>
@@ -55,7 +55,8 @@
                 <SharePoint:fieldlabel id="lblCategoryName" runat="server" fieldname="CategoryName" />
             </td>
             <td class="ms-formbody">
-                
+                <asp:ListBox runat="server" ID="ddlCat" SelectionMode="Multiple" Width="300" Height="200"></asp:ListBox>
+                <asp:Label runat="server" ID="lblCat"></asp:Label>
              </td>
         </tr>
         <tr>
