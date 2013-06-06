@@ -49,5 +49,8 @@ namespace CQ.SharePoint.QN.UserControls {
         protected global::Microsoft.SharePoint.WebControls.BooleanField txtLatestNewsOnHomePage;
         protected global::Microsoft.SharePoint.WebControls.BooleanField txtLatestNewsOnCategory;
         protected global::Microsoft.SharePoint.WebControls.BooleanField txtNewsOfCategory;
+
+        protected global::System.Web.UI.WebControls.ListBox ddlCat;
+        protected global::System.Web.UI.WebControls.Label lblCat;
     }
 }
