@@ -120,7 +120,7 @@ namespace CQ.SharePoint.QN.Webparts
                                 if (literalTemp != null)
                                 {
                                     literalTemp.Visible = true;
-                                    literalTemp.Text = string.Format("<img style=\"width:{0}px; height:{1}px\" src=\"{2}\" />", 300, height, imagePath);
+                                    literalTemp.Text = string.Format("<img src=\"{0}\" height=\"{1}\" width=\"{2}\" />", imagePath, height, 300);
                                 }
                                 break;
                             }
