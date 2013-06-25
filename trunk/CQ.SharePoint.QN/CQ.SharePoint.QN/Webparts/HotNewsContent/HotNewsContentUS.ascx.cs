@@ -39,10 +39,16 @@ namespace CQ.SharePoint.QN.Webparts
                                                                            <FieldRef Name='{0}' />
                                                                            <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
                                                                         </Lt>
+<And>
                                                                         <Eq>
                                                                            <FieldRef Name='{2}' />
                                                                            <Value Type='ModStat'>{3}</Value>
                                                                         </Eq>
+<Eq>
+                  <FieldRef Name='LatestNewsOnHomePage' />
+                  <Value Type='Boolean'>1</Value>
+               </Eq>
+</And>
                                                                      </And>
                                                                   </And>
                                                                </Where>

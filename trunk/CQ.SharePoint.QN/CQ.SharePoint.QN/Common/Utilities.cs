@@ -1954,6 +1954,185 @@ namespace CQ.SharePoint.QN.Common
             return table;
         }
 
+        public static DataTable GetNewsByCatID(string listName, string catID, uint limitItems, bool isLatestNews)
+        {
+            string camlQuery = string.Format(@"<Where>
+                                                  <And>
+                                                     <Eq>
+                                                        <FieldRef Name='{0}' LookupId='TRUE' />
+                                                        <Value Type='LookupMulti'>{1}</Value>
+                                                     </Eq>
+                                                     <And>
+                                                        <Neq>
+                                                           <FieldRef Name='Status' />
+                                                           <Value Type='Boolean'>1</Value>
+                                                        </Neq>
+                                                        <And>
+                                                           <Leq>
+                                                              <FieldRef Name='{2}' />
+                                                              <Value IncludeTimeValue='TRUE' Type='DateTime'>{3}</Value>
+                                                           </Leq>
+                                                           <And>
+                                                           <Eq>
+                                                              <FieldRef Name='{4}' />
+                                                              <Value Type='ModStat'>{5}</Value>
+                                                           </Eq>
+                                                            <Eq>
+                                                                 <FieldRef Name='LatestNewsOnHomePage' />
+                                                                 <Value Type='Boolean'>TRUE</Value>
+                                                              </Eq>
+                                                           </And>
+                                                        </And>
+                                                     </And>
+                                                  </And>
+                                               </Where><OrderBy>
+                                                  <FieldRef Name='{6}' Ascending='False' />
+                                               </OrderBy>",
+                                                FieldsName.NewsRecord.English.CategoryName,
+                                                catID,
+                                                FieldsName.ArticleStartDates,
+                                                SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+                                                FieldsName.ModerationStatus,
+                                                ModerationStatusValue,
+                                                FieldsName.ArticleStartDates);
+            if (ListsName.English.CompanyRecord.Equals(listName))
+            {
+                camlQuery = string.Format(@"<Where>
+                                                  <And>
+                                                     <Eq>
+                                                        <FieldRef Name='{0}' LookupId='TRUE' />
+                                                        <Value Type='Lookup'>{1}</Value>
+                                                     </Eq>
+                                                     <And>
+                                                        <Neq>
+                                                           <FieldRef Name='Status' />
+                                                           <Value Type='Boolean'>1</Value>
+                                                        </Neq>
+                                                        <And>
+                                                           <Leq>
+                                                              <FieldRef Name='{2}' />
+                                                              <Value IncludeTimeValue='TRUE' Type='DateTime'>{3}</Value>
+                                                           </Leq>
+                                                           <And>
+                                                              <Eq>
+                                                                 <FieldRef Name='{4}' />
+                                                                 <Value Type='ModStat'>{5}</Value>
+                                                              </Eq>
+                                                              <Geq>
+                                                                 <FieldRef Name='_EndDate' />
+                                                                 <Value IncludeTimeValue='TRUE' Type='DateTime'>{3}</Value>
+                                                              </Geq>
+                                                           </And>
+                                                        </And>
+                                                     </And>
+                                                  </And>
+                                               </Where>
+                                                <OrderBy>
+                                                      <FieldRef Name='{6}' Ascending='False' />
+                                                   </OrderBy>",
+                                                FieldsName.NewsRecord.English.CategoryName,
+                                                catID,
+                                                FieldsName.ArticleStartDates,
+                                                SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+                                                FieldsName.ModerationStatus,
+                                                ModerationStatusValue,
+                                                FieldsName.ModerationStatus);
+            }
+
+            if (ListsName.English.NewsCategory.Equals(listName))
+            {
+                camlQuery = string.Format(@"<Where>
+                                              <And>
+                                                 <Eq>
+                                                    <FieldRef Name='{0}' LookupId='TRUE' />
+                                                    <Value Type='Lookup'>{1}</Value>
+                                                 </Eq>
+                                                 <Neq>
+                                                    <FieldRef Name='Status' />
+                                                    <Value Type='Boolean'>1</Value>
+                                                 </Neq>
+                                              </And>
+                                           </Where>
+                                            <OrderBy>
+                                                  <FieldRef Name='ID' Ascending='False' />
+                                               </OrderBy>", FieldsName.NewsCategory.English.ParentName, catID);
+            }
+
+            if (ListsName.English.SubNewsCategory.Equals(listName))
+            {
+                camlQuery = string.Format(@"<Where>
+                                              <And>
+                                                 <Eq>
+                                                    <FieldRef Name='{0}' LookupId='TRUE' />
+                                                    <Value Type='Lookup'>{1}</Value>
+                                                 </Eq>
+                                                 <Neq>
+                                                    <FieldRef Name='Status' />
+                                                    <Value Type='Boolean'>1</Value>
+                                                 </Neq>
+                                              </And>
+                                           </Where><OrderBy>
+                                          <FieldRef Name='ID' Ascending='False' />
+                                       </OrderBy>", FieldsName.NewsCategory.English.ParentName, catID);
+            }
+
+
+            var query = new SPQuery();
+            query.Query = camlQuery;
+            query.RowLimit = limitItems;
+            DataTable table = null;
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            string listUrl = web.Url + "/Lists/" + listName;
+                            var list = web.GetList(listUrl);
+                            if (list != null)
+                            {
+                                var items = list.GetItems(query);
+                                if (items != null && items.Count > 0)
+                                {
+                                    table = items.GetDataTable();
+
+                                    if (!table.Columns.Contains(FieldsName.CategoryId))
+                                    {
+                                        table.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
+                                    }
+
+                                    if (!table.Columns.Contains(FieldsName.ArticleStartDateTemp))
+                                    {
+                                        table.Columns.Add(FieldsName.ArticleStartDateTemp, Type.GetType("System.String"));
+                                    }
+
+                                    for (int i = 0; i < items.Count; i++)
+                                    {
+                                        if (!string.IsNullOrEmpty(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName])))
+                                        {
+                                            SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName]));
+                                            table.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
+                                        }
+                                        var time = Convert.ToDateTime(items[i][FieldsName.ArticleStartDates]);
+                                        table.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day, time.Month, time.Year);
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Utilities.LogToUls(ex);
+                        }
+                    }
+
+                }
+            });
+
+            return table;
+        }
+
         public static DataTable GetNewsCatByParent(string listCategoryName, string catID)
         {
             string camlQuery = string.Format("<Where><Eq><FieldRef Name='{0}' LookupId='TRUE'/><Value Type='LookupMulti'>{1}</Value></Eq></Where>", FieldsName.NewsCategory.English.ParentName, catID);
