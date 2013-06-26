@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -70,6 +71,49 @@ namespace CQ.SharePoint.QN.Webparts
             }
 
         }
+        protected void OnItemDataBound_ClassiFieds(object sender, RepeaterItemEventArgs e)
+        {
+            var t = e.Item.DataItem as DataRowView;
+            if (t != null)
+            {
+                string imagePath = Convert.ToString(t.Row[18]);
+                int height = 100;
+                var heightSet = Convert.ToInt32(t.Row[21]);
+                if (heightSet > 0)
+                {
+                    height = heightSet;
+                }
+
+                if (!String.IsNullOrEmpty(imagePath) && imagePath.Length > 3)
+                {
+                    var extent = imagePath.Substring(imagePath.Length - 3);
+                    var literalTemp = (Literal)e.Item.FindControl("ltrFlash1");
+
+                    switch (extent)
+                    {
+                        case "swf":
+                            {
+                                if (literalTemp != null)
+                                {
+                                    literalTemp.Visible = true;
+                                    literalTemp.Text = string.Format("<embed bgcolor=\"#FFFFFF\" height=\"{0}\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" type=\"application/x-shockwave-flash\" width=\"{1}\" src=\"{2}\" ></embed>", height, 232, imagePath);
+                                }
+                                break;
+                            }
+                        default:
+                            {
+                                if (literalTemp != null)
+                                {
+                                    literalTemp.Visible = true;
+                                    literalTemp.Text = string.Format("<img src=\"{0}\" height=\"{1}\" width=\"{2}\" />", imagePath, height, 232);
+                                }
+                                break;
+                            }
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Event click
         /// </summary>

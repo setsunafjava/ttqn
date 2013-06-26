@@ -15,8 +15,11 @@
                         <ul>
                     </HeaderTemplate>
                     <ItemTemplate>
-                        <a href='<%#Eval("LinkUrl") %>'>
-                            <img src="<%#Eval("Thumbnail") %>" height="<%#Eval("Height") %>" width="<%#Eval("Width") %>" /></a>
+                        <%--<a href='<%#Eval("LinkUrl") %>'>
+                            <img src="<%#Eval("Thumbnail") %>" height="<%#Eval("Height") %>" width="<%#Eval("Width") %>" /></a>--%>
+                        <a href='<%#Eval("LinkUrl")%>'>
+                            <asp:Literal ID="ltrFlash2" runat="server"></asp:Literal>
+                        </a>
                     </ItemTemplate>
                     <FooterTemplate>
                         </ul></FooterTemplate>
