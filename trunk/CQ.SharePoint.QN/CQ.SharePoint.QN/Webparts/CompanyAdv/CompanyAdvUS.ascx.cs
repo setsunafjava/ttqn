@@ -97,12 +97,44 @@ namespace CQ.SharePoint.QN.Webparts
         protected void rptCompanyAdv_OnItemDataBound(object Sender, RepeaterItemEventArgs e)
         {
 
-            // This event is raised for the header, the footer, separators, and items.
-
-            // Execute the following logic for Items and Alternating Items.
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            var t = e.Item.DataItem as DataRowView;
+            if (t != null)
             {
-                DataRowView drv = (DataRowView)e.Item.DataItem;
+                string imagePath = Convert.ToString(t.Row[18]);
+                int height = 100;
+                var heightSet = Convert.ToInt32(t.Row[21]);
+                if (heightSet > 0)
+                {
+                    height = heightSet;
+                }
+
+                if (!String.IsNullOrEmpty(imagePath) && imagePath.Length > 3)
+                {
+                    var extent = imagePath.Substring(imagePath.Length - 3);
+                    var literalTemp = (Literal)e.Item.FindControl("ltrFlash2");
+
+                    switch (extent)
+                    {
+                        case "swf":
+                            {
+                                if (literalTemp != null)
+                                {
+                                    literalTemp.Visible = true;
+                                    literalTemp.Text = string.Format("<embed bgcolor=\"#FFFFFF\" height=\"{0}\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" type=\"application/x-shockwave-flash\" width=\"{1}\" src=\"{2}\" ></embed>", height, 300, imagePath);
+                                }
+                                break;
+                            }
+                        default:
+                            {
+                                if (literalTemp != null)
+                                {
+                                    literalTemp.Visible = true;
+                                    literalTemp.Text = string.Format("<img src=\"{0}\" height=\"{1}\" width=\"{2}\" />", imagePath, height, 300);
+                                }
+                                break;
+                            }
+                    }
+                }
             }
         }
     }

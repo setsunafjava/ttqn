@@ -35,14 +35,7 @@
                     <span class="datetimeText">
                         <%= ParentWP.Day %>
                         <%#Eval("ArticleStartDates")%></span></div>
-                        <asp:Literal ID="ltrImage" runat="server" Text=""></asp:Literal>
-                <%--<div class="interpre">
-                    <asp:Literal ID="ltrImage" runat="server" Text=""></asp:Literal>
-                    <div class="short_content">
-                        <%#Eval("ShortContent")%></div>
-                    <div class="cleaner">
-                    </div>
-                </div>--%>
+                <asp:Literal ID="ltrImage" runat="server" Text=""></asp:Literal>
             </div>
         </div>
     </ItemTemplate>

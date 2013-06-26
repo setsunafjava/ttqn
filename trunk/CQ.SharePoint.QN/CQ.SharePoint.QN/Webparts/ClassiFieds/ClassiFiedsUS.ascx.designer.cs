@@ -14,5 +14,6 @@ namespace CQ.SharePoint.QN.Webparts
         protected global::System.Web.UI.WebControls.Repeater rptFocusCompany;
         protected global::System.Web.UI.WebControls.LinkButton lbtImage;
         protected global::System.Web.UI.WebControls.Image img;
+        protected global::System.Web.UI.WebControls.Literal ltrFlash1;
     }
 }
