@@ -52,5 +52,8 @@ namespace CQ.SharePoint.QN.UserControls {
 
         protected global::System.Web.UI.WebControls.ListBox ddlCat;
         protected global::System.Web.UI.WebControls.Label lblCat;
+
+        protected global::System.Web.UI.WebControls.FileUpload fuNewsImage;
+        protected global::Microsoft.SharePoint.WebControls.FieldLabel lblNewsImage;
     }
 }
