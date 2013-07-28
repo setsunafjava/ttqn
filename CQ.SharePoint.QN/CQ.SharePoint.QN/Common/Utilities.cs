@@ -2567,7 +2567,7 @@ namespace CQ.SharePoint.QN.Common
                                                     </And>
                                                  </And>
                                               </And>
-                                           </Where>", FieldsName.ArticleStartDates, 
+                                           </Where>", FieldsName.ArticleStartDates,
                                                     SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
                                                     FieldsName.ModerationStatus, ModerationStatusValue, keyWord);
             }
@@ -2744,6 +2744,53 @@ namespace CQ.SharePoint.QN.Common
                     table.Rows[i][FieldsName.NewsRecord.English.ShortContent] = GetTextForSapo(Convert.ToString(table.Rows[i][FieldsName.NewsRecord.English.ShortContent]), 200);
                 }
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="web"></param>
+        /// <param name="sourceFile"></param>
+        /// <param name="targetDocumentLibraryPath"></param>
+        /// <returns></returns>
+        public static SPFile UploadFileToDocumentLibrary(SPWeb web, Stream sourceFile, string targetDocumentLibraryPath)
+        {
+            SPFile result = null;
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var adminSite = new SPSite(web.Site.ID))
+                {
+                    using (var adminWeb = adminSite.OpenWeb(web.ID))
+                    {
+                        try
+                        {
+                            adminWeb.AllowUnsafeUpdates = true;
+                            result = adminWeb.Files.Add(targetDocumentLibraryPath, sourceFile, true);
+                        }
+                        catch (SPException ex)
+                        {
+                            Utilities.LogToUls(ex);
+                        }
+                    }
+                }
+            });
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dateNow"></param>
+        /// <returns></returns>
+        public static string GetPreByTime(DateTime dateNow)
+        {
+            var result = string.Empty;
+            result = dateNow.Year + String.Format(CultureInfo.InvariantCulture, "{0:00}", dateNow.Month)
+                                + String.Format(CultureInfo.InvariantCulture, "{0:00}", dateNow.Day)
+                                + String.Format(CultureInfo.InvariantCulture, "{0:00}", dateNow.Hour)
+                                + String.Format(CultureInfo.InvariantCulture, "{0:00}", dateNow.Minute)
+                                + String.Format(CultureInfo.InvariantCulture, "{0:00}", dateNow.Second);
+            return result;
         }
     }
 }

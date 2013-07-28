@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Globalization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.SharePoint;
+using Microsoft.SharePoint.Publishing.Fields;
+using Microsoft.SharePoint.Publishing.WebControls;
 using Microsoft.SharePoint.WebControls;
 using CQ.SharePoint.QN.Common;
 
@@ -37,6 +40,14 @@ namespace CQ.SharePoint.QN.UserControls
         /// <param name="e">EventArgs e</param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (SPContext.Current.FormContext.FormMode.Equals(SPControlMode.New))
+            {
+                txtRichImageField.Visible = false;
+            }
+            if (SPContext.Current.FormContext.FormMode.Equals(SPControlMode.Edit))
+            {
+                txtRichImageField.ControlMode = SPControlMode.Display;
+            }
             if (SPContext.Current.FormContext.FormMode.Equals(SPControlMode.Display))
             {
                 ddlCat.Visible = false;
@@ -194,7 +205,7 @@ namespace CQ.SharePoint.QN.UserControls
         {
             SPContext.Current.Web.AllowUnsafeUpdates = true;
 
-            var item = SPContext.Current.Item;
+            var item = SPContext.Current.ListItem;
 
             SPFieldLookupValueCollection returnVal = new SPFieldLookupValueCollection();
             foreach (ListItem lItem in ddlCat.Items)
@@ -213,8 +224,41 @@ namespace CQ.SharePoint.QN.UserControls
                 item[FieldsName.NewsRecord.English.CategoryName] = returnVal;
             }
 
+            if (fuNewsImage.HasFile)
+            {
+                var webUrl = SPContext.Current.Web.ServerRelativeUrl;
+                if (webUrl.Equals("/"))
+                {
+                    webUrl = "";
+                }
+                var fuThumbName = string.Format(CultureInfo.InvariantCulture, "{0}_{1}", Utilities.GetPreByTime(DateTime.Now), fuNewsImage.FileName);
+                SPFile file = Utilities.UploadFileToDocumentLibrary(SPContext.Current.Web, fuNewsImage.PostedFile.InputStream, 
+                    string.Format(CultureInfo.InvariantCulture,
+                    "{0}/{1}/{2}", webUrl, ListsName.English.ImagesList, fuThumbName));
+                //CurrentItem[FieldsName.NewsList.InternalName.ImageThumb] = file.Url;
+                RichImageField rifImage = new RichImageField();
+                ImageFieldValue imageField = rifImage.Value as ImageFieldValue;
+                if (imageField != null)
+                {
+                    imageField.ImageUrl = webUrl + "/" + file.Url;
+                    item["PublishingPageImage"] = imageField;
+                }
+            }
+
             //Save item to list
             SaveButton.SaveItem(SPContext.Current, false, string.Empty);
+
+            try
+            {
+                SPContext.Current.Web.AllowUnsafeUpdates = true;
+                item.Attachments.Delete(fuNewsImage.FileName);
+                SPContext.Current.Web.AllowUnsafeUpdates = true;
+                item.SystemUpdate(false);
+            }
+            catch (Exception ex)
+            {
+                Utilities.LogToUls(ex);
+            }
         }
 
         /// <summary>

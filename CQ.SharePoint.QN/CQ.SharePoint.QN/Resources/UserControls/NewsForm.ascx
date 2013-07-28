@@ -67,12 +67,21 @@
                 <SharePoint:RichTextField runat="server" id="txtShortContent" fieldname="ShortContent" />
              </td>
         </tr>
-        <tr>
+        <%--<tr>
             <td class="ms-formlabel">
                 <SharePoint:fieldlabel id="lblPublishingPageImage" runat="server" fieldname="PublishingPageImage" />
             </td>
             <td class="ms-formbody">
                 <PublishingWebControls:RichImageField ID="txtRichImageField" FieldName="PublishingPageImage" runat="server"></PublishingWebControls:RichImageField>
+             </td>
+        </tr>--%>
+        <tr>
+            <td class="ms-formlabel">
+                <SharePoint:fieldlabel id="lblNewsImage" runat="server" fieldname="PublishingPageImage" />
+            </td>
+            <td class="ms-formbody">
+                <PublishingWebControls:RichImageField ID="txtRichImageField" FieldName="PublishingPageImage" runat="server"></PublishingWebControls:RichImageField>
+                <br /><asp:FileUpload ID="fuNewsImage" runat="server" />
              </td>
         </tr>
         <tr>
