@@ -18,6 +18,7 @@ namespace CQ.SharePoint.QN.Webparts
     {
         public NewsList ParentWP;
         public string NewsUrl = string.Empty;
+        public string CatID = string.Empty;
         public string NewsUrl1 = string.Empty;
         protected string BuildUrl(string pageorder)
         {
@@ -46,6 +47,7 @@ namespace CQ.SharePoint.QN.Webparts
         /// <param name="e">EventArgs e</param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            CatID = Request.QueryString["CategoryId"];
             if (!IsPostBack)
             {
                 try
@@ -411,7 +413,7 @@ namespace CQ.SharePoint.QN.Webparts
                 if (!String.IsNullOrEmpty(imgPath))
                 {
                     //((Literal)e.Item.FindControl("ltrImage")).Text = string.Format("<div class=\"img_thumb\"><img src=\"{0}\" /></div>", imgPath);
-                    ((Literal)e.Item.FindControl("ltrImage")).Text = string.Format("<div class=\"interpre\"><div class=\"img_thumb\"><img src=\"{0}\" /></div><div class=\"short_content\"> {1}</div><div class=\"cleaner\"></div></div>", imgPath, shortContent);
+                    ((Literal)e.Item.FindControl("ltrImage")).Text = string.Format("<div class=\"interpre\"><div class=\"img_thumb\"><img src=\"{0}\" alt='' /></div><div class=\"short_content\"> {1}</div><div class=\"cleaner\"></div></div>", imgPath, shortContent);
                 }
                 else
                 {

@@ -21,6 +21,9 @@ namespace CQ.SharePoint.QN.Webparts
         public string NewsFirstUrl2 = string.Empty;
         public string NewsFirstUrl3 = string.Empty;
         public string CategoryUrl = string.Empty;
+        public string CatID1 = string.Empty;
+        public string CatID2 = string.Empty;
+        public string CatID3 = string.Empty;
 
         /// <summary>
         /// Get news of number
@@ -84,7 +87,7 @@ namespace CQ.SharePoint.QN.Webparts
                             {
                                 ltrImage1.Text = String.Format("<div class=\"img_thumb_News\"><img src=\"{0}\" /></div>", imgPath);
                             }
-                            
+                            CatID1 = Convert.ToString(table1.Rows[0][Constants.CategoryId]);
                             NewsFirstUrl1 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}&CategoryId={6}",
                                                        SPContext.Current.Web.Url,
                                                        Constants.PageInWeb.DetailNews,
@@ -123,7 +126,7 @@ namespace CQ.SharePoint.QN.Webparts
                             {
                                 ltrImage2.Text = String.Format("<div class=\"img_thumb_News\"><img src=\"{0}\" /></div>", imgPath); 
                             }
-                            
+                            CatID2 = Convert.ToString(table2.Rows[0][Constants.CategoryId]);
                             NewsFirstUrl2 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}&CategoryId={6}",
                                                        SPContext.Current.Web.Url,
                                                        Constants.PageInWeb.DetailNews,
@@ -160,7 +163,7 @@ namespace CQ.SharePoint.QN.Webparts
                             {
                                 ltrImage3.Text = String.Format("<div class=\"img_thumb_News\"><img src=\"{0}\" /></div>", imgPath); 
                             }
-                            
+                            CatID3 = Convert.ToString(table3.Rows[0][Constants.CategoryId]);
                             NewsFirstUrl3 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}&CategoryId={6}",
                                                        SPContext.Current.Web.Url,
                                                        Constants.PageInWeb.DetailNews,

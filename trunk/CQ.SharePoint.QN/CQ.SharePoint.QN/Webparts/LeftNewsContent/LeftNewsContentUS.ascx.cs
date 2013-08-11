@@ -21,6 +21,7 @@ namespace CQ.SharePoint.QN.Webparts
         public string NewsUrl = string.Empty;
         public string CategoryUrl = string.Empty;
         public string NewsFirstUrl1 = string.Empty;
+        public string CatID = string.Empty;
 
         /// <summary>
         /// Page on Load
@@ -58,6 +59,8 @@ namespace CQ.SharePoint.QN.Webparts
                         }
 
                         lblShortContent.Text = Convert.ToString(table[0][FieldsName.NewsRecord.English.ShortContent]);
+
+                        CatID = Convert.ToString(table[0][Constants.CategoryId]);
 
                         NewsFirstUrl1 = string.Format("{0}/{1}.aspx?ListCategoryName={2}&ListName={3}&{4}={5}&CategoryId={6}",
                                    SPContext.Current.Web.Url,

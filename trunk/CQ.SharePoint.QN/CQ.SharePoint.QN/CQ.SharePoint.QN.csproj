@@ -578,6 +578,7 @@
     </Content>
     <Content Include="Webparts\FocusNews\NeedToKnow\NeedToKnow.xml" />
     <Content Include="Webparts\FocusNews\NeedToKnow\NeedToKnowUS.ascx">
+      <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Webparts\NewsDetail\NewsDetail.xml" />
     <Content Include="Webparts\NewsDetail\NewsDetailUS.ascx">
