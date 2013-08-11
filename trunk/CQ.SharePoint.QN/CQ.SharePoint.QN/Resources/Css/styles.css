@@ -843,19 +843,20 @@ ul#nav .current ul li a:hover {
 .inner_news_Readmore ul{
 	padding: 10px;
 }
-.cont_artical{border-bottom: 1px solid #ccc; padding-bottom: 10px; margin-bottom: 8px;}	
+.cont_artical{border-top: 1px solid #ccc; padding-top: 8px; margin-bottom: 8px; clear: both}	
 .cont_artical a{
 	color: #FF0000;
 	font-weight: bold;
 	text-transform: uppercase;
 }
-.cont_artical span{ color:#003399;}
+.cont_artical span{ color:Black; font-weight:normal;}
 .interpre{padding: 5px 0px}
 .interpre .img_thumb img{ float: left; width: 120px; border: 1px solid #ccc;}
 .interpre .short_content{
 	float: left;
 	width: 300px;
 	padding-left: 10px;
+	
 }
 .interpre_Noimage
 {
