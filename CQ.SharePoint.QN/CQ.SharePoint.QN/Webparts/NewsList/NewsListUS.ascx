@@ -30,7 +30,7 @@
         <div class="inner_content_subpage">
             <div class="cont_artical">
                 <div class="name_artical">
-                    <a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
+                    <a href='<%= NewsUrl%><%#Eval("ID") %>&CategoryId=<%=CatID%>'>
                         <%#Eval("Title")%></a><br />
                     <span class="datetimeText">
                         <%= ParentWP.Day %>
