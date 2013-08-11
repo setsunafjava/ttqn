@@ -39,7 +39,14 @@ namespace CQ.SharePoint.QN.Webparts
 
                     if (!"1".Equals(isConfig))
                     {
-                        pnlCauHinhChuyenDe.Visible = false;
+                        try
+                        {
+                            pnlCauHinhChuyenDe.Visible = false;
+                        }
+                        catch
+                        {
+                        }
+                        
                         if (string.IsNullOrEmpty(chuyende))
                         {
                             pnlNewsDetail.Visible = true;
@@ -98,11 +105,19 @@ namespace CQ.SharePoint.QN.Webparts
                                         Convert.ToString(
                                             newsItem.Rows[0][FieldsName.NewsRecord.English.PublishingPageContent]);
 
-                                    lblAuthor.Text = Convert.ToString(newsItem.Rows[0]["ArticleByLine"]);
                                     string source = Convert.ToString(newsItem.Rows[0]["Source"]);
-                                    if (!string.IsNullOrEmpty(source))
+                                    try
                                     {
-                                        lblSource.Text = string.Format("(Nguồn: {0})", source);
+                                        lblAuthor.Text = Convert.ToString(newsItem.Rows[0]["ArticleByLine"]);
+
+                                        if (!string.IsNullOrEmpty(source))
+                                        {
+                                            lblSource.Text = string.Format("(Nguồn: {0})", source);
+                                        }
+                                    }
+                                    catch
+                                    {
+
                                     }
 
                                     lblTitle.Text = Convert.ToString(newsItem.Rows[0][FieldsName.Title]);
@@ -254,8 +269,10 @@ namespace CQ.SharePoint.QN.Webparts
                                             string parentCategory =
                                                 Convert.ToString(item[FieldsName.NewsCategory.English.ParentName]);
                                             parentCategory = parentCategory.Substring(parentCategory.IndexOf("#") + 1);
+                                            //lblBreadCrum.Text = string.Format("{0} &nbsp; &gt;&gt;&nbsp; &nbsp; {1}",
+                                            //    parentCategory, categoryName.IndexOf("#") > 0 ? categoryName.Substring(0, categoryName.IndexOf("#") - 1) : categoryName);
                                             lblBreadCrum.Text = string.Format("{0} &nbsp; &gt;&gt;&nbsp; &nbsp; {1}",
-                                                parentCategory, categoryName.IndexOf("#") > 0 ? categoryName.Substring(0, categoryName.IndexOf("#") - 1) : categoryName);
+                                                parentCategory, item["Title"]);
                                         }
                                     }
                                     else
