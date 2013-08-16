@@ -34,36 +34,60 @@ namespace CQ.SharePoint.QN.Webparts
                         ListsName.English.ProvinceInfoRecord,
                         Constants.NewsId);
 
+//                    string companyListQuery = string.Format(@"<Where>
+//                                                                  <And>
+//                                                                     <Eq>
+//                                                                        <FieldRef Name='{0}' />
+//                                                                        <Value Type='CustomLookup'>{1}</Value>
+//                                                                     </Eq>
+//                                                                     <And>
+//                                                                        <Neq>
+//                                                                           <FieldRef Name='Status' />
+//                                                                           <Value Type='Boolean'>1</Value>
+//                                                                        </Neq>
+//                                                                        <And>
+//                                                                            <Lt>
+//                                                                               <FieldRef Name='{2}' />
+//                                                                               <Value IncludeTimeValue='TRUE' Type='DateTime'>{3}</Value>
+//                                                                            </Lt>
+//                                                                            <Eq>
+//                                                                               <FieldRef Name='{4}' />
+//                                                                               <Value Type='ModStat'>{5}</Value>
+//                                                                            </Eq>
+//                                                                         </And>
+//                                                                     </And>
+//                                                                  </And>
+//                                                               </Where>",
+//                                                                        FieldsName.ProvinceInfoRecord.English.CategoryName,
+//                                                                        WebpartParent.NewsType,
+//                                                                        FieldsName.ArticleStartDates,
+//                                                                        SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+//                                                                        FieldsName.ModerationStatus,
+//                                                                        Utilities.GetModerationStatus(402));
+
                     string companyListQuery = string.Format(@"<Where>
                                                                   <And>
-                                                                     <Eq>
-                                                                        <FieldRef Name='{0}' />
-                                                                        <Value Type='CustomLookup'>{1}</Value>
-                                                                     </Eq>
-                                                                     <And>
-                                                                        <Neq>
-                                                                           <FieldRef Name='Status' />
-                                                                           <Value Type='Boolean'>1</Value>
-                                                                        </Neq>
-                                                                        <And>
-                                                                            <Lt>
-                                                                               <FieldRef Name='{2}' />
-                                                                               <Value IncludeTimeValue='TRUE' Type='DateTime'>{3}</Value>
-                                                                            </Lt>
-                                                                            <Eq>
-                                                                               <FieldRef Name='{4}' />
-                                                                               <Value Type='ModStat'>{5}</Value>
-                                                                            </Eq>
-                                                                         </And>
+                                                                    <Neq>
+                                                                       <FieldRef Name='Status' />
+                                                                       <Value Type='Boolean'>1</Value>
+                                                                    </Neq>
+                                                                    <And>
+                                                                        <Lt>
+                                                                           <FieldRef Name='{0}' />
+                                                                           <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
+                                                                        </Lt>
+                                                                        <Eq>
+                                                                           <FieldRef Name='{2}' />
+                                                                           <Value Type='ModStat'>{3}</Value>
+                                                                        </Eq>
                                                                      </And>
-                                                                  </And>
-                                                               </Where>",
-                                                                        FieldsName.ProvinceInfoRecord.English.CategoryName,
-                                                                        WebpartParent.NewsType,
+                                                                 </And>
+                                                               </Where><OrderBy><FieldRef Name='ID' Ascending='FALSE' /></OrderBy>",
                                                                         FieldsName.ArticleStartDates,
                                                                         SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
                                                                         FieldsName.ModerationStatus,
                                                                         Utilities.GetModerationStatus(402));
+
                     uint newsNumber = 5;
                     if (!string.IsNullOrEmpty(WebpartParent.NumberOfNews))
                     {
