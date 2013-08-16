@@ -28,35 +28,9 @@ namespace CQ.SharePoint.QN.Webparts
         public string Linktoitem = string.Empty;
         public string listName = ListsName.English.NewsRecord;
         public string listCategoryName = ListsName.English.NewsCategory;
-        public string QueryAllItemsSortById = string.Format(@"<Where>
-                                                                  <And>
-                                                                     <Neq>
-                                                                        <FieldRef Name='Status' />
-                                                                        <Value Type='Boolean'>1</Value>
-                                                                     </Neq>
-                                                                     <And>
-                                                                        <Lt>
-                                                                           <FieldRef Name='{0}' />
-                                                                           <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
-                                                                        </Lt>
-<And>
-                                                                        <Eq>
-                                                                           <FieldRef Name='{2}' />
-                                                                           <Value Type='ModStat'>{3}</Value>
-                                                                        </Eq>
-<Eq>
-                  <FieldRef Name='LatestNewsOnHomePage' />
-                  <Value Type='Boolean'>1</Value>
-               </Eq>
-</And>
-                                                                     </And>
-                                                                  </And>
-                                                               </Where>
-                                                               <OrderBy>
-                                                                  <FieldRef Name='{4}' Ascending='False' />
-                                                               </OrderBy>",
+        public string QueryAllItemsSortById = string.Format(@"<Where><And><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq><And><Lt><FieldRef Name='{0}' /><Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value></Lt><And><Eq><FieldRef Name='{2}' /><Value Type='ModStat'>{3}</Value></Eq><Eq><FieldRef Name='LatestNewsOnHomePage' /><Value Type='Boolean'>1</Value></Eq></And></And></And></Where><OrderBy><FieldRef Name='{4}' Ascending='FALSE' /></OrderBy>",
                                 FieldsName.ArticleStartDates,
-                                SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+                                "<Today />",
                                 FieldsName.ModerationStatus,
                                 Utilities.GetModerationStatus(402), FieldsName.ArticleStartDates);
 
@@ -181,25 +155,39 @@ namespace CQ.SharePoint.QN.Webparts
                     if (!"0".Equals(WebPartParent.WebpartName)) //Đây là trường hợp load ra đầu tiên
                     {
                         #region Latest News
+                        var latestNewsTableTemp = new DataTable();
                         if (!string.IsNullOrEmpty(categoryId) && !"-1".Equals(categoryId))
                         {
                             latestNewsQuery = QueryAllItemsSortByIdOnCategory;
+                            var latestNewsTable = Utilities.GetNewsRecordItems(latestNewsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
+                            if (latestNewsTable != null && latestNewsTable.Count > 0)
+                            {
+                                latestNewsTableTemp = Utilities.GetTableWithCorrectUrl(listCategoryName, latestNewsTable, true);
+                            }
                         }
                         else
                         {
                             //CAML query will get all item 
                             latestNewsQuery = QueryAllItemsSortById;
+                            var latestNewsTable = Utilities.GetNewsRecordItems(latestNewsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), new string[] { ListsName.English.NewsRecord, ListsName.English.ProvinceInfoRecord });
+                            if (latestNewsTable != null && latestNewsTable.Rows.Count > 0)
+                            {
+                                latestNewsTableTemp = Utilities.GetTableWithCorrectUrl(listCategoryName, latestNewsTable, true);
+                            }
                         }
 
-                        var latestNewsTable = Utilities.GetNewsRecordItems(latestNewsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
-                        if (latestNewsTable != null && latestNewsTable.Count > 0)
-                        {
-                            var latestNewsTableTemp = Utilities.GetTableWithCorrectUrl(listCategoryName, latestNewsTable, true);
-                            RptLatestNewsUrl = ItemUrl;
-                            rptLatestNews.DataSource = latestNewsTableTemp;
-                            rptLatestNews.DataBind();
-                        }
+                        //var latestNewsTable = Utilities.GetNewsRecordItems(latestNewsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
+                        //if (latestNewsTable != null && latestNewsTable.Count > 0)
+                        //{
+                        //    var latestNewsTableTemp = Utilities.GetTableWithCorrectUrl(listCategoryName, latestNewsTable, true);
+                        //    RptLatestNewsUrl = ItemUrl;
+                        //    rptLatestNews.DataSource = latestNewsTableTemp;
+                        //    rptLatestNews.DataBind();
+                        //}
 
+                        RptLatestNewsUrl = ItemUrl;
+                        rptLatestNews.DataSource = latestNewsTableTemp;
+                        rptLatestNews.DataBind();
 
                         #endregion
 

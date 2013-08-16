@@ -217,6 +217,64 @@ namespace CQ.SharePoint.QN.Common
             return dataTable;
         }
 
+        public static DataTable GetTableWithCorrectUrl(string categoryListName, DataTable dataTable, bool thumbnail)
+        {
+            DataTable items = dataTable.Copy();
+            if (!dataTable.Columns.Contains(FieldsName.CategoryId))
+            {
+                dataTable.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
+            }
+
+            if (!dataTable.Columns.Contains(FieldsName.ArticleStartDateTemp))
+            {
+                dataTable.Columns.Add(FieldsName.ArticleStartDateTemp, Type.GetType("System.String"));
+            }
+
+            if (items != null && items.Rows.Count > 0)
+            {
+                string imagepath = string.Empty;
+                ImageFieldValue imageIcon;
+                SPFieldUrlValue advLink;
+                var time = new DateTime();
+
+                for (int i = 0; i < items.Rows.Count; i++)
+                {
+                    imagepath = Convert.ToString(items.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage]);
+
+                    if (imagepath.Length > 2)
+                        dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath.Trim().Substring(0, imagepath.Length - 2);
+                    else
+                    {
+                        dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath;
+                    }
+
+                    if (items.Columns.Contains(FieldsName.NewsRecord.English.LinkAdv))
+                    {
+                        advLink = new SPFieldUrlValue(Convert.ToString(items.Rows[i][FieldsName.NewsRecord.English.LinkAdv]));
+                        dataTable.Rows[i][FieldsName.NewsRecord.English.LinkAdv] = advLink.Url;
+                    }
+                    if (!string.IsNullOrEmpty(Convert.ToString(items.Rows[i][FieldsName.NewsRecord.English.CategoryName])))
+                    {
+                        SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items.Rows[i][FieldsName.NewsRecord.English.CategoryName]));
+                        dataTable.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
+                    }
+
+                    if (items.Columns.Contains(FieldsName.NewsRecord.English.ShortContent))
+                    {
+                        dataTable.Rows[i][FieldsName.NewsRecord.English.ShortContent] = StripHtml(Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.ShortContent]));
+                    }
+                    var timeTemp = dataTable.Rows[i][FieldsName.ArticleStartDates];
+                    if (timeTemp != null && !String.IsNullOrEmpty(Convert.ToString(timeTemp)))
+                    {
+                        time = Convert.ToDateTime(dataTable.Rows[i][FieldsName.ArticleStartDates]);
+                        dataTable.Rows[i][FieldsName.ArticleStartDateTemp] = string.Format(" {0}/{1}/{2}", time.Day,
+                                                                                           time.Month, time.Year);
+                    }
+                }
+            }
+            return dataTable;
+        }
+
         /// <summary>
         /// Get and return table with correct url
         /// </summary>
@@ -1261,6 +1319,55 @@ namespace CQ.SharePoint.QN.Common
                                     allItems = items;
                                 }
                             }
+                        }
+                        catch (Exception ex)
+                        {
+                            allItems = null;
+                        }
+                    }
+
+                }
+            });
+
+            return allItems;
+        }
+
+        public static DataTable GetNewsRecordItems(string query, uint newsNumber, string[] listNames)
+        {
+            DataTable allItems = null;
+            SPSecurity.RunWithElevatedPrivileges(() =>
+            {
+                using (var site = new SPSite(SPContext.Current.Web.Site.ID))
+                {
+                    using (var web = site.OpenWeb(SPContext.Current.Web.ID))
+                    {
+                        try
+                        {
+                            var siteDataQuery = new SPSiteDataQuery();
+                            var sb = new StringBuilder();
+                            // Lists
+                            sb.Append("<Lists>");
+                            foreach (var listName in listNames)
+                            {
+                                SPList list = Utilities.GetListFromUrl(web, listName);
+                                if (list != null)
+                                {
+                                    sb.AppendFormat("<List ID='{0}' />", list.ID.ToString("B"));
+                                }
+                            }
+                            sb.Append("</Lists>");
+                            siteDataQuery.Lists = sb.ToString();
+                            siteDataQuery.Webs = "<Webs Scope='SiteCollection' />";
+
+                            sb = new StringBuilder();
+                            sb.Append(query.Replace("\r", "").Replace("\n", ""));
+
+                            siteDataQuery.Query = sb.ToString();
+
+                            siteDataQuery.ViewFields="<FieldRef Name='Title' /><FieldRef Name='ID' />";
+
+                            siteDataQuery.RowLimit = newsNumber;
+                            allItems = web.GetSiteData(siteDataQuery);
                         }
                         catch (Exception ex)
                         {
