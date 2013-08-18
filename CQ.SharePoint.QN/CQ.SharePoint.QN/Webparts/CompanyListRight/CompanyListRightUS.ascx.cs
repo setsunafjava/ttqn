@@ -58,7 +58,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                        <And>
                                                                           <Eq>
                                                                              <FieldRef Name='{4}' />
-                                                                             <Value Type='ModStat'>{5}</Value>
+                                                                             <Value Type='Number'>{5}</Value>
                                                                           </Eq>
                                                                           <Geq>
                                                                              <FieldRef Name='_EndDate' />

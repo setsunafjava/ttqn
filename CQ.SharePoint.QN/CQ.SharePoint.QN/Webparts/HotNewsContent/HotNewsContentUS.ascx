@@ -10,7 +10,7 @@
                     <ul>
                 </HeaderTemplate>
                  <ItemTemplate>
-                    <li><a href='<%= RptImagesUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
+                    <li><a href='<%= RptImagesUrl%><%#Eval("ID") %>&ListName=<%#Eval("ListName") %>&ListCategoryName=<%#Eval("ListCategoryName") %>&CategoryId=<%#Eval("CategoryId") %>'>
                         <div class="boxgrid captionfull">
                             <img src='<%#Eval("Thumbnail") %>' alt='<%#Eval("Title")%>' title='<b><%#Eval("Title")%></b>'
                                 style="width: 400px; height: 330px" />
@@ -80,7 +80,7 @@
                         <ul>
                     </HeaderTemplate>
                     <ItemTemplate>
-                        <li style=" text-align:justify"><a href='<%= RptLatestNewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
+                        <li style=" text-align:justify"><a href='<%= RptLatestNewsUrl%><%#Eval("ID") %>&ListName=<%#Eval("ListName") %>&ListCategoryName=<%#Eval("ListCategoryName") %>&CategoryId=<%#Eval("CategoryId") %>'>
                             <%#Eval("Title")%></a> <br /><span class="datetimeText"><%=WebPartParent.Day %><%#Eval("ArticleStartDateTemp")%></span>
                         </li>
                     </ItemTemplate>
@@ -95,7 +95,7 @@
                         <ul>
                     </HeaderTemplate>
                     <ItemTemplate>
-                        <li><a href='<%= RptTopViewsUrl%><%#Eval("ID") %>&CategoryId=<%#Eval("CategoryId") %>'>
+                        <li><a href='<%= RptLatestNewsUrl%><%#Eval("ID") %>&ListName=<%#Eval("ListName") %>&ListCategoryName=<%#Eval("ListCategoryName") %>&CategoryId=<%#Eval("CategoryId") %>'>
                             <%#Eval("Title")%></a><br /><span class="datetimeText"><%=WebPartParent.Day %><%#Eval("ArticleStartDateTemp")%></span></li>
                     </ItemTemplate>
                     <FooterTemplate>
