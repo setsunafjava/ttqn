@@ -165,6 +165,16 @@ namespace CQ.SharePoint.QN.Common
                 dataTable.Columns.Add(FieldsName.ArticleStartDateTemp, Type.GetType("System.String"));
             }
 
+            if (!dataTable.Columns.Contains(Constants.ListCategoryName))
+            {
+                dataTable.Columns.Add(Constants.ListCategoryName, Type.GetType("System.String"));
+            }
+
+            if (!dataTable.Columns.Contains(Constants.ListName))
+            {
+                dataTable.Columns.Add(Constants.ListName, Type.GetType("System.String"));
+            }
+
             if (items != null && items.Count > 0)
             {
                 string imagepath = string.Empty;
@@ -174,6 +184,12 @@ namespace CQ.SharePoint.QN.Common
 
                 for (int i = 0; i < items.Count; i++)
                 {
+                    var listUrl = items.List.RootFolder.ServerRelativeUrl.Split('/');
+                    dataTable.Rows[i][Constants.ListName] = listUrl[listUrl.Length - 1];
+                    SPFieldLookup catFile = (SPFieldLookup)items.List.Fields.GetFieldByInternalName(FieldsName.NewsRecord.English.CategoryName);
+                    listUrl = SPContext.Current.Web.Lists.GetList(new Guid(catFile.LookupList), true).RootFolder.ServerRelativeUrl.Split('/');
+                    dataTable.Rows[i][Constants.ListCategoryName] = listUrl[listUrl.Length - 1];
+
                     imagepath = Convert.ToString(items[i][FieldsName.NewsRecord.English.ThumbnailImage]);
 
                     imageIcon = items[i][FieldsName.NewsRecord.English.PublishingPageImage] as ImageFieldValue;
@@ -230,6 +246,16 @@ namespace CQ.SharePoint.QN.Common
                 dataTable.Columns.Add(FieldsName.ArticleStartDateTemp, Type.GetType("System.String"));
             }
 
+            if (!dataTable.Columns.Contains(Constants.ListCategoryName))
+            {
+                dataTable.Columns.Add(Constants.ListCategoryName, Type.GetType("System.String"));
+            }
+
+            if (!dataTable.Columns.Contains(Constants.ListName))
+            {
+                dataTable.Columns.Add(Constants.ListName, Type.GetType("System.String"));
+            }
+
             if (items != null && items.Rows.Count > 0)
             {
                 string imagepath = string.Empty;
@@ -253,9 +279,23 @@ namespace CQ.SharePoint.QN.Common
                         advLink = new SPFieldUrlValue(Convert.ToString(items.Rows[i][FieldsName.NewsRecord.English.LinkAdv]));
                         dataTable.Rows[i][FieldsName.NewsRecord.English.LinkAdv] = advLink.Url;
                     }
-                    if (!string.IsNullOrEmpty(Convert.ToString(items.Rows[i][FieldsName.NewsRecord.English.CategoryName])))
+                    //if (!string.IsNullOrEmpty(Convert.ToString(items.Rows[i][FieldsName.NewsRecord.English.CategoryName])))
+                    //{
+                    //    SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items.Rows[i][FieldsName.NewsRecord.English.CategoryName]));
+                    //    dataTable.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
+                    //}
+
+                    var list = SPContext.Current.Web.Lists.GetList(new Guid(Convert.ToString(dataTable.Rows[i]["ListId"])), true);
+                    var listUrl = list.RootFolder.ServerRelativeUrl.Split('/');
+                    dataTable.Rows[i][Constants.ListName] = listUrl[listUrl.Length - 1];
+                    SPFieldLookup catFile = (SPFieldLookup) list.Fields.GetFieldByInternalName(FieldsName.NewsRecord.English.CategoryName);
+                    listUrl = SPContext.Current.Web.Lists.GetList(new Guid(catFile.LookupList), true).RootFolder.ServerRelativeUrl.Split('/');
+                    dataTable.Rows[i][Constants.ListCategoryName] = listUrl[listUrl.Length - 1];
+
+                    var listItem = list.GetItemById(Convert.ToInt32(dataTable.Rows[i]["ID"]));
+                    if (!string.IsNullOrEmpty(Convert.ToString(listItem[FieldsName.NewsRecord.English.CategoryName])))
                     {
-                        SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items.Rows[i][FieldsName.NewsRecord.English.CategoryName]));
+                        SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(listItem[FieldsName.NewsRecord.English.CategoryName]));
                         dataTable.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
                     }
 
@@ -290,6 +330,16 @@ namespace CQ.SharePoint.QN.Common
                 dataTable.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
             }
 
+            if (!dataTable.Columns.Contains(Constants.ListCategoryName))
+            {
+                dataTable.Columns.Add(Constants.ListCategoryName, Type.GetType("System.String"));
+            }
+
+            if (!dataTable.Columns.Contains(Constants.ListName))
+            {
+                dataTable.Columns.Add(Constants.ListName, Type.GetType("System.String"));
+            }
+
             if (items != null && items.Count > 0)
             {
                 string imagepath = string.Empty;
@@ -298,6 +348,12 @@ namespace CQ.SharePoint.QN.Common
 
                 for (int i = 0; i < items.Count; i++)
                 {
+                    var listUrl = items.List.RootFolder.ServerRelativeUrl.Split('/');
+                    dataTable.Rows[i][Constants.ListName] = listUrl[listUrl.Length - 1];
+                    SPFieldLookup catFile = (SPFieldLookup)items.List.Fields.GetFieldByInternalName(FieldsName.NewsRecord.English.CategoryName);
+                    listUrl = SPContext.Current.Web.Lists.GetList(new Guid(catFile.LookupList), true).RootFolder.ServerRelativeUrl.Split('/');
+                    dataTable.Rows[i][Constants.ListCategoryName] = listUrl[listUrl.Length - 1];
+
                     imagepath = Convert.ToString(items[i][FieldsName.NewsRecord.English.ThumbnailImage]);
 
                     imageIcon = items[i][FieldsName.NewsRecord.English.PublishingPageImage] as ImageFieldValue;
@@ -325,6 +381,83 @@ namespace CQ.SharePoint.QN.Common
                     if (!string.IsNullOrEmpty(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName])))
                     {
                         SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName]));
+                        dataTable.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
+                    }
+                }
+            }
+            return dataTable;
+        }
+
+        public static DataTable GetTableWithCorrectUrlHotNews(string categoryListName, DataTable dataTable)
+        {
+            var items = dataTable.Copy();
+
+            if (!dataTable.Columns.Contains(FieldsName.CategoryId))
+            {
+                dataTable.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
+            }
+
+            if (!dataTable.Columns.Contains(Constants.ListCategoryName))
+            {
+                dataTable.Columns.Add(Constants.ListCategoryName, Type.GetType("System.String"));
+            }
+
+            if (!dataTable.Columns.Contains(Constants.ListName))
+            {
+                dataTable.Columns.Add(Constants.ListName, Type.GetType("System.String"));
+            }
+
+            if (items != null && items.Rows.Count > 0)
+            {
+                string imagepath = string.Empty;
+                ImageFieldValue imageIcon;
+                SPFieldUrlValue advLink;
+
+                for (int i = 0; i < items.Rows.Count; i++)
+                {
+                    if (items.Columns.Contains(FieldsName.NewsRecord.English.LinkAdv))
+                    {
+                        advLink = new SPFieldUrlValue(Convert.ToString(items.Rows[i][FieldsName.NewsRecord.English.LinkAdv]));
+                        dataTable.Rows[i][FieldsName.NewsRecord.English.LinkAdv] = advLink.Url;
+                    }
+
+                    dataTable.Rows[i][FieldsName.NewsRecord.English.ShortContent] = StripHtml(Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.ShortContent]));
+
+                    //if (!string.IsNullOrEmpty(Convert.ToString(items.Rows[i][FieldsName.NewsRecord.English.CategoryName])))
+                    //{
+                    //    SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName]));
+                    //    dataTable.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
+                    //}
+
+                    var list = SPContext.Current.Web.Lists.GetList(new Guid(Convert.ToString(dataTable.Rows[i]["ListId"])), true);
+                    var listUrl = list.RootFolder.ServerRelativeUrl.Split('/');
+                    dataTable.Rows[i][Constants.ListName] = listUrl[listUrl.Length - 1];
+                    SPFieldLookup catFile = (SPFieldLookup)list.Fields.GetFieldByInternalName(FieldsName.NewsRecord.English.CategoryName);
+                    listUrl = SPContext.Current.Web.Lists.GetList(new Guid(catFile.LookupList), true).RootFolder.ServerRelativeUrl.Split('/');
+                    dataTable.Rows[i][Constants.ListCategoryName] = listUrl[listUrl.Length - 1];
+
+                    var listItem = list.GetItemById(Convert.ToInt32(dataTable.Rows[i]["ID"]));
+
+                    imagepath = Convert.ToString(items.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage]);
+
+                    imageIcon = listItem[FieldsName.NewsRecord.English.PublishingPageImage] as ImageFieldValue;
+                    if (imageIcon != null)
+                    {
+                        dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imageIcon.ImageUrl;
+                    }
+                    else
+                    {
+                        if (imagepath.Length > 2)
+                            dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath.Trim().Substring(0, imagepath.Length - 2);
+                        else
+                        {
+                            dataTable.Rows[i][FieldsName.NewsRecord.English.ThumbnailImage] = imagepath;
+                        }
+                    }
+
+                    if (!string.IsNullOrEmpty(Convert.ToString(listItem[FieldsName.NewsRecord.English.CategoryName])))
+                    {
+                        SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(listItem[FieldsName.NewsRecord.English.CategoryName]));
                         dataTable.Rows[i][FieldsName.CategoryId] = catLK.LookupId;
                     }
                 }
@@ -1352,19 +1485,29 @@ namespace CQ.SharePoint.QN.Common
                                 SPList list = Utilities.GetListFromUrl(web, listName);
                                 if (list != null)
                                 {
-                                    sb.AppendFormat("<List ID='{0}' />", list.ID.ToString("B"));
+                                    sb.AppendFormat("<List ID='{0}' />", list.ID.ToString("D"));
                                 }
                             }
                             sb.Append("</Lists>");
                             siteDataQuery.Lists = sb.ToString();
+
+                            //siteDataQuery.Lists = "<Lists ServerTemplate='101'/>";
+
                             siteDataQuery.Webs = "<Webs Scope='SiteCollection' />";
 
-                            sb = new StringBuilder();
-                            sb.Append(query.Replace("\r", "").Replace("\n", ""));
+                            siteDataQuery.Query = query;
 
-                            siteDataQuery.Query = sb.ToString();
-
-                            siteDataQuery.ViewFields="<FieldRef Name='Title' /><FieldRef Name='ID' />";
+                            siteDataQuery.ViewFields = ""
+                                + "<ListProperty Name='ListId' Nullable='TRUE' />"
+                                + "<FieldRef Name='ArticleStartDates' Nullable='TRUE' />"
+                                + "<FieldRef Name='Title' Nullable='TRUE' />"
+                                + "<FieldRef Name='ID' Nullable='TRUE' />"
+                                + "<FieldRef Name='Thumbnail' Nullable='TRUE' />"
+                                + "<FieldRef Name='CategoryName' Nullable='TRUE' />"
+                                + "<FieldRef Name='ShortContent' Nullable='TRUE' /><FieldRef Name='Status' Nullable='TRUE' />"
+                                + "<FieldRef Name='FocusNews' Nullable='TRUE' /><FieldRef Name='ViewsCount' Nullable='TRUE' />"
+                                + "<FieldRef Name='PublishingPageImage' Nullable='TRUE' /><FieldRef Name='PublishingPageContent' Nullable='TRUE' />"
+                                + "<FieldRef Name='LatestNewsOnHomePage' Nullable='TRUE' /><FieldRef Name='_ModerationStatus' Nullable='TRUE' />";
 
                             siteDataQuery.RowLimit = newsNumber;
                             allItems = web.GetSiteData(siteDataQuery);
@@ -1711,7 +1854,7 @@ namespace CQ.SharePoint.QN.Common
                                                            </Leq>
                                                            <Eq>
                                                               <FieldRef Name='{4}' />
-                                                              <Value Type='ModStat'>{5}</Value>
+                                                              <Value Type='Number'>{5}</Value>
                                                            </Eq>
                                                         </And>
                                                      </And>
@@ -1746,7 +1889,7 @@ namespace CQ.SharePoint.QN.Common
                                                            <And>
                                                               <Eq>
                                                                  <FieldRef Name='{4}' />
-                                                                 <Value Type='ModStat'>{5}</Value>
+                                                                 <Value Type='Number'>{5}</Value>
                                                               </Eq>
                                                               <Geq>
                                                                  <FieldRef Name='_EndDate' />
@@ -1908,7 +2051,7 @@ namespace CQ.SharePoint.QN.Common
                                                            </Leq>
                                                            <Eq>
                                                               <FieldRef Name='{4}' />
-                                                              <Value Type='ModStat'>{5}</Value>
+                                                              <Value Type='Number'>{5}</Value>
                                                            </Eq>
                                                         </And>
                                                      </And>
@@ -1944,7 +2087,7 @@ namespace CQ.SharePoint.QN.Common
                                                            <And>
                                                               <Eq>
                                                                  <FieldRef Name='{4}' />
-                                                                 <Value Type='ModStat'>{5}</Value>
+                                                                 <Value Type='Number'>{5}</Value>
                                                               </Eq>
                                                               <Geq>
                                                                  <FieldRef Name='_EndDate' />
@@ -2036,8 +2179,24 @@ namespace CQ.SharePoint.QN.Common
                                         table.Columns.Add(FieldsName.ArticleStartDateTemp, Type.GetType("System.String"));
                                     }
 
+                                    if (!table.Columns.Contains(Constants.ListCategoryName))
+                                    {
+                                        table.Columns.Add(Constants.ListCategoryName, Type.GetType("System.String"));
+                                    }
+
+                                    if (!table.Columns.Contains(Constants.ListName))
+                                    {
+                                        table.Columns.Add(Constants.ListName, Type.GetType("System.String"));
+                                    }
+
                                     for (int i = 0; i < items.Count; i++)
                                     {
+                                        var lUrl = items.List.RootFolder.ServerRelativeUrl.Split('/');
+                                        table.Rows[i][Constants.ListName] = lUrl[lUrl.Length - 1];
+                                        SPFieldLookup catFile = (SPFieldLookup)items.List.Fields.GetFieldByInternalName(FieldsName.NewsRecord.English.CategoryName);
+                                        lUrl = SPContext.Current.Web.Lists.GetList(new Guid(catFile.LookupList), true).RootFolder.ServerRelativeUrl.Split('/');
+                                        table.Rows[i][Constants.ListCategoryName] = lUrl[lUrl.Length - 1];
+
                                         if (!string.IsNullOrEmpty(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName])))
                                         {
                                             SPFieldLookupValue catLK = new SPFieldLookupValue(Convert.ToString(items[i][FieldsName.NewsRecord.English.CategoryName]));
@@ -2082,7 +2241,7 @@ namespace CQ.SharePoint.QN.Common
                                                            <And>
                                                            <Eq>
                                                               <FieldRef Name='{4}' />
-                                                              <Value Type='ModStat'>{5}</Value>
+                                                              <Value Type='Number'>{5}</Value>
                                                            </Eq>
                                                             <Eq>
                                                                  <FieldRef Name='LatestNewsOnHomePage' />
@@ -2123,7 +2282,7 @@ namespace CQ.SharePoint.QN.Common
                                                            <And>
                                                               <Eq>
                                                                  <FieldRef Name='{4}' />
-                                                                 <Value Type='ModStat'>{5}</Value>
+                                                                 <Value Type='Number'>{5}</Value>
                                                               </Eq>
                                                               <Geq>
                                                                  <FieldRef Name='_EndDate' />
@@ -2423,7 +2582,7 @@ namespace CQ.SharePoint.QN.Common
                                                             </Lt>
                                                             <Contains>
                                                                <FieldRef Name='{2}' />
-                                                               <Value Type='ModStat'>{3}</Value>
+                                                               <Value Type='Number'>{3}</Value>
                                                             </Contains>
                                                          </And>
                                                       </And>
@@ -2589,7 +2748,7 @@ namespace CQ.SharePoint.QN.Common
                                                                                            </Neq>
                                                                                            <Eq>
                                                                                               <FieldRef Name='{3}' />
-                                                                                              <Value Type='ModStat'>{4}</Value>
+                                                                                              <Value Type='Number'>{4}</Value>
                                                                                            </Eq>
                                                                                         </And>
                                                                                      </And>
@@ -2653,7 +2812,7 @@ namespace CQ.SharePoint.QN.Common
                                                     <And>
                                                        <Eq>
                                                           <FieldRef Name='{2}' />
-                                                          <Value Type='ModStat'>{3}</Value>
+                                                          <Value Type='Number'>{3}</Value>
                                                        </Eq>
                                                        <Or>
                                                           <Contains>
@@ -2830,6 +2989,10 @@ namespace CQ.SharePoint.QN.Common
 
         public static string GetModerationStatus(int resourceCode)
         {
+            if (resourceCode == 402)
+            {
+                return "0";
+            }
             string str = string.Format("$Resources:{0}", resourceCode);
             string status = SPUtility.GetLocalizedString(str, "core", (uint)CultureInfo.CurrentCulture.LCID);
 

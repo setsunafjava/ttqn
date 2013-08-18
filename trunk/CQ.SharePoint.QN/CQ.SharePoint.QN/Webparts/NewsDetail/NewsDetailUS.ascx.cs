@@ -73,7 +73,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                         </Lt>
                                                                         <Contains>
                                                                            <FieldRef Name='{3}' />
-                                                                           <Value Type='ModStat'>{4}</Value>
+                                                                           <Value Type='Number'>{4}</Value>
                                                                         </Contains>
                                                                      </And>
                                                                  </And>
@@ -95,11 +95,17 @@ namespace CQ.SharePoint.QN.Webparts
                                     var commentForImage = Convert.ToString(newsItem.Rows[0][FieldsName.CommentForImage]);
                                     if (!string.IsNullOrEmpty(imagePath))
                                     {
-                                        ltrPublishingPageImage.Text = imagePath;
-                                        if (!String.IsNullOrEmpty(commentForImage))
-                                            ltrCommentForImage.Text = commentForImage;
-                                    }
+                                        try
+                                        {
+                                            ltrPublishingPageImage.Text = imagePath;
+                                            if (!String.IsNullOrEmpty(commentForImage))
+                                                ltrCommentForImage.Text = commentForImage;
+                                        }
+                                        catch
+                                        {
 
+                                        }
+                                    }
 
                                     ltrNewsContent.Text =
                                         Convert.ToString(

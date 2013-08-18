@@ -52,7 +52,7 @@ namespace CQ.SharePoint.QN.Webparts
 //                                                                            </Lt>
 //                                                                            <Eq>
 //                                                                               <FieldRef Name='{4}' />
-//                                                                               <Value Type='ModStat'>{5}</Value>
+//                                                                               <Value Type='Number'>{5}</Value>
 //                                                                            </Eq>
 //                                                                         </And>
 //                                                                     </And>
@@ -78,7 +78,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                         </Lt>
                                                                         <Eq>
                                                                            <FieldRef Name='{2}' />
-                                                                           <Value Type='ModStat'>{3}</Value>
+                                                                           <Value Type='Number'>{3}</Value>
                                                                         </Eq>
                                                                      </And>
                                                                  </And>

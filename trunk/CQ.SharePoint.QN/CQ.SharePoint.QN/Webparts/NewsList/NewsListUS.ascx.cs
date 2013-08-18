@@ -87,7 +87,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                            </Leq>
                                                                            <Eq>
                                                                               <FieldRef Name='{2}' />
-                                                                              <Value Type='ModStat'>{3}</Value>
+                                                                              <Value Type='Number'>{3}</Value>
                                                                            </Eq>
                                                                         </And>
                                                                      </And>
@@ -258,7 +258,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                                 </Eq>
                                                                                 <Eq>
                                                                                    <FieldRef Name='{1}' />
-                                                                                   <Value Type='ModStat'>{2}</Value>
+                                                                                   <Value Type='Number'>{2}</Value>
                                                                                 </Eq>
                                                                              </And>
                                                                           </And>
@@ -335,7 +335,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                                 </Lt>
                                                                                 <Eq>
                                                                                    <FieldRef Name='{1}' />
-                                                                                   <Value Type='ModStat'>{2}</Value>
+                                                                                   <Value Type='Number'>{2}</Value>
                                                                                 </Eq>
                                                                              </And>
                                                                       </And>

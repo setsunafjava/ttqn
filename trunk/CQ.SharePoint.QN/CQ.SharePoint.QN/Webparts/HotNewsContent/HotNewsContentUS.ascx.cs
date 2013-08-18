@@ -28,93 +28,28 @@ namespace CQ.SharePoint.QN.Webparts
         public string Linktoitem = string.Empty;
         public string listName = ListsName.English.NewsRecord;
         public string listCategoryName = ListsName.English.NewsCategory;
-        public string QueryAllItemsSortById = string.Format(@"<Where><And><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq><And><Lt><FieldRef Name='{0}' /><Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value></Lt><And><Eq><FieldRef Name='{2}' /><Value Type='ModStat'>{3}</Value></Eq><Eq><FieldRef Name='LatestNewsOnHomePage' /><Value Type='Boolean'>1</Value></Eq></And></And></And></Where><OrderBy><FieldRef Name='{4}' Ascending='FALSE' /></OrderBy>",
+        public string QueryAllItemsSortById = string.Format(@"<Where><And><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq><And><Lt><FieldRef Name='{0}' /><Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value></Lt><And><Eq><FieldRef Name='{2}' /><Value Type='Number'>{3}</Value></Eq><Eq><FieldRef Name='LatestNewsOnHomePage' /><Value Type='Boolean'>1</Value></Eq></And></And></And></Where><OrderBy><FieldRef Name='{4}' Ascending='FALSE' /></OrderBy>",
                                 FieldsName.ArticleStartDates,
                                 "<Today />",
                                 FieldsName.ModerationStatus,
-                                Utilities.GetModerationStatus(402), FieldsName.ArticleStartDates);
+                                0, FieldsName.ArticleStartDates);
 
-        public string QueryAllItemsSortByIdOnCategory = string.Format(@"<Where>
-                                                                  <And>
-                                                                     <Neq>
-                                                                        <FieldRef Name='{5}' />
-                                                                        <Value Type='Boolean'>1</Value>
-                                                                     </Neq>
-                                                                     <And>
-                                                                        <Lt>
-                                                                           <FieldRef Name='{0}' />
-                                                                           <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
-                                                                        </Lt>
-                                                                        <Eq>
-                                                                           <FieldRef Name='{2}' />
-                                                                           <Value Type='ModStat'>{3}</Value>
-                                                                        </Eq>
-                                                                     </And>
-                                                                  </And>
-                                                               </Where>
-                                                               <OrderBy>
-                                                                  <FieldRef Name='{4}' Ascending='False' />
-                                                               </OrderBy>",
+        public string QueryAllItemsSortByIdOnCategory = string.Format(@"<Where><And><Neq><FieldRef Name='{5}' /><Value Type='Boolean'>1</Value></Neq><And><Lt><FieldRef Name='{0}' /><Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value></Lt><Eq><FieldRef Name='{2}' /><Value Type='Number'>{3}</Value></Eq></And></And></Where><OrderBy><FieldRef Name='{4}' Ascending='FALSE' /></OrderBy>",
                                 FieldsName.ArticleStartDates,
-                                SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+                                "<Today />",
                                 FieldsName.ModerationStatus,
                                 Utilities.GetModerationStatus(402), FieldsName.ArticleStartDates,
                                 FieldsName.NewsRecord.English.ShowOnCategory);
 
-        public string QueryAllItemsSortByViewCount = string.Format(@"<Where>
-                                                                  <And>
-                                                                     <Neq>
-                                                                        <FieldRef Name='Status' />
-                                                                        <Value Type='Boolean'>1</Value>
-                                                                     </Neq>
-                                                                     <And>
-                                                                        <Lt>
-                                                                           <FieldRef Name='{0}' />
-                                                                           <Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value>
-                                                                        </Lt>
-                                                                        <Eq>
-                                                                           <FieldRef Name='{2}' />
-                                                                           <Value Type='ModStat'>{3}</Value>
-                                                                        </Eq>
-                                                                     </And>
-                                                                  </And>
-                                                               </Where>
-                                                               <OrderBy>
-                                                                  <FieldRef Name='{4}' Ascending='False' />
-                                                               </OrderBy>", FieldsName.ArticleStartDates,
-                                SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+        public string QueryAllItemsSortByViewCount = string.Format(@"<Where><And><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq><And><Lt><FieldRef Name='{0}' /><Value IncludeTimeValue='TRUE' Type='DateTime'>{1}</Value></Lt><Eq><FieldRef Name='{2}' /><Value Type='Number'>{3}</Value></Eq></And></And></Where><OrderBy><FieldRef Name='{4}' Ascending='FALSE' /></OrderBy>", 
+                                FieldsName.ArticleStartDates,
+                                "<Today />",
                                 FieldsName.ModerationStatus,
                                 Utilities.GetModerationStatus(402), FieldsName.NewsRecord.English.ViewsCount);
 
-        public string QueryAllItemsByShowInHomePage = string.Format(@"<Where>
-                                                                          <And>
-                                                                             <Eq>
-                                                                                <FieldRef Name='{0}' />
-                                                                                <Value Type='Boolean'>1</Value>
-                                                                             </Eq>
-                                                                             <And>
-                                                                                <Lt>
-                                                                                   <FieldRef Name='{1}' />
-                                                                                   <Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value>
-                                                                                </Lt>
-                                                                                <And>
-                                                                                   <Neq>
-                                                                                      <FieldRef Name='Status' />
-                                                                                      <Value Type='Boolean'>1</Value>
-                                                                                   </Neq>
-                                                                                   <Eq>
-                                                                                      <FieldRef Name='{3}' />
-                                                                                      <Value Type='ModStat'>{4}</Value>
-                                                                                   </Eq>
-                                                                                </Eq>
-                                                                             </And>
-                                                                          </And>
-                                                                       </Where>
-                                                                       <OrderBy>
-                                                                          <FieldRef Name='{5}' Ascending='False' />
-                                                                       </OrderBy>",
+        public string QueryAllItemsByShowInHomePage = string.Format(@"<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Eq><And><Lt><FieldRef Name='{1}' /><Value IncludeTimeValue='TRUE' Type='DateTime'>{2}</Value></Lt><And><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq><Eq><FieldRef Name='{3}' /><Value Type='Number'>{4}</Value></Eq></And></And></And></Where><OrderBy><FieldRef Name='{5}' Ascending='FALSE' /></OrderBy>",
                                                                     FieldsName.NewsRecord.English.ShowInHomePage, FieldsName.ArticleStartDates,
-                                                                    SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+                                                                    "<Today />",
                                                                     FieldsName.ModerationStatus, Utilities.GetModerationStatus(402),
                                                                     FieldsName.ArticleStartDates);
         /// <summary>
@@ -128,7 +63,6 @@ namespace CQ.SharePoint.QN.Webparts
             {
                 try
                 {
-
                     var categoryId = Request.QueryString["CategoryId"];
                     string latestNewsQuery = string.Empty;
 
@@ -155,6 +89,11 @@ namespace CQ.SharePoint.QN.Webparts
                     if (!"0".Equals(WebPartParent.WebpartName)) //Đây là trường hợp load ra đầu tiên
                     {
                         #region Latest News
+                        RptLatestNewsUrl = string.Format("{0}/{1}.aspx?{2}=",
+                                            SPContext.Current.Web.Url,
+                                            Constants.PageInWeb.DetailNews,
+                                            Constants.NewsId);
+
                         var latestNewsTableTemp = new DataTable();
                         if (!string.IsNullOrEmpty(categoryId) && !"-1".Equals(categoryId))
                         {
@@ -162,6 +101,7 @@ namespace CQ.SharePoint.QN.Webparts
                             var latestNewsTable = Utilities.GetNewsRecordItems(latestNewsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
                             if (latestNewsTable != null && latestNewsTable.Count > 0)
                             {
+                                RptLatestNewsUrl = ItemUrl;
                                 latestNewsTableTemp = Utilities.GetTableWithCorrectUrl(listCategoryName, latestNewsTable, true);
                             }
                         }
@@ -169,7 +109,14 @@ namespace CQ.SharePoint.QN.Webparts
                         {
                             //CAML query will get all item 
                             latestNewsQuery = QueryAllItemsSortById;
-                            var latestNewsTable = Utilities.GetNewsRecordItems(latestNewsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), new string[] { ListsName.English.NewsRecord, ListsName.English.ProvinceInfoRecord });
+                            var latestNewsTable = Utilities.GetNewsRecordItems(latestNewsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), 
+                                new string[] { ListsName.English.NewsRecord, 
+                                    ListsName.English.ProvinceInfoRecord, 
+                                    ListsName.English.SubNewsRecord 
+                                    //,ListsName.English.CompanyRecord 
+                                    //,ListsName.English.ShouldToKnowRecord, 
+                                    //ListsName.English.TourInforRecord 
+                                    });
                             if (latestNewsTable != null && latestNewsTable.Rows.Count > 0)
                             {
                                 latestNewsTableTemp = Utilities.GetTableWithCorrectUrl(listCategoryName, latestNewsTable, true);
@@ -185,7 +132,7 @@ namespace CQ.SharePoint.QN.Webparts
                         //    rptLatestNews.DataBind();
                         //}
 
-                        RptLatestNewsUrl = ItemUrl;
+                        //RptLatestNewsUrl = ItemUrl;
                         rptLatestNews.DataSource = latestNewsTableTemp;
                         rptLatestNews.DataBind();
 
@@ -195,10 +142,18 @@ namespace CQ.SharePoint.QN.Webparts
                         string topNewsQuery = string.Empty;
                         topNewsQuery = QueryAllItemsSortByViewCount;
 
-                        var topViewsTable = Utilities.GetNewsRecordItems(topNewsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
-                        if (topViewsTable != null && topViewsTable.Count > 0)
+                        //var topViewsTable = Utilities.GetNewsRecordItems(topNewsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
+                        var topViewsTable = Utilities.GetNewsRecordItems(topNewsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber),
+                                new string[] { ListsName.English.NewsRecord, 
+                                    ListsName.English.ProvinceInfoRecord, 
+                                    ListsName.English.SubNewsRecord 
+                                    //,ListsName.English.CompanyRecord 
+                                    //,ListsName.English.ShouldToKnowRecord, 
+                                    //ListsName.English.TourInforRecord 
+                                    });
+                        if (topViewsTable != null && topViewsTable.Rows.Count > 0)
                         {
-                            RptTopViewsUrl = ItemUrl;
+                            //RptTopViewsUrl = ItemUrl;
                             rptTopViews.DataSource = Utilities.GetTableWithCorrectUrl(listCategoryName, topViewsTable, true);
                             rptTopViews.DataBind();
                         }
@@ -237,7 +192,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                            </Lt>
                                                                            <Eq>
                                                                               <FieldRef Name='{2}' />
-                                                                              <Value Type='ModStat'>{3}</Value>
+                                                                              <Value Type='Number'>{3}</Value>
                                                                            </Eq>
                                                                         </And>
                                                                      </And>
@@ -247,7 +202,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                                   <FieldRef Name='{4}' Ascending='False' />
                                                                </OrderBy>",
                                                                           FieldsName.NewsRecord.English.FocusNews,
-                                                                          SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+                                                                          "<Today />",
                                                                           FieldsName.ModerationStatus, Utilities.GetModerationStatus(402), FieldsName.ArticleStartDates);
 
                             var companyList = Utilities.GetNewsRecords(newsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
@@ -287,6 +242,12 @@ namespace CQ.SharePoint.QN.Webparts
         public void LoadDataToHotNews(string categoryId, string _listName, string _listCategoryName)
         {
             #region Tin tuc o phia tren voi cac images
+
+            RptImagesUrl = string.Format("{0}/{1}.aspx?{2}=",
+                                            SPContext.Current.Web.Url,
+                                            Constants.PageInWeb.DetailNews,
+                                            Constants.NewsId);
+
             string mainItemQuery = string.Empty;
             if (!string.IsNullOrEmpty(categoryId) && !"-1".Equals(categoryId)) //if categoryId !=null
             {
@@ -313,7 +274,7 @@ namespace CQ.SharePoint.QN.Webparts
                                                   </Neq>
                                                   <Eq>
                                                      <FieldRef Name='{4}' />
-                                                     <Value Type='ModStat'>{5}</Value>
+                                                     <Value Type='Number'>{5}</Value>
                                                   </Eq>
                                                </And>
                                             </And>
@@ -328,27 +289,47 @@ namespace CQ.SharePoint.QN.Webparts
                     //FieldsName.NewsRecord.English.CategoryName,
                         categoryId,
                         FieldsName.ArticleStartDates,
-                        SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+                        "<Today />",
                         FieldsName.ModerationStatus,
                         Utilities.GetModerationStatus(402),
                         FieldsName.ArticleStartDates);
 
+                var mainItem = Utilities.GetNewsRecordItems(mainItemQuery, 3, _listName);
+
+                if (mainItem != null && mainItem.Count > 0)
+                {//se phai dung thuat toan get thumnail cua image
+                    var tempTable = Utilities.GetTableWithCorrectUrlHotNews(_listCategoryName, mainItem);
+                    Utilities.SetSapoTextLength(ref tempTable);
+                    RptImagesUrl = ItemUrl;
+                    rptImages.DataSource = tempTable;
+                    rptImages.DataBind();
+                }
             }
             else
             {
                 mainItemQuery = QueryAllItemsByShowInHomePage;
-            }
 
-            var mainItem = Utilities.GetNewsRecordItems(mainItemQuery, 3, _listName);
+                //var mainItem = Utilities.GetNewsRecordItems(mainItemQuery, 3, _listName);
 
-            if (mainItem != null && mainItem.Count > 0)
-            {//se phai dung thuat toan get thumnail cua image
-                var tempTable = Utilities.GetTableWithCorrectUrlHotNews(_listCategoryName, mainItem);
-                Utilities.SetSapoTextLength(ref tempTable);
-                RptImagesUrl = ItemUrl;
-                rptImages.DataSource = tempTable;
-                rptImages.DataBind();
+                var mainItem = Utilities.GetNewsRecordItems(mainItemQuery, 3,
+                                new string[] { ListsName.English.NewsRecord, 
+                                    ListsName.English.ProvinceInfoRecord, 
+                                    ListsName.English.SubNewsRecord 
+                                    //,ListsName.English.CompanyRecord 
+                                    //,ListsName.English.ShouldToKnowRecord, 
+                                    //ListsName.English.TourInforRecord 
+                                    });
+
+                if (mainItem != null && mainItem.Rows.Count > 0)
+                {//se phai dung thuat toan get thumnail cua image
+                    var tempTable = Utilities.GetTableWithCorrectUrlHotNews(_listCategoryName, mainItem);
+                    Utilities.SetSapoTextLength(ref tempTable);
+                    //RptImagesUrl = ItemUrl;
+                    rptImages.DataSource = tempTable;
+                    rptImages.DataBind();
+                }
             }
+            
             #endregion
             #region  tin tuc phia duoi
 
