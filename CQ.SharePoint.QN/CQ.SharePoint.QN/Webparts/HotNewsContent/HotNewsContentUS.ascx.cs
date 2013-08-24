@@ -101,7 +101,7 @@ namespace CQ.SharePoint.QN.Webparts
                             var latestNewsTable = Utilities.GetNewsRecordItems(latestNewsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
                             if (latestNewsTable != null && latestNewsTable.Count > 0)
                             {
-                                RptLatestNewsUrl = ItemUrl;
+                                //RptLatestNewsUrl = ItemUrl;
                                 latestNewsTableTemp = Utilities.GetTableWithCorrectUrl(listCategoryName, latestNewsTable, true);
                             }
                         }
@@ -172,6 +172,12 @@ namespace CQ.SharePoint.QN.Webparts
                         pnlSubPage.Visible = true;
 
                         LoadDataToHotNews(categoryId, listName, listCategoryName);
+
+                        RptLatestNewsUrl = string.Format("{0}/{1}.aspx?{2}=",
+                                            SPContext.Current.Web.Url,
+                                            Constants.PageInWeb.DetailNews,
+                                            Constants.NewsId);
+
                         if ("1".Equals(focusNews))
                         {
                             string newsQuery = string.Format(@"<Where>
@@ -208,7 +214,7 @@ namespace CQ.SharePoint.QN.Webparts
                             var companyList = Utilities.GetNewsRecords(newsQuery, GetNewsNumber(WebPartParent.LatestNewsNumber), listName);
                             if (companyList != null && companyList.Rows.Count > 0)
                             {
-                                RptLatestNewsUrl = ItemUrl;
+                                //RptLatestNewsUrl = ItemUrl;
                                 rptLatestNews.DataSource = companyList;
                                 rptLatestNews.DataBind();
                             }
@@ -218,7 +224,7 @@ namespace CQ.SharePoint.QN.Webparts
                             var companyList = Utilities.GetNewsByCatID(listName, categoryId, GetNewsNumber(WebPartParent.LatestNewsNumber));
                             if (companyList != null && companyList.Rows.Count > 0)
                             {
-                                RptLatestNewsUrl = ItemUrl;
+                                //RptLatestNewsUrl = ItemUrl;
                                 rptLatestNews.DataSource = companyList;
                                 rptLatestNews.DataBind();
                             }
@@ -300,7 +306,7 @@ namespace CQ.SharePoint.QN.Webparts
                 {//se phai dung thuat toan get thumnail cua image
                     var tempTable = Utilities.GetTableWithCorrectUrlHotNews(_listCategoryName, mainItem);
                     Utilities.SetSapoTextLength(ref tempTable);
-                    RptImagesUrl = ItemUrl;
+                    //RptImagesUrl = ItemUrl;
                     rptImages.DataSource = tempTable;
                     rptImages.DataBind();
                 }
