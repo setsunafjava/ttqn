@@ -17,6 +17,7 @@ namespace CQ.SharePoint.QN.Webparts
     /// </summary>
     public partial class HotNewsContentUS : UserControl
     {
+        public string CatID = string.Empty;
         public HotNewsContent WebPartParent;
         public string ItemUrl = string.Empty;
         public string NewsUrl = string.Empty;
@@ -59,6 +60,7 @@ namespace CQ.SharePoint.QN.Webparts
         /// <param name="e">EventArgs e</param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            CatID = Request.QueryString["CategoryId"];
             if (!IsPostBack)
             {
                 try
