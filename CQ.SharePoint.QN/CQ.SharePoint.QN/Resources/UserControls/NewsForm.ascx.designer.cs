@@ -55,5 +55,11 @@ namespace CQ.SharePoint.QN.UserControls {
 
         protected global::System.Web.UI.WebControls.FileUpload fuNewsImage;
         protected global::Microsoft.SharePoint.WebControls.FieldLabel lblNewsImage;
+        protected global::System.Web.UI.WebControls.FileUpload fuAttach;
+        protected global::Microsoft.SharePoint.WebControls.FieldLabel lblAttach;
+        //protected global::Microsoft.SharePoint.WebControls.AttachmentButton abAttach;
+        protected global::Microsoft.SharePoint.WebControls.AttachmentsField afAttach;
+        //protected global::Microsoft.SharePoint.WebControls.AttachmentUpload auAttach;
+        protected global::System.Web.UI.WebControls.Repeater rptAttach;
     }
 }

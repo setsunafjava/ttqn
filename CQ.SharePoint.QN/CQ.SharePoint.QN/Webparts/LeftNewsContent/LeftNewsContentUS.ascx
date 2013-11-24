@@ -8,7 +8,7 @@
     <div class="bg_title_ModNews">
         <div class="title_cate_News">
             <div class="name_title_typ_News">
-                <a href="/SubPage.aspx?ListCategoryName=NewsCategory&ListName=NewsRecord&Page=1&CategoryId=<%=WebpartParent.NewsGroupID%>"
+                <a href="/SubPage.aspx?IsChuyenDe=1&ListCategoryName=NewsCategory&ListName=NewsRecord&Page=1&CategoryId=<%=WebpartParent.NewsGroupID%>"
                     target="_blank">
                     <%=WebpartParent.GroupName%></a>
             </div>

@@ -46,7 +46,7 @@
                 <ul>
             </HeaderTemplate>
             <ItemTemplate>
-                <li><a href='<%= RptImagesUrl%><%#Eval("ID") %>&ListName=<%#Eval("ListName") %>&ListCategoryName=<%#Eval("ListCategoryName") %>&CategoryId=<%=CatID%>'>
+                <li><a href='<%= RptImagesUrl%><%#Eval("ID") %>&ListName=<%#Eval("ListName") %>&ListCategoryName=<%#Eval("ListCategoryName") %>&CategoryId=<%#Eval("CategoryId")%>'>
                     <%#Eval("Title")%></a></li>
             </ItemTemplate>
             <FooterTemplate>
