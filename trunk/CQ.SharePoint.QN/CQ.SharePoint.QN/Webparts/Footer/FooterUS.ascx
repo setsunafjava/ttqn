@@ -7,6 +7,7 @@
                 <li><a runat="server" id="aLink" style="color: White"></a></li>
             </ItemTemplate>
         </asp:Repeater>
+		<li><a style="color: White" href='/_layouts/Authenticate.aspx?Source=%2F%5Flayouts%2Fviewlsts%2Easpx'>Admin</a></li>
     </ul>
 </div>
 <div class="info_footer">
@@ -14,7 +15,7 @@
         <%=WebsiteInfo%>
     </div>
     <div class="statistic">
-        <div>
+        <div style='display:none'>
             <%= ParentWP.StatisticTitle %>
             <div style="background-image: url('/QNResources/statistic.jpg'); width: 118px; height: 35px;">
                 <div style="color: #ffffff; text-align: center; position: relative; top: 9px;">

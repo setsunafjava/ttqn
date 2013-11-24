@@ -43,6 +43,7 @@ namespace CQ.SharePoint.QN.UserControls
             if (SPContext.Current.FormContext.FormMode.Equals(SPControlMode.New))
             {
                 txtRichImageField.Visible = false;
+                afAttach.Visible = false;
             }
             if (SPContext.Current.FormContext.FormMode.Equals(SPControlMode.Edit))
             {
@@ -65,6 +66,7 @@ namespace CQ.SharePoint.QN.UserControls
             if (!IsPostBack)
             {
                 BindCat();
+                BindAttach();
                 if (SPContext.Current.FormContext.FormMode.Equals(SPControlMode.Edit))
                 {
                     var item = SPContext.Current.Item;
@@ -80,6 +82,48 @@ namespace CQ.SharePoint.QN.UserControls
                             }
                         }
                     }
+                }
+            }
+            else
+            {
+                if ("deleteattach".Equals(Convert.ToString(Request.Form["__EVENTTARGET"]), StringComparison.InvariantCultureIgnoreCase))
+                {
+                    #region Delete
+                    var list = SPContext.Current.List;
+                    var item = SPContext.Current.ListItem;
+                    SPFileCollection files = null;
+                    SPFolder itemFolder = null;
+                    //Get tha Attachment Folder
+                    string strAttchmentFolderURL = item.Attachments.UrlPrefix;
+                    if (list.RootFolder.SubFolders.Count > 0)
+                    {
+                        if (list.RootFolder.SubFolders["Attachments"] != null)
+                        {
+                            itemFolder = list.RootFolder.SubFolders["Attachments"];
+                        }
+                    }
+                    string strTempID = Convert.ToString(Request.Form["__EVENTARGUMENT"]);
+                    //I know there is better way to remove characters
+                    strTempID = strTempID.Replace("{", "");
+                    strTempID = strTempID.Replace("}", "");
+                    //Get all the files in Attachment Folder that matches the GUID
+                    #region getFiles
+                    if (itemFolder.SubFolders[strAttchmentFolderURL] != null)
+                    {
+                        files = itemFolder.SubFolders[strAttchmentFolderURL].Files;
+                    }
+                    #endregion
+                    foreach (SPFile file in files)
+                    {
+                        if (strTempID.ToLower().Equals(file.UniqueId.ToString().ToLower()))
+                        {
+                            //Delete the file finally
+                            file.Delete();
+                            break;
+                        }
+                    }
+                    #endregion
+                    Response.Redirect(Request.RawUrl);
                 }
             }
         }
@@ -193,7 +237,6 @@ namespace CQ.SharePoint.QN.UserControls
             base.OnInit(e);
             SPContext.Current.FormContext.OnSaveHandler += CustomSaveHandler;
             Page.Validators.Add(this);
-
         }
         
         /// <summary>
@@ -250,10 +293,13 @@ namespace CQ.SharePoint.QN.UserControls
 
             try
             {
-                SPContext.Current.Web.AllowUnsafeUpdates = true;
-                item.Attachments.Delete(fuNewsImage.FileName);
-                SPContext.Current.Web.AllowUnsafeUpdates = true;
-                item.SystemUpdate(false);
+                if (fuNewsImage.HasFile)
+                {
+                    SPContext.Current.Web.AllowUnsafeUpdates = true;
+                    item.Attachments.Delete(fuNewsImage.FileName);
+                    SPContext.Current.Web.AllowUnsafeUpdates = true;
+                    item.SystemUpdate(false);
+                }
             }
             catch (Exception ex)
             {
@@ -261,14 +307,36 @@ namespace CQ.SharePoint.QN.UserControls
             }
         }
 
-        /// <summary>
-        /// OnPreRender
-        /// </summary>
-        /// <param name="e">EventArgs e</param>
-        protected override void OnPreRender(EventArgs e)
+        private void BindAttach()
         {
-            
-            base.OnPreRender(e);
+            var list = SPContext.Current.List;
+            var item = SPContext.Current.ListItem;
+            SPFileCollection files = null;
+            SPFolder itemFolder = null;
+            try
+            {
+                //Get tha Attachment Folder
+                string strAttchmentFolderURL = item.Attachments.UrlPrefix;
+                if (list.RootFolder.SubFolders.Count > 0)
+                {
+                    if (list.RootFolder.SubFolders["Attachments"] != null)
+                    {
+                        itemFolder = list.RootFolder.SubFolders["Attachments"];
+                    }
+                }
+
+                //Get all the files in Attachment Folder that matches the GUID
+                #region getFiles
+                if (itemFolder.SubFolders[strAttchmentFolderURL] != null)
+                {
+                    files = itemFolder.SubFolders[strAttchmentFolderURL].Files;
+                }
+                #endregion
+
+                rptAttach.DataSource = files;
+                rptAttach.DataBind();
+            }
+            catch{}
         }
     }
 }

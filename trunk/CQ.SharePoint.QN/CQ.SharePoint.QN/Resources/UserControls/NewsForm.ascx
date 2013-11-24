@@ -180,13 +180,27 @@
                 <SharePoint:BooleanField runat="server" id="txtNewsOfCategory" fieldname="NewsOfCategory" />
              </td>
         </tr>
+        <tr>
+            <td class="ms-formlabel">
+                <SharePoint:fieldlabel id="lblAttach" runat="server" fieldname="Attachments" />
+            </td>
+            <td class="ms-formbody">
+                <asp:FileUpload ID="fuAttach" runat="server" />
+                <br />
+                <asp:Repeater ID="rptAttach" runat="server">
+                    <HeaderTemplate><table width="100%" cellspacing="0" cellpadding="2" border="0"></HeaderTemplate>
+                    <ItemTemplate>
+                        <tr>
+                            <td><a href='<%#Eval("Url")%>' target="_blank" title='<%#Eval("Name")%>'><%#Eval("Name")%></a></td>
+                            <td><a href='javascript:void(0)' onclick="RemoveAttachments('<%#Eval("UniqueId")%>')">Delete</a></td>
+                        </tr>
+                    </ItemTemplate>
+                    <FooterTemplate></table></FooterTemplate>
+                </asp:Repeater>
+             </td>
+        </tr>
     </table>
-    
-    
-    
-    
-    
-    
+
     <table width="100%" cellspacing="0" cellpadding="2" border="0" class="ms-formtoolbar">
         <tr>
             <td width="99%" nowrap="" class="ms-toolbar">
@@ -216,3 +230,10 @@
         </tr>
     </table>
 </div>
+
+<script type="text/javascript">
+    function RemoveAttachments(attID){
+        if(confirm('Are you sure?'))
+            __doPostBack('deleteattach', attID);
+    }
+</script>

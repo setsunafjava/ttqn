@@ -345,45 +345,13 @@ namespace CQ.SharePoint.QN.Webparts
             if (!string.IsNullOrEmpty(categoryId) && !"-1".Equals(categoryId)) //if categoryId !=null
             {
                 threeeItemsBellow =
-                    string.Format(@"<Where>
-                                      <And>
-                                         <Eq>
-                                            <FieldRef Name='{0}' />
-                                            <Value Type='Boolean'>1</Value>
-                                         </Eq>
-                                         <And>
-                                            <Eq>
-                                               <FieldRef Name='CategoryName' LookupId='TRUE'/>
-                                               <Value Type='LookupMulti'>{1}</Value>
-                                            </Eq>
-                                            <And>
-                                               <Lt>
-                                                  <FieldRef Name='{2}' />
-                                                  <Value IncludeTimeValue='TRUE' Type='DateTime'>{3}</Value>
-                                               </Lt>
-                                               <And>
-                                                  <Neq>
-                                                     <FieldRef Name='Status' />
-                                                     <Value Type='Boolean'>1</Value>
-                                                  </Neq>
-                                                  <Eq>
-                                                     <FieldRef Name='{4}' />
-                                                     <Value Type='Lookup'>{5}</Value>
-                                                  </Eq>
-                                               </And>
-                                            </And>
-                                         </And>
-                                      </And>
-                                   </Where>
-                                   <OrderBy>
-                                      <FieldRef Name='{6}' Ascending='False' />
-                                   </OrderBy>",
+                    string.Format(@"<Where><And><Eq><FieldRef Name='{0}' /><Value Type='Boolean'>1</Value></Eq><And><Eq><FieldRef Name='CategoryName' LookupId='TRUE'/><Value Type='LookupMulti'>{1}</Value></Eq><And><Lt><FieldRef Name='{2}' /><Value IncludeTimeValue='TRUE' Type='DateTime'>{3}</Value></Lt><And><Neq><FieldRef Name='Status' /><Value Type='Boolean'>1</Value></Neq><Eq><FieldRef Name='{4}' /><Value Type='Number'>{5}</Value></Eq></And></And></And></And></Where><OrderBy><FieldRef Name='{6}' Ascending='False' /></OrderBy>",
                     //FieldsName.NewsRecord.English.ShowInHomePage,
                         FieldsName.NewsRecord.English.ShowOnCategory,
                     //FieldsName.NewsRecord.English.CategoryName,
                         categoryId,
                         FieldsName.ArticleStartDates,
-                        SPUtility.CreateISO8601DateTimeFromSystemDateTime(DateTime.Now),
+                        "<Today />",
                         FieldsName.ModerationStatus,
                         Utilities.GetModerationStatus(402),
                         FieldsName.ArticleStartDates);
@@ -397,7 +365,7 @@ namespace CQ.SharePoint.QN.Webparts
             if (threeItemsTable != null && threeItemsTable.Rows.Count > 0)
             {
                 RptThreeItemUrl = ItemUrl;
-                rptThreeItem.DataSource = GetItemFromThreePosition(threeItemsTable, _listCategoryName);
+                rptThreeItem.DataSource = GetItemFromThreePosition(threeItemsTable, _listCategoryName, _listName);
                 rptThreeItem.DataBind();
             }
             #endregion
@@ -407,14 +375,15 @@ namespace CQ.SharePoint.QN.Webparts
         /// Ham nay se get tiep ra 3 item de bind vao phia duoi tin chinh
         /// </summary>
         /// <returns></returns>
-        public DataTable GetItemFromThreePosition(DataTable dataTable, string _listCategoryName)
+        public DataTable GetItemFromThreePosition(DataTable dataTable, string _listCategoryName, string _listName)
         {
             DataTable dataTableTemp = new DataTable("TableTemp");
             dataTableTemp.Columns.Add(FieldsName.Title);
             dataTableTemp.Columns.Add(FieldsName.Id);
             dataTableTemp.Columns.Add(FieldsName.CategoryId, Type.GetType("System.String"));
             dataTableTemp.Columns.Add(FieldsName.NewsRecord.English.ShortContent, Type.GetType("System.String"));
-
+            dataTableTemp.Columns.Add("ListName", Type.GetType("System.String"));
+            dataTableTemp.Columns.Add("ListCategoryName", Type.GetType("System.String"));
 
             if (dataTable != null && dataTable.Rows.Count > 3)
             {
@@ -426,7 +395,10 @@ namespace CQ.SharePoint.QN.Webparts
                         newRow[FieldsName.Title] = Convert.ToString(dataTable.Rows[i][FieldsName.Title]);
                         newRow[FieldsName.Id] = dataTable.Rows[i][FieldsName.Id];
                         newRow[FieldsName.CategoryId] = dataTable.Rows[i][FieldsName.CategoryId];
-                        newRow[FieldsName.NewsRecord.English.ShortContent] = Utilities.StripHtml(Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.ShortContent]));
+                        newRow[FieldsName.NewsRecord.English.ShortContent] = 
+                            Utilities.StripHtml(Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.ShortContent]));
+                        newRow["ListName"] = _listName;
+                        newRow["ListCategoryName"] = _listCategoryName;
                         dataTableTemp.Rows.Add(newRow);
                     }
                 }
@@ -439,6 +411,8 @@ namespace CQ.SharePoint.QN.Webparts
                         newRow[FieldsName.Id] = dataTable.Rows[i][FieldsName.Id];
                         newRow[FieldsName.CategoryId] = dataTable.Rows[i][FieldsName.CategoryId];
                         newRow[FieldsName.NewsRecord.English.ShortContent] = Utilities.StripHtml(Convert.ToString(dataTable.Rows[i][FieldsName.NewsRecord.English.ShortContent]));
+                        newRow["ListName"] = _listName;
+                        newRow["ListCategoryName"] = _listCategoryName;
                         dataTableTemp.Rows.Add(newRow);
                     }
                 }
